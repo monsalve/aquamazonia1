@@ -14,7 +14,7 @@ class ContenedorController extends Controller
      */
     public function index()
     {
-        return "xxxxx";
+        return "xxxxx"; 
         //
     }
 

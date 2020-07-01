@@ -47,24 +47,32 @@
                         
                         <div class="modal-body">
                             
-                            <div :class="['form-group', allerros.name ? 'has-error' : '']" >
+                            <div :class="['form-group', form.errors().has('name') ? 'has-error' : '']" >
                                 <label for="name" class="col-sm-4 control-label">Nombre</label> 
                                 <div class="col-sm-6">
                                     <input id="name" name="name" value=""  autofocus="autofocus" class="form-control" type="text" v-model="form.name" required>
-                                    <span v-if="allerros.name" :class="['label label-danger']">@{{ allerros.name[0] }}</span>
+                                    <span v-if="form.errors().has('name')" class="label label-danger" v-text="form.errors().get('name')"></span>
                                 </div>
                             </div> 
-                            <div :class="['form-group', allerros.email ? 'has-error' : '']" >
+                            <div :class="['form-group', form.errors().has('email') ? 'has-error' : '']" >
                                 <label for="email" class="col-sm-4 control-label">Correo</label> 
-                                    <div class="col-sm-6">
-                                        <input id="email" name="email"  class="form-control" type="email" v-model="form.email" required>
-                                        <span v-if="allerros.email" :class="['label label-danger']">@{{ allerros.email[0] }}</span>
-                                    </div>
-                                </div>   
+                                <div class="col-sm-6">
+                                    <input id="email" name="email"  class="form-control" type="email" v-model="form.email" required>
+                                    <span v-if="form.errors().has('email')" class="label label-danger" v-text="form.errors().get('email')"></span>
+                                </div>
+                                
                             </div>
+                            <div :class="['form-group', form.errors().has('password') ? 'has-error' : '']" >
+                                <label for="password" class="col-sm-4 control-label">Password</label> 
+                                <div class="col-sm-6">
+                                    <input id="password" name="password"  class="form-control" type="password" v-model="form.password" required>
+                                    <span v-if="form.errors().has('password')" class="label label-danger" v-text="form.errors().get('password')"></span>
+                                </div>                                   
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" v-text="editando==0 ? 'Guardar' : 'Actualizar'"></button>
                         </div>
                     </form>
                 </div>
@@ -78,44 +86,63 @@ import form from 'vuejs-form'
     export default {
         data() {    
             return {
-                form: new form({
+                editando: 0,
+                form: form.default({
                     name : '',
                     email : '',
+                    password: '',
                     estado: 1,
+                })
+                .rules({
+                    email: 'email|min:7|required',
+                    name: 'required|min:5|',
+                    password: 'required|min:5|'
+                })
+                .messages({
+                    'name.name': 'El nombre es requerido',
+                    'email.email': 'Ingrese un correo válido',
+                    'password.password': 'El password es requerido',
                 }),
-                allerros: [],
+                errores: [],
                 success : false,
+                listado: []
             }
         },
+       
         methods : {
+                      
             guardar() {
-                /*
-                this.form.post('api/contenedores')                
-                .then(()=>{
-                    /*Fire.$emit('AfterCreate');
-                    $('#addNew').modal('hide')
+                let me = this;
+                if( !this.form.errors().any() ) {
+                     axios.post("api/usuarios",this.form.all())
+                    .then(function (response) {
+                        
+                        me.form.email='';
+                        me.form.name='';
+                        me.form.password='';
+                        $('#agregar').modal('hide');
+                        me.listar();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
+                else 
+                {
+                    console.log('errors: ', this.form.errors().all());
+                }
+                
+                
+            },
+            listar(){
+                 axios.post("api/usuarios",this.form.all())
+                    .then(function (response) {
+                        
+                    });
+                
+            },
+            cargaEditar(objeto){
 
-                    toast({
-                        type: 'success',
-                        title: 'Curso creado correctamente'
-                        })
-                    this.$Progress.finish();
-
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-                */
-                axios.post("api/contenedores")
-                .then(function (response) {
-                    var respuesta= response.data;
-                    console.log("ajam");
-                    console.log(respuesta);
-                   
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
             }
         },
         mounted() {

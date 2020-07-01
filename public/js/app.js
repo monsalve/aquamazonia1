@@ -2178,44 +2178,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      form: new vuejs_form__WEBPACK_IMPORTED_MODULE_0___default.a({
+      editando: 0,
+      form: vuejs_form__WEBPACK_IMPORTED_MODULE_0___default.a["default"]({
         name: '',
         email: '',
+        password: '',
         estado: 1
+      }).rules({
+        email: 'email|min:7|required',
+        name: 'required|min:5|',
+        password: 'required|min:5|'
+      }).messages({
+        'name.name': 'El nombre es requerido',
+        'email.email': 'Ingrese un correo válido',
+        'password.password': 'El password es requerido'
       }),
-      allerros: [],
-      success: false
+      errores: [],
+      success: false,
+      listado: []
     };
   },
   methods: {
     guardar: function guardar() {
-      /*
-      this.form.post('api/contenedores')                
-      .then(()=>{
-          /*Fire.$emit('AfterCreate');
-          $('#addNew').modal('hide')
-           toast({
-              type: 'success',
-              title: 'Curso creado correctamente'
-              })
-          this.$Progress.finish();
-       })
-      .catch(function (error) {
+      var me = this;
+
+      if (!this.form.errors().any()) {
+        axios.post("api/usuarios", this.form.all()).then(function (response) {
+          me.form.email = '';
+          me.form.name = '';
+          me.form.password = '';
+          $('#agregar').modal('hide');
+          me.listar();
+        })["catch"](function (error) {
           console.log(error);
-      });
-      */
-      axios.post("api/contenedores").then(function (response) {
-        var respuesta = response.data;
-        console.log("ajam");
-        console.log(respuesta);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
+        });
+      } else {
+        console.log('errors: ', this.form.errors().all());
+      }
+    },
+    listar: function listar() {
+      axios.post("api/usuarios", this.form.all()).then(function (response) {});
+    },
+    cargaEditar: function cargaEditar(objeto) {}
   },
   mounted: function mounted() {//console.log('Component mounted.')
   }
@@ -38094,7 +38110,7 @@ var render = function() {
                       {
                         class: [
                           "form-group",
-                          _vm.allerros.name ? "has-error" : ""
+                          _vm.form.errors().has("name") ? "has-error" : ""
                         ]
                       },
                       [
@@ -38137,10 +38153,15 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm.allerros.name
-                            ? _c("span", { class: ["label label-danger"] }, [
-                                _vm._v("@" + _vm._s(_vm.allerros.name[0]))
-                              ])
+                          _vm.form.errors().has("name")
+                            ? _c("span", {
+                                staticClass: "label label-danger",
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors().get("name")
+                                  )
+                                }
+                              })
                             : _vm._e()
                         ])
                       ]
@@ -38151,7 +38172,7 @@ var render = function() {
                       {
                         class: [
                           "form-group",
-                          _vm.allerros.email ? "has-error" : ""
+                          _vm.form.errors().has("email") ? "has-error" : ""
                         ]
                       },
                       [
@@ -38192,17 +38213,105 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm.allerros.email
-                            ? _c("span", { class: ["label label-danger"] }, [
-                                _vm._v("@" + _vm._s(_vm.allerros.email[0]))
-                              ])
+                          _vm.form.errors().has("email")
+                            ? _c("span", {
+                                staticClass: "label label-danger",
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors().get("email")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        class: [
+                          "form-group",
+                          _vm.form.errors().has("password") ? "has-error" : ""
+                        ]
+                      },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-4 control-label",
+                            attrs: { for: "password" }
+                          },
+                          [_vm._v("Password")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.password,
+                                expression: "form.password"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              id: "password",
+                              name: "password",
+                              type: "password",
+                              required: ""
+                            },
+                            domProps: { value: _vm.form.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.form.errors().has("password")
+                            ? _c("span", {
+                                staticClass: "label label-danger",
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors().get("password")
+                                  )
+                                }
+                              })
                             : _vm._e()
                         ])
                       ]
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cancelar")]
+                    ),
+                    _vm._v(" "),
+                    _c("button", {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" },
+                      domProps: {
+                        textContent: _vm._s(
+                          _vm.editando == 0 ? "Guardar" : "Actualizar"
+                        )
+                      }
+                    })
+                  ])
                 ]
               )
             ])
@@ -38292,27 +38401,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cancelar")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Guardar")]
       )
     ])
   }
