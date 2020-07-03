@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Alimento;
 
 class AlimentosController extends Controller
 {
@@ -15,6 +16,8 @@ class AlimentosController extends Controller
     public function index()
     {
         //
+        $alimentos = Alimento::all();
+        return $alimentos;
     }
 
     /**
@@ -26,6 +29,20 @@ class AlimentosController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $val = $request->validate([
+            'alimento' => 'required',            
+            'costo_kg' => 'required'
+        ]);
+        $alimento = Alimento::create([
+            'alimento' => $request['alimento'],            
+            'costo_kg' => $request['costo_kg']
+        ]);
+        // $this->validate($request, [
+        //     'alimento' => 'alimento',
+        //     'costo_kg' => 'costo_kg',
+        // ]);
+
     }
 
     /**
@@ -60,5 +77,7 @@ class AlimentosController extends Controller
     public function destroy($id)
     {
         //
+        Alimento::destroy($id);
+        return 'ok';
     }
 }

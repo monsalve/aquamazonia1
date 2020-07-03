@@ -21,10 +21,31 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Estado</th>
-                                        <th scope="col">-</th>
+                                        <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr v-for="usuario in listado">
+                                        <td></td>
+                                        <td v-text="usuario.name"></td>
+                                        <td v-text="usuario.email"></td>
+                                        <td v-text="usuario.estado == 1 ? 'Activo' : 'Inacitvo'">
+                                        <td>
+                                            <!-- <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>-->
+                                            <button class="btn btn-light">
+                                                <span style="font-size: 1em; color:#28a745 ;"  >
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                            </button>
+                                            <button class="btn btn-light">
+                                                <span style="font-size: 1em; color:#DC3545;">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -43,28 +64,28 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="/vuejs/form" class="form-horizontal" @submit.prevent="guardar" >
+                    <form method="POST" action="/vuejs/form" @submit.prevent="guardar" >
                         
                         <div class="modal-body">
                             
-                            <div :class="['form-group', form.errors().has('name') ? 'has-error' : '']" >
-                                <label for="name" class="col-sm-4 control-label">Nombre</label> 
-                                <div class="col-sm-6">
+                            <div :class="['form-group row', form.errors().has('name') ? 'has-error' : '']" >
+                                <label for="name" class="col-sm-12 col-md-4 col-form-label">Nombre</label> 
+                                <div class="col-sm-12 col-md-8">
                                     <input id="name" name="name" value=""  autofocus="autofocus" class="form-control" type="text" v-model="form.name" required>
                                     <span v-if="form.errors().has('name')" class="label label-danger" v-text="form.errors().get('name')"></span>
                                 </div>
                             </div> 
-                            <div :class="['form-group', form.errors().has('email') ? 'has-error' : '']" >
-                                <label for="email" class="col-sm-4 control-label">Correo</label> 
-                                <div class="col-sm-6">
+                            <div :class="['form-group row', form.errors().has('email') ? 'has-error' : '']" >
+                                <label for="email" class="col-sm-12 col-md-4 col-form-label">Correo</label> 
+                                <div class="col-sm-12 col-md-8">
                                     <input id="email" name="email"  class="form-control" type="email" v-model="form.email" required>
                                     <span v-if="form.errors().has('email')" class="label label-danger" v-text="form.errors().get('email')"></span>
                                 </div>
                                 
                             </div>
-                            <div :class="['form-group', form.errors().has('password') ? 'has-error' : '']" >
-                                <label for="password" class="col-sm-4 control-label">Password</label> 
-                                <div class="col-sm-6">
+                            <div :class="['form-group row', form.errors().has('password') ? 'has-error' : '']" >
+                                <label for="password" class="col-sm-12 col-md-4 col-form-label">Password</label> 
+                                <div class="col-sm-12 col-md-8">
                                     <input id="password" name="password"  class="form-control" type="password" v-model="form.password" required>
                                     <span v-if="form.errors().has('password')" class="label label-danger" v-text="form.errors().get('password')"></span>
                                 </div>                                   
@@ -135,9 +156,12 @@ import form from 'vuejs-form'
                 
             },
             listar(){
-                 axios.post("api/usuarios",this.form.all())
+                let me = this;
+                 axios.get("api/usuarios")
                     .then(function (response) {
-                        
+                        //console.log("llega");
+                        //console.log(response.data);
+                        me.listado = response.data;
                     });
                 
             },
@@ -146,6 +170,7 @@ import form from 'vuejs-form'
             }
         },
         mounted() {
+            this.listar();
             //console.log('Component mounted.')
         }
     }

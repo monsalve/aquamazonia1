@@ -9,7 +9,7 @@ class Alimento extends Model
     protected $table = 'alimentos';
 
     protected $fillable = [
-        'alimento'
-        , 'costo_kg'           
+        'alimento',
+        'costo_kg'           
     ];
 }

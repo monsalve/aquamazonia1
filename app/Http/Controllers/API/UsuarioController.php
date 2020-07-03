@@ -16,7 +16,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        
+        $usuarios = User::all();
+        return $usuarios;
     }
 
     /**

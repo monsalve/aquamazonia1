@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import swal from 'sweetalert'
 Vue.use(VueRouter)
 
 let routes = [
