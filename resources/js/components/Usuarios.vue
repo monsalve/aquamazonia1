@@ -25,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="usuario in listado">
+                                    <tr v-for="usuario in listado" :key="usuario.id">
                                         <td></td>
                                         <td v-text="usuario.name"></td>
                                         <td v-text="usuario.email"></td>

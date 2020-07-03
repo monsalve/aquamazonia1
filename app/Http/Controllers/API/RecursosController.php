@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Recursos;
 
 class RecursosController extends Controller
 {
@@ -15,6 +16,8 @@ class RecursosController extends Controller
     public function index()
     {
         //
+        $recursos = Recursos::all();
+        return $recursos;
     }
 
     /**
@@ -26,10 +29,20 @@ class RecursosController extends Controller
     public function store(Request $request)
     {
         //
+        $val = $request->validate([
+            'recurso' => 'required',            
+            'unidad' => 'required',
+            'costo' => 'required'
+        ]);
+        $alimento = Recursos::create([
+            'recurso' => $request['recurso'],            
+            'unidad' => $request['unidad'],
+            'costo' => $request['costo']
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified unidad.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -49,6 +62,9 @@ class RecursosController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $recurso = Recursos::findOrFail($id);
+        $recurso->update($request->all());
+        return 'ok';
     }
 
     /**
@@ -60,5 +76,7 @@ class RecursosController extends Controller
     public function destroy($id)
     {
         //
+        Recursos::destroy($id);
+        return 'eliminado';
     }
 }

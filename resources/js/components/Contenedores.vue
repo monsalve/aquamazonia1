@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Gestión de contenedores</div>
                     <div class="card-body">
                         <div class="row mb-1">
                             <div class="col-12 text-right">
-                                <button class="btn btn-success"  data-toggle="modal" data-target="#modalContenedor">Añadir Contenedor</button>
+                                <button class="btn btn-success" @click="abrirCrear()">Añadir Contenedor</button>
                             </div>
                         </div>
                         <div class="row">
@@ -18,17 +18,22 @@
                                   <th scope="col">Contenedor</th>
                                   <th scope="col">Capacidad</th>
                                   <th scope="col">Estado</th>
+                                  <th scope="col">Opciones</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Contenedor 1</td>
-                                  <td>3500</td>
+                                <tr v-for="contenedor in listado" :key="contenedor.id">
+                                  <th scope="row" v-text="contenedor.id"></th>
+                                  <td v-text="contenedor.contenedor"></td>
+                                  <td v-text="contenedor.capacidad"></td>
+                                  <td v-text="contenedor.estado == 0 ? 'Inactivo' : 'Activo'"></td>
                                   <td>
-                                    <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>
-                                    <span style="font-size: 1.5em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
-                                    <span style="font-size: 1.5em; color:#DC3545;"><i class="fas fa-trash"></i></span>
+                                    <button class="btn btn-light" @click="cargaEditar(contenedor)">
+                                         <span style="font-size: 1em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
+                                    </button>
+                                    <button class="btn btn-light" @click="eliminar(contenedor.id)" >
+                                        <span style="font-size: 1em; color:#DC3545;"><i class="fas fa-trash"></i></span>
+                                    </button>
                                   </td>
                                 </tr>
                               </tbody>
@@ -42,29 +47,42 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalContenedorLabel">Crear contenedor</h5>
+                         <h5 class="modal-title" id="modalalimentosLabel" v-text="editando ==0 ? 'Crear contenedor' : 'Actualizar contenedor'"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form @submit.prevent="editando == 0 ? guardar() : editar()">
                             <div class="form-group row">
                                 <label for="contenedor" class="col-sm-12 col-md-4 col-form-label">Nombre Contenedor</label>
                                 <div class="col-sm-12  col-md-8">
-                                    <input type="text" class="form-control" id="contenedor">
+                                    <input type="text" class="form-control" id="contenedor"  :class="{ 'is-invalid': form.errors.has('contenedor') }" v-model="form.contenedor">
+                                    <has-error :form="form" field="contenedor"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="Capacidad" class="col-sm-12  col-md-4 col-form-label">Capacidad</label>
                                 <div class="col-sm-12  col-md-8">
-                                    <input type="text" class="form-control" id="capacidad">
+                                    <input type="number" class="form-control" id="capacidad"  :class="{ 'is-invalid': form.errors.has('capacidad') }" v-model="form.capacidad">
+                                    <has-error :form="form" field="capacidad"></has-error>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="estado" class="col-sm-12  col-md-4 col-form-label">Estado</label>
+                                <div class="col-sm-12  col-md-8">
+                                    <select v-model="form.estado" class="form-control" :class="{ 'is-invalid': form.errors.has('estado') }">
+                                        <!--  objeto literal en línea --> -->
+                                        <option v-bind:value="0">Inactivo</option>
+                                        <option v-bind:value="1">Activo</option>
+                                    </select>
+                                     <has-error :form="form" field="estado"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 text-right">
-                                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary btn-lg">Crear</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary" v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
                                 </div>
                             </div>
                         </form>
@@ -79,8 +97,96 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import { Form, HasError, AlertError } from 'vform'
+    
+    Vue.component(HasError.name, HasError)
+    Vue.component(AlertError.name, AlertError)
+
+
     export default {
+        data() {
+            return {
+                editando: 0,
+                form: new Form({
+                    id : '',
+                    contenedor : '',
+                    capacidad : '',
+                    estado : '',
+                }),
+               
+                listado: []
+            }
+        },
+        methods: {
+            guardar(){
+                let me = this;
+                this.form.post('api/contenedores')
+                    .then(({data})=>{
+                        editando: 0,
+                        console.log(data);                        
+                        me.listar();
+                        $('#modalContenedor').modal('hide');
+                        me.form.contenedor = '';
+                        me.form.capacidad = '';
+                        me.form.estado = '';
+                    })
+            },
+            abrirCrear(){
+                this.editando = 0;
+                this.form.reset(); 
+                $('#modalContenedor').modal('show');
+            },
+         
+            listar(){
+                let me = this;
+                axios.get("api/contenedores")
+                .then(function (response) {
+                    me.listado = response.data
+                });
+            },
+            cargaEditar(objeto){
+                let me = this;
+                this.form.fill(objeto);
+                this.editando = 1;
+                  $('#modalContenedor').modal('show');
+                   console.log('editandosssss')
+            },
+            editar(){
+                let me = this;
+                this.form.put('api/contenedores/'+this.form.id)
+                    .then(({data})=>{
+                        console.log(data);   
+                    
+                        $('#modalContenedor').modal('hide');
+                        me.listar();
+                    })
+          
+                console.log('editando')
+            },
+            eliminar(index){
+                let me = this;
+                swal({
+                  title: "Estás seguro?",
+                  text: "Una vez eliminado, no se puede recuperar este registro",
+                  icon: "warning",
+                  buttons: ["Cancelar", "Aceptar"],
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        me.form.delete('api/contenedores/'+index)
+                        .then(({data})=>{
+                            me.listar();
+                            console.log('eliminar'+index)
+                        })
+                    }
+                });
+                 
+            }
+        },
         mounted() {
+            this.listar();
             //console.log('Component mounted.')
         }
     }

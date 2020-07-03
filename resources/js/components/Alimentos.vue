@@ -1,14 +1,14 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Gestión de alimentos</div>
 
                     <div class="card-body">
                         <div class="row mb-1">
                             <div class="col-12 text-right">
-                                 <button class="btn btn-success"  data-toggle="modal" data-target="#modalAlimentos">Añadir Alimento</button>
+                                 <button class="btn btn-success" @click="abrirCrear()">Añadir Alimento</button>
                             </div>
                         </div>
                         <div class="row">
@@ -28,7 +28,7 @@
                                   <td v-text="alimento.costo_kg"></td>
                                   <td>
                                     <!-- <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>-->
-                                    <button  class="btn btn-light" type="button">
+                                    <button @click="cargaEditar(alimento)" class="btn btn-light" type="button">
                                         <span style="font-size: 1em; color:#28a745 ;"  >
                                             <i class="fas fa-edit"></i>
                                         </span>
@@ -51,13 +51,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalalimentosLabel">Crear Alimento</h5>
+                        <h5 class="modal-title" id="modalalimentosLabel" v-text="editando ==0 ? 'Crear alimento' : 'Actualizar alimento'"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form  @submit.prevent="guardar">
+                        <form @submit.prevent="editando == 0 ? guardar() : editar()">
                             <div class="form-group row">
                                 <label for="alimento" class="col-sm-12 col-md-4 col-form-label">Nombre Alimento</label>
                                 <div class="col-sm-12 col-md-8">
@@ -77,7 +77,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-12 text-right">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                  <button type="submit" class="btn btn-primary" v-text="editando==0 ? 'Crear' : 'Actualizar'"></button>
+                                  <button type="submit" class="btn btn-primary" v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
                                 </div>
                             </div>
                         </form>
@@ -104,6 +104,7 @@
             return {
                 editando: 0,
                 form: new Form({
+                    id : '',
                     alimento : '',
                     costo_kg : '',
                 }),
@@ -116,12 +117,18 @@
                 let me = this;
                 this.form.post('api/alimentos')
                     .then(({data})=>{
+                        editando: 0,
                         console.log(data);                        
                         me.listar();
                         $('#modalAlimentos').modal('hide');
                         me.form.alimento = '';
                         me.form.costo_kg = '';
                     })
+            },
+            abrirCrear(){
+                this.editando = 0;
+                this.form.reset(); 
+                $('#modalAlimentos').modal('show');
             },
          
             listar(){
@@ -132,9 +139,22 @@
                 });
             },
             cargaEditar(objeto){
-
+                let me = this;
+                this.form.fill(objeto);
+                this.editando = 1;
+                  $('#modalAlimentos').modal('show');
+                   console.log('editandosssss')
             },
             editar(){
+                let me = this;
+                this.form.put('api/alimentos/'+this.form.id)
+                    .then(({data})=>{
+                        console.log(data);   
+                    
+                        $('#modalAlimentos').modal('hide');
+                        me.listar();
+                    })
+          
                 console.log('editando')
             },
             eliminar(index){
@@ -150,9 +170,8 @@
                     if (willDelete) {
                         me.form.delete('api/alimentos/'+index)
                         .then(({data})=>{
-                        
-                                 me.listar();
-                                 console.log('eliminar'+index)
+                            me.listar();
+                            console.log('eliminar'+index)
                         })
                     }
                 });

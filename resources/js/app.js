@@ -10,6 +10,9 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
 import swal from 'sweetalert'
+import Vue from 'vue'
+import { Form, HasError, AlertError } from 'vform'
+    
 Vue.use(VueRouter)
 
 let routes = [
@@ -39,6 +42,7 @@ const router = new VueRouter({
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
 //Vue.component('dashboard-component', require('./components/Dashboard.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

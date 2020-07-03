@@ -65,7 +65,9 @@ class AlimentosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $alimento = Alimento::findOrFail($id);
+        $alimento->update($request->all());
+        return 'ok guardado';
     }
 
     /**

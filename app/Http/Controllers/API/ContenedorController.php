@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Contenedor;
 
 class ContenedorController extends Controller
 {
@@ -14,7 +15,8 @@ class ContenedorController extends Controller
      */
     public function index()
     {
-        return "xxxxx"; 
+        $contenedores = Contenedor::all();
+        return $contenedores;
         //
     }
 
@@ -27,6 +29,17 @@ class ContenedorController extends Controller
     public function store(Request $request)
     {
         //
+        $val = $request->validate([
+            'contenedor' => 'required',            
+            'capacidad' => 'required',
+            'estado' => 'required'
+            
+        ]);
+        $contenedor = Contenedor::create([
+            'contenedor' => $request['contenedor'],            
+            'capacidad' => $request['capacidad'],
+            'estado' => $request['estado']
+        ]);
     }
 
     /**
@@ -50,6 +63,9 @@ class ContenedorController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $contenedor = Contenedor::findOrFail($id);
+        $contenedor->update($request->all());
+        return 'ok';
     }
 
     /**
@@ -61,5 +77,7 @@ class ContenedorController extends Controller
     public function destroy($id)
     {
         //
+        Contenedor::destroy($id);
+        return 'ok';
     }
 }
