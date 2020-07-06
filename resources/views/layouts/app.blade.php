@@ -67,6 +67,7 @@
                                     <router-link class="dropdown-item" to="/alimentos">Alimentos</router-link>
                                     <router-link class="dropdown-item" to="/recursos">Recursos</router-link>
                                     <router-link class="dropdown-item" to="/usuarios">Usuarios</router-link>
+                                    <router-link class="dropdown-item" to="/siembras">Siembras</router-link>
                                 </div>
                                 
                             </li>

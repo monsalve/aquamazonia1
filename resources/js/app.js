@@ -22,7 +22,9 @@ let routes = [
     { path: '/alimentos', component: require('./components/Alimentos.vue').default },
     { path: '/recursos', component: require('./components/Recursos.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios.vue').default },
-    { path: '/example', component: require('./components/ExampleComponent.vue').default }
+    { path: '/siembras', component: require('./components/Siembras.vue').default },
+    { path: '/example', component: require('./components/ExampleComponent.vue').default },
+    
 ]
 
 const router = new VueRouter({
