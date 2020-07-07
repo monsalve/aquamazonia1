@@ -74,7 +74,9 @@
                                     <select v-model="form.estado" class="form-control" :class="{ 'is-invalid': form.errors.has('estado') }">
                                         <!--  objeto literal en línea --> -->
                                         <option v-bind:value="0">Inactivo</option>
-                                        <option v-bind:value="1">Activo</option>
+                                        <option v-bind:value="1">Disponible</option>
+                                        <option v-bind:value="2">Ocupado</option>
+                                        <option v-bind:value="3">Descanso</option>
                                     </select>
                                      <has-error :form="form" field="estado"></has-error>
                                 </div>

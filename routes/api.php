@@ -24,5 +24,6 @@ Route::apiResources([
     'alimentos' => 'API\AlimentosController',
     'recursos' => 'API\RecursosController',
     'especies' => 'API\EspeciesController',
-    'usuarios' => 'API\UsuarioController'
+    'usuarios' => 'API\UsuarioController',
+    'siembras' => 'API\SiembraController'
 ]);

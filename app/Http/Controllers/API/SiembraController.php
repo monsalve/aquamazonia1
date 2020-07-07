@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Especie;
+use App\EspecieSiembra;
 
-class EspeciesController extends Controller
+class SiembraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,9 @@ class EspeciesController extends Controller
     public function index()
     {
         //
-        $especies = Especie::all();
-        return $especies;
+        $siembras = EspecieSiembra::all();
+        return $siembras;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -30,18 +29,22 @@ class EspeciesController extends Controller
     {
         //
         $val = $request->validate([
-            'especie' =>  'required',
-            'descripcion' => 'required'
+            'id_siembra' => 'required',            
+            'id_especie' => 'required',
+            'cantidad' => 'required',
+            'peso_inicial' => 'required'
+        ]);
+        $siembra = EspecieSiembra::create([
+            'id_siembra' => $request['id_siembra'],            
+            'id_especie' => $request['id_especie'],
+            'cantidad' => $request['cantidad'],
+            'peso_inicial' => $request['peso_inicial']
         ]);
         
-        $especie = Especie::create([
-            'especie' => $request['especie'],            
-            'descripcion' => $request['descripcion'],            
-        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified unidad.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -61,9 +64,10 @@ class EspeciesController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $especie = Especie::findOrFail($id);
-        $especie->update($request->all());
+        $siembra = EspecieSiembra::findOrFail($id);
+        $siembra->update($request->all());
         return 'ok';
+      
     }
 
     /**
@@ -75,7 +79,7 @@ class EspeciesController extends Controller
     public function destroy($id)
     {
         //
-        Alimento::destroy($id);
+        EspecieSiembra::destroy($id);
         return 'eliminado';
     }
 }
