@@ -2872,6 +2872,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -2879,17 +2893,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
+      form: {
         id: '',
-        id_siembra: '',
-        id_especie: '',
-        cantidad: '',
-        peso_inicial: ''
-      }),
+        fecha_inicio: '',
+        id_contenedor: ''
+      },
+      newEspecie: '',
+      newCantidad: '',
+      newPeso: '',
       listadoEspecies: [],
       listadoContenedores: [],
       listado: [],
-      listadoItems: []
+      listadoItems: [],
+      listadoSiembras: [],
+      nombresEspecies: [],
+      nombresContenedores: []
     };
   },
   methods: {
@@ -2905,6 +2923,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoContenedores = response.data;
       });
     },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data;
+      });
+    },
     anadirItem: function anadirItem() {
       var me = this;
       $('#modalSiembra').modal('show');
@@ -2913,29 +2937,83 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('añadir item');
     },
     anadirEspecie: function anadirEspecie() {
-      var me = this;
-      me.listadoItems.push({
-        'id': this.form.id++,
-        'id_siembra': this.form.id_siembra,
-        'id_especie': this.form.id_especie,
-        'cantidad': this.form.cantidad,
-        'peso_inicial': this.form.peso_inicial
-      });
-    },
-    listar: function listar() {},
-    abrirCrear: function abrirCrear() {},
-    guardar: function guardar() {
       var _this = this;
 
       var me = this;
-      this.form.post('api/siembras').then(function (_ref) {
-        var response = _ref.response;
-        console.log(response);
-        _this.listadoItems.id_siembra = '';
-        _this.listadoItems.id_especie = '';
-        _this.listadoItems.cantidad = '';
-        _this.listadoItems.peso_inicial = '';
+
+      if (this.newEspecie != '' && this.newCantidad != '' && this.newPeso != '') {
+        me.listadoItems.push({
+          'id_especie': this.newEspecie,
+          'cantidad': this.newCantidad,
+          'peso_inicial': this.newPeso
+        });
+
+        var idEspecie = function idEspecie(element) {
+          return element.id == _this.newEspecie;
+        };
+
+        var index = this.listadoEspecies.findIndex(idEspecie);
+        this.listadoEspecies.splice(index, 1);
+        this.newEspecie = '';
+        this.newCantidad = '';
+        this.newPeso = '';
+      } else {
+        alert('Debe diligenciar todos los campos');
+      }
+    },
+    nombreEspecie: function nombreEspecie() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        var auxEspecie = response.data;
+        auxEspecie.forEach(function (element) {
+          return me.nombresEspecies[element.id] = element.especie;
+        });
       });
+    },
+    nombreContenedores: function nombreContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        var auxEspecie = response.data;
+        auxEspecie.forEach(function (element) {
+          return me.nombresContenedores[element.id] = element.contenedor;
+        });
+      });
+    },
+    listar: function listar() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data;
+      });
+    },
+    abrirCrear: function abrirCrear() {},
+    guardar: function guardar() {
+      var _this2 = this;
+
+      var me = this;
+
+      if (this.form.id_contenedor != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0) {
+        var data = {
+          siembra: this.form,
+          especies: this.listadoItems
+        };
+        axios.post('api/siembras', data).then(function (_ref) {
+          var response = _ref.response;
+          _this2.form.id_contenedor = '';
+          _this2.form.fecha_inicio = '';
+          _this2.newEspecie = '';
+          _this2.newCantidad = '';
+          _this2.newPeso = '';
+          listadoItems = [];
+          console.log(siembra);
+
+          _this2.listar();
+
+          $('#modalSiembra').modal('hide');
+        });
+      } else {
+        alert('Debe diligenciar todos los campos');
+      }
+
       console.log('guardar');
     },
     cargarEditar: function cargarEditar() {},
@@ -2944,6 +3022,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
   },
   mounted: function mounted() {
     this.listar();
+    this.nombreEspecie();
+    this.nombreContenedores();
   }
 });
 
@@ -41310,7 +41390,61 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "row" }, [
+              _c("table", { staticClass: "table table-striped" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.listadoSiembras, function(siembra) {
+                    return _c("tr", { key: siembra.id }, [
+                      _c(
+                        "td",
+                        { domProps: { textContent: _vm._s(siembra.id) } },
+                        [_vm._v("1")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          domProps: {
+                            textContent: _vm._s(
+                              "Contenedor " + siembra.id_contenedor
+                            )
+                          }
+                        },
+                        [_vm._v("Tilapia")]
+                      ),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Especie")]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          domProps: {
+                            textContent: _vm._s(siembra.fecha_inicio)
+                          }
+                        },
+                        [_vm._v("Lorem ipsum dolor .")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { domProps: { textContent: _vm._s(siembra.estado) } },
+                        [_vm._v("2020-09-20")]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(1, true),
+                      _vm._v(" "),
+                      _vm._m(2, true),
+                      _vm._v(" "),
+                      _vm._m(3, true)
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
           ])
         ])
       ])
@@ -41332,12 +41466,98 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(1),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
-              _c("form", [
+              _c("div", { staticClass: "container row" }, [
+                _c("div", { staticClass: "form-group row   col-md-6" }, [
+                  _c("div", { staticClass: "col-sm-12 col-md-12 text-left" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Contenedor")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.id_contenedor,
+                            expression: "form.id_contenedor"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "", id: "id_contenedor", selected: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "id_contenedor",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.listadoContenedores, function(contenedor) {
+                        return _c(
+                          "option",
+                          {
+                            key: contenedor.id,
+                            domProps: { value: contenedor.id }
+                          },
+                          [_vm._v(_vm._s(contenedor.contenedor))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row  col-md-6" }, [
+                  _c("div", { staticClass: "col-sm-12 col-md-12 text-left" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Fecha Inicio")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.fecha_inicio,
+                          expression: "form.fecha_inicio"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", id: "fecha_inicio", required: "" },
+                      domProps: { value: _vm.form.fecha_inicio },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "fecha_inicio",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
                 _c("table", { staticClass: "table" }, [
-                  _vm._m(2),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -41356,12 +41576,16 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form.id_siembra,
-                                  expression: "form.id_siembra"
+                                  value: _vm.newEspecie,
+                                  expression: "newEspecie"
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { name: "", id: "" },
+                              attrs: {
+                                name: "",
+                                id: "id_especie",
+                                required: ""
+                              },
                               on: {
                                 change: function($event) {
                                   var $$selectedVal = Array.prototype.filter
@@ -41373,64 +41597,9 @@ var render = function() {
                                         "_value" in o ? o._value : o.value
                                       return val
                                     })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "id_siembra",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            _vm._l(_vm.listadoContenedores, function(
-                              contenedor
-                            ) {
-                              return _c(
-                                "option",
-                                {
-                                  key: contenedor.id,
-                                  domProps: { value: contenedor.id }
-                                },
-                                [_vm._v(_vm._s(contenedor.contenedor))]
-                              )
-                            }),
-                            0
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.id_especie,
-                                  expression: "form.id_especie"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "", id: "" },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "id_especie",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
+                                  _vm.newEspecie = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
                                 }
                               }
                             },
@@ -41454,23 +41623,24 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.cantidad,
-                                expression: "form.cantidad"
+                                value: _vm.newCantidad,
+                                expression: "newCantidad"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "number", id: "cantidad" },
-                            domProps: { value: _vm.form.cantidad },
+                            attrs: {
+                              type: "number",
+                              min: "1",
+                              id: "cantidad",
+                              required: ""
+                            },
+                            domProps: { value: _vm.newCantidad },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(
-                                  _vm.form,
-                                  "cantidad",
-                                  $event.target.value
-                                )
+                                _vm.newCantidad = $event.target.value
                               }
                             }
                           })
@@ -41482,23 +41652,24 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.peso_inicial,
-                                expression: "form.peso_inicial"
+                                value: _vm.newPeso,
+                                expression: "newPeso"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "number", id: "peso_inicial" },
-                            domProps: { value: _vm.form.peso_inicial },
+                            attrs: {
+                              type: "number",
+                              min: "1",
+                              id: "peso_inicial",
+                              required: ""
+                            },
+                            domProps: { value: _vm.newPeso },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(
-                                  _vm.form,
-                                  "peso_inicial",
-                                  $event.target.value
-                                )
+                                _vm.newPeso = $event.target.value
                               }
                             }
                           })
@@ -41509,14 +41680,14 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-light",
-                              attrs: { type: "submit" },
+                              attrs: { type: "button" },
                               on: {
                                 click: function($event) {
                                   return _vm.anadirEspecie()
                                 }
                               }
                             },
-                            [_vm._m(3)]
+                            [_vm._m(6)]
                           )
                         ])
                       ]),
@@ -41529,11 +41700,11 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(item.id_siembra) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.id_especie) }
+                            domProps: {
+                              textContent: _vm._s(
+                                _vm.nombresEspecies[item.id_especie]
+                              )
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -41541,21 +41712,25 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(item.peso_inicial) }
+                            domProps: {
+                              textContent: _vm._s(item.peso_inicial + " gr")
+                            }
                           })
                         ])
                       })
                     ],
                     2
                   )
-                ]),
-                _vm._v(" "),
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
                 _c("div", { staticClass: "form-group row" }, [
                   _c("div", { staticClass: "col-sm-12 text-right" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-secondary btn-lg",
+                        staticClass: "btn btn-secondary ",
                         attrs: { type: "button", "data-dismiss": "modal" }
                       },
                       [_vm._v("Cancelar")]
@@ -41564,7 +41739,7 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-primary btn-lg",
+                        staticClass: "btn btn-primary",
                         attrs: { type: "submit" },
                         on: {
                           click: function($event) {
@@ -41577,9 +41752,7 @@ var render = function() {
                   ])
                 ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" })
+            ])
           ])
         ])
       ]
@@ -41591,63 +41764,63 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("table", { staticClass: "table table-striped" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Especie")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha Inicio")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Ingreso")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Finalizar")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Estado")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Tilapia")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Lorem ipsum dolor .")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2020-09-20")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Ingreso")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Finalizar")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Estado")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("button", { staticClass: "btn btn-light" }, [
-                _c(
-                  "span",
-                  { staticStyle: { "font-size": "1.5em", color: "#28a745" } },
-                  [_c("i", { staticClass: "fas fa-edit" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "btn btn-light" }, [
-                _c(
-                  "span",
-                  { staticStyle: { "font-size": "1.5em", color: "#DC3545" } },
-                  [_c("i", { staticClass: "fas fa-trash" })]
-                )
-              ])
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Contenedor")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Especie")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha Inicio")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Registros")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Finalizar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Registrar")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-danger" }, [
+        _vm._v("Finalizar\n                              ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-light" }, [
+        _c(
+          "span",
+          { staticStyle: { "font-size": "1.5em", color: "#28a745" } },
+          [_c("i", { staticClass: "fas fa-edit" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-light" }, [
+        _c(
+          "span",
+          { staticStyle: { "font-size": "1.5em", color: "#DC3545" } },
+          [_c("i", { staticClass: "fas fa-trash" })]
+        )
       ])
     ])
   },
@@ -41684,15 +41857,15 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Especie")]),
+        _c("th", { staticStyle: { width: "20%" }, attrs: { scope: "col" } }, [
+          _vm._v("Especie")
+        ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Cantidad")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Peso")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Add")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Add")])
       ])
     ])
   },

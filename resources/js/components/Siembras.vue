@@ -15,25 +15,32 @@
                             <table class="table table-striped">
                               <thead>
                                 <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Contenedor</th>
-                                  <th scope="col">Especie</th>
-                                  <th scope="col">Fecha Inicio</th>
-                                  <th scope="col">Ingreso</th>
-                                  <th scope="col">Finalizar</th>
-                                  <th>Estado</th>
-                                  <th scope="col">Acciones</th>
+                                  <th >#</th>
+                                  <th>Contenedor</th>
+                                  <th >Especie</th>
+                                  <th>Fecha Inicio</th>
+                                  <th >Estado</th>
+                                  <th >Registros</th>
+                                  <th >Finalizar</th>
+                                 
+                                  <th >Acciones</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Tilapia</td>
-                                  <td>Lorem ipsum dolor .</td>
-                                  <td>2020-09-20</td>
-                                  <td>Ingreso</td>
-                                  <td>Finalizar</td>
-                                   <td>Estado</td>
+                                <tr v-for="siembra in listadoSiembras" :key="siembra.id">
+                                  <td v-text="siembra.id">1</td>
+                                  <td v-text="'Contenedor '+siembra.id_contenedor">Tilapia</td>
+                                  <td>Especie</td>
+                                  <td v-text="siembra.fecha_inicio">Lorem ipsum dolor .</td>
+                                  <td v-text="siembra.estado">2020-09-20</td>
+                                  <td>
+                                  <button class="btn btn-success">Registrar</button>
+                                  </td>
+                                  <td>
+                                  <button class="btn btn-danger">Finalizar
+                                  </button>
+                                  </td>
+                                  
                                   <td>
                                     <button class="btn btn-light">
                                       <span style="font-size: 1.5em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
@@ -44,6 +51,7 @@
                                   </td>
                                 </tr>
                               </tbody>
+                              
                             </table>
                          </div>
                     </div>
@@ -60,65 +68,71 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <div class="container row">
+                  <div class="form-group row   col-md-6">
+                    <div class="col-sm-12 col-md-12 text-left">
+                      <label for="">Contenedor</label>
+                      <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor" selected>
+                        <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id">{{contenedor.contenedor}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row  col-md-6">
+                    <div class="col-sm-12 col-md-12 text-left">
+                      <label for="">Fecha Inicio</label>
+                      <input type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
+                    </div>
+                  </div>
                   <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Contenedor</th>
-                        <th scope="col">Especie</th>
+                        <th scope="col" style="width:20%">Especie</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Peso</th>
-                        <th>Add</th>
+                        <th scope="col">Add</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th scope="row" v-text="form.id">
-                          
                         </th>
-                        <td>
-                          <select v-model="form.id_siembra" name="" class="form-control" id="">
-                            <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id"  >{{contenedor.contenedor}}</option>
-                          </select>
-                        </td>
                         <td> 
-                          <select v-model="form.id_especie" name="" class="form-control" id="">
+                          <select  v-model="newEspecie" name="" class="form-control" id="id_especie" required>
                             <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id"  >{{especie.especie}}</option>
                           </select>
                         </td>
                         <td>
-                          <input type="number" class="form-control" id="cantidad" v-model="form.cantidad">                          
+                          <input  type="number" min="1" class="form-control" id="cantidad" v-model="newCantidad" required>                          
                         </td>
                         <td>
-                          <input type="number" class="form-control" id="peso_inicial" v-model="form.peso_inicial">
+                          <input type="number" min="1" class="form-control" id="peso_inicial" v-model="newPeso" required>
                         </td>
+                         
                         <td>
-                          <button class="btn btn-light" @click='anadirEspecie()' type="submit">
+                          <button class="btn btn-light" @click='anadirEspecie()' type="button">
                             <span style="font-size: 1em;" class="btn btn-success"><i class="fas fa-plus"></i></span>
                           </button>
                         </td>
                       </tr>
                       <tr v-for="item in listadoItems" :key="item.id">
                         <th scope="col" v-text="item.id"></th>
-                        <td v-text="item.id_siembra"></td>
-                        <td v-text="item.id_especie"></td>
+                        <td v-text="nombresEspecies[item.id_especie]"></td>
                         <td v-text="item.cantidad"></td>
-                        <td v-text="item.peso_inicial"></td>
+                        <td v-text="item.peso_inicial+ ' gr'"></td>
                       </tr>
                     </tbody>
                   </table>
+                  
+                </div>
+                <div class="modal-footer">
                   <div class="form-group row">
                     <div class="col-sm-12 text-right">
-                      <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancelar</button>
-                      <button type="submit" @click="guardar()" class="btn btn-primary btn-lg">Crear</button>
+                      <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                      <button type="submit" @click="guardar()" class="btn btn-primary">Crear</button>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
               </div>
             </div>
           </div>
@@ -136,18 +150,21 @@
   export default {
     data(){
       return {
-        form: new Form({
+        form:{
           id : '',
-          id_siembra:'',
-          id_especie:'',
-          cantidad:'',
-          peso_inicial:''
-        }),
-        
+          fecha_inicio:'',
+          id_contenedor:'',
+        },
+        newEspecie: '',
+        newCantidad: '',
+        newPeso:'',
         listadoEspecies:[],
         listadoContenedores: [],
         listado : [],
-        listadoItems : []
+        listadoItems : [],
+        listadoSiembras : [],
+        nombresEspecies : [],
+        nombresContenedores: []
       }
     },
     methods:{
@@ -165,38 +182,88 @@
           me.listadoContenedores = response.data
         })
       },
+      listarSiembras(){
+        let me = this;
+        axios.get("api/siembras")
+        .then(function (response){
+          me.listadoSiembras = response.data
+        })
+      },
       anadirItem(){
         let me = this;
         $('#modalSiembra').modal('show');
         this.listarEspecies();
         this.listarContenedores();
         console.log('añadir item') 
-       
       },
       anadirEspecie(){
         let me = this;
-        me.listadoItems.push(
-          {'id': this.form.id++,
-          'id_siembra': this.form.id_siembra,
-          'id_especie' : this.form.id_especie,
-          'cantidad' : this.form.cantidad,
-          'peso_inicial' : this.form.peso_inicial}
-        );
+          if(this.newEspecie != '' && this.newCantidad != '' && this.newPeso != ''){
+            me.listadoItems.push(
+            {
+              'id_especie' : this.newEspecie,
+              'cantidad' : this.newCantidad,
+              'peso_inicial' : this.newPeso
+            });
+            const idEspecie = (element) => element.id == this.newEspecie;
+            var index = this.listadoEspecies.findIndex(idEspecie);
+            this.listadoEspecies.splice(index,1);
+            this.newEspecie = '';
+            this.newCantidad = '';
+            this.newPeso = ''
+          }else{
+          alert ('Debe diligenciar todos los campos');
+          }
+      },
+      nombreEspecie(){
+        let me = this;
+        axios.get("api/especies")
+        .then(function (response){
+          var auxEspecie = response.data;
+          auxEspecie.forEach(element => me.nombresEspecies[element.id] = element.especie);
+        })
+      },
+      nombreContenedores(){
+        let me = this;
+        axios.get("api/contenedores")
+        .then(function (response){
+          var auxEspecie = response.data;
+          auxEspecie.forEach(element => me.nombresContenedores[element.id] = element.contenedor);
+        })
       },
       listar(){
+        let me = this;
+        axios.get("api/siembras")
+        .then(function (response){
+          me.listadoSiembras = response.data;
+        })
       },
       abrirCrear(){
       },
       guardar(){
-       let me = this;
-          this.form.post('api/siembras')
+        let me = this;
+        if(this.form.id_contenedor != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0){
+            const data = {
+              siembra: this.form, 
+              especies : this.listadoItems
+            }
+            axios.post('api/siembras',data)
             .then(({response})=>{
-              console.log(response);                        
-              this.listadoItems.id_siembra = '';
-              this.listadoItems.id_especie = '';
-              this.listadoItems.cantidad = '';
-              this.listadoItems.peso_inicial = '';
+              this.form.id_contenedor = '';
+              this.form.fecha_inicio = '';
+              this.newEspecie = '';
+              this.newCantidad = '';
+              this.newPeso = '';
+              listadoItems = [];
+              console.log(siembra);     
+              this.listar();
+               $('#modalSiembra').modal('hide');
             });
+          
+        }else{
+          alert('Debe diligenciar todos los campos');
+        }
+       
           console.log('guardar') ;
       },
       cargarEditar(){
@@ -209,6 +276,8 @@
     },
     mounted() {
       this.listar();
+      this.nombreEspecie();
+      this.nombreContenedores();
     }
   }
 </script>

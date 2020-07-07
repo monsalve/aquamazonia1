@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\EspecieSiembra;
+use App\Siembra;
 
 class SiembraController extends Controller
 {
@@ -16,8 +17,10 @@ class SiembraController extends Controller
     public function index()
     {
         //
-        $siembras = EspecieSiembra::all();
-        return $siembras;
+        //$especieSiembras = EspecieSiembra::all();
+        $especie = Siembra::all();
+        return $especie;
+        
     }
     /**
      * Store a newly created resource in storage.
@@ -28,18 +31,30 @@ class SiembraController extends Controller
     public function store(Request $request)
     {
         //
+        
+      
         $val = $request->validate([
-            'id_siembra' => 'required',            
-            'id_especie' => 'required',
-            'cantidad' => 'required',
-            'peso_inicial' => 'required'
+            // 'id_siembra' => 'required',            
+            // 'id_especie' => 'required',
+            // 'cantidad' => 'required',
+            // 'peso_inicial' => 'required'
         ]);
-        $siembra = EspecieSiembra::create([
-            'id_siembra' => $request['id_siembra'],            
-            'id_especie' => $request['id_especie'],
-            'cantidad' => $request['cantidad'],
-            'peso_inicial' => $request['peso_inicial']
-        ]);
+       
+        // exit;die;
+        $siembra = new Siembra();
+        $siembra->id_contenedor = $request->siembra['id_contenedor'];
+        $siembra->fecha_inicio = $request->siembra['fecha_inicio'];       
+        $siembra->estado = 1;
+        $siembra->save();
+        
+        foreach($request->especies as $especie){
+            $especieSiembra = new EspecieSiembra();
+            $especieSiembra->id_siembra = $siembra->id;
+            $especieSiembra->id_especie = $especie['id_especie'];
+            $especieSiembra->cantidad =  $especie['cantidad'];
+            $especieSiembra->peso_inicial = $especie['peso_inicial'];
+            $especieSiembra->save();
+        }
         
     }
 
@@ -64,8 +79,10 @@ class SiembraController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $siembra = EspecieSiembra::findOrFail($id);
-        $siembra->update($request->all());
+        $especieSiembras = EspecieSiembra::findOrFail($id);
+        $especieSiembras->update($request->all());
+        // $siembra = Siembra::findOrFail($id);
+        // $siembra->update($request->all());
         return 'ok';
       
     }
@@ -80,6 +97,7 @@ class SiembraController extends Controller
     {
         //
         EspecieSiembra::destroy($id);
+        Siembra::destroy(id);
         return 'eliminado';
     }
 }
