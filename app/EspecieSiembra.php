@@ -13,6 +13,8 @@ class EspecieSiembra extends Model
         'id_siembra',
         'id_especie',
         'cantidad',
-        'peso_inicial'
+        'peso_inicial',
+        'cant_actual',
+        'peso_actual'
     ];
 }

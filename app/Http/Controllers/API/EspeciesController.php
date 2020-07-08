@@ -75,7 +75,7 @@ class EspeciesController extends Controller
     public function destroy($id)
     {
         //
-        Alimento::destroy($id);
+        Especie::destroy($id);
         return 'eliminado';
     }
 }

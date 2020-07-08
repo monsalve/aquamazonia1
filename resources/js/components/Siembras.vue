@@ -11,39 +11,48 @@
                                  <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>
                             </div>
                         </div>
+                        
                         <div class="row">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                               <thead>
                                 <tr>
-                                  <th >#</th>
-                                  <th>Contenedor</th>
-                                  <th >Especie</th>
-                                  <th>Fecha Inicio</th>
-                                  <th >Estado</th>
-                                  <th >Registros</th>
-                                  <th >Finalizar</th>
-                                 
-                                  <th >Acciones</th>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Contenedor</th>
+                                  <th scope="col" class="text-center" style="width:280px">
+                                    <h5> Especie</h5>
+                                    <div class="nav">
+                                      <li class="nav-item" style="width:80px">Especie</li>
+                                      <li class="nav-item" style="width:80px">Cantidad</li>
+                                      <li class="nav-item" style="width:80px">Peso gr</li>
+                                    </div>
+                                  </th>
+                                  <th scope="col">Fecha Inicio</th>
+                                  <th scope="col">Estado</th>
+                                  <th scope="col">Ingreso</th>
+                                  <th scope="col">Finalizar</th>
+                                  <th scope="col">Acciones</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr v-for="siembra in listadoSiembras" :key="siembra.id">
-                                  <td v-text="siembra.id">1</td>
-                                  <td v-text="'Contenedor '+siembra.id_contenedor">Tilapia</td>
-                                  <td>Especie</td>
-                                  <td v-text="siembra.fecha_inicio">Lorem ipsum dolor .</td>
-                                  <td v-text="siembra.estado">2020-09-20</td>
+                                  <td v-text="siembra.id" scope="row"></td>
+                                  <td v-text="siembra.contenedor"></td>
                                   <td>
-                                  <button class="btn btn-success">Registrar</button>
+                                    <div v-for="pez in pecesxSiembra" :key="pez.id">
+                                      <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
+                                        <li v-text="pez.especie" class="nav-item" style="width:80px">Especie</li>
+                                        <li v-text="pez.cant_actual" class="nav-item" style="width:80px">Cantidad</li>
+                                        <li v-text="pez.peso_actual+'Gr'" class="nav-item" style="width:80px">Peso</li>
+                                      </div>
+                                    </div>
                                   </td>
-                                  <td>
-                                  <button class="btn btn-danger">Finalizar
-                                  </button>
-                                  </td>
-                                  
+                                  <td v-text="siembra.fecha_inicio"></td>
+                                  <td v-text="estados[siembra.estado]"></td>
+                                  <td><button class="btn btn-success" @click="abrirCrearIngreso(siembra.id)"><i class="fas fa-list-ul"></i>  Ingreso</button></td>
+                                  <td><button class="btn btn-danger" @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i>  Finalizar</button></td>
                                   <td>
                                     <button class="btn btn-light">
-                                      <span style="font-size: 1.5em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
+                                      <span style="font-size: 1.5em; color:#28a745;"><i class="fas fa-edit"></i></span>
                                     </button>
                                     <button class="btn btn-light">
                                       <span style="font-size: 1.5em; color:#DC3545;"><i class="fas fa-trash"></i></span>
@@ -51,7 +60,6 @@
                                   </td>
                                 </tr>
                               </tbody>
-                              
                             </table>
                          </div>
                     </div>
@@ -73,7 +81,7 @@
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Contenedor</label>
                       <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor" selected>
-                        <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id">{{contenedor.contenedor}}</option>
+                        <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id" v-if="contenedor.estado == 1">{{contenedor.contenedor}}</option>
                       </select>
                     </div>
                   </div>
@@ -89,7 +97,7 @@
                         <th scope="col">#</th>
                         <th scope="col" style="width:20%">Especie</th>
                         <th scope="col">Cantidad</th>
-                        <th scope="col">Peso</th>
+                        <th scope="col">Peso gr</th>
                         <th scope="col">Add</th>
                       </tr>
                     </thead>
@@ -107,6 +115,13 @@
                         </td>
                         <td>
                           <input type="number" min="1" class="form-control" id="peso_inicial" v-model="newPeso" required>
+                          <span style="
+                            position: relative;
+                            float: right;
+                            right: 30px;
+                            color: #ccc;
+                            bottom: 30px;"
+                          >Gr</span>
                         </td>
                          
                         <td>
@@ -115,11 +130,11 @@
                           </button>
                         </td>
                       </tr>
-                      <tr v-for="item in listadoItems" :key="item.id">
-                        <th scope="col" v-text="item.id"></th>
+                      <tr v-for="( item, index) in listadoItems" :key="item.id">
+                        <th scope="row">{{index + 1}}</th>
                         <td v-text="nombresEspecies[item.id_especie]"></td>
                         <td v-text="item.cantidad"></td>
-                        <td v-text="item.peso_inicial+ ' gr'"></td>
+                        <td v-text="item.peso_inicial"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -133,6 +148,46 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Scrollable modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center">Ingresos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Modal body text goes here.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Finalizar -->
+        <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
@@ -164,7 +219,9 @@
         listadoItems : [],
         listadoSiembras : [],
         nombresEspecies : [],
-        nombresContenedores: []
+        pecesxSiembra: [],
+        nombresContenedores: [],
+        estados: [],
       }
     },
     methods:{
@@ -182,13 +239,7 @@
           me.listadoContenedores = response.data
         })
       },
-      listarSiembras(){
-        let me = this;
-        axios.get("api/siembras")
-        .then(function (response){
-          me.listadoSiembras = response.data
-        })
-      },
+     
       anadirItem(){
         let me = this;
         $('#modalSiembra').modal('show');
@@ -223,22 +274,22 @@
           auxEspecie.forEach(element => me.nombresEspecies[element.id] = element.especie);
         })
       },
-      nombreContenedores(){
-        let me = this;
-        axios.get("api/contenedores")
-        .then(function (response){
-          var auxEspecie = response.data;
-          auxEspecie.forEach(element => me.nombresContenedores[element.id] = element.contenedor);
-        })
-      },
+      
       listar(){
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data;
+          me.listadoSiembras = response.data.siembra;
+          me.pecesxSiembra = response.data.pecesSiembra;
         })
       },
-      abrirCrear(){
+      abrirCrearIngreso(id){
+        $("#modalIngreso").modal('show');
+          console.log(id);
+      },
+      finalizarSiembra(id){
+        $("#modalFinalizar").modal('show');
+        console.log(id);
       },
       guardar(){
         let me = this;
@@ -254,7 +305,7 @@
               this.newEspecie = '';
               this.newCantidad = '';
               this.newPeso = '';
-              listadoItems = [];
+              this.listadoItems = [];
               console.log(siembra);     
               this.listar();
                $('#modalSiembra').modal('hide');
@@ -277,7 +328,10 @@
     mounted() {
       this.listar();
       this.nombreEspecie();
-      this.nombreContenedores();
+      this.estados[0] = 'Inactivo';
+      this.estados[1] = 'Activo';
+      this.estados[2] = 'Ocupado';
+      this.estados[3] = 'Descanso';
     }
   }
 </script>

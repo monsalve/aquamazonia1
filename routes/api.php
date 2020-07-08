@@ -27,3 +27,7 @@ Route::apiResources([
     'usuarios' => 'API\UsuarioController',
     'siembras' => 'API\SiembraController'
 ]);
+
+Route::namespace('API')->group(function () {
+    Route::get('getPecesSiembras', 'SiembraController@getPecesSiembras');
+});

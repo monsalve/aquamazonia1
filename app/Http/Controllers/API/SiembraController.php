@@ -18,9 +18,28 @@ class SiembraController extends Controller
     {
         //
         //$especieSiembras = EspecieSiembra::all();
-        $especie = Siembra::all();
-        return $especie;
+        $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio','siembras.estado as estado')
+                    ->join('contenedores','siembras.id_contenedor','contenedores.id')
+                    ->where('siembras.estado','=',1)
+                    ->get();
+                    
+        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie')
+                    ->join('especies','especies_siembra.id_especie','especies.id')                    
+                    ->get();
+        $pxs = array();
         
+        foreach($peces as $p) {
+            $pxs[$p->id_siembra][$p->id] = $p;
+        }                
+        
+        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces];
+    }
+    public function getPecesSiembras()
+    {
+        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual','peso_actual', 'especies.especie as especie')
+                    ->join('especies','especies_siembra.id_especie','especies.id')
+                    ->get();
+        return $peces;
     }
     /**
      * Store a newly created resource in storage.
@@ -31,8 +50,6 @@ class SiembraController extends Controller
     public function store(Request $request)
     {
         //
-        
-      
         $val = $request->validate([
             // 'id_siembra' => 'required',            
             // 'id_especie' => 'required',
@@ -40,7 +57,6 @@ class SiembraController extends Controller
             // 'peso_inicial' => 'required'
         ]);
        
-        // exit;die;
         $siembra = new Siembra();
         $siembra->id_contenedor = $request->siembra['id_contenedor'];
         $siembra->fecha_inicio = $request->siembra['fecha_inicio'];       
@@ -53,6 +69,8 @@ class SiembraController extends Controller
             $especieSiembra->id_especie = $especie['id_especie'];
             $especieSiembra->cantidad =  $especie['cantidad'];
             $especieSiembra->peso_inicial = $especie['peso_inicial'];
+            $especieSiembra->cant_actual =  $especie['cantidad'];;
+            $especieSiembra->peso_actual = $especie['peso_inicial'];
             $especieSiembra->save();
         }
         
