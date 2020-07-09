@@ -26,7 +26,8 @@
                                       <li class="nav-item" style="width:80px">Peso gr</li>
                                     </div>
                                   </th>
-                                  <th scope="col">Fecha Inicio</th>
+                                  <th scope="col">Fecha inicio siembra</th>
+                                  <th scope="col">Inicio descanso estanque</th>
                                   <th scope="col">Estado</th>
                                   <th scope="col">Ingreso</th>
                                   <th scope="col">Finalizar</th>
@@ -47,8 +48,9 @@
                                     </div>
                                   </td>
                                   <td v-text="siembra.fecha_inicio"></td>
+                                  <td v-text="siembra.ini_descanso"></td>
                                   <td v-text="estados[siembra.estado]"></td>
-                                  <td><button class="btn btn-success" @click="abrirCrearIngreso(siembra.id)"><i class="fas fa-list-ul"></i>  Ingreso</button></td>
+                                  <td><button class="btn btn-success" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i>  Ingreso</button></td>
                                   <td><button class="btn btn-danger" @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i>  Finalizar</button></td>
                                   <td>
                                     <button class="btn btn-light">
@@ -80,8 +82,8 @@
                   <div class="form-group row   col-md-6">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Contenedor</label>
-                      <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor" selected>
-                        <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id" v-if="contenedor.estado == 1">{{contenedor.contenedor}}</option>
+                      <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor">
+                        <option :value="contenedor.id" v-for="contenedor in listadoContenedores" :key="contenedor.id" v-if="contenedor.estado == 1" selected>{{contenedor.contenedor}}</option>
                       </select>
                     </div>
                   </div>
@@ -107,7 +109,7 @@
                         </th>
                         <td> 
                           <select  v-model="newEspecie" name="" class="form-control" id="id_especie" required>
-                            <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id"  >{{especie.especie}}</option>
+                            <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id" selected >{{especie.especie}}</option>
                           </select>
                         </td>
                         <td>
@@ -156,14 +158,64 @@
         <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
           <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-center">Ingresos</h5>
+              <div class="modal-header text-center">
+                <h5 class="modal-title">Ingresos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <div class="row">
+                   <div class="form-group col-md-4">
+                    <label for="fecha_registro">Fecha Registro</label>
+                    <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Fecha" v-model="fecha_registro">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Tiempo (días)</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Tiempo">
+                  </div>
+                  
+                  <div class="form-group col-md-4">
+                    <label for="exampleFormControlSelect1">Tipo</label>
+                    <select class="form-control" id="exampleFormControlSelect1" v-model="tipo_registro">
+                      <option selected>--Seleccionar--</option>
+                      <option value="0">Muestro</option>
+                      <option value="1">Pesca</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Especie</th>
+                        <th scope="col">Peso Ganado (gr)</th>
+                        <th scope="col">Mortalidad</th>                      
+                        <th scope="col">Biomasa</th>
+                        <th scope="col">Cantidad</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>                      
+                      <tr v-for="pez in pecesxSiembra" :key="pez.id"  v-if="pez.id_siembra == idSiembraRegistro" >
+                        <th scope="row" v-text="pez.especie">
+                        </th>
+                        <td> 
+                          <input type="text" class="form-control" v-model="peso_ganado">
+                        </td>                        
+                        <td>
+                          <input type="text" class="form-control" v-model="mortalidad">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" v-model="biomasa">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" v-model="cantidad">
+                        </td>
+                      </tr>                      
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -173,21 +225,32 @@
           </div>
         </div>
         <!-- Modal Finalizar -->
-        <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="modalFinalizarLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Finalizar siembra</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <form method="POST">
+                  <div class="row">
+                    <div class="col">
+                      <h6>Inicio Descanso</h6>
+                      <input type="date" class="form-control" placeholder="First name" v-model="ini_descanso" required>
+                    </div>
+                    <div class="col">
+                      <h6>Fin descanso</h6>
+                      <input type="date" class="form-control" placeholder="Last name" v-model="fin_descanso">
+                    </div>
+                  </div>
+                </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" @click="fechaDescanso(id_finalizar)">Guardar</button>
               </div>
             </div>
           </div>
@@ -208,7 +271,7 @@
         form:{
           id : '',
           fecha_inicio:'',
-          id_contenedor:'',
+          id_contenedor:''          
         },
         newEspecie: '',
         newCantidad: '',
@@ -220,6 +283,20 @@
         listadoSiembras : [],
         nombresEspecies : [],
         pecesxSiembra: [],
+        // Registros
+        id_siembra : '',
+        id_especie : '',
+        fecha_registro: '',
+        tipo_registro:'',
+        peso_ganado: '',
+        mortalidad:'',
+        biomasa : '',
+        cantidad:'',
+        idSiembraRegistro:'',
+        // Finalización de siembra
+        ini_descanso:'',
+        fin_descanso:'',
+        id_finalizar: '',
         nombresContenedores: [],
         estados: [],
       }
@@ -283,13 +360,55 @@
           me.pecesxSiembra = response.data.pecesSiembra;
         })
       },
-      abrirCrearIngreso(id){
+      abrirIngreso(id){
         $("#modalIngreso").modal('show');
           console.log(id);
+          this.idSiembraRegistro = id;
+      },
+      crearIngreso(id){
+        let me = this;
+        this.idSiembraRegistro = id;
+        const data = {
+          'id_siembra' : this.idSiembraRegistro,
+          'id_especie'  : this.id_especie,
+          'fecha_registro' : this.fecha_registro,
+          'tipo_registro' : this.tipo_registro,
+          'peso_ganado' : this.peso_ganado,
+          'mortaliad' : this.mortalidad,
+          'biomasa' : this.biomasa,
+          'cantidad' : this.cantidad,
+          'estado' : this.estado
+          
+        }
       },
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
-        console.log(id);
+        this.id_finalizar = id;
+        
+      },
+      fechaDescanso(id){
+        let me = this;
+        if (this.ini_descanso != ''){
+          const data = {
+            'id' : this.id_finalizar,
+            'ini_descanso' : this.ini_descanso,
+            'fin_descanso' : this.fin_descanso          
+          }
+       
+        axios.post('api/actualizarEstado/'+this.id_finalizar, data)
+          .then(({response})=>{
+            console.log(response);   
+            this.id_finalizar = '';
+            this.ini_descanso = '';
+            this.fin_descanso = '';
+            $('#modalFinalizar').modal('hide');
+            this.listar();
+          }); 
+          }else{
+           swal("Advertenecia", "Por favor, diligencia los datos restantes", "warning");
+          }
+          console.log('finalizar'+this.id_finalizar);
+        
       },
       guardar(){
         let me = this;

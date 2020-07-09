@@ -18,7 +18,7 @@ class SiembraController extends Controller
     {
         //
         //$especieSiembras = EspecieSiembra::all();
-        $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio','siembras.estado as estado')
+        $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
                     ->join('contenedores','siembras.id_contenedor','contenedores.id')
                     ->where('siembras.estado','=',1)
                     ->get();
@@ -59,7 +59,9 @@ class SiembraController extends Controller
        
         $siembra = new Siembra();
         $siembra->id_contenedor = $request->siembra['id_contenedor'];
-        $siembra->fecha_inicio = $request->siembra['fecha_inicio'];       
+        $siembra->fecha_inicio = $request->siembra['fecha_inicio'];   
+        $siembra->ini_descanso = $request->siembra['ini_descanso'];   
+        $siembra->fin_descanso = $request->siembra['fin_descanso'];  
         $siembra->estado = 1;
         $siembra->save();
         
@@ -97,12 +99,24 @@ class SiembraController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $especieSiembras = EspecieSiembra::findOrFail($id);
-        $especieSiembras->update($request->all());
-        // $siembra = Siembra::findOrFail($id);
-        // $siembra->update($request->all());
-        return 'ok';
+        // $especieSiembras = EspecieSiembra::findOrFail($id);
+        // $especieSiembras->update($request->all());
+          
+            
+        return $request;
       
+    }
+    public function actualizarEstado(Request $request, $id){
+        $val = $request->validate([
+            'ini_descanso' => 'required',            
+        ]);
+        $siembra = Siembra::findOrFail($id);
+        $siembra->ini_descanso = $request['ini_descanso'];   
+        $siembra->fin_descanso = $request['fin_descanso'];  
+        $siembra->save();
+        
+        print_r($id);
+        return $request;
     }
 
     /**

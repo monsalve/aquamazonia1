@@ -150,7 +150,6 @@
                 this.form.put('api/alimentos/'+this.form.id)
                     .then(({data})=>{
                         console.log(data);   
-                    
                         $('#modalAlimentos').modal('hide');
                         me.listar();
                     })

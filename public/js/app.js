@@ -2941,6 +2941,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -2963,6 +3026,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       listadoSiembras: [],
       nombresEspecies: [],
       pecesxSiembra: [],
+      // Registros
+      id_siembra: '',
+      id_especie: '',
+      fecha_registro: '',
+      tipo_registro: '',
+      peso_ganado: '',
+      mortalidad: '',
+      biomasa: '',
+      cantidad: '',
+      idSiembraRegistro: '',
+      // Finalización de siembra
+      ini_descanso: '',
+      fin_descanso: '',
+      id_finalizar: '',
       nombresContenedores: [],
       estados: []
     };
@@ -3028,16 +3105,59 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.pecesxSiembra = response.data.pecesSiembra;
       });
     },
-    abrirCrearIngreso: function abrirCrearIngreso(id) {
+    abrirIngreso: function abrirIngreso(id) {
       $("#modalIngreso").modal('show');
       console.log(id);
+      this.idSiembraRegistro = id;
+    },
+    crearIngreso: function crearIngreso(id) {
+      var me = this;
+      this.idSiembraRegistro = id;
+      var data = {
+        'id_siembra': this.idSiembraRegistro,
+        'id_especie': this.id_especie,
+        'fecha_registro': this.fecha_registro,
+        'tipo_registro': this.tipo_registro,
+        'peso_ganado': this.peso_ganado,
+        'mortaliad': this.mortalidad,
+        'biomasa': this.biomasa,
+        'cantidad': this.cantidad,
+        'estado': this.estado
+      };
     },
     finalizarSiembra: function finalizarSiembra(id) {
       $("#modalFinalizar").modal('show');
-      console.log(id);
+      this.id_finalizar = id;
+    },
+    fechaDescanso: function fechaDescanso(id) {
+      var _this2 = this;
+
+      var me = this;
+
+      if (this.ini_descanso != '') {
+        var data = {
+          'id': this.id_finalizar,
+          'ini_descanso': this.ini_descanso,
+          'fin_descanso': this.fin_descanso
+        };
+        axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref) {
+          var response = _ref.response;
+          console.log(response);
+          _this2.id_finalizar = '';
+          _this2.ini_descanso = '';
+          _this2.fin_descanso = '';
+          $('#modalFinalizar').modal('hide');
+
+          _this2.listar();
+        });
+      } else {
+        swal("Advertenecia", "Por favor, diligencia los datos restantes", "warning");
+      }
+
+      console.log('finalizar' + this.id_finalizar);
     },
     guardar: function guardar() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
 
@@ -3046,17 +3166,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           siembra: this.form,
           especies: this.listadoItems
         };
-        axios.post('api/siembras', data).then(function (_ref) {
-          var response = _ref.response;
-          _this2.form.id_contenedor = '';
-          _this2.form.fecha_inicio = '';
-          _this2.newEspecie = '';
-          _this2.newCantidad = '';
-          _this2.newPeso = '';
-          _this2.listadoItems = [];
+        axios.post('api/siembras', data).then(function (_ref2) {
+          var response = _ref2.response;
+          _this3.form.id_contenedor = '';
+          _this3.form.fecha_inicio = '';
+          _this3.newEspecie = '';
+          _this3.newCantidad = '';
+          _this3.newPeso = '';
+          _this3.listadoItems = [];
           console.log(siembra);
 
-          _this2.listar();
+          _this3.listar();
 
           $('#modalSiembra').modal('hide');
         });
@@ -41515,6 +41635,10 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
+                        domProps: { textContent: _vm._s(siembra.ini_descanso) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
                         domProps: {
                           textContent: _vm._s(_vm.estados[siembra.estado])
                         }
@@ -41527,7 +41651,7 @@ var render = function() {
                             staticClass: "btn btn-success",
                             on: {
                               click: function($event) {
-                                return _vm.abrirCrearIngreso(siembra.id)
+                                return _vm.abrirIngreso(siembra.id)
                               }
                             }
                           },
@@ -41604,7 +41728,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { name: "", id: "id_contenedor", selected: "" },
+                        attrs: { name: "", id: "id_contenedor" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -41631,6 +41755,7 @@ var render = function() {
                               "option",
                               {
                                 key: contenedor.id,
+                                attrs: { selected: "" },
                                 domProps: { value: contenedor.id }
                               },
                               [_vm._v(_vm._s(contenedor.contenedor))]
@@ -41728,6 +41853,7 @@ var render = function() {
                                 "option",
                                 {
                                   key: especie.id,
+                                  attrs: { selected: "" },
                                   domProps: { value: especie.id }
                                 },
                                 [_vm._v(_vm._s(especie.especie))]
@@ -41889,9 +42015,341 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(5),
+    _c(
+      "div",
+      {
+        staticClass: "modal",
+        attrs: { tabindex: "-1", role: "dialog", id: "modalIngreso" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-dialog-scrollable modal-lg" },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "fecha_registro" } }, [
+                      _vm._v("Fecha Registro")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fecha_registro,
+                          expression: "fecha_registro"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "date",
+                        id: "exampleInputPassword1",
+                        placeholder: "Fecha"
+                      },
+                      domProps: { value: _vm.fecha_registro },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.fecha_registro = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      { attrs: { for: "exampleFormControlSelect1" } },
+                      [_vm._v("Tipo")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tipo_registro,
+                            expression: "tipo_registro"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "exampleFormControlSelect1" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.tipo_registro = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "" } }, [
+                          _vm._v("--Seleccionar--")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("Muestro")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Pesca")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.pecesxSiembra, function(pez) {
+                        return pez.id_siembra == _vm.idSiembraRegistro
+                          ? _c("tr", { key: pez.id }, [
+                              _c("th", {
+                                attrs: { scope: "row" },
+                                domProps: { textContent: _vm._s(pez.especie) }
+                              }),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.peso_ganado,
+                                      expression: "peso_ganado"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.peso_ganado },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.peso_ganado = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.mortalidad,
+                                      expression: "mortalidad"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.mortalidad },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.mortalidad = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.biomasa,
+                                      expression: "biomasa"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.biomasa },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.biomasa = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.cantidad,
+                                      expression: "cantidad"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.cantidad },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.cantidad = $event.target.value
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(8)
+            ])
+          ]
+        )
+      ]
+    ),
     _vm._v(" "),
-    _vm._m(6)
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalFinalizar",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalFinalizarLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(9),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("form", { attrs: { method: "POST" } }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col" }, [
+                    _c("h6", [_vm._v("Inicio Descanso")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.ini_descanso,
+                          expression: "ini_descanso"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "date",
+                        placeholder: "First name",
+                        required: ""
+                      },
+                      domProps: { value: _vm.ini_descanso },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.ini_descanso = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col" }, [
+                    _c("h6", [_vm._v("Fin descanso")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fin_descanso,
+                          expression: "fin_descanso"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", placeholder: "Last name" },
+                      domProps: { value: _vm.fin_descanso },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.fin_descanso = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Cerrar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fechaDescanso(_vm.id_finalizar)
+                    }
+                  }
+                },
+                [_vm._v("Guardar")]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -41937,7 +42395,11 @@ var staticRenderFns = [
           ]
         ),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha Inicio")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha inicio siembra")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [
+          _vm._v("Inicio descanso estanque")
+        ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
         _vm._v(" "),
@@ -42030,138 +42492,105 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal",
-        attrs: { tabindex: "-1", role: "dialog", id: "modalIngreso" }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog modal-dialog-scrollable modal-lg" },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h5", { staticClass: "modal-title text-center" }, [
-                  _vm._v("Ingresos")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Modal body text goes here.")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_vm._v("Save changes")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header text-center" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Ingresos")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
+    return _c("div", { staticClass: "form-group col-md-4" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Tiempo (días)")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
         attrs: {
-          id: "modalFinalizar",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
+          type: "text",
+          id: "exampleInputPassword1",
+          placeholder: "Tiempo"
         }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c(
-                "h5",
-                {
-                  staticClass: "modal-title",
-                  attrs: { id: "exampleModalLabel" }
-                },
-                [_vm._v("Modal title")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "close",
-                  attrs: {
-                    type: "button",
-                    "data-dismiss": "modal",
-                    "aria-label": "Close"
-                  }
-                },
-                [
-                  _c("span", { attrs: { "aria-hidden": "true" } }, [
-                    _vm._v("×")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _vm._v("\n            ...\n          ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" }
-                },
-                [_vm._v("Close")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Save changes")]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Especie")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Peso Ganado (gr)")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Mortalidad")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Biomasa")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Cantidad")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Save changes")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Finalizar siembra")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
   }
 ]
 render._withStripped = true

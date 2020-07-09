@@ -13,7 +13,7 @@ class Siembra extends Model
         'id_contenedor',
         'fecha_inicio',
         'estado',
+        'ini_descanso',
         'fin_descanso'
-      
     ];
 }
