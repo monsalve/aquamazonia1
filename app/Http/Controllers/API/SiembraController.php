@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\EspecieSiembra;
 use App\Siembra;
+use App\Contenedor;
 
 class SiembraController extends Controller
 {
@@ -23,16 +24,18 @@ class SiembraController extends Controller
                     ->where('siembras.estado','=',1)
                     ->get();
                     
-        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie')
+        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
                     ->join('especies','especies_siembra.id_especie','especies.id')                    
-                    ->get();
+                    ->get()->toArray();
         $pxs = array();
         
+        $campos=array();
         foreach($peces as $p) {
-            $pxs[$p->id_siembra][$p->id] = $p;
+            $pxs[$p['id_siembra']][$p['id']] = $p;
+            $campos[$p['id_siembra']][$p['id']] = array("id_especie"=>$p['id_especie'],"id_siembra"=>$p['id_siembra'] ,"peso_ganado"=>'',"mortalidad"=>'',"biomasa"=>'',"cantidad"=>'','cant_actual'=>$p['cant_actual'],'peso_actual'=>$p['peso_actual']);
         }                
         
-        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces];
+        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces, 'campos'=>$campos];
     }
     public function getPecesSiembras()
     {
@@ -56,14 +59,16 @@ class SiembraController extends Controller
             // 'cantidad' => 'required',
             // 'peso_inicial' => 'required'
         ]);
-       
+        $id_contenedor = $request->siembra['id_contenedor'];
+     
         $siembra = new Siembra();
         $siembra->id_contenedor = $request->siembra['id_contenedor'];
-        $siembra->fecha_inicio = $request->siembra['fecha_inicio'];   
-        $siembra->ini_descanso = $request->siembra['ini_descanso'];   
-        $siembra->fin_descanso = $request->siembra['fin_descanso'];  
-        $siembra->estado = 1;
-        $siembra->save();
+        $siembra->fecha_inicio = $request->siembra['fecha_inicio'];
+        $siembra->estado = 1;    
+        $siembra->save();        
+        
+        $contenedor = Contenedor::findOrFail($id_contenedor);
+        $contenedor->update([$contenedor->estado = 2]);
         
         foreach($request->especies as $especie){
             $especieSiembra = new EspecieSiembra();
@@ -111,8 +116,10 @@ class SiembraController extends Controller
             'ini_descanso' => 'required',            
         ]);
         $siembra = Siembra::findOrFail($id);
-        $siembra->ini_descanso = $request['ini_descanso'];   
-        $siembra->fin_descanso = $request['fin_descanso'];  
+        $siembra->ini_descanso = $request['ini_descanso'];  
+        if(isset( $request['fin_descanso'])){
+            $siembra->fin_descanso = $request['fin_descanso'];
+        }
         $siembra->save();
         
         print_r($id);

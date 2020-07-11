@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Registro;
 
 class RegistroController extends Controller
 {
@@ -15,21 +16,9 @@ class RegistroController extends Controller
     public function index()
     {
         //
-        $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
-        ->join('contenedores','siembras.id_contenedor','contenedores.id')
-        ->where('siembras.estado','=',1)
-        ->get();
+        $registros = Registro::all();
+        return $registros;
         
-          $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie')
-                  ->join('especies','especies_siembra.id_especie','especies.id')                    
-                  ->get();
-          $pxs = array();
-          
-          foreach($peces as $p) {
-          $pxs[$p->id_siembra][$p->id] = $p;
-          }                
-          
-          return ["siembra"=> $siembra, "pecesSiembra" =>  $peces];
     }
 
     /**
@@ -41,6 +30,25 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         //
+        // $especie = Especie::create([
+        //     'especie' => $request['especie'],            
+        //     'descripcion' => $request['descripcion'],            
+        // ]);
+        
+        foreach($request->campos as $campo){
+            $registro = Registro::create([
+                'id_especie' =>$campo['id_especie'],
+                'id_siembra' => $campo['id_siembra'],
+                'fecha_registro' => $request['fecha_registro'],
+                'tiempo' => $request['tiempo'],
+                'tipo_registro' => $request['tipo_registro'],
+                'peso_ganado' => $campo['peso_ganado'],
+                'mortalidad' => $campo['mortalidad'],
+                'biomasa' => $campo['biomasa'],
+                'cantidad' => $campo['cantidad'],               
+            
+            ]);
+        }
     }
 
     /**

@@ -26,7 +26,7 @@
                                   <th scope="row" v-text="contenedor.id"></th>
                                   <td v-text="contenedor.contenedor"></td>
                                   <td v-text="contenedor.capacidad"></td>
-                                  <td v-text="contenedor.estado == 0 ? 'Inactivo' : 'Activo'"></td>
+                                  <td v-text="estados[contenedor.estado]"></td>
                                   <td>
                                     <button class="btn btn-light" @click="cargaEditar(contenedor)">
                                          <span style="font-size: 1em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
@@ -117,7 +117,8 @@
                     estado : '',
                 }),
                
-                listado: []
+                listado: [],
+                estados: []
             }
         },
         methods: {
@@ -189,6 +190,10 @@
         },
         mounted() {
             this.listar();
+            this.estados[0] = 'Inactivo';
+            this.estados[1] = 'Activo';
+            this.estados[2] = 'Ocupado';
+            this.estados[3] = 'Descanso';
             //console.log('Component mounted.')
         }
     }
