@@ -193,8 +193,7 @@
             this.estados[0] = 'Inactivo';
             this.estados[1] = 'Activo';
             this.estados[2] = 'Ocupado';
-            this.estados[3] = 'Descanso';
-            //console.log('Component mounted.')
+            this.estados[3] = 'Descanso';         
         }
     }
 </script>

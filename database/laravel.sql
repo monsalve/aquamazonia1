@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-07-2020 a las 01:47:48
+-- Tiempo de generación: 11-07-2020 a las 20:04:20
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -86,8 +86,9 @@ CREATE TABLE `contenedores` (
 --
 
 INSERT INTO `contenedores` (`id`, `contenedor`, `capacidad`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 'Contenedor1', 4500, 0, '2020-07-04 02:42:17', '2020-07-04 02:54:39'),
-(2, 'Contenedor2', 4500, 1, '2020-07-04 02:55:34', '2020-07-04 02:55:34');
+(1, 'Contenedor1', 4500, 2, '2020-07-04 02:42:17', '2020-07-11 00:31:25'),
+(2, 'Contenedor2', 4500, 1, '2020-07-04 02:55:34', '2020-07-10 15:11:33'),
+(4, 'Contenedor3', 9000, 2, '2020-07-10 19:45:27', '2020-07-10 20:11:55');
 
 -- --------------------------------------------------------
 
@@ -134,10 +135,9 @@ CREATE TABLE `especies_siembra` (
 --
 
 INSERT INTO `especies_siembra` (`id`, `id_siembra`, `id_especie`, `cantidad`, `peso_inicial`, `created_at`, `updated_at`, `cant_actual`, `peso_actual`) VALUES
-(119, 12, 1, 4, 2, '2020-07-08 21:19:30', '2020-07-08 21:19:30', 4, 2),
-(120, 13, 2, 3, 1, '2020-07-08 21:37:43', '2020-07-08 21:37:43', 3, 1),
-(121, 13, 1, 9, 8, '2020-07-08 21:37:43', '2020-07-08 21:37:43', 9, 8),
-(122, 14, 2, 2, 1, '2020-07-08 21:38:49', '2020-07-08 21:38:49', 2, 1);
+(127, 21, 1, 3, 4, '2020-07-10 20:11:55', '2020-07-10 20:11:55', 3, 4),
+(128, 21, 2, 4, 4, '2020-07-10 20:11:55', '2020-07-10 20:11:55', 4, 4),
+(129, 22, 1, 350, 45, '2020-07-11 00:31:26', '2020-07-11 00:31:26', 350, 45);
 
 -- --------------------------------------------------------
 
@@ -213,6 +213,28 @@ INSERT INTO `recursos` (`id`, `recurso`, `unidad`, `costo`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `registros`
+--
+
+CREATE TABLE `registros` (
+  `id` int(11) NOT NULL,
+  `id_siembra` int(11) NOT NULL,
+  `id_especie` int(11) NOT NULL,
+  `fecha_registro` date NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `tipo_registro` int(11) NOT NULL,
+  `peso_ganado` double DEFAULT NULL,
+  `mortalidad` int(11) DEFAULT NULL,
+  `biomasa` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  `estado` int(11) DEFAULT 1,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `siembras`
 --
 
@@ -220,7 +242,7 @@ CREATE TABLE `siembras` (
   `id` int(11) NOT NULL,
   `id_contenedor` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
-  `ini_descanso` date NOT NULL,
+  `ini_descanso` date DEFAULT NULL,
   `estado` int(11) NOT NULL,
   `fin_descanso` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -232,9 +254,8 @@ CREATE TABLE `siembras` (
 --
 
 INSERT INTO `siembras` (`id`, `id_contenedor`, `fecha_inicio`, `ini_descanso`, `estado`, `fin_descanso`, `created_at`, `updated_at`) VALUES
-(12, 2, '2020-07-10', '0000-00-00', 1, NULL, '2020-07-08 21:19:30', '2020-07-08 21:19:30'),
-(13, 2, '2020-07-05', '0000-00-00', 1, NULL, '2020-07-08 21:37:42', '2020-07-08 21:37:42'),
-(14, 2, '2020-07-05', '0000-00-00', 1, NULL, '2020-07-08 21:38:49', '2020-07-08 21:38:49');
+(21, 4, '2020-07-04', NULL, 1, NULL, '2020-07-10 20:11:54', '2020-07-10 20:11:54'),
+(22, 1, '2020-07-10', NULL, 1, NULL, '2020-07-11 00:31:25', '2020-07-11 00:31:25');
 
 -- --------------------------------------------------------
 
@@ -315,6 +336,12 @@ ALTER TABLE `recursos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `registros`
+--
+ALTER TABLE `registros`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `siembras`
 --
 ALTER TABLE `siembras`
@@ -341,7 +368,7 @@ ALTER TABLE `alimentos`
 -- AUTO_INCREMENT de la tabla `contenedores`
 --
 ALTER TABLE `contenedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `especies`
@@ -353,7 +380,7 @@ ALTER TABLE `especies`
 -- AUTO_INCREMENT de la tabla `especies_siembra`
 --
 ALTER TABLE `especies_siembra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -374,10 +401,16 @@ ALTER TABLE `recursos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `registros`
+--
+ALTER TABLE `registros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `siembras`
 --
 ALTER TABLE `siembras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

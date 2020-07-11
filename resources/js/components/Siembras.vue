@@ -158,18 +158,45 @@
         <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
           <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content">
-              <div class="modal-header text-center">
-                <h5 class="modal-title">Registros</h5>
+              <div class="modal-header">
+                <h5 class="modal-title text-center col-md-9">Registros</h5>
+                <button type="button" class="btn btn-primary"  @click="ver_registros == 1 ? ver_registros = 0 : ver_registros = 1">
+                  <span v-if="ver_registros == 1">Crear Registros  <i class="fas fa-arrow-right"></i></span>
+                  <span v-if="ver_registros == 0"><i class="fas fa-arrow-left"></i>  Ver listado de registros</span>
+                </button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <div id="mostrarRegistros">
-                  
+                <div id="mostrarRegistros" v-if="ver_registros == 1">
+                  <table>
+                    <thead>
+                      <th>#</th>
+                      <th>Tipo de registro</th>
+                      <th>Fecha</th>
+                      <th>Tiempo (días)</th>
+                      <th>Peso ganado</th>
+                      <th>Mortalidad</th>
+                      <th>Biomasa</th>
+                      <th>Cantidad</th>
+                    </thead>
+                    <tbody>
+                      <th></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      
+                    </tbody>
+                  </table>
                   
                 </div>
-                <div id="crearRegistros">
+                <div id="crearRegistros" v-if="ver_registros == 0">
                   <div class="row">
                      <div class="form-group col-md-4">
                       <label for="fecha_registro">Fecha Registro</label>
@@ -226,7 +253,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" @click="crearRegistro(idSiembraRegistro)">Crear Ingreso</button>
+                <button type="button" class="btn btn-primary" v-if="ver_registros == 0" @click="crearRegistro(idSiembraRegistro)">Crear registro</button>
               </div>
             </div>
           </div>
@@ -280,6 +307,7 @@
           fecha_inicio:'',
           id_contenedor:''          
         },
+        ver_registros : 1,
         itemRegistro : [],
         newEspecie: '',
         newCantidad: '',
@@ -377,14 +405,15 @@
       },
       abrirIngreso(id){
         let me = this;
-        
+        this.ver_registros = 1;
         $("#modalIngreso").modal('show');
         console.log(id);
         this.idSiembraRegistro = id;
         this.tipo_registro = 0;
       },      
-      crearRegistro(id){
+      crearRegistro(id){        
         let me = this;
+        this.ver_registros = 0;
         this.idSiembraRegistro = id;
         let aux_campos = me.campos[id];
         console.log(me.campos);
