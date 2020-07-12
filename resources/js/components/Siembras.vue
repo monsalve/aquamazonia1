@@ -13,21 +13,22 @@
                         </div>
                         
                         <div class="row">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover table-sm">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
                                   <th scope="col">Contenedor</th>
-                                  <th scope="col" class="text-center" style="width:280px">
+                                  <th scope="col" class="text-center" style="width:340px">
                                     <h5> Especie</h5>
                                     <div class="nav">
                                       <li class="nav-item" style="width:80px">Especie</li>
+                                      <li class="nav-item" style="width:80px">Lote</li>
                                       <li class="nav-item" style="width:80px">Cantidad</li>
                                       <li class="nav-item" style="width:60px">Peso gr</li>
                                     </div>
                                   </th>
-                                  <th scope="col">Fecha inicio siembra</th>
-                                  <th scope="col">Inicio - fin de descanso estanque</th>
+                                  <th scope="col">Inicio siembra</th>
+                                  <th scope="col">Inicio - fin de <br> descanso estanque</th>
                                   <th scope="col">Estado</th>
                                   <th scope="col">Ingreso</th>
                                   <th scope="col">Finalizar</th>
@@ -35,13 +36,14 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr v-for="siembra in listadoSiembras" :key="siembra.id">
-                                  <td v-text="siembra.id" scope="row"></td>
+                                <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
+                                  <td v-text="index+1" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
                                   <td>
                                     <div v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == siembra.id">
                                       <div class="nav text-center" >
                                         <li v-text="pez.especie" class="nav-item" style="width:80px">Especie</li>
+                                        <li v-text="pez.lote" class="nav-item" style="width:80px">Lote</li>
                                         <li v-text="pez.cant_actual" class="nav-item" style="width:80px">Cantidad</li>
                                         <li v-text="pez.peso_actual+'Gr'" class="nav-item" style="width:60px">Peso</li>
                                       </div>
@@ -50,14 +52,14 @@
                                   <td v-text="siembra.fecha_inicio"></td>
                                   <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
                                   <td v-text="estados[siembra.estado]"></td>
-                                  <td><button class="btn btn-success" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i>  Ingreso</button></td>
-                                  <td><button class="btn btn-danger" @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i>  Finalizar</button></td>
+                                  <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
+                                  <td><button class="btn btn-danger" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
                                   <td>
-                                    <button class="btn btn-light">
-                                      <span style="font-size: 1em; color:#28a745;"><i class="fas fa-edit"></i></span>
-                                    </button>
-                                    <button class="btn btn-light">
-                                      <span style="font-size: 1em; color:#DC3545;"><i class="fas fa-trash"></i></span>
+                                    <!-- <button class="btn btn-primary">
+                                      <i class="fas fa-edit"></i>
+                                    </button> -->
+                                    <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
+                                      <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
                                 </tr>
@@ -68,6 +70,7 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Siembras -->
         <div class="modal fade" id="modalSiembra" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalSiembraLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -98,9 +101,10 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col" style="width:20%">Especie</th>
+                        <th scope="col">Lote</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Peso gr</th>
-                        <th scope="col">Add</th>
+                        <th scope="col">Añadir</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -111,6 +115,9 @@
                           <select  v-model="newEspecie" name="" class="form-control" id="id_especie" required>
                             <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id" selected >{{especie.especie}}</option>
                           </select>
+                        </td>
+                        <td>
+                          <input  type="text" min="1" class="form-control" id="lote" v-model="newLote" required>                          
                         </td>
                         <td>
                           <input  type="number" min="1" class="form-control" id="cantidad" v-model="newCantidad" required>                          
@@ -135,6 +142,7 @@
                       <tr v-for="( item, index) in listadoItems" :key="item.id">
                         <th scope="row">{{index + 1}}</th>
                         <td v-text="nombresEspecies[item.id_especie]"></td>
+                        <td v-text="item.lote"></td>
                         <td v-text="item.cantidad"></td>
                         <td v-text="item.peso_inicial"></td>
                       </tr>
@@ -170,28 +178,38 @@
               </div>
               <div class="modal-body">
                 <div id="mostrarRegistros" v-if="ver_registros == 1">
-                  <table>
+                  <table class="table table-sm">
                     <thead>
-                      <th>#</th>
-                      <th>Tipo de registro</th>
-                      <th>Fecha</th>
-                      <th>Tiempo (días)</th>
-                      <th>Peso ganado</th>
-                      <th>Mortalidad</th>
-                      <th>Biomasa</th>
-                      <th>Cantidad</th>
+                      <tr>
+                        <th>#</th>
+                        <th>Especie</th>
+                        <th>Tipo de registro</th>
+                        <th>Fecha</th>
+                        <th>Tiempo (días)</th>
+                        <th>Peso ganado (gr)</th>
+                        <th>Mortalidad</th>
+                        <th>Biomasa</th>
+                        <th>Cantidad</th>
+                        <th>Eliminar</th>
+                      </tr>
                     </thead>
                     <tbody>
-                      <th></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      
+                      <tr v-for="registro in listadoRegistros" :key="registro.id" v-if="registro.id_siembra == idSiembraRegistro">
+                        <th v-text="registro.id"></th>
+                        <td v-text="registro.especie"></td>
+                        <td v-text="registro.tipo_registro == 0 ? 'Muestreo' : 'Pescas'"></td>
+                        <td v-text="registro.fecha_registro"></td>
+                        <td v-text="registro.tiempo"></td>
+                        <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
+                        <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
+                        <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
+                        <td v-text="registro.cantidad  == null ? '-' : registro.cantidad"></td>
+                        <td>
+                          <button class="btn btn-danger" @click="eliminarRegistro(registro.id)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                   
@@ -231,8 +249,6 @@
                         <tr v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == idSiembraRegistro" >
                           <th scope="row" v-text="pez.especie">
                           </th>
-                          
-                          
                           <td v-if="tipo_registro == 0"> 
                             <input type="text" class="form-control" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
                           </td>                        
@@ -309,6 +325,7 @@
         },
         ver_registros : 1,
         itemRegistro : [],
+        newLote:'',
         newEspecie: '',
         newCantidad: '',
         newPeso:'',
@@ -317,6 +334,7 @@
         listado : [],
         listadoItems : [],
         listadoSiembras : [],
+        listadoRegistros: [],
         nombresEspecies : [],
         pecesxSiembra: [],
         // Registros
@@ -358,7 +376,13 @@
           me.listadoContenedores = response.data
         })
       },
-     
+      listarRegistros(){
+        let me = this;
+        axios.get("api/registros")
+        .then(function (response){
+          me.listadoRegistros = response.data
+        })
+      },
       anadirItem(){
         let me = this;
         $('#modalSiembra').modal('show');
@@ -372,6 +396,7 @@
           me.listadoItems.push(
           {
             'id_especie' : this.newEspecie,
+            'lote' : this.newLote,
             'cantidad' : this.newCantidad,
             'peso_inicial' : this.newPeso
           });
@@ -379,6 +404,7 @@
           var index = this.listadoEspecies.findIndex(idEspecie);
           this.listadoEspecies.splice(index,1);
           this.newEspecie = '';
+          this.newLote = '',
           this.newCantidad = '';
           this.newPeso = ''
         }else{
@@ -426,11 +452,14 @@
         }
         axios.post('api/registros', data)
         .then(({response})=>{          
-          this.aux_campos = [];
-           $("#modalIngreso").modal('hide');
+          me.aux_campos = [];
+          //  $("#modalIngreso").modal('hide');
+           me.ver_registros = 1;
+           me.listarRegistros();
            me.listar();
         });
       },
+      
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
         this.id_finalizar = id;
@@ -488,6 +517,7 @@
               this.form.id_contenedor = '';
               this.form.fecha_inicio = '';
               this.newEspecie = '';
+              this.newLote = '';
               this.newCantidad = '';
               this.newPeso = '';
               this.listadoItems = [];              
@@ -501,16 +531,51 @@
        
           console.log('guardar') ;
       },
-      cargarEditar(){
+      eliminarRegistro(index){
+        let me = this;
+        swal({
+          title: "Estás seguro?",
+          text: "Una vez eliminado, no se puede recuperar este registro",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete('api/registros/'+index)
+            .then(({data})=>{
+              me.listarRegistros();
+              me.listar();
+              console.log('eliminar'+index)
+            })
+          }
+        });
       },
-      editar(){
-      },
-      eliminar(){
+     
+      eliminarSiembra(index){
+        let me = this;
+        swal({
+          title: "Estás seguro?",
+          text: "Una vez eliminado, no se puede recuperar este registro",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete('api/siembras/'+index)
+            .then(({data})=>{
+              me.listarRegistros();
+              console.log('eliminar'+index)
+            })
+          }
+        });
       }
       
     },
     mounted() {
       this.listar();
+      this.listarRegistros();
       this.nombreEspecie();
       this.estados[0] = 'Inactivo';
       this.estados[1] = 'Activo';

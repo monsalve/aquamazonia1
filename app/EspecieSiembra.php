@@ -12,6 +12,7 @@ class EspecieSiembra extends Model
     protected $fillable = [
         'id_siembra',
         'id_especie',
+        'lote',
         'cantidad',
         'peso_inicial',
         'cant_actual',

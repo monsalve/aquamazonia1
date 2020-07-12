@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2020 a las 20:04:20
+-- Tiempo de generación: 11-07-2020 a las 20:46:19
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -232,6 +232,13 @@ CREATE TABLE `registros` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `registros`
+--
+
+INSERT INTO `registros` (`id`, `id_siembra`, `id_especie`, `fecha_registro`, `tiempo`, `tipo_registro`, `peso_ganado`, `mortalidad`, `biomasa`, `cantidad`, `estado`, `updated_at`, `created_at`) VALUES
+(3, 22, 1, '2020-07-04', 12, 1, NULL, NULL, 12, 4555, 1, '2020-07-11 23:42:45', '2020-07-11 23:42:45');
+
 -- --------------------------------------------------------
 
 --
@@ -404,7 +411,7 @@ ALTER TABLE `recursos`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `siembras`

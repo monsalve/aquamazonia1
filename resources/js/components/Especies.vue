@@ -158,7 +158,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        me.form.delete('api/especies/'+index)
+                        me.form.delete('api/siembras/'+index)
                         .then(({data})=>{
                             me.listar();
                             console.log('eliminar'+index)

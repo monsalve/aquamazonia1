@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\EspecieSiembra;
 use App\Siembra;
 use App\Contenedor;
+use App\Registro;
 
 class SiembraController extends Controller
 {
@@ -22,10 +23,12 @@ class SiembraController extends Controller
         $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
                     ->join('contenedores','siembras.id_contenedor','contenedores.id')
                     ->where('siembras.estado','=',1)
+                    ->orderBy('siembras.id', 'desc')
                     ->get();
                     
-        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
-                    ->join('especies','especies_siembra.id_especie','especies.id')                    
+        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','lote','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
+                    ->join('especies','especies_siembra.id_especie','especies.id')         
+                    ->orderBy('especie', 'asc')
                     ->get()->toArray();
         $pxs = array();
         
@@ -37,13 +40,7 @@ class SiembraController extends Controller
         
         return ["siembra"=> $siembra, "pecesSiembra" =>  $peces, 'campos'=>$campos];
     }
-    public function getPecesSiembras()
-    {
-        $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','cantidad','peso_inicial','cant_actual','peso_actual', 'especies.especie as especie')
-                    ->join('especies','especies_siembra.id_especie','especies.id')
-                    ->get();
-        return $peces;
-    }
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -75,6 +72,7 @@ class SiembraController extends Controller
             $especieSiembra->id_siembra = $siembra->id;
             $especieSiembra->id_especie = $especie['id_especie'];
             $especieSiembra->cantidad =  $especie['cantidad'];
+            $especieSiembra->lote =  $especie['lote'];
             $especieSiembra->peso_inicial = $especie['peso_inicial'];
             $especieSiembra->cant_actual =  $especie['cantidad'];;
             $especieSiembra->peso_actual = $especie['peso_inicial'];
@@ -134,9 +132,12 @@ class SiembraController extends Controller
      */
     public function destroy($id)
     {
-        //
-        EspecieSiembra::destroy($id);
-        Siembra::destroy(id);
+        
+        // EspecieSiembra::destroy($id);
+        Siembra::destroy($id);
+        $espxSiembra = EspecieSiembra::where('id_siembra', $id)->delete();
+        $regxSiembra = Registro::where('id_siembra', $id)->delete();
+        
         return 'eliminado';
     }
 }

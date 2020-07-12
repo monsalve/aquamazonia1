@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Registro;
+use App\EspecieSiembra;
 
 class RegistroController extends Controller
 {
@@ -16,7 +17,10 @@ class RegistroController extends Controller
     public function index()
     {
         //
-        $registros = Registro::all();
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie')
+            ->join('especies', 'registros.id_especie', 'especies.id')
+            ->orderBy('registros.id', 'desc')
+            ->get();
         return $registros;
         
     }
@@ -36,6 +40,17 @@ class RegistroController extends Controller
         // ]);
         
         foreach($request->campos as $campo){
+            $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
+            if($campo['mortalidad'] > 0){
+                $exs->cant_actual= $exs->cant_actual -$campo['mortalidad'];
+            }
+            if($campo['cantidad'] > 0){
+                $exs->cant_actual= $exs->cant_actual -$campo['cantidad'];
+            }
+            if($campo['peso_ganado'] > 0){
+                $exs->peso_actual= floatval($exs->peso_actual) + floatval($campo['peso_ganado']);
+            }
+            $exs->save();
             $registro = Registro::create([
                 'id_especie' =>$campo['id_especie'],
                 'id_siembra' => $campo['id_siembra'],
@@ -83,5 +98,6 @@ class RegistroController extends Controller
     public function destroy($id)
     {
         //
+        $registro = Registro::destroy($id);
     }
 }

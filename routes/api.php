@@ -30,6 +30,5 @@ Route::apiResources([
 ]);
 
 Route::namespace('API')->group(function () {
-    Route::get('getPecesSiembras', 'SiembraController@getPecesSiembras');
     Route::post('actualizarEstado/{id}', 'SiembraController@actualizarEstado');
 });
