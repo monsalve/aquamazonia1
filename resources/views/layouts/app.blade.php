@@ -48,10 +48,10 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
                             @if (Route::has('register'))
-                            <!--
+                            
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>-->
+                                </li>
                             @endif
                         @else
                             <li class="nav-item ">
@@ -59,6 +59,9 @@
                             </li>
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/siembras">Siembras</router-link>
+                            </li>
+                            <li class="nav-item ">
+                                <router-link class="nav-link" to="/recursos-necesarios">Recursos necesarios</router-link>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -68,7 +71,7 @@
                                     <router-link class="dropdown-item" to="/contenedores">Contenedores</router-link>
                                     <router-link class="dropdown-item" to="/especies">Especies</router-link>
                                     <router-link class="dropdown-item" to="/alimentos">Alimentos</router-link>
-                                    <router-link class="dropdown-item" to="/recursos">Recursos</router-link>
+                                    <router-link class="dropdown-item" to="/recursos">Recursos</router-link>                                
                                     <router-link class="dropdown-item" to="/usuarios">Usuarios</router-link>
                                 </div>
                                 

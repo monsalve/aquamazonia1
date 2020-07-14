@@ -17,6 +17,7 @@
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
+                                  <th>Nombre <br> siembra</th>
                                   <th scope="col">Contenedor</th>
                                   <th scope="col" class="text-center" style="width:340px">
                                     <h5> Especie</h5>
@@ -38,6 +39,7 @@
                               <tbody>
                                 <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
                                   <td v-text="index+1" scope="row"></td>
+                                  <td v-text="siembra.nombre_siembra" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
                                   <td>
                                     <div v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == siembra.id">
@@ -82,7 +84,7 @@
               </div>
               <div class="modal-body">
                 <div class="container row">
-                  <div class="form-group row   col-md-6">
+                  <div class="form-group row   col-md-4">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Contenedor</label>
                       <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor">
@@ -90,7 +92,13 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group row  col-md-6">
+                  <div class="form-group row   col-md-4">
+                    <div class="col-sm-12 col-md-12 text-left">
+                      <label for="nombre_siembra">Nombre de Siembra</label>
+                      <input class="form-control" type="text" id="nombre_siembra" v-model="form.nombre_siembra">
+                    </div>
+                  </div>
+                  <div class="form-group row  col-md-4">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Fecha Inicio</label>
                       <input type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
@@ -321,7 +329,8 @@
         form:{
           id : '',
           fecha_inicio:'',
-          id_contenedor:''          
+          nombre_siembra:'',
+          id_contenedor:''         
         },
         ver_registros : 1,
         itemRegistro : [],
@@ -507,13 +516,14 @@
       },
       guardar(){
         let me = this;
-        if(this.form.id_contenedor != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0){
+        if(this.form.id_contenedor != '' && this.form.nombre_siembra != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0){
             const data = {
               siembra: this.form, 
               especies : this.listadoItems
             }
             axios.post('api/siembras',data)
             .then(({response})=>{
+              this.form.nombre_siembra = '';
               this.form.id_contenedor = '';
               this.form.fecha_inicio = '';
               this.newEspecie = '';

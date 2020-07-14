@@ -11,6 +11,7 @@ class Siembra extends Model
 
     protected $fillable = [
         'id_contenedor',
+        'nombre_siembra',
         'fecha_inicio',
         'estado',
         'ini_descanso',

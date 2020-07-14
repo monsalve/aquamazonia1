@@ -26,7 +26,9 @@ Route::apiResources([
     'especies' => 'API\EspeciesController',
     'usuarios' => 'API\UsuarioController',
     'siembras' => 'API\SiembraController',
-    'registros' => 'API\RegistroController'
+    'registros' => 'API\RegistroController',
+    'recursos-necesarios' => 'API\RecursoNecesarioController',
+    'recursos-siembras' => 'API\RecursoSiembraController'
 ]);
 
 Route::namespace('API')->group(function () {

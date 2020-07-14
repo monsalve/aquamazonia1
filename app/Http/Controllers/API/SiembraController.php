@@ -20,7 +20,7 @@ class SiembraController extends Controller
     {
         //
         //$especieSiembras = EspecieSiembra::all();
-        $siembra = Siembra::select('siembras.id as id', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
+        $siembra = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
                     ->join('contenedores','siembras.id_contenedor','contenedores.id')
                     ->where('siembras.estado','=',1)
                     ->orderBy('siembras.id', 'desc')
@@ -60,6 +60,7 @@ class SiembraController extends Controller
      
         $siembra = new Siembra();
         $siembra->id_contenedor = $request->siembra['id_contenedor'];
+        $siembra->nombre_siembra = $request->siembra['nombre_siembra'];
         $siembra->fecha_inicio = $request->siembra['fecha_inicio'];
         $siembra->estado = 1;    
         $siembra->save();        
