@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2020 a las 20:46:19
+-- Tiempo de generación: 15-07-2020 a las 15:51:43
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -86,9 +86,9 @@ CREATE TABLE `contenedores` (
 --
 
 INSERT INTO `contenedores` (`id`, `contenedor`, `capacidad`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 'Contenedor1', 4500, 2, '2020-07-04 02:42:17', '2020-07-11 00:31:25'),
-(2, 'Contenedor2', 4500, 1, '2020-07-04 02:55:34', '2020-07-10 15:11:33'),
-(4, 'Contenedor3', 9000, 2, '2020-07-10 19:45:27', '2020-07-10 20:11:55');
+(1, 'Contenedor1', 4500, 2, '2020-07-04 02:42:17', '2020-07-15 02:39:24'),
+(2, 'Contenedor2', 4500, 2, '2020-07-04 02:55:34', '2020-07-12 04:53:26'),
+(4, 'Contenedor3', 9000, 1, '2020-07-10 19:45:27', '2020-07-14 21:38:32');
 
 -- --------------------------------------------------------
 
@@ -121,6 +121,7 @@ INSERT INTO `especies` (`id`, `especie`, `descripcion`, `created_at`, `updated_a
 CREATE TABLE `especies_siembra` (
   `id` int(11) NOT NULL,
   `id_siembra` int(11) DEFAULT NULL,
+  `lote` varchar(200) DEFAULT NULL,
   `id_especie` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `peso_inicial` int(11) NOT NULL,
@@ -134,10 +135,10 @@ CREATE TABLE `especies_siembra` (
 -- Volcado de datos para la tabla `especies_siembra`
 --
 
-INSERT INTO `especies_siembra` (`id`, `id_siembra`, `id_especie`, `cantidad`, `peso_inicial`, `created_at`, `updated_at`, `cant_actual`, `peso_actual`) VALUES
-(127, 21, 1, 3, 4, '2020-07-10 20:11:55', '2020-07-10 20:11:55', 3, 4),
-(128, 21, 2, 4, 4, '2020-07-10 20:11:55', '2020-07-10 20:11:55', 4, 4),
-(129, 22, 1, 350, 45, '2020-07-11 00:31:26', '2020-07-11 00:31:26', 350, 45);
+INSERT INTO `especies_siembra` (`id`, `id_siembra`, `lote`, `id_especie`, `cantidad`, `peso_inicial`, `created_at`, `updated_at`, `cant_actual`, `peso_actual`) VALUES
+(129, 22, NULL, 1, 350, 45, '2020-07-11 00:31:26', '2020-07-11 00:31:26', 350, 45),
+(132, 24, '4550', 1, 5000, 700, '2020-07-15 02:39:24', '2020-07-15 02:40:35', 4980, 1150),
+(133, 24, '900', 2, 6000, 4000, '2020-07-15 02:39:24', '2020-07-15 02:40:35', 5990, 4200);
 
 -- --------------------------------------------------------
 
@@ -213,6 +214,61 @@ INSERT INTO `recursos` (`id`, `recurso`, `unidad`, `costo`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `recursos_necesarios`
+--
+
+CREATE TABLE `recursos_necesarios` (
+  `id` int(11) NOT NULL,
+  `id_recurso` int(11) DEFAULT NULL,
+  `id_alimento` int(11) DEFAULT NULL,
+  `tipo_actividad` varchar(50) NOT NULL,
+  `fecha_ra` date NOT NULL,
+  `horas_hombre` int(11) NOT NULL,
+  `cant_manana` int(11) NOT NULL,
+  `cant_tarde` int(11) NOT NULL,
+  `detalles` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `recursos_necesarios`
+--
+
+INSERT INTO `recursos_necesarios` (`id`, `id_recurso`, `id_alimento`, `tipo_actividad`, `fecha_ra`, `horas_hombre`, `cant_manana`, `cant_tarde`, `detalles`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '3', '2020-07-23', 45, 23, 45, 'rtt', '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
+(2, 1, 10, '1', '2020-07-02', 23, 3, 23, 'linea 1\nlinea2 <br>', '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
+(3, 1, 10, '1', '2020-07-02', 23, 3, 23, 'linea 1\nlinea2 <br>', '2020-07-15 04:11:59', '2020-07-15 04:11:59');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recursos_siembras`
+--
+
+CREATE TABLE `recursos_siembras` (
+  `id` int(11) NOT NULL,
+  `id_registro` int(11) NOT NULL,
+  `id_siembra` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `recursos_siembras`
+--
+
+INSERT INTO `recursos_siembras` (`id`, `id_registro`, `id_siembra`, `created_at`, `updated_at`) VALUES
+(1, 1, 23, '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
+(2, 1, 22, '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
+(3, 2, 24, '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
+(4, 2, 22, '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
+(5, 3, 24, '2020-07-15 04:11:59', '2020-07-15 04:11:59'),
+(6, 3, 22, '2020-07-15 04:11:59', '2020-07-15 04:11:59');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `registros`
 --
 
@@ -237,7 +293,8 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `id_siembra`, `id_especie`, `fecha_registro`, `tiempo`, `tipo_registro`, `peso_ganado`, `mortalidad`, `biomasa`, `cantidad`, `estado`, `updated_at`, `created_at`) VALUES
-(3, 22, 1, '2020-07-04', 12, 1, NULL, NULL, 12, 4555, 1, '2020-07-11 23:42:45', '2020-07-11 23:42:45');
+(3, 22, 1, '2020-07-04', 12, 1, NULL, NULL, 12, 4555, 1, '2020-07-11 23:42:45', '2020-07-11 23:42:45'),
+(17, 24, 2, '2020-07-09', 1, 0, 200, 10, NULL, NULL, 1, '2020-07-15 02:40:35', '2020-07-15 02:40:35');
 
 -- --------------------------------------------------------
 
@@ -247,6 +304,7 @@ INSERT INTO `registros` (`id`, `id_siembra`, `id_especie`, `fecha_registro`, `ti
 
 CREATE TABLE `siembras` (
   `id` int(11) NOT NULL,
+  `nombre_siembra` varchar(100) NOT NULL,
   `id_contenedor` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `ini_descanso` date DEFAULT NULL,
@@ -260,9 +318,9 @@ CREATE TABLE `siembras` (
 -- Volcado de datos para la tabla `siembras`
 --
 
-INSERT INTO `siembras` (`id`, `id_contenedor`, `fecha_inicio`, `ini_descanso`, `estado`, `fin_descanso`, `created_at`, `updated_at`) VALUES
-(21, 4, '2020-07-04', NULL, 1, NULL, '2020-07-10 20:11:54', '2020-07-10 20:11:54'),
-(22, 1, '2020-07-10', NULL, 1, NULL, '2020-07-11 00:31:25', '2020-07-11 00:31:25');
+INSERT INTO `siembras` (`id`, `nombre_siembra`, `id_contenedor`, `fecha_inicio`, `ini_descanso`, `estado`, `fin_descanso`, `created_at`, `updated_at`) VALUES
+(22, 'siembra1', 1, '2020-07-10', NULL, 1, NULL, '2020-07-11 00:31:25', '2020-07-13 21:54:43'),
+(24, 'Siembra julio', 1, '2020-07-14', NULL, 1, NULL, '2020-07-15 02:39:24', '2020-07-15 02:39:24');
 
 -- --------------------------------------------------------
 
@@ -288,7 +346,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `estado`, `created_at`, `updated_at`) VALUES
 (1, 'Cristhiam Camilo', 'ccmonpan@hotmail.com', NULL, '$2y$10$phfcsCm1OzRNdO1uPDVFh./vVrqh5Vc9.gtr70I7Zarb1A9OAgOgC', 'JOsHOViA06d3U2BALWMaPGuRB81cM1y76ul6K6YNRYTUwxBP753iLX8LnBk1', 1, '2020-06-29 23:07:18', '2020-06-29 23:07:18'),
-(2, 'Isabella', 'issalazar00@outlook.com', NULL, '$2y$10$SXdLLlbOiMy13006qYM5ze4aqPolr80pvC0vVLWQ6ZRzMm2kOYN/C', NULL, 1, '2020-06-30 01:02:57', '2020-06-30 01:02:57');
+(2, 'Isabella', 'issalazar00@outlook.com', NULL, '$2y$10$SXdLLlbOiMy13006qYM5ze4aqPolr80pvC0vVLWQ6ZRzMm2kOYN/C', NULL, 1, '2020-06-30 01:02:57', '2020-06-30 01:02:57'),
+(4, 'andres rojas', 'andres@gmail.com', NULL, '$2y$10$7QFjVQunNyOKdn4SMZJBU.K88hW03sW11Py.kzdOLDCpaP4DjiOc.', NULL, 1, '2020-07-15 02:54:52', '2020-07-15 02:54:52');
 
 --
 -- Índices para tablas volcadas
@@ -343,6 +402,18 @@ ALTER TABLE `recursos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `recursos_necesarios`
+--
+ALTER TABLE `recursos_necesarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `recursos_siembras`
+--
+ALTER TABLE `recursos_siembras`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `registros`
 --
 ALTER TABLE `registros`
@@ -387,7 +458,7 @@ ALTER TABLE `especies`
 -- AUTO_INCREMENT de la tabla `especies_siembra`
 --
 ALTER TABLE `especies_siembra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -408,22 +479,34 @@ ALTER TABLE `recursos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `recursos_necesarios`
+--
+ALTER TABLE `recursos_necesarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `recursos_siembras`
+--
+ALTER TABLE `recursos_siembras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `siembras`
 --
 ALTER TABLE `siembras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

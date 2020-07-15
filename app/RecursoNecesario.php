@@ -10,7 +10,6 @@ class RecursoNecesario extends Model{
     protected $fillable = [
         'id_recurso',
         'id_alimento',
-        'id_siembra',
         'tipo_actividad',
         'fecha_ra',
         'horas_hombre',
