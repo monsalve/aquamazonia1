@@ -7,12 +7,39 @@
 
           <div class="card-body">
             <div class="row mb-1">
-                <div class="col-12 text-right ">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                    Añadir registro
-                  </button>
-                </div>
+              <div class="col-md-10">
+                <h2>Filtrar por:</h2>
+                <form class="row">
+                  <div class="form-group mr-2">
+                   <label for="t_actividad">Tipo de Actividad: </label>
+                    <select class="form-control" id="t_actividad" v-model="t_actividad">
+                      <option selected> Seleccionar</option>
+                      <option value="Encalado">Encalado</option>
+                      <option value="Llenado">Llenado</option>
+                      <option value="Siembra">Siembra</option>
+                      <option value="Cultivo">Cultivo</option>
+                      <option value="Pesca">Pesca</option>
+                      <option value="Secado">Secado</option>
+                      <option value="Lavado">Lavado</option>
+                    </select>
+                  </div>
+                  <div class="form-group mr-2">
+                    <label for="search">Desde: </label>
+                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
+                  </div>
+                   <div class="form-group mr-2">
+                    <label for="search">Hasta: </label>
+                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
+                  </div>
+                  <div class="form-group">                  
+                    <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-2 text-right ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button>
+              </div>
             </div>
          
             <div>
@@ -25,23 +52,31 @@
                     <th>Fecha</th>
                     <th>Recurso</th>
                     <th>Horas hombre</th>
-                    <th>Cantidad Mañana</th>
-                    <th>Cantidad Tarde</th>
+                    <th>Cantidad<br>Mañana</th>
+                    <th>Cantidad<br>Tarde</th>
                     <th>Detalles</th>
+                    <th>Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in listado" :key="index" v-if="item.id == item.id_registro">
+                  <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
-                    <td v-text="item.nombre_siembra"></td>
+                    <td>
+                      <span class="nav-item" v-for="rs in listadoRS" :key="rs.id" v-if="item.id == rs.id_registro">- {{rs.nombre_siembra}}<br></span>
+                    </td>
                     <td v-text="item.fecha_ra"></td>
-                    <td v-text="item.id_recurso"></td>
+                    <td v-text="nombresRecursos[item.id_recurso]"></td>
                     <td v-text="item.horas_hombre"></td>
                     <td v-text="item.cant_manana"></td>
                     <td v-text="item.cant_tarde"></td>
                     <td v-text="item.detalles"></td>
-                    
+                    <td>
+                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+      
                   </tr>
                 </tbody>
               </table>
@@ -53,7 +88,7 @@
     
     
     <!-- Modal añadir recursos a siembras -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -68,11 +103,13 @@
                 <div class="form-group">
                   <label for="">Tipo de Actividad</label>
                   <select class="form-control" id="tipo_actividad" v-model="form.tipo_actividad">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option value="Encalado" selected>Encalado</option>
+                    <option value="Llenado">Llenado</option>
+                    <option value="Siembra">Siembra</option>
+                    <option value="Cultivo">Cultivo</option>
+                    <option value="Pesca">Pesca</option>
+                    <option value="Secado">Secado</option>
+                    <option value="Lavado">Lavado</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -96,18 +133,18 @@
                 
                 <div class="form-group">   
                   <label for="horas hombre">Horas hombre</label>
-                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                  <input type="number" class="form-control" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
                 </div>
                     
                 <div class="form-group">                    
-                  <label for="exampleFormControlSelect2">Kg Mañana</label>
+                  <label for="cant_manana">Kg Mañana</label>
                   <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
                 </div>
               </div>
               <div class="col-md-6"> 
                 <div class="form-group">    
-                  <label for="exampleFormControlSelect2">Kg tarde</label>
-                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                  <label for="cant_tarde">Kg tarde</label>
+                  <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
               
                 <div class="form-group">   
@@ -127,7 +164,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="guardarRecursos">Guardar</button>
+            <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
           </div>
         </div>
       </div>
@@ -150,21 +187,56 @@ import { Form, HasError, AlertError } from 'vform'
           cant_manana : '',
           cant_tarde : '',
           detalles : ''
-          
-        }),        
+        }),    
+        t_actividad:'',
+        fecha_ra1 :'',
+        fecha_ra2 :'',
+        busqueda:'',
         addSiembras :[],
         listado : [],
+        listadoRS : [],
+        listadorxs:[],
         listadoSiembras : [],
         listadoAlimentos:[],
-        listadoRecursos:[]
+        listadoRecursos:[],
+        nombresRecursos:[],
+        nombresAlimentos:[]
       }
     },
     methods:{
+      abrirCrear(){
+        let me = this;
+        $('#modalRecursos').modal('show');
+      },
+      buscarResultados(){
+        let me = this;
+        let aux_busqueda;
+        
+        const data ={
+          'tipo_actividad' : this.t_actividad,
+          'fecha_ra1' :this.fecha_ra1,
+          'fecha_ra2' : this.fecha_ra2
+        }
+        
+        if(this.t_actividad == ''){
+          aux_busqueda = '-1'
+        }else{
+          aux_busqueda  = this.t_actividad
+        }        
+        
+        axios.post("api/searchResults", data)
+        .then(response=>{
+          me.listado = response.data.recursosNecesarios;
+        })
+        console.log('buscar')
+      },
       listar(){
         let me = this;
         axios.get("api/recursos-necesarios")
         .then(function (response){
-          me.listado = response.data;         
+          me.listado = response.data.recursosNecesarios;         
+          me.listadoRS = response.data.recursosSiembra;
+          me.listadorxs = response.data.registrosxSiembra;
         })
       },
       listarSiembras(){
@@ -178,14 +250,19 @@ import { Form, HasError, AlertError } from 'vform'
         let me = this;
         axios.get("api/alimentos")
         .then(function (response){
-          me.listadoAlimentos = response.data;         
+          me.listadoAlimentos = response.data; 
+          var auxAlimento = response.data;
+          auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);
+          
         })
       },
       listarRecursos(){
         let me = this;
         axios.get("api/recursos")
         .then(function (response){
-          me.listadoRecursos = response.data;         
+          me.listadoRecursos = response.data;  
+          var auxRecurso = response.data;
+          auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
         })
       },
       checkSiembras(){
@@ -198,9 +275,30 @@ import { Form, HasError, AlertError } from 'vform'
         let me = this;        
         this.form.post("api/recursos-necesarios")
         .then(({data})=>{
-          console.log('guardado')
-         
+          console.log('guardado');
+          me.listar();
+         $('#modalRecursos').modal('hide');
         })
+      },
+      eliminarRegistro(objeto){
+        let me = this;
+        swal({
+          title: "Estás seguro?",
+          text: "Una vez eliminado, no se puede recuperar este registro",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete('api/recursos-necesarios/'+objeto)
+            .then(({data})=>{
+              console.log('eliminar'+objeto);
+              me.listar();
+              
+            })
+          }
+        });        
       }
     },
     mounted() {

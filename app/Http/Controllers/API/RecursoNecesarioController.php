@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\RecursoNecesario;
 use App\RecursoSiembra;
+use App\Alimento;
+use App\Recursos;
 
 class RecursoNecesarioController extends Controller
 {
@@ -17,13 +19,22 @@ class RecursoNecesarioController extends Controller
     public function index()
     {
         //
-        // $recursosNecesarios = RecursoNecesario::all();
-        $recursosNecesarios = RecursoNecesario::select('recursos_necesarios.id','id_recurso', 'id_alimento', 'tipo_actividad', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'id_siembra', 'id_registro', 'nombre_siembra')
-        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')   
-        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')   
+        $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')->get();
+      
+        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
+        ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
+        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->get();
-    
-        return $recursosNecesarios;
+        
+        $registrosxSiembra=array();
+        
+        foreach($recursosSiembra as $rs){
+            $registrosxSiembra[$rs['id_registro']][$rs['id']] = array('id_registro' => $rs['id_registro'], 'id_siembra' => $rs['id_siembra'], 'id_recurso' => $rs['id_recurso'], 'id_alimento' => $rs['id_alimento'], 'fecha_ra'=>$rs['fecha_ra'], 'horas_hombre' => $rs['horas_hombre'], 'cant_manana' => $rs['cant_manana'], 'cant_tarde'=>$rs['cant_tarde'], 'detalles' => $rs['detalles'], 'tipo_actividad'=> $rs['tipo_actividad'], 'idrn' => $rs['idrn']);
+        }
+        
+        return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembra' => $recursosSiembra, 'registrosxSiembra' => $registrosxSiembra];
     }
 
     /**
@@ -89,5 +100,42 @@ class RecursoNecesarioController extends Controller
     public function destroy($id)
     {
         //
+        RecursoNecesario::destroy($id);
+        $rxs = RecursoSiembra::where('id_registro', $id)->delete();
+        return 'eliminado';
+        
+    }
+    public function searchResults(Request $request){
+        $c1 = '1';  $c2 = '1';
+        $c3 = '3';  $c4 = '1';
+        $c5 = '1';  $c6 = '3';
+        
+        if($request['tipo_actividad']!="1"){$c1 = $request['tipo_actividad'];}
+        if($request['fecha_ra1']!="3"){$c3 = $request['fecha_ra1'];}
+        if($request['fecha_ra2']!="1"){$c5 = $request['fecha_ra2'];}
+        
+        
+        
+        $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+        ->where('tipo_actividad','=', $c1)
+        ->where('fecha_ra', '>', $c3)
+        ->where('fecha_ra', '<', $c5)
+        ->get();
+      
+        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
+        ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
+        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')        
+        ->get();
+        
+        $registrosxSiembra=array();
+        
+        foreach($recursosSiembra as $rs){
+            $registrosxSiembra[$rs['id_registro']][$rs['id']] = array('id_registro' => $rs['id_registro'], 'id_siembra' => $rs['id_siembra'], 'id_recurso' => $rs['id_recurso'], 'id_alimento' => $rs['id_alimento'], 'fecha_ra'=>$rs['fecha_ra'], 'horas_hombre' => $rs['horas_hombre'], 'cant_manana' => $rs['cant_manana'], 'cant_tarde'=>$rs['cant_tarde'], 'detalles' => $rs['detalles'], 'tipo_actividad'=> $rs['tipo_actividad'], 'idrn' => $rs['idrn']);
+        }
+        
+        return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembra' => $recursosSiembra, 'registrosxSiembra' => $registrosxSiembra];
+   
     }
 }

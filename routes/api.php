@@ -33,4 +33,5 @@ Route::apiResources([
 
 Route::namespace('API')->group(function () {
     Route::post('actualizarEstado/{id}', 'SiembraController@actualizarEstado');
+    Route::post('searchResults', 'RecursoNecesarioController@searchResults');
 });
