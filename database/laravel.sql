@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-07-2020 a las 15:51:43
+-- Tiempo de generación: 17-07-2020 a las 00:37:29
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -226,7 +226,7 @@ CREATE TABLE `recursos_necesarios` (
   `horas_hombre` int(11) NOT NULL,
   `cant_manana` int(11) NOT NULL,
   `cant_tarde` int(11) NOT NULL,
-  `detalles` varchar(200) NOT NULL,
+  `detalles` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -236,9 +236,9 @@ CREATE TABLE `recursos_necesarios` (
 --
 
 INSERT INTO `recursos_necesarios` (`id`, `id_recurso`, `id_alimento`, `tipo_actividad`, `fecha_ra`, `horas_hombre`, `cant_manana`, `cant_tarde`, `detalles`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '3', '2020-07-23', 45, 23, 45, 'rtt', '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
 (2, 1, 10, '1', '2020-07-02', 23, 3, 23, 'linea 1\nlinea2 <br>', '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
-(3, 1, 10, '1', '2020-07-02', 23, 3, 23, 'linea 1\nlinea2 <br>', '2020-07-15 04:11:59', '2020-07-15 04:11:59');
+(5, 2, 2, 'Siembra', '2020-07-17', 34, 34, 34, 'frfrfrfrfr', '2020-07-15 22:08:39', '2020-07-15 22:08:39'),
+(6, 2, 14, 'Pesca', '2020-07-12', 45, 45, 45, 'lorem <br>\nlorem ipsum lpsum lorem ipsum <b>negrita</b>', '2020-07-15 22:11:59', '2020-07-15 22:11:59');
 
 -- --------------------------------------------------------
 
@@ -259,12 +259,12 @@ CREATE TABLE `recursos_siembras` (
 --
 
 INSERT INTO `recursos_siembras` (`id`, `id_registro`, `id_siembra`, `created_at`, `updated_at`) VALUES
-(1, 1, 23, '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
-(2, 1, 22, '2020-07-15 01:31:08', '2020-07-15 01:31:08'),
 (3, 2, 24, '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
 (4, 2, 22, '2020-07-15 04:11:48', '2020-07-15 04:11:48'),
-(5, 3, 24, '2020-07-15 04:11:59', '2020-07-15 04:11:59'),
-(6, 3, 22, '2020-07-15 04:11:59', '2020-07-15 04:11:59');
+(9, 5, 24, '2020-07-15 22:08:39', '2020-07-15 22:08:39'),
+(10, 5, 22, '2020-07-15 22:08:39', '2020-07-15 22:08:39'),
+(11, 6, 24, '2020-07-15 22:11:59', '2020-07-15 22:11:59'),
+(12, 6, 22, '2020-07-15 22:11:59', '2020-07-15 22:11:59');
 
 -- --------------------------------------------------------
 
@@ -482,13 +482,13 @@ ALTER TABLE `recursos`
 -- AUTO_INCREMENT de la tabla `recursos_necesarios`
 --
 ALTER TABLE `recursos_necesarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `recursos_siembras`
 --
 ALTER TABLE `recursos_siembras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`

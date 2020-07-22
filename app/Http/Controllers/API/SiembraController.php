@@ -119,6 +119,7 @@ class SiembraController extends Controller
         if(isset( $request['fin_descanso'])){
             $siembra->fin_descanso = $request['fin_descanso'];
         }
+        $siembra->estado = 0;
         $siembra->save();
         
         print_r($id);

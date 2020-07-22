@@ -11,7 +11,6 @@
                                  <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>
                             </div>
                         </div>
-                        
                         <div class="row">
                             <table class="table table-striped table-hover table-sm">
                               <thead>
@@ -38,16 +37,16 @@
                               </thead>
                               <tbody>
                                 <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
-                                  <td v-text="index+1" scope="row"></td>
+                                  <th v-text="index+1" scope="row"></th>
                                   <td v-text="siembra.nombre_siembra" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
                                   <td>
                                     <div v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == siembra.id">
                                       <div class="nav text-center" >
-                                        <li v-text="pez.especie" class="nav-item" style="width:80px">Especie</li>
-                                        <li v-text="pez.lote" class="nav-item" style="width:80px">Lote</li>
-                                        <li v-text="pez.cant_actual" class="nav-item" style="width:80px">Cantidad</li>
-                                        <li v-text="pez.peso_actual+'Gr'" class="nav-item" style="width:60px">Peso</li>
+                                        <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
+                                        <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
+                                        <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
+                                        <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
                                       </div>
                                     </div>
                                   </td>
@@ -202,8 +201,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="registro in listadoRegistros" :key="registro.id" v-if="registro.id_siembra == idSiembraRegistro">
-                        <th v-text="registro.id"></th>
+                      <tr v-for="(registro, index) in listadoRegistros" :key="registro.id" v-if="registro.id_siembra == idSiembraRegistro">
+                        <th v-text="index+1"></th>
                         <td v-text="registro.especie"></td>
                         <td v-text="registro.tipo_registro == 0 ? 'Muestreo' : 'Pescas'"></td>
                         <td v-text="registro.fecha_registro"></td>
@@ -226,16 +225,16 @@
                   <div class="row">
                      <div class="form-group col-md-4">
                       <label for="fecha_registro">Fecha Registro</label>
-                      <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Fecha" v-model="fecha_registro">
+                      <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="exampleInputPassword1">Tiempo (días)</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Tiempo" v-model="tiempo">
+                      <label for="tiempo">Tiempo (días)</label>
+                      <input type="number" class="form-control" id="tiempo" placeholder="Tiempo" v-model="tiempo">
                     </div>
                     
                     <div class="form-group col-md-4">
-                      <label for="exampleFormControlSelect1">Tipo</label>
-                      <select class="form-control" id="exampleFormControlSelect1" v-model="tipo_registro">                      
+                      <label for="tipo_registro">Tipo</label>
+                      <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
                         <option value="0" >Muestreo</option>
                         <option value="1">Pesca</option>
                       </select>
@@ -258,16 +257,16 @@
                           <th scope="row" v-text="pez.especie">
                           </th>
                           <td v-if="tipo_registro == 0"> 
-                            <input type="text" class="form-control" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
+                            <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
                           </td>                        
                           <td v-if="tipo_registro == 0">
-                            <input type="text" class="form-control" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
+                            <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
                           </td>
                           <td v-if="tipo_registro == 1">
-                            <input type="text" class="form-control" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
+                            <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
                           </td>
                           <td v-if="tipo_registro == 1">
-                            <input type="text" class="form-control" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
+                            <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
                           </td>                      
                         </tr>                      
                       </tbody>
@@ -576,6 +575,7 @@
             axios.delete('api/siembras/'+index)
             .then(({data})=>{
               me.listarRegistros();
+              me.listar();
               console.log('eliminar'+index)
             })
           }

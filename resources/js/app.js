@@ -24,6 +24,7 @@ let routes = [
     { path: '/usuarios', component: require('./components/Usuarios.vue').default },
     { path: '/siembras', component: require('./components/Siembras.vue').default },
     { path: '/recursos-necesarios', component: require('./components/RecursosNecesarios.vue').default },
+    { path: '/informes', component: require('./components/Informes.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
     
 ]

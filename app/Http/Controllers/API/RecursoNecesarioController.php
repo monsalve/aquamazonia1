@@ -106,20 +106,18 @@ class RecursoNecesarioController extends Controller
         
     }
     public function searchResults(Request $request){
-        $c1 = '1';  $c2 = '1';
-        $c3 = '3';  $c4 = '1';
-        $c5 = '1';  $c6 = '3';
+        $c1 = "tipo_actividad"; $op1="!="; $c2 = "-1";
+        $c3 = "tipo_actividad"; $op2="!=";  $c4="-3";
+        $c5 = "tipo_actividad"; $op3="!=";  $c6="-1";
         
-        if($request['tipo_actividad']!="1"){$c1 = $request['tipo_actividad'];}
-        if($request['fecha_ra1']!="3"){$c3 = $request['fecha_ra1'];}
-        if($request['fecha_ra2']!="1"){$c5 = $request['fecha_ra2'];}
-        
-        
+        if($request['tipo_actividad']!='1'){$c1="tipo_actividad"; $op1='='; $c2= $request['tipo_actividad'];}
+        if($request['fecha_ra1']!='-3'){$c3="fecha_ra"; $op2='>='; $c4=$request['fecha_ra1'];}
+        if($request['fecha_ra2']!='-1'){$c5="fecha_ra"; $op3='<='; $c6=$request['fecha_ra2'];}
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->where('tipo_actividad','=', $c1)
-        ->where('fecha_ra', '>', $c3)
-        ->where('fecha_ra', '<', $c5)
+        ->where($c1, $op1, $c2)
+        ->where($c3, $op2, $c4)
+        ->where($c5, $op3, $c6)
         ->get();
       
         $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')

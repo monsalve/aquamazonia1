@@ -12,7 +12,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-sm">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
@@ -29,11 +29,11 @@
                                   <td v-text="recurso.unidad"></td>
                                   <td v-text="recurso.costo"></td>
                                   <td>
-                                    <button @click="cargaEditar(recurso)" class="btn btn-light" type="button">
-                                      <span style="font-size: 1.5em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
+                                    <button @click="cargaEditar(recurso)" class="btn btn-success" type="button">
+                                      <i class="fas fa-edit"></i>
                                     </button>
-                                    <button @click="eliminar(recurso.id)" class="btn btn-light" type="button">
-                                      <span style="font-size: 1.5em; color:#DC3545;"><i class="fas fa-trash"></i></span>                                                                            
+                                    <button @click="eliminar(recurso.id)" class="btn btn-danger" type="button">
+                                      <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
                                 </tr>
@@ -80,8 +80,8 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 text-right">
-                                  <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancelar</button>
-                                  <button type="submit" class="btn btn-primary btn-lg"  v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                  <button type="submit" class="btn btn-primary"  v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
                                 </div>
                             </div>
                         </form>

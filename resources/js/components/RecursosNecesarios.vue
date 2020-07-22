@@ -13,7 +13,7 @@
                   <div class="form-group mr-2">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
-                      <option selected> Seleccionar</option>
+                      <option selected value="1"> Seleccionar</option>
                       <option value="Encalado">Encalado</option>
                       <option value="Llenado">Llenado</option>
                       <option value="Siembra">Siembra</option>
@@ -31,7 +31,7 @@
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
-                  <div class="form-group">                  
+                  <div class="form-group">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
@@ -43,18 +43,18 @@
             </div>
          
             <div>
-              <table class="table">
+              <table class="table table-sm">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>
-                    <th>Recurso</th>
+                    <th>Recurso/<br>Alimento</th>
                     <th>Horas hombre</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
-                    <th>Detalles</th>
+                    <th width=15%>Detalles</th>
                     <th>Eliminar</th>
                   </tr>
                 </thead>
@@ -66,10 +66,13 @@
                       <span class="nav-item" v-for="rs in listadoRS" :key="rs.id" v-if="item.id == rs.id_registro">- {{rs.nombre_siembra}}<br></span>
                     </td>
                     <td v-text="item.fecha_ra"></td>
-                    <td v-text="nombresRecursos[item.id_recurso]"></td>
+                    <td>
+                      {{nombresRecursos[item.id_recurso]}} <br>
+                      {{nombresAlimentos[item.id_alimento]}}
+                    </td>
                     <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.cant_manana"></td>
-                    <td v-text="item.cant_tarde"></td>
+                    <td v-text="item.cant_manana+'kg'"></td>
+                    <td v-text="item.cant_tarde+'kg'"></td>
                     <td v-text="item.detalles"></td>
                     <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
@@ -210,20 +213,16 @@ import { Form, HasError, AlertError } from 'vform'
       },
       buscarResultados(){
         let me = this;
-        let aux_busqueda;
         
+        if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad}       
+        if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
+        if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
+     
         const data ={
-          'tipo_actividad' : this.t_actividad,
-          'fecha_ra1' :this.fecha_ra1,
-          'fecha_ra2' : this.fecha_ra2
+          'tipo_actividad' : this.actividad,
+          'fecha_ra1' :this.fecha1,
+          'fecha_ra2' : this.fecha2
         }
-        
-        if(this.t_actividad == ''){
-          aux_busqueda = '-1'
-        }else{
-          aux_busqueda  = this.t_actividad
-        }        
-        
         axios.post("api/searchResults", data)
         .then(response=>{
           me.listado = response.data.recursosNecesarios;
@@ -237,6 +236,7 @@ import { Form, HasError, AlertError } from 'vform'
           me.listado = response.data.recursosNecesarios;         
           me.listadoRS = response.data.recursosSiembra;
           me.listadorxs = response.data.registrosxSiembra;
+          
         })
       },
       listarSiembras(){
