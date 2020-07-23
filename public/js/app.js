@@ -2676,7 +2676,8 @@ __webpack_require__.r(__webpack_exports__);
       alimento_s: '',
       recurso_s: '',
       fecha_ra1: '',
-      fecha_ra2: ''
+      fecha_ra2: '',
+      costo_acum: 0
     };
   },
   methods: {
@@ -2688,19 +2689,17 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     incrementar: function incrementar(incremento) {
-      var me = this;
-      var costo_acur = 0;
-      this.costo_acur = this.costo_acur + incremento;
-      console.log(this.costo_acur); // return this.costo_acur;
+      this.costo_acum += parseFloat(incremento);
+      var aux_acum = parseFloat(this.costo_acum);
+      console.log('aux_acum=' + aux_acum); // return this.costo_acur;
       // let arrayRecursos = this.listadorn;
       // for (let index = 0; index < arrayRecursos.length; index++) {        
       //   let costo_acur = 0;
       //   this.costo_acur = costo_acur + arrayRecursos[index]['costo_r'];        
       //   // console.log(arrayRecursos[index]['costo_r']);
-      // }  
+      // }           
 
-      console.log(this.costo_acur);
-      return this.costo_acur;
+      return aux_acum;
     },
     listarAlimentos: function listarAlimentos() {
       var me = this;
@@ -42255,7 +42254,9 @@ var render = function() {
                         domProps: { textContent: _vm._s(lrn.costo_r) }
                       }),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.incrementar(lrn.costo_r)))]),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.costo_r_acum) }
+                      }),
                       _vm._v(" "),
                       _c("td", {
                         domProps: { textContent: _vm._s(lrn.fecha_ra) }

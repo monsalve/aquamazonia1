@@ -25,7 +25,17 @@ class InformeController extends Controller
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a')
         ->get();
-      
+        $acumula=0;
+        if(count($recursosNecesarios)>0){
+            for($i=0;$i<count($recursosNecesarios); $i++){
+                
+                
+                $acumula+=$recursosNecesarios[$i]->costo_r;
+                $recursosNecesarios[$i]->costo_r_acum = $acumula;
+
+            }
+        }
+       // print_r($recursosNecesarios);
         $recursosSiembras = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso', 'estado')
         ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')

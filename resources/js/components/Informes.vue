@@ -92,7 +92,7 @@
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.costo_r"></td>
-                              <td>{{incrementar(lrn.costo_r)}}</td>                             
+                              <td v-text="lrn.costo_r_acum"></td>                             
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.alimento"></td>
@@ -126,7 +126,7 @@
         recurso_s : '',
         fecha_ra1 : '',
         fecha_ra2: '', 
-        
+        costo_acum: 0
       }
     },
     methods:{
@@ -138,11 +138,11 @@
           me.listadorn = response.data.recursosNecesarios;
         })         
       },
-      incrementar(incremento){
-        let me = this;
-        let costo_acur = 0;
-        this.costo_acur = this.costo_acur + incremento;
-        console.log(this.costo_acur);
+      incrementar(incremento){        
+        
+        this.costo_acum += parseFloat(incremento);
+        var aux_acum = parseFloat(this.costo_acum);
+        console.log('aux_acum='+aux_acum);
         // return this.costo_acur;
         // let arrayRecursos = this.listadorn;
         // for (let index = 0; index < arrayRecursos.length; index++) {        
@@ -150,9 +150,8 @@
         //   this.costo_acur = costo_acur + arrayRecursos[index]['costo_r'];        
         //   // console.log(arrayRecursos[index]['costo_r']);
          
-        // }  
-         console.log(this.costo_acur);
-          return this.costo_acur;   
+        // }           
+          return aux_acum;   
        
       },
       listarAlimentos(){
