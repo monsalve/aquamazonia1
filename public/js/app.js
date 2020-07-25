@@ -3028,7 +3028,18 @@ __webpack_require__.r(__webpack_exports__);
     incrementar: function incrementar(incremento) {
       this.costo_acum += parseFloat(incremento);
       var aux_acum = parseFloat(this.costo_acum);
+<<<<<<< HEAD
       console.log('aux_acum=' + aux_acum);
+=======
+      console.log('aux_acum=' + aux_acum); // return this.costo_acur;
+      // let arrayRecursos = this.listadorn;
+      // for (let index = 0; index < arrayRecursos.length; index++) {        
+      //   let costo_acur = 0;
+      //   this.costo_acur = costo_acur + arrayRecursos[index]['costo_r'];        
+      //   // console.log(arrayRecursos[index]['costo_r']);
+      // }           
+
+>>>>>>> 5c12197c98b0853033c7ef5f87f15c66cf0284b0
       return aux_acum;
     },
     listarAlimentos: function listarAlimentos() {
