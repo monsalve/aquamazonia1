@@ -8,8 +8,11 @@ use App\Siembra;
 use App\RecursoSiembra;
 use App\RecursoNecesario;
 use App\Recurso;
+use App\EspecieSiembra;
+use App\Contenedor;
+use App\Registro;
 
-class InformeController extends Controller
+class InformeRecursosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +26,9 @@ class InformeController extends Controller
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a')
+        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
         ->get();
             
         $acumula=0;
@@ -43,9 +48,42 @@ class InformeController extends Controller
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->get();
-        
-        return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
+
+        // return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
+        return view('informe-excel', ['recursosNecesarios' => $recursosNecesarios ]);
         // return ['siembras'=>$siembras, 'recursosSiembrass'=>$recursosSiembras, 'recursosNecesarios' => $recursosNecesarios,'especies'=>$especies];
+    }
+     public function informePecesxSiembra(){
+     
+        $registros = Registro::select(
+            'registros.id as id',
+            'registros.id_siembra as id_siembra',
+            'especies_siembra.id_siembra as idsp',
+            'fecha_registro',
+            'tiempo',
+            'tipo_registro',
+            'peso_ganado',
+            'mortalidad',
+            'registros.cantidad as cantidad_pesca',
+            'especies_siembra.cantidad as cantidad_inicial',
+            'cant_actual',
+            'estado',
+            'biomasa',
+            'especies.especie as especie',
+            'lote',
+            'peso_inicial',
+            'peso_actual', 
+            'mortalidad',
+            'biomasa'
+            )
+        ->join('especies','registros.id_especie', 'especies.id')
+        ->join('especies_siembra', 'registros.id_siembra', 'especies_siembra.id_siembra')
+        // ->join('especies_siembra', 'registros.id_siembra', 'especies_siembra.id_siembra')
+        ->orderBy('id_siembra', 'desc')
+        ->get();
+        
+        print_r($registros);
+        return view('informe-peces-siembra', ['registros' => $registros ]);
     }
 
     /**

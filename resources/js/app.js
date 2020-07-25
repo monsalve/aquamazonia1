@@ -12,7 +12,9 @@ import VueRouter from 'vue-router'
 import swal from 'sweetalert'
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
-    
+
+import excel from 'vue-excel-export'
+Vue.use(excel)
 Vue.use(VueRouter)
 
 let routes = [
@@ -25,6 +27,7 @@ let routes = [
     { path: '/siembras', component: require('./components/Siembras.vue').default },
     { path: '/recursos-necesarios', component: require('./components/RecursosNecesarios.vue').default },
     { path: '/informes', component: require('./components/Informes.vue').default },
+    { path: '/alimentacion', component: require('./components/Alimentacion.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
     
 ]

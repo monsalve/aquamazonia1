@@ -29,7 +29,8 @@ Route::apiResources([
     'registros' => 'API\RegistroController',
     'recursos-necesarios' => 'API\RecursoNecesarioController',
     'recursos-siembras' => 'API\RecursoSiembraController',
-    'informes' => 'API\InformeController'
+    'informes' => 'API\InformeController',
+    // 'informes-recursos' => 'API\InformeRecursosController',
 ]);
 
 Route::namespace('API')->group(function () {

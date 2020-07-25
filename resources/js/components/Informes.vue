@@ -4,6 +4,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Informes Aquamazonia</div>
+                      
+                      <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a>
+                      
                     <div class="card-body">
                       <div class="row mb-1">
                         <div class="col-md-12">
@@ -12,7 +15,7 @@
                             <div class="form-group mr-2">
                               <label for="Estado">Estado siembra </label>
                               <select class="form-control" id="estado_s" v-model="estado_s">
-                                <option value="-1" >Todos</option>
+                                <option value="-1">Todos</option>
                                 <option value="0" >Inactivo</option>
                                 <option value="1" selected>Activo</option>                                
                               </select>
@@ -79,7 +82,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(lrn, index) in listadorn" :key="lrn.id">
+                            <tr v-for="(lrn, index) in listadorn" :key="index">
                               <th v-text="index+1"></th>
                               <td>
                                 <span class="nav-item" v-for="lrs in listadors" :key="lrs.id" v-if="lrn.id == lrs.id_registro">- {{lrs.nombre_siembra}}<br></span>
@@ -92,12 +95,12 @@
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.costo_r"></td>
-                              <td>{{incrementar(lrn.costo_r)}}</td>                             
+                              <td v-text="lrn.costo_r_acum"></td>        
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.alimento"></td>
                               <td v-text="lrn.costo_a"></td>
-                              <td></td>
+                              <td v-text="lrn.costo_a_acum"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -126,34 +129,23 @@
         recurso_s : '',
         fecha_ra1 : '',
         fecha_ra2: '', 
-        
+        costo_acum : 0, 
       }
     },
     methods:{
       listar(){
         let me = this;        
         axios.get("api/informes")
-         .then(function (response){
+        .then(function (response){
           me.listadors = response.data.recursosSiembras;
           me.listadorn = response.data.recursosNecesarios;
         })         
       },
       incrementar(incremento){
-        let me = this;
-        let costo_acur = 0;
-        this.costo_acur = this.costo_acur + incremento;
-        console.log(this.costo_acur);
-        // return this.costo_acur;
-        // let arrayRecursos = this.listadorn;
-        // for (let index = 0; index < arrayRecursos.length; index++) {        
-        //   let costo_acur = 0;
-        //   this.costo_acur = costo_acur + arrayRecursos[index]['costo_r'];        
-        //   // console.log(arrayRecursos[index]['costo_r']);
-         
-        // }  
-         console.log(this.costo_acur);
-          return this.costo_acur;   
-       
+        this.costo_acum += parseFloat(incremento);
+        var aux_acum = parseFloat(this.costo_acum);
+        console.log('aux_acum=' + aux_acum);
+        return aux_acum;
       },
       listarAlimentos(){
         let me = this;
@@ -161,11 +153,9 @@
         .then(function (response){
           me.listadoAlimentos = response.data; 
           var auxAlimento = response.data;
-          // auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);
-          
+          // auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);          
         })
       },
-      
       listarRecursos(){
         let me = this;
         axios.get("api/recursos")
@@ -179,7 +169,7 @@
       filtroResultados(){
         let me = this;
         
-        if(this.estado_s == ''){this.est = '1'}else{this.est = this.estado_s}
+        if(this.estado_s == ''){this.est = '-1'}else{this.est = this.estado_s}
         if(this.actividad_s == ''){this.act = '-1'}else{this.act = this.actividad_s}
         if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}

@@ -60,8 +60,12 @@
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/siembras">Siembras</router-link>
                             </li>
+                           
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/recursos-necesarios">Recursos necesarios</router-link>
+                            </li>
+                            <li class="nav-item ">
+                                <router-link class="nav-link" to="/alimentacion">Alimentación</router-link>
                             </li>
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/informes">Informes</router-link>

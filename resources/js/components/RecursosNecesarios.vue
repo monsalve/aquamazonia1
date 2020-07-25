@@ -123,7 +123,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleFormControlSelect2">Recurso</label>
+                  <label for="recurso">Recurso</label>
                   <select class="form-control" id="recurso" v-model="form.id_recurso">
                     <option selected>--Seleccionar--</option>
                     <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
