@@ -2998,6 +2998,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3028,18 +3030,7 @@ __webpack_require__.r(__webpack_exports__);
     incrementar: function incrementar(incremento) {
       this.costo_acum += parseFloat(incremento);
       var aux_acum = parseFloat(this.costo_acum);
-<<<<<<< HEAD
       console.log('aux_acum=' + aux_acum);
-=======
-      console.log('aux_acum=' + aux_acum); // return this.costo_acur;
-      // let arrayRecursos = this.listadorn;
-      // for (let index = 0; index < arrayRecursos.length; index++) {        
-      //   let costo_acur = 0;
-      //   this.costo_acur = costo_acur + arrayRecursos[index]['costo_r'];        
-      //   // console.log(arrayRecursos[index]['costo_r']);
-      // }           
-
->>>>>>> 5c12197c98b0853033c7ef5f87f15c66cf0284b0
       return aux_acum;
     },
     listarAlimentos: function listarAlimentos() {
@@ -3106,6 +3097,60 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/filtroInformes", data).then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
         me.listadors = response.data.recursosSiembras;
+        console.log(response.data);
+      });
+      console.log('buscar');
+    },
+    imprimirResultados: function imprimirResultados() {
+      var me = this;
+
+      if (this.estado_s == '') {
+        this.est = '-1';
+      } else {
+        this.est = this.estado_s;
+      }
+
+      if (this.actividad_s == '') {
+        this.act = '-1';
+      } else {
+        this.act = this.actividad_s;
+      }
+
+      if (this.alimento_s == '') {
+        this.ali = '-1';
+      } else {
+        this.ali = this.alimento_s;
+      }
+
+      if (this.recurso_s == '') {
+        this.rec = '-1';
+      } else {
+        this.rec = this.recurso_s;
+      }
+
+      if (this.fecha_ra1 == '') {
+        this.fec1 = '-1';
+      } else {
+        this.fec1 = this.fecha_ra1;
+      }
+
+      if (this.fecha_ra2 == '') {
+        this.fec2 = '-1';
+      } else {
+        this.fec2 = this.fecha_ra2;
+      }
+
+      var data = {
+        'estado_s': this.est,
+        'actividad_s': this.act,
+        'alimento_s': this.ali,
+        'recurso_s': this.rec,
+        'fecha_ra1': this.fec1,
+        'fecha_ra2': this.fec2
+      };
+      axios.get("informe-excel", data).then(function (response) {
+        // me.listadorn = response.data.recursosNecesarios;
+        // me.listadors = response.data.recursosSiembras;
         console.log(response.data);
       });
       console.log('buscar');
@@ -3500,12 +3545,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3513,7 +3552,7 @@ __webpack_require__.r(__webpack_exports__);
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         id_siembra: [],
         id_recurso: '',
-        id_alimento: '',
+        id_alimento: 1,
         tipo_actividad: '',
         fecha_ra: '',
         horas_hombre: '',
@@ -43569,8 +43608,6 @@ var render = function() {
             _vm._v("Informes Aquamazonia")
           ]),
           _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "row mb-1" }, [
               _c("div", { staticClass: "col-md-12" }, [
@@ -43878,6 +43915,23 @@ var render = function() {
                         }
                       },
                       [_c("i", { staticClass: "fas fa-search" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            return _vm.imprimirResultados()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-fw fa-download" }),
+                        _vm._v(" Generar Excel ")
+                      ]
                     )
                   ])
                 ])
@@ -43886,7 +43940,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", [
               _c("table", { staticClass: "table table-sm" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -43990,24 +44044,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "informe-excel" } }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-success",
-          attrs: { type: "submit", name: "infoSiembras" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-fw fa-download" }),
-          _vm._v(" Generar Excel ")
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -44653,13 +44689,7 @@ var render = function() {
                         _vm._v(
                           "\n                    " +
                             _vm._s(_vm.nombresRecursos[item.id_recurso]) +
-                            " "
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.nombresAlimentos[item.id_alimento]) +
-                            "\n                  "
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -44800,62 +44830,6 @@ var render = function() {
                             _vm._v("Lavado")
                           ])
                         ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "Alimento" } }, [
-                        _vm._v("Alimento")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.id_alimento,
-                              expression: "form.id_alimento"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { id: "alimento" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "id_alimento",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", [_vm._v("--Seleccionar--")]),
-                          _vm._v(" "),
-                          _vm._l(_vm.listadoAlimentos, function(
-                            alimento,
-                            index
-                          ) {
-                            return _c(
-                              "option",
-                              { key: index, domProps: { value: alimento.id } },
-                              [_vm._v(_vm._s(alimento.alimento))]
-                            )
-                          })
-                        ],
-                        2
                       )
                     ]),
                     _vm._v(" "),
@@ -45216,7 +45190,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Recurso/"), _c("br"), _vm._v("Alimento")]),
+        _c("th", [_vm._v("Recurso")]),
         _vm._v(" "),
         _c("th", [_vm._v("Horas hombre")]),
         _vm._v(" "),

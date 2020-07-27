@@ -50,7 +50,7 @@
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>
-                    <th>Recurso/<br>Alimento</th>
+                    <th>Recurso</th>
                     <th>Horas hombre</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
@@ -67,8 +67,8 @@
                     </td>
                     <td v-text="item.fecha_ra"></td>
                     <td>
-                      {{nombresRecursos[item.id_recurso]}} <br>
-                      {{nombresAlimentos[item.id_alimento]}}
+                      {{nombresRecursos[item.id_recurso]}}
+                      <!-- {{nombresAlimentos[item.id_alimento]}} -->
                     </td>
                     <td v-text="item.horas_hombre"></td>
                     <td v-text="item.cant_manana+'kg'"></td>
@@ -115,13 +115,7 @@
                     <option value="Lavado">Lavado</option>
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="Alimento">Alimento</label>
-                  <select class="form-control" id="alimento" v-model="form.id_alimento">
-                    <option>--Seleccionar--</option>
-                    <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
-                  </select>
-                </div>
+               
                 <div class="form-group">
                   <label for="recurso">Recurso</label>
                   <select class="form-control" id="recurso" v-model="form.id_recurso">
@@ -183,7 +177,7 @@ import { Form, HasError, AlertError } from 'vform'
         form : new Form({
           id_siembra: [],
           id_recurso : '',
-          id_alimento :'',
+          id_alimento :1,
           tipo_actividad : '',
           fecha_ra : '',
           horas_hombre : '',

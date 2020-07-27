@@ -19,9 +19,23 @@ class InformeRecursosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function informeRecursos(Request $request)
     {
+        $response = '';
         //
+        $c1 = 'tipo_actividad'; $op1 = '!='; $c2 = '-1';
+        $c3 = 'tipo_actividad'; $op2 = '!='; $c4 = '-1';
+        $c5 = 'tipo_actividad'; $op3 = '!='; $c6 = '-1';
+        $c7 = 'tipo_actividad'; $op4 = '!='; $c8 = '-1';
+        $c9 = 'tipo_actividad'; $op5 = '!='; $c10 = '-1';
+        $c11 = 'tipo_actividad'; $op6 = '!='; $c12 = '-1';
+        
+        if($request['estado_s']!='-1'){$c1="estado"; $op1='='; $c2= $request['estado_s'];}
+        if($request['actividad_s']!='-1'){$c3="tipo_actividad"; $op2='='; $c4= $request['actividad_s'];}
+        if($request['alimento_s']!='-1'){$c5="id_alimento"; $op3='='; $c6= $request['alimento_s'];}
+        if($request['recurso_s']!='-1'){$c7="id_recurso"; $op4='='; $c8= $request['recurso_s'];}
+        if($request['fecha_ra1']!='-1'){$c9="fecha_ra"; $op5='>='; $c10=$request['fecha_ra1'];}
+        if($request['fecha_ra2']!='-1'){$c11="fecha_ra"; $op6='<='; $c12=$request['fecha_ra2'];}        
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
@@ -29,6 +43,11 @@ class InformeRecursosController extends Controller
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
+        ->where($c3, $op2, $c4)
+        ->where($c5, $op3, $c6)
+        ->where($c7, $op4, $c8)
+        // ->where($c9, $op5, $c10)
+        // ->where($c11, $op6, $c12)
         ->get();
             
         $acumula=0;
@@ -50,10 +69,13 @@ class InformeRecursosController extends Controller
         ->get();
 
         // return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
+        header('Content-type: application/vnd.ms-excel;');
+        header('Content-Disposition: attachment; filename=listado_siembras.xls');
+        
         return view('informe-excel', ['recursosNecesarios' => $recursosNecesarios ]);
-        // return ['siembras'=>$siembras, 'recursosSiembrass'=>$recursosSiembras, 'recursosNecesarios' => $recursosNecesarios,'especies'=>$especies];
+        
     }
-     public function informePecesxSiembra(){
+     public function informePecesxSiembra(Request $request){
      
         $registros = Registro::select(
             'registros.id as id',
@@ -80,9 +102,9 @@ class InformeRecursosController extends Controller
         ->join('especies_siembra', 'registros.id_siembra', 'especies_siembra.id_siembra')
         // ->join('especies_siembra', 'registros.id_siembra', 'especies_siembra.id_siembra')
         ->orderBy('id_siembra', 'desc')
-        ->get();
-        
-        print_r($registros);
+        ->where('estado', '=' ,1)
+        ->get(); 
+    
         return view('informe-peces-siembra', ['registros' => $registros ]);
     }
 

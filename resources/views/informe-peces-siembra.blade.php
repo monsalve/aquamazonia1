@@ -1,6 +1,6 @@
 <?php
-    // header('Content-type: application/vnd.ms-excel;');
-    // header('Content-Disposition: attachment; filename=listado_siembras.xls');
+    header('Content-type: application/vnd.ms-excel;');
+    header('Content-Disposition: attachment; filename=listado_peces_siembras.xls');
 ?>
 
 <!DOCTYPE html>

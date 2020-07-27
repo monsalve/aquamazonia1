@@ -5,7 +5,8 @@
                 <div class="card">
                     <div class="card-header">Informes Aquamazonia</div>
                       
-                      <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a>
+                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->
+                     
                       
                     <div class="card-body">
                       <div class="row mb-1">
@@ -57,6 +58,7 @@
                             </div>
                             <div class="form-group">                                      
                               <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="filtroResultados()"><i class="fas fa-search"></i></button>
+                               <button type="submit" class="btn btn-success" @click="imprimirResultados()"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
                             </div>
                           </form>
                         </div>
@@ -188,6 +190,32 @@
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
           me.listadors = response.data.recursosSiembras;
+          console.log(response.data);
+        })
+        console.log('buscar')
+      },
+      imprimirResultados(){
+        let me = this;
+        
+        if(this.estado_s == ''){this.est = '-1'}else{this.est = this.estado_s}
+        if(this.actividad_s == ''){this.act = '-1'}else{this.act = this.actividad_s}
+        if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
+        if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
+        if(this.fecha_ra1 == ''){this.fec1 = '-1'}else{this.fec1 = this.fecha_ra1}
+        if(this.fecha_ra2 == ''){this.fec2 = '-1'}else{this.fec2 = this.fecha_ra2}
+        
+        const data ={
+          'estado_s': this.est,
+          'actividad_s':this.act,
+          'alimento_s' : this.ali,
+          'recurso_s' : this.rec,
+          'fecha_ra1' : this.fec1,
+          'fecha_ra2' : this.fec2
+        }
+        axios.get("informe-excel", data)
+        .then(response=>{
+          // me.listadorn = response.data.recursosNecesarios;
+          // me.listadors = response.data.recursosSiembras;
           console.log(response.data);
         })
         console.log('buscar')
