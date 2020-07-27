@@ -59,7 +59,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in listado" :key="index">
+                  <tr v-for="(item, index) in listado" :key="index" v-if="item.tipo_actividad != 'Alimentacion'">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
                     <td>

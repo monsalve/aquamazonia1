@@ -21,8 +21,7 @@ class InformeRecursosController extends Controller
      */
     public function informeRecursos(Request $request)
     {
-        $response = '';
-        //
+
         $c1 = 'tipo_actividad'; $op1 = '!='; $c2 = '-1';
         $c3 = 'tipo_actividad'; $op2 = '!='; $c4 = '-1';
         $c5 = 'tipo_actividad'; $op3 = '!='; $c6 = '-1';
@@ -68,11 +67,11 @@ class InformeRecursosController extends Controller
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->get();
 
-        // return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
-        header('Content-type: application/vnd.ms-excel;');
-        header('Content-Disposition: attachment; filename=listado_siembras.xls');
+        // return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];        
         
-        return view('informe-excel', ['recursosNecesarios' => $recursosNecesarios ]);
+        // return view('informe-excel', ['recursosNecesarios' => $recursosNecesarios ]);
+        return redirect()->route('informe-excel',  ['recursosNecesarios' => $recursosNecesarios ]);
+        
         
     }
      public function informePecesxSiembra(Request $request){
@@ -104,8 +103,8 @@ class InformeRecursosController extends Controller
         ->orderBy('id_siembra', 'desc')
         ->where('estado', '=' ,1)
         ->get(); 
-    
-        return view('informe-peces-siembra', ['registros' => $registros ]);
+        
+        return view('informe-peces-siembra', ['registros' => $registros ] );
     }
 
     /**

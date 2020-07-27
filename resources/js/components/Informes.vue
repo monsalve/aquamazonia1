@@ -12,7 +12,7 @@
                       <div class="row mb-1">
                         <div class="col-md-12">
                           <h2>Filtrar por:</h2>
-                          <form class="row">
+                          <form class="row" method="POST" action="informe-excel" target="_blank">
                             <div class="form-group mr-2">
                               <label for="Estado">Estado siembra </label>
                               <select class="form-control" id="estado_s" v-model="estado_s">
@@ -57,8 +57,8 @@
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                             </div>
                             <div class="form-group">                                      
-                              <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="filtroResultados()"><i class="fas fa-search"></i></button>
-                               <button type="submit" class="btn btn-success" @click="imprimirResultados()"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
+                              <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
+                              <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
                             </div>
                           </form>
                         </div>
@@ -212,10 +212,8 @@
           'fecha_ra1' : this.fec1,
           'fecha_ra2' : this.fec2
         }
-        axios.get("informe-excel", data)
+        axios.post("api/informe-excel", data)
         .then(response=>{
-          // me.listadorn = response.data.recursosNecesarios;
-          // me.listadors = response.data.recursosSiembras;
           console.log(response.data);
         })
         console.log('buscar')
