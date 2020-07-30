@@ -1,13 +1,13 @@
 <?php
-    header('Content-type: application/vnd.ms-excel;');
-    header('Content-Disposition: attachment; filename=listado_siembras.xls');
+    // header('Content-type: application/vnd.ms-excel;');
+    // header('Content-Disposition: attachment; filename=listado_siembras.xls');
 ?>
 <table>
     <thead>
         <tr>
             <th>#</th>
             <th>Siembra</th>
-            <th> Estado</th>
+            <th>Estado</th>
             <th>Tipo Actividad</th>
             <th>Fecha</th>
             <th>Horas hombre</th>

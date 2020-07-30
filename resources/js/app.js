@@ -13,8 +13,12 @@ import swal from 'sweetalert'
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
 
-import excel from 'vue-excel-export'
-Vue.use(excel)
+import JsonExcel from 'vue-json-excel'
+
+
+
+Vue.component('downloadExcel', JsonExcel)
+
 Vue.use(VueRouter)
 
 let routes = [

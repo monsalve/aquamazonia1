@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2884,6 +2896,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3000,15 +3023,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
+    var _json_fields;
+
     return {
+      json_fields: (_json_fields = {
+        'Nombre Siembra': 'nombre_siembra',
+        'Estado Siembra': 'estado',
+        'Tipo de Actividad': 'tipo_actividad',
+        'Fecha Registro': 'fecha_ra',
+        'Recurso': 'recurso',
+        'Costo': 'costo_r',
+        'Costo acumulado': 'costo_r_acum',
+        'Horas hombre': 'horas_hombre',
+        'Alimento': 'alimento'
+      }, _defineProperty(_json_fields, "Costo", 'costo_a'), _defineProperty(_json_fields, "Costo acumulado", 'costo_a_acum'), _defineProperty(_json_fields, "Horas hombre", 'horas_hombre'), _json_fields),
       listados: [],
       listadors: [],
       listadorn: [],
       listadoe: [],
       listadoAlimentos: [],
       listadoRecursos: [],
+      imprimirRecursos: [],
       estados: [],
       estado_s: '',
       actividad_s: '',
@@ -3019,7 +3063,43 @@ __webpack_require__.r(__webpack_exports__);
       costo_acum: 0
     };
   },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this; // const response = await axios.get('api/informe-recursos');
+
+                _context.next = 3;
+                return _this.imprimirRecursos;
+
+              case 3:
+                response = _context.sent;
+                console.log(response);
+                return _context.abrupt("return", _this.imprimirRecursos);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startDownload: function startDownload() {
+      alert('show loading');
+    },
+    finishDownload: function finishDownload() {
+      alert('hide loading');
+    },
     listar: function listar() {
       var me = this;
       axios.get("api/informes").then(function (response) {
@@ -3096,60 +3176,11 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post("api/filtroInformes", data).then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
-        me.listadors = response.data.recursosSiembras;
-        console.log(response.data);
+        me.listadors = response.data.recursosSiembras; // console.log(response.data);
       });
-      console.log('buscar');
-    },
-    imprimirResultados: function imprimirResultados() {
-      var me = this;
-
-      if (this.estado_s == '') {
-        this.est = '-1';
-      } else {
-        this.est = this.estado_s;
-      }
-
-      if (this.actividad_s == '') {
-        this.act = '-1';
-      } else {
-        this.act = this.actividad_s;
-      }
-
-      if (this.alimento_s == '') {
-        this.ali = '-1';
-      } else {
-        this.ali = this.alimento_s;
-      }
-
-      if (this.recurso_s == '') {
-        this.rec = '-1';
-      } else {
-        this.rec = this.recurso_s;
-      }
-
-      if (this.fecha_ra1 == '') {
-        this.fec1 = '-1';
-      } else {
-        this.fec1 = this.fecha_ra1;
-      }
-
-      if (this.fecha_ra2 == '') {
-        this.fec2 = '-1';
-      } else {
-        this.fec2 = this.fecha_ra2;
-      }
-
-      var data = {
-        'estado_s': this.est,
-        'actividad_s': this.act,
-        'alimento_s': this.ali,
-        'recurso_s': this.rec,
-        'fecha_ra1': this.fec1,
-        'fecha_ra2': this.fec2
-      };
-      axios.post("api/informe-excel", data).then(function (response) {
-        console.log(response.data);
+      axios.post("api/informe-recursos", data).then(function (response) {
+        console.log(response.data.recursosNecesarios);
+        me.imprimirRecursos = response.data.recursosNecesarios;
       });
       console.log('buscar');
     }
@@ -3541,8 +3572,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3703,6 +3732,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -8897,15 +8927,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/browser-downloads/download.js":
-/*!****************************************************!*\
-  !*** ./node_modules/browser-downloads/download.js ***!
-  \****************************************************/
+/***/ "./node_modules/downloadjs/download.js":
+/*!*********************************************!*\
+  !*** ./node_modules/downloadjs/download.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//download.js v4.21, by dandavis; 2008-2018. [MIT] see http://danml.com/download.html for tests/usage
-// v1 landed a FF+Chrome compatible way of downloading strings to local un-named files, upgraded to use a hidden frame and optional mime
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//download.js v4.2, by dandavis; 2008-2016. [MIT] see http://danml.com/download.html for tests/usage
+// v1 landed a FF+Chrome compat way of downloading strings to local un-named files, upgraded to use a hidden frame and optional mime
 // v2 added named files via a[download], msSaveBlob, IE (10+) support, and window.URL support for larger+faster saves than dataURLs
 // v3 added dataURL and Blob Input, bind-toggle arity, and legacy dataURL fallback was improved with force-download mime and base64 support. 3.1 improved safari handling.
 // v4 adds AMD/UMD, commonJS, and plain browser support
@@ -8922,6 +8952,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {}
 }(this, function () {
+
 	return function download(data, strFileName, strMimeType) {
 
 		var self = window, // this script is only for browsers anyway...
@@ -8936,7 +8967,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			blob,
 			reader;
 			myBlob= myBlob.call ? myBlob.bind(self) : Blob ;
-
+	  
 		if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
 			payload=[payload, mimeType];
 			mimeType=payload[0];
@@ -8951,7 +8982,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         		var ajax=new XMLHttpRequest();
         		ajax.open( "GET", url, true);
         		ajax.responseType = 'blob';
-        		ajax.onload= function(e){
+        		ajax.onload= function(e){ 
 				  download(e.target.response, fileName, defaultMime);
 				};
         		setTimeout(function(){ ajax.send();}, 0); // allows setting custom ajax headers using the return:
@@ -8962,22 +8993,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		//go ahead and download dataURLs right away
 		if(/^data:([\w+-]+\/[\w+.-]+)?[,;]/.test(payload)){
-
+		
 			if(payload.length > (1024*1024*1.999) && myBlob !== toString ){
 				payload=dataUrlToBlob(payload);
 				mimeType=payload.type || defaultMime;
-			}else{
+			}else{			
 				return navigator.msSaveBlob ?  // IE10 can't do a[download], only Blobs:
 					navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
 					saver(payload) ; // everyone else can save dataURLs un-processed
 			}
-
+			
 		}else{//not data url, is it a string with special needs?
-			if(/([\x80-\xff])/.test(payload)){
+			if(/([\x80-\xff])/.test(payload)){			  
 				var i=0, tempUiArr= new Uint8Array(payload.length), mx=tempUiArr.length;
 				for(i;i<mx;++i) tempUiArr[i]= payload.charCodeAt(i);
 			 	payload=new myBlob([tempUiArr], {type: mimeType});
-			}
+			}		  
 		}
 		blob = payload instanceof myBlob ?
 			payload :
@@ -8987,8 +9018,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		function dataUrlToBlob(strUrl) {
 			var parts= strUrl.split(/[:;,]/),
 			type= parts[1],
-			indexDecoder = strUrl.indexOf("charset")>0 ? 3: 2,
-			decoder= parts[indexDecoder] == "base64" ? atob : decodeURIComponent,
+			decoder= parts[2] == "base64" ? atob : decodeURIComponent,
 			binData= decoder( parts.pop() ),
 			mx= binData.length,
 			i= 0,
@@ -9007,10 +9037,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				anchor.className = "download-js-link";
 				anchor.innerHTML = "downloading...";
 				anchor.style.display = "none";
- 				anchor.addEventListener('click', function(e) {
- 					e.stopPropagation();
- 					this.removeEventListener('click', arguments.callee);
- 				});
 				document.body.appendChild(anchor);
 				setTimeout(function() {
 					anchor.click();
@@ -39899,6 +39925,746 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -41206,17 +41972,17 @@ AlertSuccess_component.options.__file = "AlertSuccess.vue"
 
 /***/ }),
 
-/***/ "./node_modules/vue-excel-export/VueComment.vue":
-/*!******************************************************!*\
-  !*** ./node_modules/vue-excel-export/VueComment.vue ***!
-  \******************************************************/
+/***/ "./node_modules/vue-json-excel/JsonExcel.vue":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-json-excel/JsonExcel.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VueComment.vue?vue&type=template&id=723dc0c0& */ "./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0&");
-/* harmony import */ var _VueComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VueComment.vue?vue&type=script&lang=js& */ "./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./JsonExcel.vue?vue&type=template&id=fb865680& */ "./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680&");
+/* harmony import */ var _JsonExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JsonExcel.vue?vue&type=script&lang=js& */ "./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -41226,9 +41992,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _VueComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _JsonExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -41238,81 +42004,54 @@ var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_I
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "node_modules/vue-excel-export/VueComment.vue"
+component.options.__file = "node_modules/vue-json-excel/JsonExcel.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_VueComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib??vue-loader-options!./VueComment.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_vue_loader_lib_index_js_vue_loader_options_VueComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_JsonExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib??vue-loader-options!./JsonExcel.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_vue_loader_lib_index_js_vue_loader_options_JsonExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0&":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0& ***!
-  \*************************************************************************************/
+/***/ "./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680&":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../vue-loader/lib??vue-loader-options!./VueComment.vue?vue&type=template&id=723dc0c0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../vue-loader/lib??vue-loader-options!./JsonExcel.vue?vue&type=template&id=fb865680& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_VueComment_vue_vue_type_template_id_723dc0c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_JsonExcel_vue_vue_type_template_id_fb865680___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-excel-export/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/vue-excel-export/index.js ***!
-  \************************************************/
+/***/ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _VueComment_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VueComment.vue */ "./node_modules/vue-excel-export/VueComment.vue");
-
-
-const comment = {
-    install: function (Vue) {
-        Vue.component(_VueComment_vue__WEBPACK_IMPORTED_MODULE_0__["default"].name, _VueComment_vue__WEBPACK_IMPORTED_MODULE_0__["default"])
-    }
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(comment)
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (comment);
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/index.js?!./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-excel-export/VueComment.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var browser_downloads__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! browser-downloads */ "./node_modules/browser-downloads/download.js");
-/* harmony import */ var browser_downloads__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(browser_downloads__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var downloadjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! downloadjs */ "./node_modules/downloadjs/download.js");
+/* harmony import */ var downloadjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(downloadjs__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -41327,330 +42066,329 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'export-excel',
-    props: {
-        // mime type [xls, csv]
-        type: {
-            type: String,
-            default: "xls"
-        },
-        // Json to download
-        data: {
-            type: Array,
-            required: false,
-            default: null
-        },
-        // fields inside the Json Object that you want to export
-        // if no given, all the properties in the Json are exported
-        fields: {
-            type: Object,
-            required: false
-        },
-        // this prop is used to fix the problem with other components that use the
-        // variable fields, like vee-validate. exportFields works exactly like fields
-        exportFields: {
-            type: Object,
-            required: false
-        },
-        // Use as fallback when the row has no field values
-        defaultValue: {
-            type: String,
-            required: false,
-            default: ""
-        },
-        // Title(s) for the data, could be a string or an array of strings (multiple titles)
-        title: {
-            default: null
-        },
-        // Footer(s) for the data, could be a string or an array of strings (multiple footers)
-        footer: {
-            default: null
-        },
-        // filename to export
-        name: {
-            type: String,
-            default: "data.xls"
-        },
-        fetch: {
-            type: Function,
-        },
-        meta: {
-            type: Array,
-            default: () => []
-        },
-        worksheet: {
-            type: String,
-            default: "Sheet1"
-        },
-        //event before generate was called
-        beforeGenerate: {
-            type: Function,
-        },
-        //event before download pops up
-        beforeFinish: {
-            type: Function,
-        },
+  props: {
+    // mime type [xls, csv]
+    type: {
+      type: String,
+      default: "xls"
     },
-    computed: {
-        // unique identifier
-        idName() {
-            var now = new Date().getTime();
-            return "export_" + now;
-        },
-
-        downloadFields() {
-            if (this.fields !== undefined) return this.fields;
-
-            if (this.exportFields !== undefined) return this.exportFields;
-        }
+    // Json to download
+    data: {
+      type: Array,
+      required: false,
+      default: null
     },
-    methods: {
-        async generate() {
-            if (typeof this.beforeGenerate === 'function') {
-                await this.beforeGenerate();
-            }
-            let data = this.data;
-            if (typeof this.fetch === 'function' || !data)
-                data = await this.fetch();
+    // fields inside the Json Object that you want to export
+    // if no given, all the properties in the Json are exported
+    fields: {
+      type: Object,
+      required: false
+    },
+    // this prop is used to fix the problem with other components that use the
+    // variable fields, like vee-validate. exportFields works exactly like fields
+    exportFields: {
+      type: Object,
+      required: false
+    },
+    // Use as fallback when the row has no field values
+    defaultValue: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    // Title(s) for the data, could be a string or an array of strings (multiple titles)
+    title: {
+      default: null
+    },
+    // Footer(s) for the data, could be a string or an array of strings (multiple footers)
+    footer: {
+      default: null
+    },
+    // filename to export
+    name: {
+      type: String,
+      default: "data.xls"
+    },
+    fetch: {
+      type: Function,
+    },
+    meta: {
+      type: Array,
+      default: () => []
+    }, 
+    worksheet: {
+      type: String, 
+      default: "Sheet1"
+    },
+    //event before generate was called
+    beforeGenerate:{
+      type: Function,
+    },
+    //event before download pops up
+    beforeFinish:{
+      type: Function,
+    },
+  },
+  computed: {
+    // unique identifier
+    idName() {
+      var now = new Date().getTime();
+      return "export_" + now;
+    },
 
-            if (!data || !data.length) {
-                return;
-            }
+    downloadFields() {
+      if (this.fields !== undefined) return this.fields;
 
-            let json = this.getProcessedJson(data, this.downloadFields);
-            if (this.type === "html") {
-                // this is mainly for testing
-                return this.export(
-                    this.jsonToXLS(json),
-                    this.name.replace(".xls", ".html"),
-                    "text/html"
-                );
-            } else if (this.type === "csv") {
-                return this.export(
-                    this.jsonToCSV(json),
-                    this.name.replace(".xls", ".csv"),
-                    "application/csv"
-                );
-            }
-            return this.export(
-                this.jsonToXLS(json),
-                this.name,
-                "application/vnd.ms-excel"
-            );
-        },
-        /*
-            Use downloadjs to generate the download link
-            */
-        export: async function (data, filename, mime) {
-            let blob = this.base64ToBlob(data, mime);
-            if (typeof this.beforeFinish === 'function')
-                await this.beforeFinish();
-            browser_downloads__WEBPACK_IMPORTED_MODULE_0___default()(blob, filename, mime);
-        },
-        /*
-            jsonToXLS
-            ---------------
-            Transform json data into an xml document with MS Excel format, sadly
-            it shows a prompt when it opens, that is a default behavior for
-            Microsoft office and cannot be avoided. It's recommended to use CSV format instead.
-            */
-        jsonToXLS(data) {
-            let xlsTemp =
-                '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta name=ProgId content=Excel.Sheet> <meta name=Generator content="Microsoft Excel 11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>${worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><style>br {mso-data-placement: same-cell;}</style></head><body><table>${table}</table></body></html>';
-            let xlsData = "<thead>";
-            const colspan = Object.keys(data[0]).length;
-            let _self = this;
+      if (this.exportFields !== undefined) return this.exportFields;
+    }
+  },
+  methods: {
+    async generate() {
+      if(typeof this.beforeGenerate === 'function'){
+        await this.beforeGenerate();
+      }
+      let data = this.data;
+      if(typeof this.fetch === 'function' || !data)
+         data = await this.fetch();
 
-            //Header
-            if (this.title != null) {
-                xlsData += this.parseExtraData(
-                    this.title,
-                    '<tr><th colspan="' + colspan + '">${data}</th></tr>'
-                );
-            }
+      if (!data || !data.length) {
+        return;
+      }
 
-            //Fields
-            xlsData += "<tr>";
-            for (let key in data[0]) {
-                xlsData += "<th>" + key + "</th>";
-            }
-            xlsData += "</tr>";
-            xlsData += "</thead>";
+      let json = this.getProcessedJson(data, this.downloadFields);
+      if (this.type === "html") {
+        // this is mainly for testing
+        return this.export(
+          this.jsonToXLS(json),
+          this.name.replace(".xls", ".html"),
+          "text/html"
+        );
+      } else if (this.type === "csv") {
+        return this.export(
+          this.jsonToCSV(json),
+          this.name.replace(".xls", ".csv"),
+          "application/csv"
+        );
+      }
+      return this.export(
+        this.jsonToXLS(json),
+        this.name,
+        "application/vnd.ms-excel"
+      );
+    },
+    /*
+		Use downloadjs to generate the download link
+		*/
+    export:async function(data, filename, mime) {
+      let blob = this.base64ToBlob(data, mime);
+      if(typeof this.beforeFinish === 'function')
+        await this.beforeFinish();
+      downloadjs__WEBPACK_IMPORTED_MODULE_0___default()(blob, filename, mime);
+    },
+    /*
+		jsonToXLS
+		---------------
+		Transform json data into an xml document with MS Excel format, sadly
+		it shows a prompt when it opens, that is a default behavior for
+		Microsoft office and cannot be avoided. It's recommended to use CSV format instead.
+		*/
+    jsonToXLS(data) {
+      let xlsTemp =
+        '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta name=ProgId content=Excel.Sheet> <meta name=Generator content="Microsoft Excel 11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>${worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><style>br {mso-data-placement: same-cell;}</style></head><body><table>${table}</table></body></html>';
+      let xlsData = "<thead>";
+      const colspan = Object.keys(data[0]).length;
+      let _self = this;
 
-            //Data
-            xlsData += "<tbody>";
-            data.map(function (item, index) {
-                xlsData += "<tr>";
-                for (let key in item) {
-                    xlsData += "<td>" + _self.valueReformattedForMultilines(item[key]) + "</td>";
-                }
-                xlsData += "</tr>";
-            });
-            xlsData += "</tbody>";
+      //Header
+      if (this.title != null) {
+        xlsData += this.parseExtraData(
+          this.title,
+          '<tr><th colspan="' + colspan + '">${data}</th></tr>'
+        );
+      }
 
-            //Footer
-            if (this.footer != null) {
-                xlsData += "<tfoot>";
-                xlsData += this.parseExtraData(
-                    this.footer,
-                    '<tr><td colspan="' + colspan + '">${data}</td></tr>'
-                );
-                xlsData += "</tfoot>";
-            }
+      //Fields
+      xlsData += "<tr>";
+      for (let key in data[0]) {
+        xlsData += "<th>" + key + "</th>";
+      }
+      xlsData += "</tr>";
+      xlsData += "</thead>";
 
-            return xlsTemp.replace("${table}", xlsData).replace("${worksheet}", this.worksheet);
-        },
-        /*
-            jsonToCSV
-            ---------------
-            Transform json data into an CSV file.
-            */
-        jsonToCSV(data) {
-            var csvData = [];
-            //Header
-            if (this.title != null) {
-                csvData.push(this.parseExtraData(this.title, "${data}\r\n"));
-            }
-            //Fields
-            for (let key in data[0]) {
-                csvData.push(key);
-                csvData.push(",");
-            }
-            csvData.pop();
-            csvData.push("\r\n");
-            //Data
-            data.map(function (item) {
-                for (let key in item) {
-                    let escapedCSV = '=\"' + item[key] + '\"'; // cast Numbers to string
-                    if (escapedCSV.match(/[,"\n]/)) {
-                        escapedCSV = '"' + escapedCSV.replace(/\"/g, '""') + '"';
-                    }
-                    csvData.push(escapedCSV);
-                    csvData.push(",");
-                }
-                csvData.pop();
-                csvData.push("\r\n");
-            });
-            //Footer
-            if (this.footer != null) {
-                csvData.push(this.parseExtraData(this.footer, "${data}\r\n"));
-            }
-            return csvData.join("");
-        },
-        /*
-            getProcessedJson
-            ---------------
-            Get only the data to export, if no fields are set return all the data
-            */
-        getProcessedJson(data, header) {
-            let keys = this.getKeys(data, header);
-            let newData = [];
-            let _self = this;
-            data.map(function (item, index) {
-                let newItem = {};
-                for (let label in keys) {
-                    let property = keys[label];
-                    newItem[label] = _self.getValue(property, item);
-                }
-                newData.push(newItem);
-            });
-
-            return newData;
-        },
-        getKeys(data, header) {
-            if (header) {
-                return header;
-            }
-
-            let keys = {};
-            for (let key in data[0]) {
-                keys[key] = key;
-            }
-            return keys;
-        },
-        /*
-            parseExtraData
-            ---------------
-            Parse title and footer attribute to the csv format
-            */
-        parseExtraData(extraData, format) {
-            let parseData = "";
-            if (Array.isArray(extraData)) {
-                for (var i = 0; i < extraData.length; i++) {
-                    parseData += format.replace("${data}", extraData[i]);
-                }
-            } else {
-                parseData += format.replace("${data}", extraData);
-            }
-            return parseData;
-        },
-
-        getValue(key, item) {
-            const field = typeof key !== "object" ? key : key.field;
-            let indexes = typeof field !== "string" ? [] : field.split(".");
-            let value = this.defaultValue;
-
-            if (!field)
-                value = item;
-            else if (indexes.length > 1)
-                value = this.getValueFromNestedItem(item, indexes);
-            else
-                value = this.parseValue(item[field]);
-
-            if (key.hasOwnProperty('callback'))
-                value = this.getValueFromCallback(value, key.callback);
-
-            return value;
-        },
-
-        /*
-        convert values with newline \n characters into <br/>
-        */
-        valueReformattedForMultilines(value) {
-            if (typeof (value) == "string") return (value.replace(/\n/ig, "<br/>"));
-            else return (value);
-        },
-
-        getValueFromNestedItem(item, indexes) {
-            let nestedItem = item;
-            for (let index of indexes) {
-                if (nestedItem)
-                    nestedItem = nestedItem[index];
-            }
-            return this.parseValue(nestedItem);
-        },
-
-        getValueFromCallback(item, callback) {
-            if (typeof callback !== "function")
-                return this.defaultValue
-            const value = callback(item);
-            return this.parseValue(value);
-        },
-        parseValue(value) {
-            return value || value === 0 || typeof value === 'boolean'
-                ? value
-                : this.defaultValue;
-        },
-        base64ToBlob(data, mime) {
-            let base64 = window.btoa(window.unescape(encodeURIComponent(data)));
-            let bstr = atob(base64);
-            let n = bstr.length;
-            let u8arr = new Uint8ClampedArray(n);
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            return new Blob([u8arr], {type: mime});
+      //Data
+      xlsData += "<tbody>";
+      data.map(function(item, index) {
+        xlsData += "<tr>";
+        for (let key in item) {
+          xlsData += "<td>" + _self.valueReformattedForMultilines(item[key]) + "</td>";
         }
-    } // end methods
+        xlsData += "</tr>";
+      });
+      xlsData += "</tbody>";
+
+      //Footer
+      if (this.footer != null) {
+        xlsData += "<tfoot>";
+        xlsData += this.parseExtraData(
+          this.footer,
+          '<tr><td colspan="' + colspan + '">${data}</td></tr>'
+        );
+        xlsData += "</tfoot>";
+      }
+
+      return xlsTemp.replace("${table}", xlsData).replace("${worksheet}", this.worksheet);
+    },
+    /*
+		jsonToCSV
+		---------------
+		Transform json data into an CSV file.
+		*/
+    jsonToCSV(data) {
+      var csvData = [];
+      //Header
+      if (this.title != null) {
+        csvData.push(this.parseExtraData(this.title, "${data}\r\n"));
+      }
+      //Fields
+      for (let key in data[0]) {
+        csvData.push(key);
+        csvData.push(",");
+      }
+      csvData.pop();
+      csvData.push("\r\n");
+      //Data
+      data.map(function(item) {
+        for (let key in item) {
+          let escapedCSV = '=\"' + item[key] + '\"'; // cast Numbers to string
+          if (escapedCSV.match(/[,"\n]/)) {
+            escapedCSV = '"' + escapedCSV.replace(/\"/g, '""') + '"';
+          }
+          csvData.push(escapedCSV);
+          csvData.push(",");
+        }
+        csvData.pop();
+        csvData.push("\r\n");
+      });
+      //Footer
+      if (this.footer != null) {
+        csvData.push(this.parseExtraData(this.footer, "${data}\r\n"));
+      }
+      return csvData.join("");
+    },
+    /*
+		getProcessedJson
+		---------------
+		Get only the data to export, if no fields are set return all the data
+		*/
+    getProcessedJson(data, header) {
+      let keys = this.getKeys(data, header);
+      let newData = [];
+      let _self = this;
+      data.map(function(item, index) {
+        let newItem = {};
+        for (let label in keys) {
+          let property = keys[label];
+          newItem[label] = _self.getValue(property, item);
+        }
+        newData.push(newItem);
+      });
+
+      return newData;
+    },
+    getKeys(data, header) {
+      if (header) {
+        return header;
+      }
+
+      let keys = {};
+      for (let key in data[0]) {
+        keys[key] = key;
+      }
+      return keys;
+    },
+    /*
+		parseExtraData
+		---------------
+		Parse title and footer attribute to the csv format
+		*/
+    parseExtraData(extraData, format) {
+      let parseData = "";
+      if (Array.isArray(extraData)) {
+        for (var i = 0; i < extraData.length; i++) {
+          parseData += format.replace("${data}", extraData[i]);
+        }
+      } else {
+        parseData += format.replace("${data}", extraData);
+      }
+      return parseData;
+    },
+
+    getValue(key, item) {
+      const field = typeof key   !== "object" ? key : key.field;
+      let indexes = typeof field !== "string" ? []  : field.split(".");
+      let value   = this.defaultValue;
+    
+      if (!field)
+	      value = item;
+      else if( indexes.length > 1 )
+        value = this.getValueFromNestedItem(item, indexes);
+      else
+        value = this.parseValue(item[field]);
+      
+      if( key.hasOwnProperty('callback'))
+        value = this.getValueFromCallback(value, key.callback);
+      
+      return value;
+    },
+
+    /*
+    convert values with newline \n characters into <br/>
+    */
+    valueReformattedForMultilines(value) {
+      if (typeof(value)=="string") return(value.replace(/\n/ig,"<br/>"));
+      else return(value);
+    },
+
+    getValueFromNestedItem(item, indexes){
+      let nestedItem = item;
+      for (let index of indexes) {
+        if(nestedItem)
+          nestedItem = nestedItem[index];
+      }
+      return this.parseValue(nestedItem);
+    },
+
+    getValueFromCallback(item, callback){
+      if(typeof callback !== "function")
+        return this.defaultValue
+      const value = callback(item);
+      return this.parseValue(value);
+    },
+    parseValue(value){
+      return value || value === 0 || typeof value === 'boolean'
+          ? value
+          : this.defaultValue;
+    },
+    base64ToBlob(data, mime) {
+      let base64 = window.btoa(window.unescape(encodeURIComponent(data)));
+      let bstr = atob(base64);
+      let n = bstr.length;
+      let u8arr = new Uint8ClampedArray(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+  } // end methods
 });
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-excel-export/VueComment.vue?vue&type=template&id=723dc0c0& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vue-json-excel/JsonExcel.vue?vue&type=template&id=fb865680& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41666,9 +42404,7 @@ var render = function() {
     "div",
     { attrs: { id: _vm.idName }, on: { click: _vm.generate } },
     [
-      _vm._t("default", [
-        _vm._v("\n        Download " + _vm._s(_vm.name) + "\n    ")
-      ])
+      _vm._t("default", [_vm._v("\n\t\tDownload " + _vm._s(_vm.name) + "\n\t")])
     ],
     2
   )
@@ -43639,7 +44375,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { id: "estado_s" },
+                          attrs: { id: "estado_s", name: "estado_s" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -43691,7 +44427,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { id: "actividad" },
+                          attrs: { id: "actividad", name: "tipo_actividad" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -43917,23 +44653,46 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary rounded-circle mt-4",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.filtroResultados()
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary rounded-circle mt-4",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.filtroResultados()
+                              }
                             }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-search" })]
-                      ),
-                      _vm._v(" "),
-                      _vm._m(0)
-                    ])
+                          },
+                          [_c("i", { staticClass: "fas fa-search" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "downloadexcel",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: {
+                              fetch: _vm.fetchData,
+                              fields: _vm.json_fields,
+                              "before-generate": _vm.startDownload,
+                              "before-finish": _vm.finishDownload,
+                              type: "xls"
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-fw fa-download" }),
+                            _vm._v(
+                              " Generar Excel \n                          "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   ]
                 )
               ])
@@ -43941,7 +44700,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", [
               _c("table", { staticClass: "table table-sm" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -44045,19 +44804,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-success", attrs: { type: "submit" } },
-      [
-        _c("i", { staticClass: "fa fa-fw fa-download" }),
-        _vm._v(" Generar Excel ")
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -45291,7 +46037,9 @@ var render = function() {
                     }
                   },
                   [_vm._v("Nueva siembra")]
-                )
+                ),
+                _vm._v(" "),
+                _vm._m(0)
               ])
             ]),
             _vm._v(" "),
@@ -45300,7 +46048,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-striped table-hover table-sm" },
                 [
-                  _vm._m(0),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -45483,7 +46231,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "container row" }, [
@@ -45611,7 +46359,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("table", { staticClass: "table" }, [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -45904,14 +46652,14 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.ver_registros == 1
                   ? _c("div", { attrs: { id: "mostrarRegistros" } }, [
                       _c("table", { staticClass: "table table-sm" }, [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c(
                           "tbody",
@@ -46402,7 +47150,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(5),
+            _vm._m(6),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("form", { attrs: { method: "POST" } }, [
@@ -46497,6 +47245,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-success", attrs: { type: "submit" } },
+      [
+        _c("i", { staticClass: "fa fa-fw fa-download" }),
+        _vm._v(" Generar Excel ")
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -65229,7 +65990,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_excel_export__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-excel-export */ "./node_modules/vue-excel-export/index.js");
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -65243,7 +66004,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_excel_export__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('downloadExcel', vue_json_excel__WEBPACK_IMPORTED_MODULE_4__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var routes = [{
   path: '/dashboard',

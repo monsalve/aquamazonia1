@@ -88,8 +88,6 @@
         </div>
       </div>
     </div>
-    
-    
     <!-- Modal añadir recursos a siembras -->
     <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">

@@ -22,6 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('API')->group(function () {
-    Route::get('/informe-excel', 'InformeRecursosController@informeRecursos')->name('informe-excel');
-    Route::get('/informe-peces-siembra', 'InformeRecursosController@informePecesxSiembra')->name('informe-peces-siembra');
+    // Route::post('/informe-excel', 'InformeRecursosController@informeRecursos')->name('informe-excel');
+    // Route::get('/informe-peces-siembra', 'InformeRecursosController@informePecesxSiembra')->name('informe-peces-siembra');
 });

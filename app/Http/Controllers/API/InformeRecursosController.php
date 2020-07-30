@@ -19,6 +19,7 @@ class InformeRecursosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index(){}
     public function informeRecursos(Request $request)
     {
 
@@ -28,7 +29,7 @@ class InformeRecursosController extends Controller
         $c7 = 'tipo_actividad'; $op4 = '!='; $c8 = '-1';
         $c9 = 'tipo_actividad'; $op5 = '!='; $c10 = '-1';
         $c11 = 'tipo_actividad'; $op6 = '!='; $c12 = '-1';
-        
+       
         if($request['estado_s']!='-1'){$c1="estado"; $op1='='; $c2= $request['estado_s'];}
         if($request['actividad_s']!='-1'){$c3="tipo_actividad"; $op2='='; $c4= $request['actividad_s'];}
         if($request['alimento_s']!='-1'){$c5="id_alimento"; $op3='='; $c6= $request['alimento_s'];}
@@ -45,10 +46,10 @@ class InformeRecursosController extends Controller
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
         ->where($c7, $op4, $c8)
-        // ->where($c9, $op5, $c10)
-        // ->where($c11, $op6, $c12)
+        ->where($c9, $op5, $c10)
+        ->where($c11, $op6, $c12)
         ->get();
-            
+        //  return 'Hola';    
         $acumula=0;
         $acumula2=0;
         
@@ -66,11 +67,8 @@ class InformeRecursosController extends Controller
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->get();
-
-        // return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];        
-        
-        // return view('informe-excel', ['recursosNecesarios' => $recursosNecesarios ]);
-        return redirect()->route('informe-excel',  ['recursosNecesarios' => $recursosNecesarios ]);
+        return ['recursosNecesarios' => $recursosNecesarios ];
+        // return redirect()->route('informe-excel',  ['recursosNecesarios' => $recursosNecesarios ]);
         
         
     }

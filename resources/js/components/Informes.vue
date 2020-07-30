@@ -4,10 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Informes Aquamazonia</div>
-                      
-                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->
-                     
-                      
+                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">
                       <div class="row mb-1">
                         <div class="col-md-12">
@@ -15,7 +12,7 @@
                           <form class="row" method="POST" action="informe-excel" target="_blank">
                             <div class="form-group mr-2">
                               <label for="Estado">Estado siembra </label>
-                              <select class="form-control" id="estado_s" v-model="estado_s">
+                              <select class="form-control" id="estado_s" v-model="estado_s" name="estado_s">
                                 <option value="-1">Todos</option>
                                 <option value="0" >Inactivo</option>
                                 <option value="1" selected>Activo</option>                                
@@ -23,7 +20,7 @@
                             </div>
                             <div class="form-group mr-2">
                               <label for="actividad">Tipo actividad: </label>
-                              <select class="form-control" id="actividad" v-model="actividad_s">
+                              <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
                                 <option selected value="-1"> --Seleccionar--</option>
                                 <option value="Encalado" selected>Encalado</option>
                                 <option value="Llenado">Llenado</option>
@@ -58,7 +55,16 @@
                             </div>
                             <div class="form-group">                                      
                               <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
-                              <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
+                              <downloadexcel
+                              class = "btn btn-success"
+                              :fetch   = "fetchData"
+                              :fields = "json_fields"
+                              :before-generate = "startDownload"
+                              :before-finish = "finishDownload"
+                              type    = "xls">
+                                <i class="fa fa-fw fa-download"></i> Generar Excel 
+                              </downloadexcel>
+                              
                             </div>
                           </form>
                         </div>
@@ -115,15 +121,32 @@
 </template>
 
 <script>
+  import downloadexcel from "vue-json-excel";
   export default {
     data(){
+    
       return {
+        json_fields: {
+            'Nombre Siembra' : 'nombre_siembra',
+            'Estado Siembra' : 'estado',
+            'Tipo de Actividad' : 'tipo_actividad',
+            'Fecha Registro' : 'fecha_ra',
+            'Recurso' : 'recurso',
+            'Costo' : 'costo_r',
+            'Costo acumulado' : 'costo_r_acum',
+            'Horas hombre' : 'horas_hombre',
+            'Alimento' : 'alimento',
+            'Costo' : 'costo_a',
+            'Costo acumulado' : 'costo_a_acum',
+            'Horas hombre' : 'horas_hombre'
+        },       
         listados: [],
         listadors:[],
         listadorn:[],
         listadoe:[],
         listadoAlimentos:[],
         listadoRecursos:[],
+        imprimirRecursos: [],
         estados : [],
         estado_s: '',
         actividad_s:'',
@@ -132,9 +155,26 @@
         fecha_ra1 : '',
         fecha_ra2: '', 
         costo_acum : 0, 
+        
       }
     },
+    components: {
+      downloadexcel,
+    },
     methods:{
+      async fetchData(){
+        let me = this;
+        // const response = await axios.get('api/informe-recursos');
+        const response = await this.imprimirRecursos
+        console.log(response);
+        return this.imprimirRecursos;
+      },
+      startDownload(){
+          alert('show loading');
+      },
+      finishDownload(){
+          alert('hide loading');
+      },
       listar(){
         let me = this;        
         axios.get("api/informes")
@@ -190,31 +230,12 @@
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
           me.listadors = response.data.recursosSiembras;
-          console.log(response.data);
-        })
-        console.log('buscar')
-      },
-      imprimirResultados(){
-        let me = this;
-        
-        if(this.estado_s == ''){this.est = '-1'}else{this.est = this.estado_s}
-        if(this.actividad_s == ''){this.act = '-1'}else{this.act = this.actividad_s}
-        if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
-        if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
-        if(this.fecha_ra1 == ''){this.fec1 = '-1'}else{this.fec1 = this.fecha_ra1}
-        if(this.fecha_ra2 == ''){this.fec2 = '-1'}else{this.fec2 = this.fecha_ra2}
-        
-        const data ={
-          'estado_s': this.est,
-          'actividad_s':this.act,
-          'alimento_s' : this.ali,
-          'recurso_s' : this.rec,
-          'fecha_ra1' : this.fec1,
-          'fecha_ra2' : this.fec2
-        }
-        axios.post("api/informe-excel", data)
+          // console.log(response.data);
+        });
+        axios.post("api/informe-recursos", data)
         .then(response=>{
-          console.log(response.data);
+          console.log(response.data.recursosNecesarios);
+          me.imprimirRecursos = response.data.recursosNecesarios;
         })
         console.log('buscar')
       },

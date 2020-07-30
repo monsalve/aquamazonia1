@@ -8,7 +8,8 @@
                     <div class="card-body">
                         <div class="row mb-1">
                             <div class="col-12 text-right ">
-                                 <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>
+                              <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>
+                              <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
                             </div>
                         </div>
                         <div class="row">
