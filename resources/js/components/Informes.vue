@@ -60,7 +60,7 @@
                               :fetch   = "fetchData"
                               :fields = "json_fields"
                               :before-generate = "startDownload"
-                              :before-finish = "finishDownload"
+                              name    = "informe-recursos.xls"
                               type    = "xls">
                                 <i class="fa fa-fw fa-download"></i> Generar Excel 
                               </downloadexcel>
@@ -79,11 +79,12 @@
                               <th>Tipo <br>actividad</th>
                               <th>Fecha</th>
                               <th>Horas <br>hombre</th>
+                              <th>Costo horas </th>
+                              <th>Costo Acumulado Horas</th>
                               <th>Recursos</th>
                               <th>Costo</th>
                               <th>Costo <br>Acumulado</th>
                               <th>Fecha</th>
-                              <th>Horas <br>hombre</th>
                               <th>Alimentos</th>
                               <th>Costo</th>
                               <th>Costo <br>Acumulado</th>
@@ -101,11 +102,12 @@
                               <td v-text="lrn.tipo_actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.horas_hombre +'hr'"></td>
+                              <td v-text="lrn.costo_horash +'hr'"></td>
+                              <td v-text="lrn.costo_h_acum +'hr'"></td>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.costo_r"></td>
                               <td v-text="lrn.costo_r_acum"></td>        
-                              <td v-text="lrn.fecha_ra"></td>
-                              <td v-text="lrn.horas_hombre +'hr'"></td>
+                              <td v-text="lrn.fecha_ra"></td>     
                               <td v-text="lrn.alimento"></td>
                               <td v-text="lrn.costo_a"></td>
                               <td v-text="lrn.costo_a_acum"></td>
@@ -131,14 +133,15 @@
             'Estado Siembra' : 'estado',
             'Tipo de Actividad' : 'tipo_actividad',
             'Fecha Registro' : 'fecha_ra',
+            'Horas hombre' : 'horas_hombre',
+            'Costo horas hombre' : 'costo_horash',
+            'Costo acumulado horas' : 'costo_h_acum',
             'Recurso' : 'recurso',
             'Costo' : 'costo_r',
             'Costo acumulado' : 'costo_r_acum',
-            'Horas hombre' : 'horas_hombre',
             'Alimento' : 'alimento',
-            'Costo' : 'costo_a',
-            'Costo acumulado' : 'costo_a_acum',
-            'Horas hombre' : 'horas_hombre'
+            'Costo Alimento' : 'costo_a',
+            'Costo acumulado Alimento' : 'costo_a_acum', 
         },       
         listados: [],
         listadors:[],
@@ -166,7 +169,7 @@
         let me = this;
         // const response = await axios.get('api/informe-recursos');
         const response = await this.imprimirRecursos
-        console.log(response);
+        // console.log(response);
         return this.imprimirRecursos;
       },
       startDownload(){
@@ -182,6 +185,11 @@
           me.listadors = response.data.recursosSiembras;
           me.listadorn = response.data.recursosNecesarios;
         })         
+        axios.get("api/traer-recursos")
+        .then(response=>{
+          console.log(response.data.recursosNecesarios);
+          me.imprimirRecursos = response.data.recursosNecesarios;
+        })
       },
       incrementar(incremento){
         this.costo_acum += parseFloat(incremento);

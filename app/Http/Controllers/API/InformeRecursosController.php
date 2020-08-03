@@ -43,6 +43,7 @@ class InformeRecursosController extends Controller
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
+        ->where($c1, $op1, $c3)
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
         ->where($c7, $op4, $c8)
@@ -52,6 +53,7 @@ class InformeRecursosController extends Controller
         //  return 'Hola';    
         $acumula=0;
         $acumula2=0;
+        $acumula3=0;
         
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
@@ -59,6 +61,10 @@ class InformeRecursosController extends Controller
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 $acumula2+=$recursosNecesarios[$i]->costo_a;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $acumula3+=$recursosNecesarios[$i]->costo_horash;
+                $recursosNecesarios[$i]->costo_h_acum = $acumula3;
+                
             }
         }
         $recursosSiembras = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso', 'estado')
@@ -169,7 +175,7 @@ class InformeRecursosController extends Controller
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->rightJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
         ->rightJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a')
+        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a')
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
         ->where($c7, $op4, $c8)
@@ -197,5 +203,33 @@ class InformeRecursosController extends Controller
         
 
         return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
+    }
+    public function traerInformes(){
+
+        $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
+        ->get();
+        
+        $acumula=0;
+        $acumula2=0;
+        $acumula3=0;
+        
+        if(count($recursosNecesarios)>0){
+            for($i=0;$i<count($recursosNecesarios); $i++){
+                $acumula+=$recursosNecesarios[$i]->costo_r;
+                $recursosNecesarios[$i]->costo_r_acum = $acumula;
+                $acumula2+=$recursosNecesarios[$i]->costo_a;
+                $recursosNecesarios[$i]->costo_a_acum = $acumula2;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $acumula3+=$recursosNecesarios[$i]->costo_horash;
+                $recursosNecesarios[$i]->costo_h_acum = $acumula3;
+                
+            }
+        }
+        return ['recursosNecesarios' => $recursosNecesarios];
     }
 }

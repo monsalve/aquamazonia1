@@ -38,4 +38,8 @@ Route::namespace('API')->group(function () {
     Route::post('searchResults', 'RecursoNecesarioController@searchResults');
     Route::post('filtroInformes', 'InformeController@filtroInformes');
     Route::post('informe-recursos', 'InformeRecursosController@informeRecursos');
+    Route::get('traer-recursos', 'InformeRecursosController@traerInformes');
+    Route::post('filtro-siembras', 'SiembraController@filtroSiembras');
+    Route::get('traer-siembras', 'SiembraController@traerSiembras');
+    
 });

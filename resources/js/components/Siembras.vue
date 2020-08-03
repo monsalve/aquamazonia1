@@ -6,10 +6,53 @@
                     <div class="card-header">Gestión de Siembras</div>
 
                     <div class="card-body">
+                        <div class="row">
+                          <h6>Filtros de exportación: </h6>
+                          <div class="form-group">
+                            <label for="Siembra">Siembra:</label>
+                            <select class="form-control" id="f_siembra" v-model="f_siembra">
+                              <option value="-1" selected>Seleccionar</option>                             
+                              <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="Especie">Especie</label>
+                            <select class="form-control" id="f_especie" v-model="f_especie">
+                              <option value="-1" selected>Seleccionar</option>                             
+                              <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id">{{especie.especie}}</option>                            
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="Lote"> Lote</label>
+                            <select class="form-control" id="f_lote" v-model="f_lote">
+                              <option value="-1" selected>Seleccionar</option>                             
+                              <option :value="lote.lote" v-for="(lote, index) in lotes" :key="index">{{lote.lote}}</option>                                                        </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="Fecha desde">Fecha inicio desde: </label>
+                            <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
+                          </div>
+                          <div class="form-group">
+                            <label for="fecha hasta">Fecha inicio hasta: </label>
+                            <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
+                          </div>
+                          
+                          <button @click="exportarSiembras()"> Filtrar Por criterios</button>
+                          <downloadexcel
+                            
+                            class = "btn btn-success"
+                            :fetch   = "fetchData"
+                            :fields = "json_fields"
+                            :before-generate = "startDownload"
+                            :before-finish = "finishDownload"
+                            name    = "informe-siembras-especies.xls"
+                            type    = "xls">
+                              <i class="fa fa-fw fa-download"></i> Generar Excel 
+                          </downloadexcel>
+                        </div>
                         <div class="row mb-1">
                             <div class="col-12 text-right ">
-                              <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>
-                              <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-download"></i> Generar Excel </button>
+                              <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
                             </div>
                         </div>
                         <div class="row">
@@ -322,10 +365,14 @@
     
   Vue.component(HasError.name, HasError)
   Vue.component(AlertError.name, AlertError)
+  import downloadexcel from "vue-json-excel"
   
   export default {
     data(){
       return {
+        json_fields: {
+          'Siembras': 'nombre_siembra'
+        },
         form:{
           id : '',
           fecha_inicio:'',
@@ -346,6 +393,7 @@
         listadoRegistros: [],
         nombresEspecies : [],
         pecesxSiembra: [],
+        lotes :[],
         // Registros
         anadirRegistro : 0,        
         id_siembra:'',
@@ -365,12 +413,36 @@
         id_finalizar: '',
         nombresContenedores: [],
         estados: [],
+        imprimirSiembras : [],
         campos: {
           camps_s: []
         },
+        // Filtros para exportar
+        f_siembra : '',
+        f_especie: '', 
+        f_lote : '',
+        f_inicio_d : '',
+        f_inicio_h : '',
+        
       }
     },
+    components: {
+      downloadexcel,
+    },
     methods:{
+    
+     async fetchData(){
+      let me = this;
+      const response = await this.imprimirSiembras
+      return this.imprimirSiembras;
+      //  imprimirSiembras
+      },
+      startDownload(){
+          alert('show loading');
+      },
+      finishDownload(){
+          alert('hide loading');
+      },
       listarEspecies(){
         let me = this;
         axios.get("api/especies")
@@ -431,11 +503,19 @@
       
       listar(){
         let me = this;
+        this.listarEspecies();
         axios.get("api/siembras")
         .then(function (response){
           me.listadoSiembras = response.data.siembra;
           me.pecesxSiembra = response.data.pecesSiembra;
           me.campos = response.data.campos; 
+          me.lotes = response.data.lotes; 
+          
+        })
+        axios.get("api/traer-siembras")
+        .then(function (response){
+          me.imprimirSiembras = response.data.filtrarSiembras;                    
+          
         })
       },
       abrirIngreso(id){
@@ -469,6 +549,28 @@
         });
       },
       
+      exportarSiembras(){
+      let me = this;
+        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
+        if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
+        if(this.f_lote == ''){this.f_l = '-1'}else{this.f_l = this.f_lote}
+        if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
+        if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
+        
+        const data = {
+          'f_siembra' : this.f_s,
+          'f_especie' : this.f_e,
+          'f_lote' : this.f_l,
+          'f_inicio_d' : this.f_d,
+          'f_inicio_h' : this.f_h
+        }
+        axios.post("api/filtro-siembras", data)
+        .then(response=>{
+          console.log(response.data);
+          me.imprimirSiembras = response.data.filtrarSiembras;
+        })
+        
+      },
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
         this.id_finalizar = id;

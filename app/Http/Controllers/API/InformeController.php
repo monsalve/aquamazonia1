@@ -28,6 +28,7 @@ class InformeController extends Controller
             
         $acumula=0;
         $acumula2=0;
+        $acumula3=0;
         
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
@@ -35,6 +36,10 @@ class InformeController extends Controller
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 $acumula2+=$recursosNecesarios[$i]->costo_a;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $acumula3+=$recursosNecesarios[$i]->costo_horash;
+                $recursosNecesarios[$i]->costo_h_acum = $acumula3;
+                
             }
         }
         $recursosSiembras = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso', 'estado')
@@ -122,6 +127,7 @@ class InformeController extends Controller
         
         $acumula=0;
         $acumula2=0;
+        $acumula3=0;
         
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
@@ -129,6 +135,10 @@ class InformeController extends Controller
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 $acumula2+=$recursosNecesarios[$i]->costo_a;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $acumula3+=$recursosNecesarios[$i]->costo_horash;
+                $recursosNecesarios[$i]->costo_h_acum = $acumula3;
+                
             }
         }
         
