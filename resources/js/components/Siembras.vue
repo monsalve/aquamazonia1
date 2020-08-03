@@ -6,8 +6,9 @@
                     <div class="card-header">Gestión de Siembras</div>
 
                     <div class="card-body">
+                        <h6>Filtros de exportación: </h6>
+                        
                         <div class="row">
-                          <h6>Filtros de exportación: </h6>
                           <div class="form-group">
                             <label for="Siembra">Siembra:</label>
                             <select class="form-control" id="f_siembra" v-model="f_siembra">
@@ -36,8 +37,16 @@
                             <label for="fecha hasta">Fecha inicio hasta: </label>
                             <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                           </div>
+                          <div class="form-group">
+                            <label for="fecha hasta">Hacer click antes de exportar: </label>
+                            <button class="btn btn-primary form-control" @click="exportarSiembras()"> Filtrar Por criterios</button>
+                          </div>
                           
-                          <button @click="exportarSiembras()"> Filtrar Por criterios</button>
+                          
+                        </div>
+                        
+                        <div class="row text-right">
+                          
                           <downloadexcel
                             
                             class = "btn btn-success"
@@ -371,7 +380,16 @@
     data(){
       return {
         json_fields: {
-          'Siembras': 'nombre_siembra'
+          'Siembras': 'nombre_siembra',
+          'Contenedor' : 'contenedor',
+          'Fecha Inicio' : 'fecha_inicio',
+          'Estado' : 'estado',
+          'Especies' : 'especie',
+          'Lotes' : 'lote', 
+          'Cantidad Inicial' : 'cantidad',
+          'Peso Inicial' : 'peso_inicial',
+          'Cantidad Actual': 'cant_actual',
+          'Peso actual' : 'peso_actual'
         },
         form:{
           id : '',
@@ -504,6 +522,7 @@
       listar(){
         let me = this;
         this.listarEspecies();
+        this.listadoExcel();
         axios.get("api/siembras")
         .then(function (response){
           me.listadoSiembras = response.data.siembra;
@@ -512,11 +531,14 @@
           me.lotes = response.data.lotes; 
           
         })
+      },
+      listadoExcel(){
+        let me = this;
         axios.get("api/traer-siembras")
         .then(function (response){
           me.imprimirSiembras = response.data.filtrarSiembras;                    
           
-        })
+        })      
       },
       abrirIngreso(id){
         let me = this;

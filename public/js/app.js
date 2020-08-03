@@ -4107,6 +4107,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -4118,7 +4127,16 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
     return _ref = {
       json_fields: {
-        'Siembras': 'nombre_siembra'
+        'Siembras': 'nombre_siembra',
+        'Contenedor': 'contenedor',
+        'Fecha Inicio': 'fecha_inicio',
+        'Estado': 'estado',
+        'Especies': 'especie',
+        'Lotes': 'lote',
+        'Cantidad Inicial': 'cantidad',
+        'Peso Inicial': 'peso_inicial',
+        'Cantidad Actual': 'cant_actual',
+        'Peso actual': 'peso_actual'
       },
       form: {
         id: '',
@@ -4254,12 +4272,16 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
     listar: function listar() {
       var me = this;
       this.listarEspecies();
+      this.listadoExcel();
       axios.get("api/siembras").then(function (response) {
         me.listadoSiembras = response.data.siembra;
         me.pecesxSiembra = response.data.pecesSiembra;
         me.campos = response.data.campos;
         me.lotes = response.data.lotes;
       });
+    },
+    listadoExcel: function listadoExcel() {
+      var me = this;
       axios.get("api/traer-siembras").then(function (response) {
         me.imprimirSiembras = response.data.filtrarSiembras;
       });
@@ -46178,222 +46200,223 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "row" },
-              [
-                _c("h6", [_vm._v("Filtros de exportación: ")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "Siembra" } }, [
-                    _vm._v("Siembra:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_siembra,
-                          expression: "f_siembra"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "f_siembra" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.f_siembra = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "-1", selected: "" } }, [
-                        _vm._v("Seleccionar")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.listadoSiembras, function(ls, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: ls.id } },
-                          [_vm._v(_vm._s(ls.nombre_siembra))]
-                        )
-                      })
-                    ],
-                    2
-                  )
+            _c("h6", [_vm._v("Filtros de exportación: ")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "Siembra" } }, [
+                  _vm._v("Siembra:")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "Especie" } }, [
-                    _vm._v("Especie")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_especie,
-                          expression: "f_especie"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "f_especie" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.f_especie = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "-1", selected: "" } }, [
-                        _vm._v("Seleccionar")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.listadoEspecies, function(especie) {
-                        return _c(
-                          "option",
-                          { key: especie.id, domProps: { value: especie.id } },
-                          [_vm._v(_vm._s(especie.especie))]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "Lote" } }, [_vm._v(" Lote")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_lote,
-                          expression: "f_lote"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "f_lote" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.f_lote = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "-1", selected: "" } }, [
-                        _vm._v("Seleccionar")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.lotes, function(lote, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: lote.lote } },
-                          [_vm._v(_vm._s(lote.lote))]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "Fecha desde" } }, [
-                    _vm._v("Fecha inicio desde: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.f_inicio_d,
-                        expression: "f_inicio_d"
+                        value: _vm.f_siembra,
+                        expression: "f_siembra"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "date", id: "f_inicio_d" },
-                    domProps: { value: _vm.f_inicio_d },
+                    attrs: { id: "f_siembra" },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.f_inicio_d = $event.target.value
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_siembra = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
                     }
-                  })
-                ]),
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: ls.id } },
+                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "Especie" } }, [_vm._v("Especie")]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "fecha hasta" } }, [
-                    _vm._v("Fecha inicio hasta: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.f_inicio_h,
-                        expression: "f_inicio_h"
+                        value: _vm.f_especie,
+                        expression: "f_especie"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "date", id: "f_inicio_h" },
-                    domProps: { value: _vm.f_inicio_h },
+                    attrs: { id: "f_especie" },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.f_inicio_h = $event.target.value
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_especie = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
                     }
-                  })
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoEspecies, function(especie) {
+                      return _c(
+                        "option",
+                        { key: especie.id, domProps: { value: especie.id } },
+                        [_vm._v(_vm._s(especie.especie))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "Lote" } }, [_vm._v(" Lote")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_lote,
+                        expression: "f_lote"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "f_lote" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_lote = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.lotes, function(lote, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: lote.lote } },
+                        [_vm._v(_vm._s(lote.lote))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "Fecha desde" } }, [
+                  _vm._v("Fecha inicio desde: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_d,
+                      expression: "f_inicio_d"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_d" },
+                  domProps: { value: _vm.f_inicio_d },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_d = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "fecha hasta" } }, [
+                  _vm._v("Fecha inicio hasta: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_h,
+                      expression: "f_inicio_h"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_h" },
+                  domProps: { value: _vm.f_inicio_h },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_h = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "fecha hasta" } }, [
+                  _vm._v("Hacer click antes de exportar: ")
                 ]),
                 _vm._v(" "),
                 _c(
                   "button",
                   {
+                    staticClass: "btn btn-primary form-control",
                     on: {
                       click: function($event) {
                         return _vm.exportarSiembras()
@@ -46401,8 +46424,14 @@ var render = function() {
                     }
                   },
                   [_vm._v(" Filtrar Por criterios")]
-                ),
-                _vm._v(" "),
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row text-right" },
+              [
                 _c(
                   "downloadexcel",
                   {
@@ -67126,15 +67155,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./resources/js/components/Siembras.vue ***!
   \**********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Siembras_vue_vue_type_template_id_21a2c86b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Siembras.vue?vue&type=template&id=21a2c86b& */ "./resources/js/components/Siembras.vue?vue&type=template&id=21a2c86b&");
 /* harmony import */ var _Siembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Siembras.vue?vue&type=script&lang=js& */ "./resources/js/components/Siembras.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Siembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Siembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -67164,7 +67192,7 @@ component.options.__file = "resources/js/components/Siembras.vue"
 /*!***********************************************************************!*\
   !*** ./resources/js/components/Siembras.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
