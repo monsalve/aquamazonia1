@@ -8,7 +8,41 @@
           <div class="card-body">
             <div class="row mb-1">
               <div class="col-md-10">
-                <h2>Filtrar por:</h2>                
+                <h5>Filtrar por:</h5>     
+                <div class="row">
+                  <div class="form-group">
+                    <label for="Siembra">Siembra:</label>
+                    <select class="form-control" id="f_siembra" v-model="f_siembra">
+                      <option value="-1" selected>Seleccionar</option>                             
+                      <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Fecha desde">Fecha inicio desde: </label>
+                    <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
+                  </div>
+                  <div class="form-group">
+                    <label for="fecha hasta">Fecha inicio hasta: </label>
+                    <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
+                  </div>
+                  <div class="form-group col-md-1">
+                    <label for="fecha hasta">Buscar: </label>
+                    <button class="btn btn-primary form-control" @click="filtrarParametros()"> <i class="fas fa-search"></i></button>
+                  </div>
+                  <div class="form-group">
+                    <downloadexcel
+                      
+                      class = "btn btn-success"
+                      :fetch   = "fetchData"
+                      :fields = "json_fields"
+                      :before-generate = "startDownload"
+                      :before-finish = "finishDownload"
+                      name    = "informe-parametros-calidad-agua.xls"
+                      type    = "xls">
+                        <i class="fa fa-fw fa-download"></i> Generar Excel 
+                    </downloadexcel>
+                  </div>
+                </div>
               </div>
               <div class="col-md-2 text-right ">
                 <!-- Button trigger modal -->
@@ -29,7 +63,7 @@
                     <th rowspan="2" data-field="id">Nitrito</th>
                     <th rowspan="2" data-field="id">Nitrato</th>
                     <th rowspan="2" data-field="id">Otros</th>
-                    <th rowspan="2" data-field="id">Editar/Eliminar</th>
+                    <!-- <th rowspan="2" data-field="id">Editar/Eliminar</th> -->
                   </tr>
                   <tr>
                     <th data-field="" data-not-first-th="">12:00 am</th>
@@ -55,14 +89,14 @@
                     <td v-text="lp.nitrito"></td>
                     <td v-text="lp.nitrato"></td>
                     <td v-text="lp.otros"></td>
-                    <td>
+                    <!-- <td>
                       <button class="btn btn-success" type="button" @click="editarParametros(lp)">
                         <i class="fas fa-edit"></i>
                       </button>
                       <button class="btn btn-danger" type="button" @click="eliminarParametros(lp.id)">
                         <i class="fas fa-trash"></i>
                       </button>
-                    </td>
+                    </td> -->
                   </tr>
                   <th>Promedio</th>
                 </tbody>
@@ -197,7 +231,22 @@
     data(){
     
       return {
-        json_fields: {      
+        json_fields: {   
+          '#' : 'id',
+          'Fecha ' : 'fecha_parametro',
+          'Siembra' : 'nombre_siembra',
+          '12:00 a.m' : '12_am',
+          '4:00 a.m' : '4_am',
+          '7:00 a.m' : '7_am',
+          '4:00 p.m' : '4_pm',
+          '8:00 a.m' : '8_pm',
+          'Temperatura' : 'temperatura', 
+          'Ph' : 'ph',
+          'Amonio' : 'amonio',
+          'Nitrito' : 'nitrito', 
+          'Nitrato' : 'nitrato',
+          'Otros' : 'otros'
+          
         },     
         editando : 0,
         form : new Form({
@@ -220,7 +269,10 @@
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
-        addSiembras : []
+        addSiembras : [],
+        f_siembra : '',
+        f_inicio_d : '',
+        f_inicio_h : '',
       }
     },
     components: {
@@ -230,9 +282,9 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-Parametros');
-        const response = await this.imprimirParametros
+        const response = await this.listadoParametros
         // console.log(response);
-        return this.imprimirParametros;
+        return this.listadoParametros;
       },
       startDownload(){
           alert('show loading');
@@ -240,7 +292,24 @@
       finishDownload(){
           alert('hide loading');
       },
-      
+      filtrarParametros(){
+        let me = this;
+        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
+        if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
+        if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
+        
+        const data = {
+          'f_siembra' : this.f_s,
+          'f_inicio_d' : this.f_d,
+          'f_inicio_h' : this.f_h
+        }
+        axios.post("api/filtro-parametros", data)
+        .then(response=>{
+          console.log(response.data);
+          me.listadoParametros = response.data;
+        })
+        
+      },
       listar(){
         let me = this;      
         this.listarEspecies();
@@ -298,11 +367,11 @@
       editar(){
         let me = this;
         this.form.put('api/parametros-calidad/'+this.form.id)
-            .then(({data})=>{
-                console.log(data);
-                $('#modalParametros').modal('hide');
-                me.listar();
-            })          
+          .then(({data})=>{
+            console.log(data);
+            $('#modalParametros').modal('hide');
+            me.listar();
+          })          
         console.log('editando')
       },
     },

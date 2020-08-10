@@ -44,4 +44,5 @@ Route::namespace('API')->group(function () {
     Route::get('traer-siembras', 'SiembraController@traerSiembras');
     Route::get('traer-existencias', 'InformeController@traerExistencias');
     Route::post('filtro-ciclos', 'InformeController@filtroExistencias');
+    Route::post('filtro-parametros', 'ParametroCalidadController@filtroParametros');
 });

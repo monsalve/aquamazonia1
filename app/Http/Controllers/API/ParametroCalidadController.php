@@ -18,9 +18,10 @@ class ParametroCalidadController extends Controller
     public function index()
     {
       //
-      $calidad_agua = CalidadSiembra::select()
-        ->join('calidad_agua', 'calidad_siembra.id_calidad_parametros', 'calidad_agua.id')
+      $calidad_agua = CalidadAgua::select()
+        ->join('calidad_siembra', 'calidad_agua.id', 'calidad_siembra.id_calidad_parametros')
         ->join('siembras', 'calidad_siembra.id_siembra', 'siembras.id')
+        ->where('siembras.estado', '=', 1)
         ->get();
       return $calidad_agua;
     }
@@ -92,4 +93,26 @@ class ParametroCalidadController extends Controller
     {
         //
     }
+    
+    public function filtroParametros(Request $request){
+        $c1 = "siembras.id"; $op1 = '!='; $c2 = '-1';
+        $c3 = "siembras.id"; $op2 = '!='; $c4 = '-1';
+        $c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
+        
+        if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
+        if($request['f_inicio_d']!='-1'){$c3="fecha_parametro"; $op2='>='; $c4= $request['f_inicio_d'];}
+        if($request['f_inicio_h']!='-1'){$c5="fecha_parametro"; $op3='<='; $c6= $request['f_inicio_h'];}
+    
+        $calidad_agua = CalidadAgua::select()
+            ->join('calidad_siembra', 'calidad_agua.id', 'calidad_siembra.id_calidad_parametros')
+            ->join('siembras', 'calidad_siembra.id_siembra', 'siembras.id')
+            ->where('siembras.estado', '=', 1)
+            ->where($c1, $op1, $c2)
+            ->where($c3, $op2, $c4)
+            ->where($c5, $op3, $c6)
+            ->orderBy('siembras.id', 'desc')
+            ->get();
+        return $calidad_agua;
+    }   
+    
 }

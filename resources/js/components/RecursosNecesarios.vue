@@ -152,7 +152,7 @@
                   <label for="siembra">{{item.nombre_siembra}}</label>
                   <br>
                 </div>
-                <span>Checked names: {{ item.nombre_siembra }}</span>
+                <span>Checked names: {{ form.nombre_siembra }}</span>
               </div>
               
             </form>

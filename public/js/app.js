@@ -2645,12 +2645,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      json_fields: {},
+      json_fields: {
+        '#': 'id',
+        'Fecha ': 'fecha_parametro',
+        'Siembra': 'nombre_siembra',
+        '12:00 a.m': '12_am',
+        '4:00 a.m': '4_am',
+        '7:00 a.m': '7_am',
+        '4:00 p.m': '4_pm',
+        '8:00 a.m': '8_pm',
+        'Temperatura': 'temperatura',
+        'Ph': 'ph',
+        'Amonio': 'amonio',
+        'Nitrito': 'nitrito',
+        'Nitrato': 'nitrato',
+        'Otros': 'otros'
+      },
       editando: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
         id_siembra: [],
@@ -2672,7 +2721,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       listadoSiembras: [],
       listadoParametros: [],
-      addSiembras: []
+      addSiembras: [],
+      f_siembra: '',
+      f_inicio_d: '',
+      f_inicio_h: ''
     };
   },
   components: {
@@ -2691,11 +2743,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 me = _this; // const response = await axios.get('api/informe-Parametros');
 
                 _context.next = 3;
-                return _this.imprimirParametros;
+                return _this.listadoParametros;
 
               case 3:
                 response = _context.sent;
-                return _context.abrupt("return", _this.imprimirParametros);
+                return _context.abrupt("return", _this.listadoParametros);
 
               case 5:
               case "end":
@@ -2710,6 +2762,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
+    },
+    filtrarParametros: function filtrarParametros() {
+      var me = this;
+
+      if (this.f_siembra == '') {
+        this.f_s = '-1';
+      } else {
+        this.f_s = this.f_siembra;
+      }
+
+      if (this.f_inicio_d == '') {
+        this.f_d = '-1';
+      } else {
+        this.f_d = this.f_inicio_d;
+      }
+
+      if (this.f_inicio_h == '') {
+        this.f_h = '-1';
+      } else {
+        this.f_h = this.f_inicio_h;
+      }
+
+      var data = {
+        'f_siembra': this.f_s,
+        'f_inicio_d': this.f_d,
+        'f_inicio_h': this.f_h
+      };
+      axios.post("api/filtro-parametros", data).then(function (response) {
+        console.log(response.data);
+        me.listadoParametros = response.data;
+      });
     },
     listar: function listar() {
       var me = this;
@@ -44224,7 +44307,163 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "row mb-1" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "col-md-10" }, [
+                _c("h5", [_vm._v("Filtrar por:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "Siembra" } }, [
+                      _vm._v("Siembra:")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.f_siembra,
+                            expression: "f_siembra"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "f_siembra" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.f_siembra = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "-1", selected: "" } }, [
+                          _vm._v("Seleccionar")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.listadoSiembras, function(ls, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: ls.id } },
+                            [_vm._v(_vm._s(ls.nombre_siembra))]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "Fecha desde" } }, [
+                      _vm._v("Fecha inicio desde: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_inicio_d,
+                          expression: "f_inicio_d"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", id: "f_inicio_d" },
+                      domProps: { value: _vm.f_inicio_d },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.f_inicio_d = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "fecha hasta" } }, [
+                      _vm._v("Fecha inicio hasta: ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_inicio_h,
+                          expression: "f_inicio_h"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", id: "f_inicio_h" },
+                      domProps: { value: _vm.f_inicio_h },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.f_inicio_h = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-1" }, [
+                    _c("label", { attrs: { for: "fecha hasta" } }, [
+                      _vm._v("Buscar: ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary form-control",
+                        on: {
+                          click: function($event) {
+                            return _vm.filtrarParametros()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-search" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c(
+                        "downloadexcel",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: {
+                            fetch: _vm.fetchData,
+                            fields: _vm.json_fields,
+                            "before-generate": _vm.startDownload,
+                            "before-finish": _vm.finishDownload,
+                            name: "informe-parametros-calidad-agua.xls",
+                            type: "xls"
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-fw fa-download" }),
+                          _vm._v(" Generar Excel \n                  ")
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2 text-right " }, [
                 _c(
@@ -44248,7 +44487,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-striped table-hover table-sm" },
                 [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -44311,37 +44550,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(lp.otros) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.editarParametros(lp)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-edit" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.eliminarParametros(lp.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-trash" })]
-                            )
-                          ])
+                          })
                         ])
                       }),
                       _vm._v(" "),
@@ -44375,7 +44584,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -44394,7 +44603,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "form-group row" }, [
-                        _vm._m(3),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-sm-6" }, [
                           _c("input", {
@@ -44430,11 +44639,11 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(4),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c("div", { staticClass: "border rounded p-3 mb-3" }, [
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(5),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -44470,7 +44679,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(6),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -44506,7 +44715,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(7),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -44542,7 +44751,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(8),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -44578,7 +44787,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(9),
+                          _vm._m(8),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -44971,14 +45180,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c("h2", [_vm._v("Filtrar por:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", {}, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
@@ -45019,10 +45220,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("Otros")
-        ]),
-        _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Editar/Eliminar")
         ])
       ]),
       _vm._v(" "),
@@ -47884,7 +48081,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", [
                         _vm._v(
-                          "Checked names: " + _vm._s(_vm.item.nombre_siembra)
+                          "Checked names: " + _vm._s(_vm.form.nombre_siembra)
                         )
                       ])
                     ],

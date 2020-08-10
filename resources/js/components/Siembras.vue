@@ -575,7 +575,7 @@
       },
       
       exportarSiembras(){
-      let me = this;
+        let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
         if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
         if(this.f_lote == ''){this.f_l = '-1'}else{this.f_l = this.f_lote}
@@ -599,7 +599,6 @@
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
         this.id_finalizar = id;
-        
       },
       fechaDescanso(id){
         let me = this;
@@ -609,8 +608,7 @@
               'id' : this.id_finalizar,
               'ini_descanso' : this.ini_descanso,
               'fin_descanso' : this.fin_descanso          
-            }
-         
+            }         
             axios.post('api/actualizarEstado/'+this.id_finalizar, data)
             .then(({response})=>{
               console.log(response);   
@@ -665,8 +663,7 @@
         }else{
           alert('Debe diligenciar todos los campos');
         }
-       
-          console.log('guardar') ;
+        console.log('guardar') ;
       },
       eliminarRegistro(index){
         let me = this;
