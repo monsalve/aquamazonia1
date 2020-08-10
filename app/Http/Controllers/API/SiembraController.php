@@ -175,7 +175,7 @@ class SiembraController extends Controller
         return ['filtrarSiembras' => $filtrarSiembras];
     }   
     public function traerSiembras(){
-        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especie')
+        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especies.id', 'especie', 'cantidad', 'peso_inicial', 'cant_actual', 'peso_actual')
             ->join('contenedores','siembras.id_contenedor','contenedores.id')
             ->join('especies_siembra', 'siembras.id', 'especies_siembra.id_siembra')   
             ->join('especies', 'especies_siembra.id_especie', 'especies.id')

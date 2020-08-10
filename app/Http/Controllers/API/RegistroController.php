@@ -48,7 +48,8 @@ class RegistroController extends Controller
                 $exs->cant_actual= $exs->cant_actual -$campo['cantidad'];
             }
             if($campo['peso_ganado'] > 0){
-                $exs->peso_actual= floatval($exs->peso_actual) + floatval($campo['peso_ganado']);
+                // $exs->peso_actual= floatval($exs->peso_actual) + floatval($campo['peso_ganado']);
+                $exs->peso_actual = ($campo['peso_ganado']);
             }
             $exs->save();
             $registro = Registro::create([

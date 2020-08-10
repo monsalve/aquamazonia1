@@ -17,7 +17,7 @@
                                 <tr>
                                   <th scope="col">#</th>
                                   <th scope="col">Alimento</th>
-                                  <th scope="col">Costo</th>
+                                  <th scope="col">Costo Kl</th>
                                   <th scope="col">Estado</th>
                                 </tr>
                               </thead>
@@ -28,15 +28,13 @@
                                   <td v-text="alimento.costo_kg"></td>
                                   <td>
                                     <!-- <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>-->
-                                    <button @click="cargaEditar(alimento)" class="btn btn-light" type="button">
-                                        <span style="font-size: 1em; color:#28a745 ;"  >
+                                    <button @click="cargaEditar(alimento)" class="btn btn-success" type="button">
+                                        
                                             <i class="fas fa-edit"></i>
-                                        </span>
+                                        
                                     </button>
-                                    <button @click="eliminar(alimento.id)" class="btn btn-light" type="button">
-                                        <span style="font-size: 1em; color:#DC3545;">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
+                                    <button @click="eliminar(alimento.id)" class="btn btn-danger" type="button">                                        
+                                        <i class="fas fa-trash"></i>                                        
                                     </button>
                                   </td>
                                 </tr>
@@ -67,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="costo" class="col-sm-12  col-md-4 col-form-label">Costo
+                                <label for="costo" class="col-sm-12  col-md-4 col-form-label">Costo KL
                                 </label>
                                 <div class="col-sm-12 col-md-8">
                                     <input type="text" class="form-control" id="costo_kg" v-model="form.costo_kg" :class="{ 'is-invalid': form.errors.has('costo_kg') }">

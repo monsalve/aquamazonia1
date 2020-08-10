@@ -224,7 +224,7 @@
         </div>
         <!-- Modal registros -->
         <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
-          <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title text-center col-md-9">Registros</h5>
@@ -257,7 +257,7 @@
                       <tr v-for="(registro, index) in listadoRegistros" :key="registro.id" v-if="registro.id_siembra == idSiembraRegistro">
                         <th v-text="index+1"></th>
                         <td v-text="registro.especie"></td>
-                        <td v-text="registro.tipo_registro == 0 ? 'Muestreo' : 'Pescas'"></td>
+                        <td v-text="tipoRegistro[registro.tipo_registro]"></td>
                         <td v-text="registro.fecha_registro"></td>
                         <td v-text="registro.tiempo"></td>
                         <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
@@ -290,19 +290,20 @@
                       <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
                         <option value="0" >Muestreo</option>
                         <option value="1">Pesca</option>
+                        <option value="2">Mortalidad inicial</option>
                       </select>
                     </div>
                   </div>
-                  <div>
-                    <table class="table">
+                  <div style="width:60%; margin:auto">
+                    <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th scope="col">Especie</th>
-                          <th scope="col" v-if="tipo_registro == 0">Peso Ganado (gr)</th>
+                          <th scope="col" v-if="tipo_registro == 0">Peso Ganado actual (gr)</th>
                           <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
                           <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
                           <th scope="col" v-if="tipo_registro == 1">Cantidad</th>
-                          
+                          <th scope="col" v-if="tipo_registro == 2">Mortalidad Inicial</th>
                         </tr>
                       </thead>
                       <tbody>                      
@@ -312,15 +313,15 @@
                           <td v-if="tipo_registro == 0"> 
                             <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
                           </td>                        
-                          <td v-if="tipo_registro == 0">
-                            <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
+                          <td v-if="tipo_registro == 0 || tipo_registro == 2">
+                            <input type="number" id="mortalidad" class="form-control" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
                           </td>
                           <td v-if="tipo_registro == 1">
                             <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
                           </td>
-                          <td v-if="tipo_registro == 1">
+                          <td v-if="tipo_registro == 1 ">
                             <input type="number" class="form-control" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
-                          </td>                      
+                          </td>                                                 
                         </tr>                      
                       </tbody>
                     </table>
@@ -424,6 +425,7 @@
         biomasa:'',
         cantidad:'',        
         id_siembra:'',
+        mortalidad_inicial : '',
         idSiembraRegistro:'',
         // Finalización de siembra
         ini_descanso:'',
@@ -431,6 +433,7 @@
         id_finalizar: '',
         nombresContenedores: [],
         estados: [],
+        tipoRegistro : [],
         imprimirSiembras : [],
         campos: {
           camps_s: []
@@ -716,6 +719,9 @@
       this.estados[1] = 'Activo';
       this.estados[2] = 'Ocupado';
       this.estados[3] = 'Descanso';
+      this.tipoRegistro[0] = 'Muestreo';
+      this.tipoRegistro[1] = 'Pesca';
+      this.tipoRegistro[2] = 'Mortalidad Inicial'
     }
   }
 </script>

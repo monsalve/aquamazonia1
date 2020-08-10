@@ -152,12 +152,10 @@
                 let me = this;
                 this.form.put('api/recursos/'+this.form.id)
                     .then(({data})=>{
-                        console.log(data);   
-                    
+                        console.log(data);
                         $('#modalRecursos').modal('hide');
                         me.listar();
-                    })
-          
+                    })          
                 console.log('editando')
             },
             eliminar(index){

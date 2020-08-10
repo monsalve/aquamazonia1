@@ -67,8 +67,19 @@
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/alimentacion">Alimentación</router-link>
                             </li>
-                            <li class="nav-item ">
+                            <!-- <li class="nav-item ">
                                 <router-link class="nav-link" to="/informes">Informes</router-link>
+                            </li> -->
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                   Informes<span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <router-link class="dropdown-item" to="/informes">Informe recursos </router-link>                            
+                                    <router-link class="dropdown-item" to="/siembras">Informe siembras</router-link>      
+                                    <router-link class="dropdown-item" to="/ciclo-productivo">Informe ciclo productivo</router-link>      
+                                    <router-link class="dropdown-item" to="/calidad-agua">Informe Calidad Agua</router-link>      
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -81,7 +92,6 @@
                                     <router-link class="dropdown-item" to="/recursos">Recursos</router-link>                                
                                     <router-link class="dropdown-item" to="/usuarios">Usuarios</router-link>
                                 </div>
-                                
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

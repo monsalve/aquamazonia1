@@ -93,24 +93,20 @@
                           <tbody>
                             <tr v-for="(lrn, index) in listadorn" :key="index">
                               <th v-text="index+1"></th>
-                              <td>
-                                <span class="nav-item" v-for="lrs in listadors" :key="lrs.id" v-if="lrn.id == lrs.id_registro">- {{lrs.nombre_siembra}}<br></span>
-                              </td>
-                               <td>
-                                <span class="nav-item" v-for="lrs in listadors" :key="lrs.id" v-if="lrn.id == lrs.id_registro">-{{estados[lrs.estado]}}<br></span>
-                              </td>
+                              <td v-text="lrn.nombre_siembra"></td>
+                              <td v-text="estados[lrn.estado]"></td>
                               <td v-text="lrn.tipo_actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.costo_horash +'hr'"></td>
-                              <td v-text="lrn.costo_h_acum +'hr'"></td>
+                              <th v-text="lrn.costo_h_acum +'hr'"></th>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.costo_r"></td>
-                              <td v-text="lrn.costo_r_acum"></td>        
+                              <th v-text="lrn.costo_r_acum"></th>        
                               <td v-text="lrn.fecha_ra"></td>     
                               <td v-text="lrn.alimento"></td>
                               <td v-text="lrn.costo_a"></td>
-                              <td v-text="lrn.costo_a_acum"></td>
+                              <th v-text="lrn.costo_a_acum"></th>
                             </tr>
                           </tbody>
                         </table>

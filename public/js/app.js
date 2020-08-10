@@ -2349,8 +2349,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -2430,6 +2428,354 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
   },
   mounted: function mounted() {
     this.listar(); //console.log('Component mounted.')
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      json_fields: {},
+      editando: 0,
+      form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
+        id_siembra: [],
+        id_especie: '',
+        fecha_parametro: '',
+        h_12am: '',
+        h_4am: '',
+        h_7am: '',
+        h_4pm: '',
+        h_8pm: '',
+        temperatura: '',
+        ph: '',
+        amonio: '',
+        nitrito: '',
+        nitrato: '',
+        otros: ''
+      }),
+      listadoExistencias: [],
+      listadoEspecies: [],
+      listadoSiembras: [],
+      listadoParametros: [],
+      addSiembras: []
+    };
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this; // const response = await axios.get('api/informe-Parametros');
+
+                _context.next = 3;
+                return _this.imprimirParametros;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.imprimirParametros);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startDownload: function startDownload() {
+      alert('show loading');
+    },
+    finishDownload: function finishDownload() {
+      alert('hide loading');
+    },
+    listar: function listar() {
+      var me = this;
+      this.listarEspecies();
+      this.listarSiembras();
+      this.listarParametros();
+    },
+    listarEspecies: function listarEspecies() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        me.listadoEspecies = response.data;
+      });
+    },
+    listarParametros: function listarParametros() {
+      var me = this;
+      axios.get("api/parametros-calidad").then(function (response) {
+        me.listadoParametros = response.data;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    crearParametros: function crearParametros() {
+      this.editando = 0;
+      var me = this;
+      $('#modalParametros').modal('show');
+    },
+    checkSiembras: function checkSiembras() {
+      var me = this;
+      me.addSiembras({
+        'id_siembra': this.form.id_siembra
+      });
+    },
+    guardarParametros: function guardarParametros() {
+      editando: 0;
+
+      var me = this;
+      this.form.post("api/parametros-calidad").then(function (_ref) {
+        var data = _ref.data;
+        console.log('guardado');
+        me.listar();
+        $('#modalParametros').modal('hide');
+      });
+    },
+    editarParametros: function editarParametros(objeto) {
+      var me = this;
+      this.form.fill(objeto);
+      this.editando = 1;
+      $('#modalParametros').modal('show');
+    },
+    editar: function editar() {
+      var me = this;
+      this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
+        var data = _ref2.data;
+        console.log(data);
+        $('#modalParametros').modal('hide');
+        me.listar();
+      });
+      console.log('editando');
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
   }
 });
 
@@ -2887,10 +3233,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Informes.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Informes.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2909,6 +3255,247 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      json_fields: {
+        'Siembra': 'nombre_siembra',
+        'Especie': 'especie',
+        'Fecha inicio siembra': 'fecha_inicio',
+        'Cantidad Inicial': 'cantidad_inicial',
+        'Peso inicial': 'peso_inicial',
+        'Mortalidad kg aumentada': 'mortalidad_kg_au',
+        'Salida animales acumulado': 'cantidad_pescas',
+        'Peso actual': 'peso_actual',
+        'Cantidad actual': 'cant_actual',
+        'Biomasa final': 'biomasa_final'
+      },
+      listadoExistencias: [],
+      listadoEspecies: [],
+      listadoSiembras: [],
+      imprimirRecursos: [],
+      f_siembra: '',
+      f_especie: '',
+      f_inicio_d: '',
+      f_inicio_h: ''
+    };
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this; // const response = await axios.get('api/informe-recursos');
+
+                _context.next = 3;
+                return _this.listadoExistencias;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listadoExistencias);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startDownload: function startDownload() {
+      alert('show loading');
+    },
+    finishDownload: function finishDownload() {
+      alert('hide loading');
+    },
+    listar: function listar() {
+      var me = this;
+      this.listarEspecies();
+      this.listarSiembras();
+      axios.get("api/traer-existencias").then(function (response) {
+        console.log(response.data);
+        me.listadoExistencias = response.data.existencias;
+      });
+    },
+    listarEspecies: function listarEspecies() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        me.listadoEspecies = response.data;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    filtroCiclo: function filtroCiclo() {
+      var me = this;
+
+      if (this.f_siembra == '') {
+        this.smb = '-1';
+      } else {
+        this.smb = this.f_siembra;
+      }
+
+      if (this.f_especie == '') {
+        this.esp = '-1';
+      } else {
+        this.esp = this.f_especie;
+      }
+
+      if (this.f_inicio_d == '') {
+        this.fecd = '-1';
+      } else {
+        this.fecd = this.f_inicio_d;
+      }
+
+      if (this.f_inicio_h == '') {
+        this.fech = '-1';
+      } else {
+        this.fech = this.f_inicio_h;
+      }
+
+      var data = {
+        'f_siembra': this.smb,
+        'f_especie': this.esp,
+        'f_inicio_d': this.fecd,
+        'f_inicio_h': this.fech
+      };
+      axios.post("api/filtro-ciclos", data).then(function (response) {
+        me.listadoExistencias = response.data.existencias; // console.log(response.data);
+      });
+      console.log('buscar');
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Informes.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Informes.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -4116,6 +4703,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -4170,7 +4758,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       mortalidad: '',
       biomasa: '',
       cantidad: ''
-    }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "imprimirSiembras", []), _defineProperty(_ref, "campos", {
+    }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "imprimirSiembras", []), _defineProperty(_ref, "campos", {
       camps_s: []
     }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _ref;
   },
@@ -4486,6 +5074,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
     this.estados[1] = 'Activo';
     this.estados[2] = 'Ocupado';
     this.estados[3] = 'Descanso';
+    this.tipoRegistro[0] = 'Muestreo';
+    this.tipoRegistro[1] = 'Pesca';
+    this.tipoRegistro[2] = 'Mortalidad Inicial';
   }
 });
 
@@ -42840,7 +43431,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-xl", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(1),
@@ -42866,7 +43457,7 @@ var render = function() {
                               expression: "form.id_alimento"
                             }
                           ],
-                          staticClass: "form-control col-md-6",
+                          staticClass: "form-control col-md-7",
                           attrs: { id: "alimento" },
                           on: {
                             change: function($event) {
@@ -42925,7 +43516,7 @@ var render = function() {
                             expression: "form.fecha_ra"
                           }
                         ],
-                        staticClass: "form-control col-md-6",
+                        staticClass: "form-control col-md-7",
                         attrs: {
                           type: "date",
                           id: "fecha_ra",
@@ -42963,7 +43554,7 @@ var render = function() {
                             expression: "form.horas_hombre"
                           }
                         ],
-                        staticClass: "form-control col-md-6",
+                        staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
                           id: "horas_hombre",
@@ -43007,7 +43598,7 @@ var render = function() {
                             expression: "form.cant_manana"
                           }
                         ],
-                        staticClass: "form-control col-md-6",
+                        staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
                           id: "kg_manana",
@@ -43049,7 +43640,7 @@ var render = function() {
                             expression: "form.cant_tarde"
                           }
                         ],
-                        staticClass: "form-control col-md-6",
+                        staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
                           id: "cant_tarde",
@@ -43088,7 +43679,7 @@ var render = function() {
                             expression: "form.detalles"
                           }
                         ],
-                        staticClass: "form-control col-md-6",
+                        staticClass: "form-control col-md-7",
                         attrs: {
                           id: "detalles",
                           "aria-describedby": "detalles",
@@ -43119,7 +43710,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "col-md-6" },
+                          { staticClass: "col-md-7" },
                           _vm._l(_vm.listadoSiembras, function(item, index) {
                             return _c(
                               "div",
@@ -43264,7 +43855,7 @@ var staticRenderFns = [
       _c(
         "h3",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Recursos por siembra")]
+        [_vm._v("Alimentos por siembra")]
       ),
       _vm._v(" "),
       _c(
@@ -43354,7 +43945,7 @@ var render = function() {
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-light",
+                            staticClass: "btn btn-success",
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
@@ -43362,13 +43953,13 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._m(1, true)]
+                          [_c("i", { staticClass: "fas fa-edit" })]
                         ),
                         _vm._v(" "),
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-light",
+                            staticClass: "btn btn-danger",
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
@@ -43376,7 +43967,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._m(2, true)]
+                          [_c("i", { staticClass: "fas fa-trash" })]
                         )
                       ])
                     ])
@@ -43417,7 +44008,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(1)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
@@ -43490,7 +44081,7 @@ var render = function() {
                         staticClass: "col-sm-12  col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo\n                            ")]
+                      [_vm._v("Costo KL\n                            ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -43578,31 +44169,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Alimento")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo Kl")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticStyle: { "font-size": "1em", color: "#28a745" } },
-      [_c("i", { staticClass: "fas fa-edit" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticStyle: { "font-size": "1em", color: "#DC3545" } },
-      [_c("i", { staticClass: "fas fa-trash" })]
-    )
   },
   function() {
     var _vm = this
@@ -43619,6 +44190,949 @@ var staticRenderFns = [
         }
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Parametros necesarios")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row mb-1" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2 text-right " }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.crearParametros()
+                      }
+                    }
+                  },
+                  [_vm._v("Añadir párametros")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "table",
+                { staticClass: "table table-striped table-hover table-sm" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm._l(_vm.listadoParametros, function(lp, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", {
+                            domProps: { textContent: _vm._s(index) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.nombre_siembra) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lp.fecha_parametro)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp["12_am"]) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp["4_am"]) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp["7_am"]) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp["4_pm"]) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp["8_pm"]) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.temperatura) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.ph) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.amonio) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.nitrito) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.nitrato) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lp.otros) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editarParametros(lp)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarParametros(lp.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ])
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Promedio")])
+                    ],
+                    2
+                  )
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalParametros",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "row container",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editando == 0
+                          ? _vm.guardarParametros()
+                          : _vm.editar()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group row" }, [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fecha_parametro,
+                                expression: "form.fecha_parametro"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              id: "fecha_registro",
+                              placeholder: "Fecha de registro",
+                              required: ""
+                            },
+                            domProps: { value: _vm.form.fecha_parametro },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "fecha_parametro",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "border rounded p-3 mb-3" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.h_12am,
+                                  expression: "form.h_12am"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "12am",
+                                placeholder: "Párametros 12am "
+                              },
+                              domProps: { value: _vm.form.h_12am },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "h_12am",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.h_4am,
+                                  expression: "form.h_4am"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "4am",
+                                placeholder: "Párametros 4am"
+                              },
+                              domProps: { value: _vm.form.h_4am },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "h_4am",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _vm._m(7),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.h_7am,
+                                  expression: "form.h_7am"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "7am",
+                                placeholder: "Párametros 7am"
+                              },
+                              domProps: { value: _vm.form.h_7am },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "h_7am",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _vm._m(8),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.h_4pm,
+                                  expression: "form.h_4pm"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "4pm",
+                                placeholder: "Párametros 4pm"
+                              },
+                              domProps: { value: _vm.form.h_4pm },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "h_4pm",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _vm._m(9),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.h_8pm,
+                                  expression: "form.h_8pm"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "8pm",
+                                placeholder: "Párametros 8pm"
+                              },
+                              domProps: { value: _vm.form.h_8pm },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "h_8pm",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "Temperatura" }
+                          },
+                          [_vm._v("Temperatura: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.temperatura,
+                                expression: "form.temperatura"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "temperatura",
+                              placeholder: "Temperatura"
+                            },
+                            domProps: { value: _vm.form.temperatura },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "temperatura",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "ph" }
+                          },
+                          [_vm._v("PH: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.ph,
+                                expression: "form.ph"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "ph",
+                              placeholder: "ph"
+                            },
+                            domProps: { value: _vm.form.ph },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "ph", $event.target.value)
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Amonio" }
+                            },
+                            [_vm._v("Amonio: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.amonio,
+                                  expression: "form.amonio"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "amonio",
+                                placeholder: "Amonio"
+                              },
+                              domProps: { value: _vm.form.amonio },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "amonio",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Nitrito" }
+                            },
+                            [_vm._v("Nitrito: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.nitrito,
+                                  expression: "form.nitrito"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "nitrito",
+                                placeholder: "Nitrito"
+                              },
+                              domProps: { value: _vm.form.nitrito },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "nitrito",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Nitrato" }
+                            },
+                            [_vm._v("Nitrato: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.nitrato,
+                                  expression: "form.nitrato"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "nitrato",
+                                placeholder: "Nitrato"
+                              },
+                              domProps: { value: _vm.form.nitrato },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "nitrato",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "" }
+                            },
+                            [_vm._v("Otros: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.otros,
+                                  expression: "form.otros"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "otros",
+                                placeholder: "Otros"
+                              },
+                              domProps: { value: _vm.form.otros },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "otros",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.listadoSiembras, function(ls, index) {
+                          return _c("div", { key: index }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.id_siembra,
+                                  expression: "form.id_siembra"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                value: ls.id,
+                                checked: Array.isArray(_vm.form.id_siembra)
+                                  ? _vm._i(_vm.form.id_siembra, ls.id) > -1
+                                  : _vm.form.id_siembra
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.form.id_siembra,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = ls.id,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.form,
+                                          "id_siembra",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.form,
+                                          "id_siembra",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.form, "id_siembra", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "siembra" } }, [
+                              _vm._v(_vm._s(ls.nombre_siembra))
+                            ]),
+                            _vm._v(" "),
+                            _c("br")
+                          ])
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-sm-12 text-right" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v("Cancelar")]
+                        ),
+                        _vm._v(" "),
+                        _c("button", {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          domProps: {
+                            textContent: _vm._s(
+                              _vm.editando == 0 ? "Crear" : "Actualizar"
+                            )
+                          }
+                        })
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-10" }, [
+      _c("h2", [_vm._v("Filtrar por:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", {}, [
+      _c("tr", [
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("#")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Siembra")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Fecha")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { colspan: "5" } }, [
+          _vm._v("% Saturación de oxígeno")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Temperatura")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("PH")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Amonio")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Nitrito")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Nitrato")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Otros")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Editar/Eliminar")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("th", { attrs: { "data-field": "", "data-not-first-th": "" } }, [
+          _vm._v("12:00 am")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 am")]),
+        _vm._v(" "),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("7:00 am ")]),
+        _vm._v(" "),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 pm ")]),
+        _vm._v(" "),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("8:00 pm ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h3", { staticClass: "modal-title" }, [
+        _vm._v("Párametros de calidad del agua")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "Fecha" } },
+      [
+        _c("i", { staticClass: "far fa-calendar-alt" }),
+        _vm._v("  Fecha registro: ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-12 text-center" }, [
+      _c("h5", [_vm._v("% Saturación oxígeno")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
+      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  12:00 am: ")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
+      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  4:00 am: ")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
+      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  7:00 am: ")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
+      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  4:00pm: ")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-sm-6 col-form-label", attrs: { for: "8pm" } },
+      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  8:00pm: ")]
     )
   }
 ]
@@ -44487,6 +46001,325 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Informes especies existentes")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row" },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "siembra" } }, [
+                    _vm._v("Siembras")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_siembra,
+                          expression: "f_siembra"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "siembra" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_siembra = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1" } }, [
+                        _vm._v("Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoSiembras, function(ls, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: ls.id } },
+                          [_vm._v(_vm._s(ls.nombre_siembra))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "especie" } }, [
+                    _vm._v("Especies")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_especie,
+                          expression: "f_especie"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "especie" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_especie = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1" } }, [
+                        _vm._v("Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoEspecies, function(les, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: les.id } },
+                          [_vm._v(_vm._s(les.especie))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.filtroCiclo()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Filtrar resultados\n                      "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "downloadexcel",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: {
+                      fetch: _vm.fetchData,
+                      fields: _vm.json_fields,
+                      "before-generate": _vm.startDownload,
+                      name: "informe-recursos.xls",
+                      type: "xls"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-fw fa-download" }),
+                    _vm._v(" Generar Excel \n                    ")
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table table-sm table-hover" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.listadoExistencias, function(le, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", {
+                        domProps: { textContent: _vm._s(index + 1) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.nombre_siembra) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.especie) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.fecha_inicio) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.cantidad_inicial) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.peso_inicial) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(le.mortalidad_kg_au + " kg")
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.cantidad_pescas) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.peso_actual) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(le.cant_actual) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(le.biomasa_final + " kg")
+                        }
+                      })
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row text-left" }, [
+      _c("h5", [_vm._v("Filtrar por: ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "Fecha desde" } }, [
+        _vm._v("Fecha inicio desde: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_d" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "fecha hasta" } }, [
+        _vm._v("Fecha inicio hasta: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_h" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Especie")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha inicio siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidad Inicial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peso inicial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mortalidad Kg "), _c("br"), _vm._v(" Aumentada")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salida animales acumulado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peso actual")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidad Actual")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa disponible kg")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Informes.vue?vue&type=template&id=566327c2&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Informes.vue?vue&type=template&id=566327c2& ***!
@@ -44878,39 +46711,15 @@ var render = function() {
                         domProps: { textContent: _vm._s(index + 1) }
                       }),
                       _vm._v(" "),
-                      _c(
-                        "td",
-                        _vm._l(_vm.listadors, function(lrs) {
-                          return lrn.id == lrs.id_registro
-                            ? _c(
-                                "span",
-                                { key: lrs.id, staticClass: "nav-item" },
-                                [
-                                  _vm._v("- " + _vm._s(lrs.nombre_siembra)),
-                                  _c("br")
-                                ]
-                              )
-                            : _vm._e()
-                        }),
-                        0
-                      ),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.nombre_siembra) }
+                      }),
                       _vm._v(" "),
-                      _c(
-                        "td",
-                        _vm._l(_vm.listadors, function(lrs) {
-                          return lrn.id == lrs.id_registro
-                            ? _c(
-                                "span",
-                                { key: lrs.id, staticClass: "nav-item" },
-                                [
-                                  _vm._v("-" + _vm._s(_vm.estados[lrs.estado])),
-                                  _c("br")
-                                ]
-                              )
-                            : _vm._e()
-                        }),
-                        0
-                      ),
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(_vm.estados[lrn.estado])
+                        }
+                      }),
                       _vm._v(" "),
                       _c("td", {
                         domProps: { textContent: _vm._s(lrn.tipo_actividad) }
@@ -44932,7 +46741,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c("td", {
+                      _c("th", {
                         domProps: {
                           textContent: _vm._s(lrn.costo_h_acum + "hr")
                         }
@@ -44946,7 +46755,7 @@ var render = function() {
                         domProps: { textContent: _vm._s(lrn.costo_r) }
                       }),
                       _vm._v(" "),
-                      _c("td", {
+                      _c("th", {
                         domProps: { textContent: _vm._s(lrn.costo_r_acum) }
                       }),
                       _vm._v(" "),
@@ -44962,7 +46771,7 @@ var render = function() {
                         domProps: { textContent: _vm._s(lrn.costo_a) }
                       }),
                       _vm._v(" "),
-                      _c("td", {
+                      _c("th", {
                         domProps: { textContent: _vm._s(lrn.costo_a_acum) }
                       })
                     ])
@@ -45693,7 +47502,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-xl", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(1),
@@ -45978,11 +47787,9 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c(
-                          "label",
-                          { attrs: { for: "exampleFormControlSelect2" } },
-                          [_vm._v("Detalles")]
-                        ),
+                        _c("label", { attrs: { for: "detalles" } }, [
+                          _vm._v("Detalles")
+                        ]),
                         _vm._v(" "),
                         _c("textarea", {
                           directives: [
@@ -46076,7 +47883,9 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", [
-                        _vm._v("Checked names: " + _vm._s(_vm.form.id_siembra))
+                        _vm._v(
+                          "Checked names: " + _vm._s(_vm.item.nombre_siembra)
+                        )
                       ])
                     ],
                     2
@@ -47042,7 +48851,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-dialog-scrollable modal-xl" },
+          { staticClass: "modal-dialog modal-dialog-scrollable modal-lg" },
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
@@ -47110,9 +48919,7 @@ var render = function() {
                                   _c("td", {
                                     domProps: {
                                       textContent: _vm._s(
-                                        registro.tipo_registro == 0
-                                          ? "Muestreo"
-                                          : "Pescas"
+                                        _vm.tipoRegistro[registro.tipo_registro]
                                       )
                                     }
                                   }),
@@ -47305,228 +49112,246 @@ var render = function() {
                               _vm._v(" "),
                               _c("option", { attrs: { value: "1" } }, [
                                 _vm._v("Pesca")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("Mortalidad inicial")
                               ])
                             ]
                           )
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", [
-                        _c("table", { staticClass: "table" }, [
-                          _c("thead", [
-                            _c("tr", [
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v("Especie")
-                              ]),
-                              _vm._v(" "),
-                              _vm.tipo_registro == 0
-                                ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Peso Ganado (gr)")
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.tipo_registro == 0
-                                ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Mortalidad")
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.tipo_registro == 1
-                                ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Biomasa")
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.tipo_registro == 1
-                                ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Cantidad")
-                                  ])
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "tbody",
-                            _vm._l(_vm.pecesxSiembra, function(pez) {
-                              return pez.id_siembra == _vm.idSiembraRegistro
-                                ? _c("tr", { key: pez.id }, [
-                                    _c("th", {
-                                      attrs: { scope: "row" },
-                                      domProps: {
-                                        textContent: _vm._s(pez.especie)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _vm.tipo_registro == 0
-                                      ? _c("td", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
+                      _c(
+                        "div",
+                        { staticStyle: { width: "60%", margin: "auto" } },
+                        [
+                          _c("table", { staticClass: "table table-bordered" }, [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { attrs: { scope: "col" } }, [
+                                  _vm._v("Especie")
+                                ]),
+                                _vm._v(" "),
+                                _vm.tipo_registro == 0
+                                  ? _c("th", { attrs: { scope: "col" } }, [
+                                      _vm._v("Peso Ganado actual (gr)")
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.tipo_registro == 0
+                                  ? _c("th", { attrs: { scope: "col" } }, [
+                                      _vm._v("Mortalidad")
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.tipo_registro == 1
+                                  ? _c("th", { attrs: { scope: "col" } }, [
+                                      _vm._v("Biomasa")
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.tipo_registro == 1
+                                  ? _c("th", { attrs: { scope: "col" } }, [
+                                      _vm._v("Cantidad")
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.tipo_registro == 2
+                                  ? _c("th", { attrs: { scope: "col" } }, [
+                                      _vm._v("Mortalidad Inicial")
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.pecesxSiembra, function(pez) {
+                                return pez.id_siembra == _vm.idSiembraRegistro
+                                  ? _c("tr", { key: pez.id }, [
+                                      _c("th", {
+                                        attrs: { scope: "row" },
+                                        domProps: {
+                                          textContent: _vm._s(pez.especie)
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _vm.tipo_registro == 0
+                                        ? _c("td", [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ]["peso_ganado"],
+                                                  expression:
+                                                    "campos[pez.id_siembra][pez.id]['peso_ganado']"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: { type: "number" },
+                                              domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["peso_ganado"],
-                                                expression:
-                                                  "campos[pez.id_siembra][pez.id]['peso_ganado']"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: { type: "number" },
-                                            domProps: {
-                                              value:
-                                                _vm.campos[pez.id_siembra][
-                                                  pez.id
-                                                ]["peso_ganado"]
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
+                                                  ]["peso_ganado"]
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ],
+                                                    "peso_ganado",
+                                                    $event.target.value
+                                                  )
                                                 }
-                                                _vm.$set(
-                                                  _vm.campos[pez.id_siembra][
-                                                    pez.id
-                                                  ],
-                                                  "peso_ganado",
-                                                  $event.target.value
-                                                )
                                               }
-                                            }
-                                          })
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.tipo_registro == 0
-                                      ? _c("td", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
+                                            })
+                                          ])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.tipo_registro == 0 ||
+                                      _vm.tipo_registro == 2
+                                        ? _c("td", [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ]["mortalidad"],
+                                                  expression:
+                                                    "campos[pez.id_siembra][pez.id]['mortalidad']"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "number",
+                                                id: "mortalidad"
+                                              },
+                                              domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["mortalidad"],
-                                                expression:
-                                                  "campos[pez.id_siembra][pez.id]['mortalidad']"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: { type: "number" },
-                                            domProps: {
-                                              value:
-                                                _vm.campos[pez.id_siembra][
-                                                  pez.id
-                                                ]["mortalidad"]
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
+                                                  ]["mortalidad"]
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ],
+                                                    "mortalidad",
+                                                    $event.target.value
+                                                  )
                                                 }
-                                                _vm.$set(
-                                                  _vm.campos[pez.id_siembra][
-                                                    pez.id
-                                                  ],
-                                                  "mortalidad",
-                                                  $event.target.value
-                                                )
                                               }
-                                            }
-                                          })
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.tipo_registro == 1
-                                      ? _c("td", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
+                                            })
+                                          ])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.tipo_registro == 1
+                                        ? _c("td", [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ]["biomasa"],
+                                                  expression:
+                                                    "campos[pez.id_siembra][pez.id]['biomasa']"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: { type: "number" },
+                                              domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["biomasa"],
-                                                expression:
-                                                  "campos[pez.id_siembra][pez.id]['biomasa']"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: { type: "number" },
-                                            domProps: {
-                                              value:
-                                                _vm.campos[pez.id_siembra][
-                                                  pez.id
-                                                ]["biomasa"]
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
+                                                  ]["biomasa"]
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ],
+                                                    "biomasa",
+                                                    $event.target.value
+                                                  )
                                                 }
-                                                _vm.$set(
-                                                  _vm.campos[pez.id_siembra][
-                                                    pez.id
-                                                  ],
-                                                  "biomasa",
-                                                  $event.target.value
-                                                )
                                               }
-                                            }
-                                          })
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.tipo_registro == 1
-                                      ? _c("td", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
+                                            })
+                                          ])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.tipo_registro == 1
+                                        ? _c("td", [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ]["cantidad"],
+                                                  expression:
+                                                    "campos[pez.id_siembra][pez.id]['cantidad']"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: { type: "number" },
+                                              domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["cantidad"],
-                                                expression:
-                                                  "campos[pez.id_siembra][pez.id]['cantidad']"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: { type: "number" },
-                                            domProps: {
-                                              value:
-                                                _vm.campos[pez.id_siembra][
-                                                  pez.id
-                                                ]["cantidad"]
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
+                                                  ]["cantidad"]
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.campos[pez.id_siembra][
+                                                      pez.id
+                                                    ],
+                                                    "cantidad",
+                                                    $event.target.value
+                                                  )
                                                 }
-                                                _vm.$set(
-                                                  _vm.campos[pez.id_siembra][
-                                                    pez.id
-                                                  ],
-                                                  "cantidad",
-                                                  $event.target.value
-                                                )
                                               }
-                                            }
-                                          })
-                                        ])
-                                      : _vm._e()
-                                  ])
-                                : _vm._e()
-                            }),
-                            0
-                          )
-                        ])
-                      ])
+                                            })
+                                          ])
+                                        : _vm._e()
+                                    ])
+                                  : _vm._e()
+                              }),
+                              0
+                            )
+                          ])
+                        ]
+                      )
                     ])
                   : _vm._e()
               ]),
@@ -66452,6 +68277,12 @@ var routes = [{
   path: '/alimentacion',
   component: __webpack_require__(/*! ./components/Alimentacion.vue */ "./resources/js/components/Alimentacion.vue")["default"]
 }, {
+  path: '/ciclo-productivo',
+  component: __webpack_require__(/*! ./components/InformeCicloProductivo.vue */ "./resources/js/components/InformeCicloProductivo.vue")["default"]
+}, {
+  path: '/calidad-agua',
+  component: __webpack_require__(/*! ./components/CalidadAgua.vue */ "./resources/js/components/CalidadAgua.vue")["default"]
+}, {
   path: '/example',
   component: __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]
 }];
@@ -66663,6 +68494,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alimentos_vue_vue_type_template_id_81426df6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alimentos_vue_vue_type_template_id_81426df6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CalidadAgua.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/CalidadAgua.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CalidadAgua.vue?vue&type=template&id=207b3a83& */ "./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83&");
+/* harmony import */ var _CalidadAgua_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CalidadAgua.vue?vue&type=script&lang=js& */ "./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CalidadAgua_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CalidadAgua.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalidadAgua_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CalidadAgua.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalidadAgua.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalidadAgua_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CalidadAgua.vue?vue&type=template&id=207b3a83& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalidadAgua.vue?vue&type=template&id=207b3a83&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalidadAgua_vue_vue_type_template_id_207b3a83___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -66939,6 +68839,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCicloProductivo.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/InformeCicloProductivo.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc& */ "./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc&");
+/* harmony import */ var _InformeCicloProductivo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeCicloProductivo.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InformeCicloProductivo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InformeCicloProductivo.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCicloProductivo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCicloProductivo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCicloProductivo.vue?vue&type=template&id=b9a4f8bc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

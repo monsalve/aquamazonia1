@@ -90,7 +90,7 @@
     </div>
     <!-- Modal añadir recursos a siembras -->
     <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title" id="exampleModalLabel">Recursos por siembra</h3>
@@ -143,7 +143,7 @@
                 </div>
               
                 <div class="form-group">   
-                  <label for="exampleFormControlSelect2">Detalles</label>
+                  <label for="detalles">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>
                 <h5> Seleccionar siembras</h5>
@@ -152,7 +152,7 @@
                   <label for="siembra">{{item.nombre_siembra}}</label>
                   <br>
                 </div>
-                <span>Checked names: {{ form.id_siembra }}</span>
+                <span>Checked names: {{ item.nombre_siembra }}</span>
               </div>
               
             </form>
@@ -164,7 +164,7 @@
         </div>
       </div>
     </div>
-      </div>
+  </div>
 </template>
 
 <script>

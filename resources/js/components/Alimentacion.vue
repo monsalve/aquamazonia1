@@ -92,10 +92,10 @@
     
     <!-- Modal añadir recursos a siembras -->
     <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Recursos por siembra</h3>
+            <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -111,7 +111,7 @@
                 </div> -->
                 <div class="form-group row">
                   <label for="Alimento" class="col-md-4">Alimento</label>
-                  <select class="form-control col-md-6" id="alimento" v-model="form.id_alimento" >
+                  <select class="form-control col-md-7" id="alimento" v-model="form.id_alimento" >
                     <option>--Seleccionar--</option>
                     <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
                   </select>
@@ -125,12 +125,12 @@
                 </div> -->
                  <div class="form-group row ">   
                   <label for="horas hombre" class="col-md-4">Fecha</label>
-                  <input type="date" class="form-control col-md-6" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                  <input type="date" class="form-control col-md-7" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
                 </div>
                 
                 <div class="form-group row">   
                   <label for="horas hombre" class="col-md-4">Horas hombre</label>
-                  <input type="number" class="form-control col-md-6" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                  <input type="number" class="form-control col-md-7" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
                 </div>
                     
               </div>
@@ -138,21 +138,21 @@
               <div class="col-md-6"> 
                 <div class="form-group row">                    
                   <label for="cant_manana" class="col-md-4">Kg Mañana</label>
-                  <input type="number" class="form-control col-md-6" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                  <input type="number" class="form-control col-md-7" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
                 </div>
                 <div class="form-group row">    
                   <label for="cant_tarde" class="col-md-4">Kg tarde</label>
-                  <input type="number" class="form-control col-md-6" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                  <input type="number" class="form-control col-md-7" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
               
                 <div class="form-group row">   
                   <label for="detalles" class="col-md-4">Detalles</label>
-                  <textarea class="form-control col-md-6" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
+                  <textarea class="form-control col-md-7" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>
                 <fieldset class="form-group">
                   <div class="row">
                     <legend for="detalles" class="col-md-4 col-form-label" >Seleccionar siembras</legend>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                       <div v-for="(item, index) in listadoSiembras" :key="index" class="form-check">                                 
                         <input class="form-check-input" type="checkbox" v-bind:value="item.id" v-model="form.id_siembra">
                         <label class="form-check-label" for="siembra">{{item.nombre_siembra}}</label>

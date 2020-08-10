@@ -32,6 +32,8 @@ let routes = [
     { path: '/recursos-necesarios', component: require('./components/RecursosNecesarios.vue').default },
     { path: '/informes', component: require('./components/Informes.vue').default },
     { path: '/alimentacion', component: require('./components/Alimentacion.vue').default },
+    { path: '/ciclo-productivo', component: require('./components/InformeCicloProductivo.vue').default },
+    { path: '/calidad-agua', component: require('./components/CalidadAgua.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
     
 ]
