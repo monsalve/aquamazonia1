@@ -10,7 +10,7 @@
               <div class="col-md-10">
                 <h2>Filtrar por:</h2>
                 <form class="row">
-                  <div class="form-group mr-2">
+                  <div class="form-group col-md-3">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
                       <option selected value="1"> Seleccionar</option>
@@ -23,15 +23,15 @@
                       <option value="Lavado">Lavado</option>
                     </select>
                   </div>
-                  <div class="form-group mr-2">
+                  <div class="form-group col-md-3">
                     <label for="search">Desde: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                   </div>
-                   <div class="form-group mr-2">
+                   <div class="form-group col-md-3">
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
-                  <div class="form-group">                                      
+                  <div class="form-group col-md-3">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>

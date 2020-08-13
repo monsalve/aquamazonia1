@@ -3,25 +3,18 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">Parametros necesarios</div>
+          <div class="card-header">Parametros de calidad del agua</div>
 
           <div class="card-body">
             <div class="row mb-1">
               <div class="col-md-10">
                 <h5>Filtrar por:</h5>     
-                <div class="row">
-                  <div class="form-group">
-                    <label for="Siembra">Siembra:</label>
-                    <select class="form-control" id="f_siembra" v-model="f_siembra">
-                      <option value="-1" selected>Seleccionar</option>                             
-                      <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
+                <div class="row">                 
+                  <div class="form-group col-md-3">
                     <label for="Fecha desde">Fecha inicio desde: </label>
                     <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group col-md-3">
                     <label for="fecha hasta">Fecha inicio hasta: </label>
                     <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                   </div>
@@ -29,17 +22,17 @@
                     <label for="fecha hasta">Buscar: </label>
                     <button class="btn btn-primary form-control" @click="filtrarParametros()"> <i class="fas fa-search"></i></button>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group  col-md-3">
+                    <label for="Generar excel">Generar Excel:</label>
                     <downloadexcel
                       
-                      class = "btn btn-success"
+                      class = "btn btn-success form-control"
                       :fetch   = "fetchData"
                       :fields = "json_fields"
                       :before-generate = "startDownload"
-                      :before-finish = "finishDownload"
                       name    = "informe-parametros-calidad-agua.xls"
                       type    = "xls">
-                        <i class="fa fa-fw fa-download"></i> Generar Excel 
+                        <i class="fa fa-fw fa-download"></i> Exportar Excel 
                     </downloadexcel>
                   </div>
                 </div>
@@ -54,7 +47,8 @@
                 <thead class="">
                   <tr>                    
                     <th rowspan="2" data-field="id">#</th>                    
-                    <th rowspan="2" data-field="id">Siembra</th>      
+                    <th rowspan="2">ID registro párametros</th>
+                    <!-- <th rowspan="2" data-field="id">Siembra</th>       -->
                     <th rowspan="2" data-field="id">Fecha</th>      
                     <th colspan="5" class="text-center">% Saturación de oxígeno</th>
                     <th rowspan="2" data-field="id">Temperatura</th>
@@ -63,7 +57,7 @@
                     <th rowspan="2" data-field="id">Nitrito</th>
                     <th rowspan="2" data-field="id">Nitrato</th>
                     <th rowspan="2" data-field="id">Otros</th>
-                    <!-- <th rowspan="2" data-field="id">Editar/Eliminar</th> -->
+                    <th rowspan="2" data-field="id">Editar/Eliminar</th>
                   </tr>
                   <tr>
                     <th data-field="" data-not-first-th="">12:00 am</th>
@@ -76,7 +70,8 @@
                 <tbody>
                   <tr v-for="(lp, index) in listadoParametros" :key="index">
                     <th v-text="index"></th>
-                    <td v-text="lp.nombre_siembra"></td>
+                    <th v-text="lp.id"></th>
+                    <!-- <td v-text="lp.nombre_siembra"></td> -->
                     <td v-text="lp.fecha_parametro"></td>
                     <td v-text="lp['12_am']"></td>
                     <td v-text="lp['4_am']"></td>
@@ -89,14 +84,14 @@
                     <td v-text="lp.nitrito"></td>
                     <td v-text="lp.nitrato"></td>
                     <td v-text="lp.otros"></td>
-                    <!-- <td>
+                    <td>
                       <button class="btn btn-success" type="button" @click="editarParametros(lp)">
                         <i class="fas fa-edit"></i>
                       </button>
                       <button class="btn btn-danger" type="button" @click="eliminarParametros(lp.id)">
                         <i class="fas fa-trash"></i>
                       </button>
-                    </td> -->
+                    </td>
                   </tr>
                   <th>Promedio</th>
                 </tbody>
@@ -117,7 +112,7 @@
             </button>
           </div>
           <div class="modal-body">          
-            <form class="row container" @submit.prevent="editando == 0 ? guardarParametros() : editar()">
+            <form class="row container"  @submit.prevent="editando == 0 ? guardar() : editar()">
               <div class="col-md-6">
                 <div class="form-group row">
                   <label for="Fecha" class="col-sm-6 col-form-label"><i class="far fa-calendar-alt"></i>  Fecha registro: </label>
@@ -234,7 +229,6 @@
         json_fields: {   
           '#' : 'id',
           'Fecha ' : 'fecha_parametro',
-          'Siembra' : 'nombre_siembra',
           '12:00 a.m' : '12_am',
           '4:00 a.m' : '4_am',
           '7:00 a.m' : '7_am',
@@ -250,6 +244,7 @@
         },     
         editando : 0,
         form : new Form({
+          id : '',
           id_siembra : [],
           id_especie : '',
           fecha_parametro : '',
@@ -269,8 +264,6 @@
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
-        addSiembras : [],
-        f_siembra : '',
         f_inicio_d : '',
         f_inicio_h : '',
       }
@@ -294,12 +287,10 @@
       },
       filtrarParametros(){
         let me = this;
-        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
         if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
         
         const data = {
-          'f_siembra' : this.f_s,
           'f_inicio_d' : this.f_d,
           'f_inicio_h' : this.f_h
         }
@@ -312,16 +303,7 @@
       },
       listar(){
         let me = this;      
-        this.listarEspecies();
-        this.listarSiembras();              
         this.listarParametros();
-      },
-      listarEspecies(){
-        let me = this;
-        axios.get("api/especies")
-        .then(function (response){
-          me.listadoEspecies = response.data
-        })
       },
       listarParametros(){
         let me = this;
@@ -330,29 +312,18 @@
           me.listadoParametros = response.data
         })
       },
-      listarSiembras(){
-        let me = this;
-        axios.get("api/siembras")
-        .then(function (response){
-          me.listadoSiembras = response.data.siembra;
-        })
-      },
+
       crearParametros(){
         this.editando = 0;
         let me = this;
         $('#modalParametros').modal('show');
       },
-      checkSiembras(){
-        let me = this;
-        me.addSiembras({
-          'id_siembra' : this.form.id_siembra
-        })
-      },
-      guardarParametros(){
-        editando: 0;
+      
+      guardar(){
         let me = this;        
         this.form.post("api/parametros-calidad")
         .then(({data})=>{
+          editando: 0;
           console.log('guardado');
           me.listar();
          $('#modalParametros').modal('hide');
@@ -366,14 +337,47 @@
       },
       editar(){
         let me = this;
-        this.form.put('api/parametros-calidad/'+this.form.id)
-          .then(({data})=>{
-            console.log(data);
-            $('#modalParametros').modal('hide');
-            me.listar();
-          })          
-        console.log('editando')
+        swal({
+          title: "Estás seguro?",
+          text: "Se modificarán todos los registros asociados a este id",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.form.put('api/parametros-calidad/'+this.form.id)
+            .then(({data})=>{
+              console.log(data);
+              $('#modalParametros').modal('hide');
+              me.listar();
+            })          
+            console.log('editando' + this.form.id)
+          }
+        });
+        
+        
       },
+      eliminarParametros(objeto){
+        let me = this;
+        swal({
+          title: "Estás seguro?",
+          text: "Una vez eliminado, no se puede recuperar los registros asociados a este ID",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete('api/parametros-calidad/'+objeto)
+            .then(({data})=>{
+              console.log('eliminar'+objeto);
+              me.listar();
+              
+            })
+          }
+        });
+      }
     },
     mounted() {
       this.listar();

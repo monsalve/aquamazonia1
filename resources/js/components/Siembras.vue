@@ -9,56 +9,58 @@
                         <h6>Filtros de exportación: </h6>
                         
                         <div class="row">
-                          <div class="form-group">
+                          <div class="form-group col-md-2">
                             <label for="Siembra">Siembra:</label>
                             <select class="form-control" id="f_siembra" v-model="f_siembra">
                               <option value="-1" selected>Seleccionar</option>                             
                               <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                             </select>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-2">
                             <label for="Especie">Especie</label>
                             <select class="form-control" id="f_especie" v-model="f_especie">
                               <option value="-1" selected>Seleccionar</option>                             
                               <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id">{{especie.especie}}</option>                            
                             </select>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-2">
                             <label for="Lote"> Lote</label>
                             <select class="form-control" id="f_lote" v-model="f_lote">
                               <option value="-1" selected>Seleccionar</option>                             
                               <option :value="lote.lote" v-for="(lote, index) in lotes" :key="index">{{lote.lote}}</option>                                                        </select>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-2">
                             <label for="Fecha desde">Fecha inicio desde: </label>
                             <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-2">
                             <label for="fecha hasta">Fecha inicio hasta: </label>
                             <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                           </div>
-                          <div class="form-group">
-                            <label for="fecha hasta">Hacer click antes de exportar: </label>
+                          <div class="form-group col-md-2">
+                            <label for="fecha hasta">Hacer click para filtrar: </label>
                             <button class="btn btn-primary form-control" @click="exportarSiembras()"> Filtrar Por criterios</button>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <!-- <label for="fecha hasta">.  </label> -->
+                            <!-- <div class=""> -->
+                              <downloadexcel                                
+                                class = "btn btn-success form-control"
+                                :fetch   = "fetchData"
+                                :fields = "json_fields"
+                                :before-generate = "startDownload"
+                                :before-finish = "finishDownload"
+                                name    = "informe-siembras-especies.xls"
+                                type    = "xls">
+                                  <i class="fa fa-fw fa-download"></i> Generar Excel 
+                              </downloadexcel>
+                            <!-- </div> -->
                           </div>
                           
                           
                         </div>
                         
-                        <div class="row text-right">
-                          
-                          <downloadexcel
-                            
-                            class = "btn btn-success"
-                            :fetch   = "fetchData"
-                            :fields = "json_fields"
-                            :before-generate = "startDownload"
-                            :before-finish = "finishDownload"
-                            name    = "informe-siembras-especies.xls"
-                            type    = "xls">
-                              <i class="fa fa-fw fa-download"></i> Generar Excel 
-                          </downloadexcel>
-                        </div>
+                        
                         <div class="row mb-1">
                             <div class="col-12 text-right ">
                               <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
@@ -593,6 +595,7 @@
         .then(response=>{
           console.log(response.data);
           me.imprimirSiembras = response.data.filtrarSiembras;
+          alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
         })
         
       },

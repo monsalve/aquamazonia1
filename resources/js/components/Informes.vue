@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                           <h2>Filtrar por:</h2>
                           <form class="row" method="POST" action="informe-excel" target="_blank">
-                            <div class="form-group mr-2">
+                            <div class="form-group col-md-3">
                               <label for="Estado">Estado siembra </label>
                               <select class="form-control" id="estado_s" v-model="estado_s" name="estado_s">
                                 <option value="-1">Todos</option>
@@ -18,11 +18,12 @@
                                 <option value="1" selected>Activo</option>                                
                               </select>
                             </div>
-                            <div class="form-group mr-2">
+                            <div class="form-group col-md-3">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
                                 <option selected value="-1"> --Seleccionar--</option>
                                 <option value="Encalado" selected>Encalado</option>
+                                <option value="Alimentacion"> Alimentación</option>
                                 <option value="Llenado">Llenado</option>
                                 <option value="Siembra">Siembra</option>
                                 <option value="Cultivo">Cultivo</option>
@@ -31,29 +32,29 @@
                                 <option value="Lavado">Lavado</option>
                               </select>
                             </div>
-                            <div class="form-group mr-2">
+                            <div class="form-group col-md-3">
                              <label for="alimento">Alimento: </label>
                               <select class="form-control" id="alimento" v-model="alimento_s">
                                 <option selected> Seleccionar</option>
                                 <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>
                               </select>
                             </div>
-                            <div class="form-group mr-2">
+                            <div class="form-group col-md-3">
                              <label for="recurso">Recurso: </label>
                               <select class="form-control" id="recurso" v-model="recurso_s">
                                 <option selected> Seleccionar</option>   
                                 <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                               </select>
                             </div>
-                            <div class="form-group mr-2">
+                            <div class="form-group col-md-3">
                               <label for="search">Desde: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                             </div>
-                             <div class="form-group mr-2">
+                             <div class="form-group col-md-3">
                               <label for="search">Hasta: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                             </div>
-                            <div class="form-group">                                      
+                            <div class="form-group col-md-3">                                      
                               <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
                               <downloadexcel
                               class = "btn btn-success"

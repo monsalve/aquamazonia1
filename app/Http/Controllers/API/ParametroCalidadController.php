@@ -19,9 +19,6 @@ class ParametroCalidadController extends Controller
     {
       //
       $calidad_agua = CalidadAgua::select()
-        ->join('calidad_siembra', 'calidad_agua.id', 'calidad_siembra.id_calidad_parametros')
-        ->join('siembras', 'calidad_siembra.id_siembra', 'siembras.id')
-        ->where('siembras.estado', '=', 1)
         ->get();
       return $calidad_agua;
     }
@@ -50,12 +47,6 @@ class ParametroCalidadController extends Controller
         $calidad_agua->otros = $request['otros'];
         $calidad_agua->save();
         
-        foreach($request->id_siembra as $siembra){
-            $calidad_siembra = new CalidadSiembra();
-            $calidad_siembra->id_calidad_parametros = $calidad_agua->id;
-            $calidad_siembra->id_siembra = $siembra;
-            $calidad_siembra->save();
-        }
         return ($request);
         
     }
@@ -81,6 +72,9 @@ class ParametroCalidadController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $calidad_agua = CalidadAgua::findOrFail($id);
+        // $calidad_agua->update($request->all());
+        return 'ok';
     }
 
     /**
@@ -92,24 +86,23 @@ class ParametroCalidadController extends Controller
     public function destroy($id)
     {
         //
+        CalidadAgua::destroy($id);
+        // $cs = CalidadSiembra::where('id_calidad_parametros', $id)->delete();
+       return 'eliminado';
     }
     
     public function filtroParametros(Request $request){
-        $c1 = "siembras.id"; $op1 = '!='; $c2 = '-1';
-        $c3 = "siembras.id"; $op2 = '!='; $c4 = '-1';
-        $c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
+        $c1 = "calidad_agua.id"; $op1 = '!='; $c2 = '-1';
+        $c3 = "calidad_agua.id"; $op2 = '!='; $c4 = '-1';
+        // $c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
         
-        if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
-        if($request['f_inicio_d']!='-1'){$c3="fecha_parametro"; $op2='>='; $c4= $request['f_inicio_d'];}
-        if($request['f_inicio_h']!='-1'){$c5="fecha_parametro"; $op3='<='; $c6= $request['f_inicio_h'];}
+        // if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
+        if($request['f_inicio_d']!='-1'){$c1="fecha_parametro"; $op1='>='; $c2= $request['f_inicio_d'];}
+        if($request['f_inicio_h']!='-1'){$c3="fecha_parametro"; $op2='<='; $c4= $request['f_inicio_h'];}
     
         $calidad_agua = CalidadAgua::select()
-            ->join('calidad_siembra', 'calidad_agua.id', 'calidad_siembra.id_calidad_parametros')
-            ->join('siembras', 'calidad_siembra.id_siembra', 'siembras.id')
-            ->where('siembras.estado', '=', 1)
             ->where($c1, $op1, $c2)
             ->where($c3, $op2, $c4)
-            ->where($c5, $op3, $c6)
             ->orderBy('siembras.id', 'desc')
             ->get();
         return $calidad_agua;

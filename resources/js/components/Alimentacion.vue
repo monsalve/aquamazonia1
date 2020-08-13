@@ -10,29 +10,16 @@
               <div class="col-md-10">
                 <h5>Filtrar por:</h5>
                 <form class="row">
-                  <!-- <div class="form-group mr-2">
-                   <label for="t_actividad">Tipo de Actividad: </label>
-                    <select class="form-control" id="t_actividad" v-model="t_actividad">
-                      <option selected value="1"> Seleccionar</option>
-                      <option value="Encalado">Encalado</option>
-                      <option value="Llenado">Llenado</option>
-                      <option value="Siembra">Siembra</option>
-                      <option value="Cultivo">Cultivo</option>
-                      <option value="Pesca">Pesca</option>
-                      <option value="Secado">Secado</option>
-                      <option value="Lavado">Lavado</option>
-                    </select>
-                  </div> -->
                   <input type="hidden" value="Alimentacion" v-model="t_actividad">
-                  <div class="form-group mr-2">
+                  <div class="form-group col-md-3">
                     <label for="search">Desde: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                   </div>
-                   <div class="form-group mr-2">
+                   <div class="form-group col-md-3">
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
-                  <div class="form-group">                                      
+                  <div class="form-group col-md-3">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>

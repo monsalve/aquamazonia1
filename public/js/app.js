@@ -2087,19 +2087,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2674,11 +2661,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2687,7 +2669,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       json_fields: {
         '#': 'id',
         'Fecha ': 'fecha_parametro',
-        'Siembra': 'nombre_siembra',
         '12:00 a.m': '12_am',
         '4:00 a.m': '4_am',
         '7:00 a.m': '7_am',
@@ -2702,6 +2683,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       editando: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
+        id: '',
         id_siembra: [],
         id_especie: '',
         fecha_parametro: '',
@@ -2721,8 +2703,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       listadoSiembras: [],
       listadoParametros: [],
-      addSiembras: [],
-      f_siembra: '',
       f_inicio_d: '',
       f_inicio_h: ''
     };
@@ -2766,12 +2746,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filtrarParametros: function filtrarParametros() {
       var me = this;
 
-      if (this.f_siembra == '') {
-        this.f_s = '-1';
-      } else {
-        this.f_s = this.f_siembra;
-      }
-
       if (this.f_inicio_d == '') {
         this.f_d = '-1';
       } else {
@@ -2785,7 +2759,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       var data = {
-        'f_siembra': this.f_s,
         'f_inicio_d': this.f_d,
         'f_inicio_h': this.f_h
       };
@@ -2796,15 +2769,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     listar: function listar() {
       var me = this;
-      this.listarEspecies();
-      this.listarSiembras();
       this.listarParametros();
-    },
-    listarEspecies: function listarEspecies() {
-      var me = this;
-      axios.get("api/especies").then(function (response) {
-        me.listadoEspecies = response.data;
-      });
     },
     listarParametros: function listarParametros() {
       var me = this;
@@ -2812,29 +2777,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoParametros = response.data;
       });
     },
-    listarSiembras: function listarSiembras() {
-      var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
-      });
-    },
     crearParametros: function crearParametros() {
       this.editando = 0;
       var me = this;
       $('#modalParametros').modal('show');
     },
-    checkSiembras: function checkSiembras() {
-      var me = this;
-      me.addSiembras({
-        'id_siembra': this.form.id_siembra
-      });
-    },
-    guardarParametros: function guardarParametros() {
-      editando: 0;
-
+    guardar: function guardar() {
       var me = this;
       this.form.post("api/parametros-calidad").then(function (_ref) {
         var data = _ref.data;
+
+        editando: 0;
+
         console.log('guardado');
         me.listar();
         $('#modalParametros').modal('hide');
@@ -2847,14 +2801,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#modalParametros').modal('show');
     },
     editar: function editar() {
+      var _this2 = this;
+
       var me = this;
-      this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
-        var data = _ref2.data;
-        console.log(data);
-        $('#modalParametros').modal('hide');
-        me.listar();
+      swal({
+        title: "Estás seguro?",
+        text: "Se modificarán todos los registros asociados a este id",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          _this2.form.put('api/parametros-calidad/' + _this2.form.id).then(function (_ref2) {
+            var data = _ref2.data;
+            console.log(data);
+            $('#modalParametros').modal('hide');
+            me.listar();
+          });
+
+          console.log('editando' + _this2.form.id);
+        }
       });
-      console.log('editando');
+    },
+    eliminarParametros: function eliminarParametros(objeto) {
+      var me = this;
+      swal({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar los registros asociados a este ID",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          axios["delete"]('api/parametros-calidad/' + objeto).then(function (_ref3) {
+            var data = _ref3.data;
+            console.log('eliminar' + objeto);
+            me.listar();
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -3432,6 +3417,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3579,6 +3566,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -4787,6 +4775,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -5030,6 +5020,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       axios.post("api/filtro-siembras", data).then(function (response) {
         console.log(response.data);
         me.imprimirSiembras = response.data.filtrarSiembras;
+        alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
       });
     },
     finalizarSiembra: function finalizarSiembra(id) {
@@ -43306,7 +43297,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group mr-2" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "search" } }, [
                       _vm._v("Desde: ")
                     ]),
@@ -43338,7 +43329,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group mr-2" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "search" } }, [
                       _vm._v("Hasta: ")
                     ]),
@@ -43370,7 +43361,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c(
                       "button",
                       {
@@ -44302,7 +44293,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Parametros necesarios")
+            _vm._v("Parametros de calidad del agua")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -44311,58 +44302,7 @@ var render = function() {
                 _c("h5", [_vm._v("Filtrar por:")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "Siembra" } }, [
-                      _vm._v("Siembra:")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.f_siembra,
-                            expression: "f_siembra"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "f_siembra" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.f_siembra = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "-1", selected: "" } }, [
-                          _vm._v("Seleccionar")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.listadoSiembras, function(ls, index) {
-                          return _c(
-                            "option",
-                            { key: index, domProps: { value: ls.id } },
-                            [_vm._v(_vm._s(ls.nombre_siembra))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "Fecha desde" } }, [
                       _vm._v("Fecha inicio desde: ")
                     ]),
@@ -44390,7 +44330,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "fecha hasta" } }, [
                       _vm._v("Fecha inicio hasta: ")
                     ]),
@@ -44439,24 +44379,27 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "form-group" },
+                    { staticClass: "form-group  col-md-3" },
                     [
+                      _c("label", { attrs: { for: "Generar excel" } }, [
+                        _vm._v("Generar Excel:")
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "downloadexcel",
                         {
-                          staticClass: "btn btn-success",
+                          staticClass: "btn btn-success form-control",
                           attrs: {
                             fetch: _vm.fetchData,
                             fields: _vm.json_fields,
                             "before-generate": _vm.startDownload,
-                            "before-finish": _vm.finishDownload,
                             name: "informe-parametros-calidad-agua.xls",
                             type: "xls"
                           }
                         },
                         [
                           _c("i", { staticClass: "fa fa-fw fa-download" }),
-                          _vm._v(" Generar Excel \n                  ")
+                          _vm._v(" Exportar Excel \n                  ")
                         ]
                       )
                     ],
@@ -44498,8 +44441,8 @@ var render = function() {
                             domProps: { textContent: _vm._s(index) }
                           }),
                           _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(lp.nombre_siembra) }
+                          _c("th", {
+                            domProps: { textContent: _vm._s(lp.id) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -44550,7 +44493,37 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(lp.otros) }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editarParametros(lp)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarParametros(lp.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ])
                         ])
                       }),
                       _vm._v(" "),
@@ -44594,9 +44567,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        _vm.editando == 0
-                          ? _vm.guardarParametros()
-                          : _vm.editar()
+                        _vm.editando == 0 ? _vm.guardar() : _vm.editar()
                       }
                     }
                   },
@@ -45186,8 +45157,8 @@ var staticRenderFns = [
           _vm._v("#")
         ]),
         _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Siembra")
+        _c("th", { attrs: { rowspan: "2" } }, [
+          _vm._v("ID registro párametros")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
@@ -45220,6 +45191,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("Otros")
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
+          _vm._v("Editar/Eliminar")
         ])
       ]),
       _vm._v(" "),
@@ -46224,155 +46199,157 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "row" },
-              [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "siembra" } }, [
-                    _vm._v("Siembras")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_siembra,
-                          expression: "f_siembra"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "siembra" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.f_siembra = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "-1" } }, [
-                        _vm._v("Seleccionar")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.listadoSiembras, function(ls, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: ls.id } },
-                          [_vm._v(_vm._s(ls.nombre_siembra))]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "especie" } }, [
-                    _vm._v("Especies")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_especie,
-                          expression: "f_especie"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "especie" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.f_especie = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "-1" } }, [
-                        _vm._v("Seleccionar")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.listadoEspecies, function(les, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: les.id } },
-                          [_vm._v(_vm._s(les.especie))]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          return _vm.filtroCiclo()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Filtrar resultados\n                      "
-                      )
-                    ]
-                  )
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "siembra" } }, [
+                  _vm._v("Siembras")
                 ]),
                 _vm._v(" "),
                 _c(
-                  "downloadexcel",
+                  "select",
                   {
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      fetch: _vm.fetchData,
-                      fields: _vm.json_fields,
-                      "before-generate": _vm.startDownload,
-                      name: "informe-recursos.xls",
-                      type: "xls"
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_siembra,
+                        expression: "f_siembra"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "siembra" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_siembra = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
                     }
                   },
                   [
-                    _c("i", { staticClass: "fa fa-fw fa-download" }),
-                    _vm._v(" Generar Excel \n                    ")
+                    _c("option", { attrs: { value: "-1" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: ls.id } },
+                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "especie" } }, [
+                  _vm._v("Especies")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_especie,
+                        expression: "f_especie"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "especie" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_especie = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoEspecies, function(les, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: les.id } },
+                        [_vm._v(_vm._s(les.especie))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.filtroCiclo()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Filtrar resultados\n                      "
+                    )
                   ]
                 )
-              ],
-              1
-            ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group col-md-2" },
+                [
+                  _c(
+                    "downloadexcel",
+                    {
+                      staticClass: "btn btn-success form-control",
+                      attrs: {
+                        fetch: _vm.fetchData,
+                        fields: _vm.json_fields,
+                        "before-generate": _vm.startDownload,
+                        name: "informe-recursos.xls",
+                        type: "xls"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-fw fa-download" }),
+                      _vm._v(" Generar Excel \n                      ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
             _vm._v(" "),
             _c("div", [
               _c("table", { staticClass: "table table-sm table-hover" }, [
@@ -46454,7 +46431,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
+    return _c("div", { staticClass: "form-group col-md-2" }, [
       _c("label", { attrs: { for: "Fecha desde" } }, [
         _vm._v("Fecha inicio desde: ")
       ]),
@@ -46469,7 +46446,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
+    return _c("div", { staticClass: "form-group col-md-2" }, [
       _c("label", { attrs: { for: "fecha hasta" } }, [
         _vm._v("Fecha inicio hasta: ")
       ]),
@@ -46556,7 +46533,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "Estado" } }, [
                         _vm._v("Estado siembra ")
                       ]),
@@ -46608,7 +46585,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "actividad" } }, [
                         _vm._v("Tipo actividad: ")
                       ]),
@@ -46655,6 +46632,10 @@ var render = function() {
                             [_vm._v("Encalado")]
                           ),
                           _vm._v(" "),
+                          _c("option", { attrs: { value: "Alimentacion" } }, [
+                            _vm._v(" Alimentación")
+                          ]),
+                          _vm._v(" "),
                           _c("option", { attrs: { value: "Llenado" } }, [
                             _vm._v("Llenado")
                           ]),
@@ -46682,7 +46663,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "alimento" } }, [
                         _vm._v("Alimento: ")
                       ]),
@@ -46736,7 +46717,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "recurso" } }, [
                         _vm._v("Recurso: ")
                       ]),
@@ -46787,7 +46768,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "search" } }, [
                         _vm._v("Desde: ")
                       ]),
@@ -46819,7 +46800,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mr-2" }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "search" } }, [
                         _vm._v("Hasta: ")
                       ]),
@@ -46853,7 +46834,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "form-group" },
+                      { staticClass: "form-group col-md-3" },
                       [
                         _c(
                           "button",
@@ -47421,7 +47402,7 @@ var render = function() {
                 _c("h2", [_vm._v("Filtrar por:")]),
                 _vm._v(" "),
                 _c("form", { staticClass: "row" }, [
-                  _c("div", { staticClass: "form-group mr-2" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "t_actividad" } }, [
                       _vm._v("Tipo de Actividad: ")
                     ]),
@@ -47491,7 +47472,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group mr-2" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "search" } }, [
                       _vm._v("Desde: ")
                     ]),
@@ -47523,7 +47504,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group mr-2" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "search" } }, [
                       _vm._v("Hasta: ")
                     ]),
@@ -47555,7 +47536,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c(
                       "button",
                       {
@@ -48209,7 +48190,7 @@ var render = function() {
             _c("h6", [_vm._v("Filtros de exportación: ")]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "Siembra" } }, [
                   _vm._v("Siembra:")
                 ]),
@@ -48260,7 +48241,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "Especie" } }, [_vm._v("Especie")]),
                 _vm._v(" "),
                 _c(
@@ -48309,7 +48290,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "Lote" } }, [_vm._v(" Lote")]),
                 _vm._v(" "),
                 _c(
@@ -48358,7 +48339,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "Fecha desde" } }, [
                   _vm._v("Fecha inicio desde: ")
                 ]),
@@ -48386,7 +48367,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "fecha hasta" } }, [
                   _vm._v("Fecha inicio hasta: ")
                 ]),
@@ -48414,9 +48395,9 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "fecha hasta" } }, [
-                  _vm._v("Hacer click antes de exportar: ")
+                  _vm._v("Hacer click para filtrar: ")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -48431,34 +48412,34 @@ var render = function() {
                   },
                   [_vm._v(" Filtrar Por criterios")]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group col-md-2" },
+                [
+                  _c(
+                    "downloadexcel",
+                    {
+                      staticClass: "btn btn-success form-control",
+                      attrs: {
+                        fetch: _vm.fetchData,
+                        fields: _vm.json_fields,
+                        "before-generate": _vm.startDownload,
+                        "before-finish": _vm.finishDownload,
+                        name: "informe-siembras-especies.xls",
+                        type: "xls"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-fw fa-download" }),
+                      _vm._v(" Generar Excel \n                          ")
+                    ]
+                  )
+                ],
+                1
+              )
             ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "row text-right" },
-              [
-                _c(
-                  "downloadexcel",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      fetch: _vm.fetchData,
-                      fields: _vm.json_fields,
-                      "before-generate": _vm.startDownload,
-                      "before-finish": _vm.finishDownload,
-                      name: "informe-siembras-especies.xls",
-                      type: "xls"
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-fw fa-download" }),
-                    _vm._v(" Generar Excel \n                      ")
-                  ]
-                )
-              ],
-              1
-            ),
             _vm._v(" "),
             _c("div", { staticClass: "row mb-1" }, [
               _c("div", { staticClass: "col-12 text-right " }, [

@@ -10,42 +10,44 @@
                         <h5>Filtrar por: </h5>
                       </div>
                       <div class="row">
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                           <label for="siembra">Siembras</label>
                           <select class="form-control" id="siembra" v-model="f_siembra">
                             <option value="-1">Seleccionar</option>
                             <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
                           </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                           <label for="especie">Especies</label>
                           <select class="form-control" id="especie" v-model="f_especie">
                             <option value="-1">Seleccionar</option>
                             <option :value="les.id" v-for="(les, index) in listadoEspecies" :key="index">{{les.especie}}</option>
                           </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                           <label for="Fecha desde">Fecha inicio desde: </label>
                           <input type="date" class="form-control" id="f_inicio_d">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                           <label for="fecha hasta">Fecha inicio hasta: </label>
                           <input type="date" class="form-control" id="f_inicio_h">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                           <button class="btn btn-primary" @click="filtroCiclo()">
                             Filtrar resultados
                           </button>
                         </div>
-                        <downloadexcel
-                        class = "btn btn-success"
-                        :fetch   = "fetchData"
-                        :fields = "json_fields"
-                        :before-generate = "startDownload"
-                        name    = "informe-recursos.xls"
-                        type    = "xls">
-                          <i class="fa fa-fw fa-download"></i> Generar Excel 
-                        </downloadexcel>
+                        <div class="form-group col-md-2">
+                          <downloadexcel
+                          class = "btn btn-success form-control"
+                          :fetch   = "fetchData"
+                          :fields = "json_fields"
+                          :before-generate = "startDownload"
+                          name    = "informe-recursos.xls"
+                          type    = "xls">
+                            <i class="fa fa-fw fa-download"></i> Generar Excel 
+                          </downloadexcel>
+                        </div>
                       </div>
                       <div>
                         <table class="table table-sm table-hover">
