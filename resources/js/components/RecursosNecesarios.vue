@@ -7,10 +7,21 @@
 
           <div class="card-body">
             <div class="row mb-1">
-              <div class="col-md-10">
+              <div class="text-right col-md-12">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success form-control col-md-2" @click="abrirCrear()">Añadir registro</button>
+              </div>
+              <div class="col-md-12">
                 <h2>Filtrar por:</h2>
                 <form class="row">
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-2">
+                    <label for="Siembra">Siembra:</label>
+                    <select class="form-control" id="f_siembra" v-model="f_siembra">
+                      <option value="-1" selected>Seleccionar</option>                             
+                      <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
                       <option selected value="1"> Seleccionar</option>
@@ -23,27 +34,31 @@
                       <option value="Lavado">Lavado</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-2">
+                    <label for="recurso">Recurso: </label>
+                    <select class="form-control" id="recurso" v-model="recurso_s">
+                      <option selected> Seleccionar</option>   
+                      <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
                     <label for="search">Desde: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                   </div>
-                   <div class="form-group col-md-3">
+                   <div class="form-group col-md-2">
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
-                  <div class="form-group col-md-3">                                      
+                  <div class="form-group col-md-2">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
               </div>
-              <div class="col-md-2 text-right ">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button>
-              </div>
+              
             </div>
          
             <div>
-              <table class="table table-sm">
+              <table class="table table-sm table-hover">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -62,20 +77,15 @@
                   <tr v-for="(item, index) in listado" :key="index" v-if="item.tipo_actividad != 'Alimentacion'">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
-                    <td>
-                      <span class="nav-item" v-for="rs in listadoRS" :key="rs.id" v-if="item.id == rs.id_registro">- {{rs.nombre_siembra}}<br></span>
-                    </td>
+                    <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>
-                    <td>
-                      {{nombresRecursos[item.id_recurso]}}
-                      <!-- {{nombresAlimentos[item.id_alimento]}} -->
-                    </td>
+                    <td> {{nombresRecursos[item.id_recurso]}}</td>
                     <td v-text="item.horas_hombre"></td>
                     <td v-text="item.cant_manana+'kg'"></td>
                     <td v-text="item.cant_tarde+'kg'"></td>
                     <td v-text="item.detalles"></td>
                     <td>
-                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
+                      <button class="btn btn-danger" @click="eliminarRegistro(item.id_registro)">
                         <i class="fas fa-trash"></i>
                       </button>
                     </td>
@@ -152,7 +162,7 @@
                   <label for="siembra">{{item.nombre_siembra}}</label>
                   <br>
                 </div>
-                <span>Checked names: {{ form.nombre_siembra }}</span>
+                <span>Checked names: {{ form.id_siembra }}</span>
               </div>
               
             </form>
@@ -186,6 +196,8 @@ import { Form, HasError, AlertError } from 'vform'
         t_actividad:'',
         fecha_ra1 :'',
         fecha_ra2 :'',
+        f_siembra:'',
+        recurso_s : '',
         busqueda:'',
         addSiembras :[],
         listado : [],
@@ -205,15 +217,19 @@ import { Form, HasError, AlertError } from 'vform'
       },
       buscarResultados(){
         let me = this;
-        
+        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
         if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad}       
+        if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
      
         const data ={
+          'f_siembra' : this.f_s,
           'tipo_actividad' : this.actividad,
+          'recurso_s' : this.rec,
           'fecha_ra1' :this.fecha1,
-          'fecha_ra2' : this.fecha2
+          'fecha_ra2' : this.fecha2,
+          
         }
         axios.post("api/searchResults", data)
         .then(response=>{

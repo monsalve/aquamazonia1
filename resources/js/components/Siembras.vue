@@ -223,7 +223,7 @@
         </div>
          <!-- Modal añadir alimentos a siembras -->
         <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
@@ -233,84 +233,75 @@
               </div>
               <div class="modal-body">          
                 <form class="row">
-                  <div class="col-md-6">
+                  <!-- <div class="col-md-6"> -->
+                    <div class="form-group col-md-3 ">   
+                      <label for="horas hombre" class="">Fecha</label>
+                      <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                    </div>
                    
-                    <div class="form-group row">
-                      <label for="Alimento" class="col-md-4">Alimento</label>
-                      <select class="form-control col-md-7" id="alimento" v-model="form.id_alimento" >
+                    <div class="form-group col-md-3">
+                      <label for="Alimento" class="">Alimento</label>
+                      <select class="form-control" id="alimento" v-model="form.id_alimento" >
                         <option>--Seleccionar--</option>
                         <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
                       </select>
-                    </div>                 
-                    <div class="form-group row ">   
-                      <label for="horas hombre" class="col-md-4">Fecha</label>
-                      <input type="date" class="form-control col-md-7" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
-                    </div>
-                    
-                    <div class="form-group row">   
-                      <label for="horas hombre" class="col-md-4">Horas hombre</label>
-                      <input type="number" class="form-control col-md-7" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                    </div>
-                        
-                  </div>
-                  <!-- Segunda columna -->
-                  <div class="col-md-6"> 
-                    <div class="form-group row">                    
-                      <label for="cant_manana" class="col-md-4">Kg Mañana</label>
-                      <input type="number" class="form-control col-md-7" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
-                    </div>
-                    <div class="form-group row">    
-                      <label for="cant_tarde" class="col-md-4">Kg tarde</label>
-                      <input type="number" class="form-control col-md-7" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
-                    </div>
+                    </div>        
+                     <div class="form-group col-md-6">   
+                      <label for="detalles" class="">Detalles</label>
+                      <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
+                    </div>     
                   
-                    <div class="form-group row">   
-                      <label for="detalles" class="col-md-4">Detalles</label>
-                      <textarea class="form-control col-md-7" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
-                    </div>                    
-                  </div>
-                  
+                    <div class="form-group col-md-3">   
+                      <label for="horas hombre" class="">Horas hombre</label>
+                      <input type="number" class="form-control" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                    </div>
+              
+                    <div class="form-group col-md-3">                    
+                      <label for="cant_manana" class="">Kg Mañana</label>
+                      <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                    </div>
+                    <div class="form-group col-md-3">    
+                      <label for="cant_tarde" class="">Kg tarde</label>
+                      <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                    </div>
                 </form>
               </div>
-               <div>
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Tipo de <br> Actividad</th>
-                    <!-- <th>Siembras</th> -->
-                    <th>Fecha</th>
-                    <th><br>Alimento</th>
-                    <th>Horas hombre</th>
-                    <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th>
-                    <th width=15%>Detalles</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in listadoRN" :key="index" v-if="item.tipo_actividad == 'Alimentacion' && item.id_siembra == idSiembraR">
-                    <td v-text="index+1"></td>
-                    <td v-text="item.tipo_actividad"></td>                   
-                    <td v-text="item.fecha_ra"></td>
-                    <td>
-                    {{item.alimento}}
-                      <!-- {{nombresAlimentos[item.id_alimento]}} -->
-                    </td>
-                    <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.cant_manana+'kg'"></td>
-                    <td v-text="item.cant_tarde+'kg'"></td>
-                    <td v-text="item.detalles"></td>
-                    <td>
-                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td>
-      
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              <div class="container">
+                <table class="table table-sm table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Tipo de <br> Actividad</th>
+                      <!-- <th>Siembras</th> -->
+                      <th>Fecha</th>
+                      <th><br>Alimento</th>
+                      <th>Horas hombre</th>
+                      <th>Cantidad<br>Mañana</th>
+                      <th>Cantidad<br>Tarde</th>
+                      <th width=15%>Detalles</th>
+                      <th>Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in listadoRN" :key="index" v-if="item.tipo_actividad == 'Alimentacion' && item.id_siembra == idSiembraR">
+                      <td v-text="index+1"></td>
+                      <td v-text="item.tipo_actividad"></td>                   
+                      <td v-text="item.fecha_ra"></td>
+                      <td> {{item.alimento}}</td>
+                      <td v-text="item.horas_hombre"></td>
+                      <td v-text="item.cant_manana+'kg'"></td>
+                      <td v-text="item.cant_tarde+'kg'"></td>
+                      <td v-text="item.detalles"></td>
+                      <td>
+                        <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+        
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
@@ -677,7 +668,7 @@
         let me = this;
         axios.get("api/recursos-necesarios")
         .then(function (response){
-          me.listadoRN = response.data.recursosSiembra;         
+          me.listadoRN = response.data.recursosNecesarios;         
         })
       },
       abrirIngreso(id){
@@ -826,12 +817,32 @@
           if (willDelete) {
             axios.delete('api/registros/'+index)
             .then(({data})=>{
-              me.listarRegistros();
-              me.listar();
+              
               console.log('eliminar'+index)
             })
           }
         });
+      },
+      eliminarRecurso(objeto){
+        let me = this;
+        swal({
+          title: "Estás seguro?",
+          text: "Una vez eliminado, no se puede recuperar este registro",
+          icon: "warning",
+          buttons: ["Cancelar", "Aceptar"],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete('api/recursos-necesarios/'+objeto)
+            .then(({data})=>{
+              console.log('eliminar'+objeto);
+              me.listarRecursosNecesarios();
+              me.listar();
+              
+            })
+          }
+        });        
       },
      
       eliminarSiembra(index){

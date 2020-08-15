@@ -93,7 +93,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="bg-secondary text-white">
                     
                     <th colspan="3">PROMEDIO:</th>
                     <td v-text="promedios.promedio_12_am"></td>

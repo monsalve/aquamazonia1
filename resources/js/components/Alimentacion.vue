@@ -11,27 +11,41 @@
                 <h5>Filtrar por:</h5>
                 <form class="row">
                   <input type="hidden" value="Alimentacion" v-model="t_actividad">
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-2">
+                    <label for="Siembra">Siembra:</label>
+                    <select class="form-control" id="f_siembra" v-model="f_siembra">
+                      <option value="-1" selected>Seleccionar</option>                             
+                      <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                   <label for="alimento">Alimento: </label>
+                    <select class="form-control" id="alimento" v-model="alimento_s">
+                      <option selected> Seleccionar</option>
+                      <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
                     <label for="search">Desde: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                   </div>
-                   <div class="form-group col-md-3">
+                   <div class="form-group col-md-2">
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
-                  <div class="form-group col-md-3">                                      
+                  <div class="form-group col-md-2">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
               </div>
               <div class="col-md-2 text-right ">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button>
+                <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
               </div>
             </div>
          
             <div>
-              <table class="table table-sm">
+              <table class="table table-sm table-hover">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -43,29 +57,25 @@
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
                     <th width=15%>Detalles</th>
-                    <th>Eliminar</th>
+                    <!-- <th>Eliminar</th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in listado" :key="index" v-if="item.tipo_actividad == 'Alimentacion'">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
-                    <td>
-                      <span class="nav-item" v-for="rs in listadoRS" :key="rs.id" v-if="item.id == rs.id_registro">- {{rs.nombre_siembra}}<br></span>
-                    </td>
+                    <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>
-                    <td>
-                      {{nombresAlimentos[item.id_alimento]}}
-                    </td>
+                    <td v-text="item.alimento"></td>
                     <td v-text="item.horas_hombre"></td>
                     <td v-text="item.cant_manana+'kg'"></td>
                     <td v-text="item.cant_tarde+'kg'"></td>
                     <td v-text="item.detalles"></td>
-                    <td>
+                    <!-- <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
                         <i class="fas fa-trash"></i>
                       </button>
-                    </td>
+                    </td> -->
       
                   </tr>
                 </tbody>
@@ -90,27 +100,15 @@
           <div class="modal-body">          
             <form class="row">
               <div class="col-md-6">
-                <!-- <div class="form-group row">
-                  <label for="actividad" class="col-md-4" >Tipo de Actividad</label>
-                  <select class="form-control col-md-6" id="tipo_actividad" v-model="form.tipo_actividad" disabled>
-                    <option value="Alimentacion" selected>Alimentacion</option>
-                  </select>
-                </div> -->
+              
                 <div class="form-group row">
                   <label for="Alimento" class="col-md-4">Alimento</label>
                   <select class="form-control col-md-7" id="alimento" v-model="form.id_alimento" >
                     <option>--Seleccionar--</option>
                     <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
                   </select>
-                </div>
-                <!-- <div class="form-group">
-                  <label for="recurso">Recurso</label>
-                  <select class="form-control" id="recurso" v-model="form.id_recurso">
-                    <option selected>--Seleccionar--</option>
-                    <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
-                  </select>
-                </div> -->
-                 <div class="form-group row ">   
+                </div>               
+                <div class="form-group row ">   
                   <label for="horas hombre" class="col-md-4">Fecha</label>
                   <input type="date" class="form-control col-md-7" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
                 </div>
@@ -165,6 +163,7 @@
 
 <script>
 import { Form, HasError, AlertError } from 'vform'
+import downloadexcel from "vue-json-excel"
   export default {
     data(){
       return {
@@ -182,6 +181,8 @@ import { Form, HasError, AlertError } from 'vform'
         t_actividad:'',
         fecha_ra1 :'',
         fecha_ra2 :'',
+        f_siembra : '',
+        alimento_s :'',
         busqueda:'',
         addSiembras :[],
         listado : [],
@@ -201,13 +202,16 @@ import { Form, HasError, AlertError } from 'vform'
       },
       buscarResultados(){
         let me = this;
-        
-        if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad}       
+        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
+        if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad} 
+        if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
      
         const data ={
+          'f_siembra' : this.f_s,
           'tipo_actividad' : 'Alimentacion',
+          'alimento_s' : this.ali,
           'fecha_ra1' :this.fecha1,
           'fecha_ra2' : this.fecha2
         }
