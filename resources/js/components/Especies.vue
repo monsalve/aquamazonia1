@@ -27,11 +27,11 @@
                                   <td v-text="especie.especie">Tilapia</td>
                                   <td v-text="especie.descripcion"></td>
                                   <td>
-                                    <button @click="cargaEditar(especie)" class="btn btn-light" type="button">
-                                      <span style="font-size: 1.5em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
+                                    <button @click="cargaEditar(especie)" class="btn btn-success" type="button">
+                                      <i class="fas fa-edit"></i>
                                     </button>
-                                    <button @click="eliminar(especie.id)" class="btn btn-light" type="button">
-                                      <span style="font-size: 1.5em; color:#DC3545;"><i class="fas fa-trash"></i></span>
+                                    <button @click="eliminar(especie.id)" class="btn btn-danger" type="button">
+                                      <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
                                 </tr>

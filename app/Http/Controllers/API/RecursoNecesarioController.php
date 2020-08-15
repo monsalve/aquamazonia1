@@ -8,6 +8,7 @@ use App\RecursoNecesario;
 use App\RecursoSiembra;
 use App\Alimento;
 use App\Recursos;
+use App\Siembra;
 
 class RecursoNecesarioController extends Controller
 {
@@ -56,13 +57,19 @@ class RecursoNecesarioController extends Controller
         $recursoNecesario->cant_tarde = $request['cant_tarde'];
         $recursoNecesario->detalles = $request['detalles'];
         $recursoNecesario->save();
-        
-       foreach ($request->id_siembra as $siembra){
+      
+    //    foreach ($request->id_siembra as $siembra){
+            if($request['tipo_actividad'] == 'Alimentacion'){
+                $siembras = Siembra::findOrFail($request['id_siembra']);
+                $siembras->fecha_alimento = $request['fecha_ra'];
+                $siembras->save();
+            }
+            
             $recursoSiembra = new RecursoSiembra();
             $recursoSiembra->id_registro = $recursoNecesario->id;
-            $recursoSiembra->id_siembra = $siembra;
-            $recursoSiembra->save();
-        }
+            $recursoSiembra->id_siembra =$request['id_siembra'];            
+            $recursoSiembra->save();            
+        // }
        
             
        return ($request);

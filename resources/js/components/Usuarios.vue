@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -32,15 +32,11 @@
                                         <td v-text="usuario.estado == 1 ? 'Activo' : 'Inacitvo'">
                                         <td>
                                             <!-- <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>-->
-                                            <button class="btn btn-light">
-                                                <span style="font-size: 1em; color:#28a745 ;"  >
-                                                    <i class="fas fa-edit"></i>
-                                                </span>
+                                            <button class="btn btn-success">
+                                                <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-light">
-                                                <span style="font-size: 1em; color:#DC3545;">
-                                                    <i class="fas fa-trash"></i>
-                                                </span>
+                                            <button class="btn btn-danger">                                               
+                                                <i class="fas fa-trash"></i>                                               
                                             </button>
                                         </td>
                                     </tr>

@@ -28,11 +28,11 @@
                                   <td v-text="contenedor.capacidad"></td>
                                   <td v-text="estados[contenedor.estado]"></td>
                                   <td>
-                                    <button class="btn btn-light" @click="cargaEditar(contenedor)">
-                                         <span style="font-size: 1em; color:#28a745 ;"  ><i class="fas fa-edit"></i></span>
+                                    <button class="btn btn-success" @click="cargaEditar(contenedor)">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-light" @click="eliminar(contenedor.id)" >
-                                        <span style="font-size: 1em; color:#DC3545;"><i class="fas fa-trash"></i></span>
+                                    <button class="btn btn-danger" @click="eliminar(contenedor.id)" >
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
                                 </tr>

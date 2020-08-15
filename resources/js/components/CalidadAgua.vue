@@ -93,7 +93,22 @@
                       </button>
                     </td>
                   </tr>
-                  <th>Promedio</th>
+                  <tr>
+                    
+                    <th colspan="3">PROMEDIO:</th>
+                    <td v-text="promedios.promedio_12_am"></td>
+                    <td v-text="promedios.promedio_4_am"></td>
+                    <td v-text="promedios.promedio_7_am"></td>
+                    <td v-text="promedios.promedio_4_pm"></td>
+                    <td v-text="promedios.promedio_8_pm"></td>
+                    <td v-text="promedios.promedio_temperatura"></td>
+                    <td v-text="promedios.promedio_ph"></td>
+                    <td v-text="promedios.promedio_amonio"></td>
+                    <td v-text="promedios.promedio_nitrito"></td>
+                    <td v-text="promedios.promedio_nitrato"></td>
+                    <td v-text="promedios.promedio_otros"></td>
+                    
+                  </tr>                  
                 </tbody>
               </table>
             </div>
@@ -127,31 +142,31 @@
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  12:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " v-model="form.h_12am">
+                      <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " v-model="form['12_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" v-model="form.h_4am">
+                      <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" v-model="form['4_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  7:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" v-model="form.h_7am">
+                      <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" v-model="form['7_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00pm: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" v-model="form.h_4pm">
+                      <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" v-model="form['4_pm']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="8pm" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  8:00pm: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" v-model="form.h_8pm">
+                      <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" v-model="form['8_pm']">
                     </div>
                   </div>
                 </div>
@@ -248,11 +263,11 @@
           id_siembra : [],
           id_especie : '',
           fecha_parametro : '',
-          h_12am : '',
-          h_4am : '',
-          h_7am : '',
-          h_4pm : '',
-          h_8pm: '',
+          '12_am' : '',
+          '4_am' : '',
+          '7_am' : '',
+          '4_pm' : '',
+          '8_pm': '',
           temperatura : '',
           ph: '',
           amonio : '',
@@ -264,6 +279,7 @@
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
+        promedios : [],
         f_inicio_d : '',
         f_inicio_h : '',
       }
@@ -297,7 +313,8 @@
         axios.post("api/filtro-parametros", data)
         .then(response=>{
           console.log(response.data);
-          me.listadoParametros = response.data;
+          me.listadoParametros = response.data.calidad_agua;
+          me.promedios = response.data.promedios
         })
         
       },
@@ -309,7 +326,8 @@
         let me = this;
         axios.get("api/parametros-calidad")
         .then(function (response){
-          me.listadoParametros = response.data
+          me.listadoParametros = response.data.calidad_agua;
+          me.promedios = response.data.promedios
         })
       },
 
@@ -337,25 +355,14 @@
       },
       editar(){
         let me = this;
-        swal({
-          title: "Estás seguro?",
-          text: "Se modificarán todos los registros asociados a este id",
-          icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
             this.form.put('api/parametros-calidad/'+this.form.id)
             .then(({data})=>{
               console.log(data);
               $('#modalParametros').modal('hide');
               me.listar();
+              this.form.reset();
             })          
             console.log('editando' + this.form.id)
-          }
-        });
-        
         
       },
       eliminarParametros(objeto){

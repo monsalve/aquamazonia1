@@ -20,11 +20,13 @@ class SiembraController extends Controller
     {
         //
         //$especieSiembras = EspecieSiembra::all();
-        $siembra = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado')
+        $siembra = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
                     ->join('contenedores','siembras.id_contenedor','contenedores.id')
                     ->where('siembras.estado','=',1)
                     ->orderBy('siembras.id', 'desc')
                     ->get();
+                    
+        $fecha_actual = date('Y-m-d');
                     
         $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','lote','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
                     ->join('especies','especies_siembra.id_especie','especies.id')         
@@ -41,10 +43,18 @@ class SiembraController extends Controller
         $campos=array();
         foreach($peces as $p) {
             $pxs[$p['id_siembra']][$p['id']] = $p;
-            $campos[$p['id_siembra']][$p['id']] = array("id_especie"=>$p['id_especie'],"id_siembra"=>$p['id_siembra'] ,"peso_ganado"=>'',"mortalidad"=>'',"biomasa"=>'',"cantidad"=>'','cant_actual'=>$p['cant_actual'],'peso_actual'=>$p['peso_actual']);
+            $campos[$p['id_siembra']][$p['id']] = array(
+                "id_especie"=>$p['id_especie'],
+                "id_siembra"=>$p['id_siembra'] ,
+                "peso_ganado"=>'',
+                "mortalidad"=>'',
+                "biomasa"=>'',
+                "cantidad"=>'',
+                'cant_actual'=>$p['cant_actual'],
+                'peso_actual'=>$p['peso_actual']);
         }                
-        
-        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes];
+        // echo date('Y-m-d');
+        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes, 'fecha_actual'=> $fecha_actual];
     }
   
     /**
@@ -161,7 +171,7 @@ class SiembraController extends Controller
         if($request['f_inicio_d']!='-1'){$c7="fecha_inicio"; $op4='>='; $c8= $request['f_inicio_d'];}
         if($request['f_inicio_h']!='-1'){$c9="fecha_inicio"; $op5='<='; $c10= $request['f_inicio_h'];}
     
-        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especies.id', 'especie', 'cantidad', 'peso_inicial', 'cant_actual', 'peso_actual')
+        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especies.id', 'especie', 'cantidad', 'peso_inicial', 'cant_actual', 'peso_actual', 'fecha_alimento')
             ->join('contenedores','siembras.id_contenedor','contenedores.id')
             ->join('especies_siembra', 'siembras.id', 'especies_siembra.id_siembra') 
             ->join('especies', 'especies_siembra.id_especie', 'especies.id')
@@ -175,7 +185,7 @@ class SiembraController extends Controller
         return ['filtrarSiembras' => $filtrarSiembras];
     }   
     public function traerSiembras(){
-        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especies.id', 'especie', 'cantidad', 'peso_inicial', 'cant_actual', 'peso_actual')
+        $filtrarSiembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'lote', 'especies.id', 'especie', 'cantidad', 'peso_inicial', 'cant_actual', 'peso_actual', 'fecha_alimento')
             ->join('contenedores','siembras.id_contenedor','contenedores.id')
             ->join('especies_siembra', 'siembras.id', 'especies_siembra.id_siembra')   
             ->join('especies', 'especies_siembra.id_especie', 'especies.id')

@@ -13,6 +13,7 @@ class Siembra extends Model
         'id_contenedor',
         'nombre_siembra',
         'fecha_inicio',
+        'fecha_alimento',
         'estado',
         'ini_descanso',
         'fin_descanso'

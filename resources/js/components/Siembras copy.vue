@@ -106,7 +106,6 @@
                                   <td v-text="estados[siembra.estado]"></td>
                                   <td v-bind:class="[fechaActual == siembra.fecha_alimento ? 'bg-success' : 'bg-warning']">
                                     {{siembra.fecha_alimento}}
-                                    <button type="button" class="btn btn-success" @click="abrirCrear(siembra.id)">Añadir Alimento</button>
                                   </td>
                                   <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
                                   <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
@@ -217,103 +216,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-         <!-- Modal añadir alimentos a siembras -->
-        <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">          
-                <form class="row">
-                  <div class="col-md-6">
-                   
-                    <div class="form-group row">
-                      <label for="Alimento" class="col-md-4">Alimento</label>
-                      <select class="form-control col-md-7" id="alimento" v-model="form.id_alimento" >
-                        <option>--Seleccionar--</option>
-                        <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
-                      </select>
-                    </div>                 
-                    <div class="form-group row ">   
-                      <label for="horas hombre" class="col-md-4">Fecha</label>
-                      <input type="date" class="form-control col-md-7" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
-                    </div>
-                    
-                    <div class="form-group row">   
-                      <label for="horas hombre" class="col-md-4">Horas hombre</label>
-                      <input type="number" class="form-control col-md-7" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                    </div>
-                        
-                  </div>
-                  <!-- Segunda columna -->
-                  <div class="col-md-6"> 
-                    <div class="form-group row">                    
-                      <label for="cant_manana" class="col-md-4">Kg Mañana</label>
-                      <input type="number" class="form-control col-md-7" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
-                    </div>
-                    <div class="form-group row">    
-                      <label for="cant_tarde" class="col-md-4">Kg tarde</label>
-                      <input type="number" class="form-control col-md-7" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
-                    </div>
-                  
-                    <div class="form-group row">   
-                      <label for="detalles" class="col-md-4">Detalles</label>
-                      <textarea class="form-control col-md-7" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
-                    </div>                    
-                  </div>
-                  
-                </form>
-              </div>
-               <div>
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Tipo de <br> Actividad</th>
-                    <!-- <th>Siembras</th> -->
-                    <th>Fecha</th>
-                    <th><br>Alimento</th>
-                    <th>Horas hombre</th>
-                    <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th>
-                    <th width=15%>Detalles</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in listadoRN" :key="index" v-if="item.tipo_actividad == 'Alimentacion' && item.id_siembra == idSiembraR">
-                    <td v-text="index+1"></td>
-                    <td v-text="item.tipo_actividad"></td>                   
-                    <td v-text="item.fecha_ra"></td>
-                    <td>
-                    {{item.alimento}}
-                      <!-- {{nombresAlimentos[item.id_alimento]}} -->
-                    </td>
-                    <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.cant_manana+'kg'"></td>
-                    <td v-text="item.cant_tarde+'kg'"></td>
-                    <td v-text="item.detalles"></td>
-                    <td>
-                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td>
-      
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
               </div>
             </div>
           </div>
@@ -492,17 +394,7 @@
           id : '',
           fecha_inicio:'',
           nombre_siembra:'',
-          id_contenedor:'',
-          id_siembra: '',
-          id_recurso : '1',
-          id_alimento :'',
-          tipo_actividad : 'Alimentacion',
-          fecha_ra : '',
-          horas_hombre : '',
-          cant_manana : '',
-          cant_tarde : '',
-          detalles : ''
-          
+          id_contenedor:''         
         },
         fechaActual: [],
         ver_registros : 1,
@@ -518,8 +410,6 @@
         listadoSiembras : [],
         listadoRegistros: [],
         nombresEspecies : [],
-        listadoAlimentos:[],
-        listadoRN :[],
         pecesxSiembra: [],
         lotes :[],
         // Registros
@@ -536,7 +426,6 @@
         id_siembra:'',
         mortalidad_inicial : '',
         idSiembraRegistro:'',
-        idSiembraR: '',
         // Finalización de siembra
         ini_descanso:'',
         fin_descanso:'',
@@ -548,7 +437,6 @@
         campos: {
           camps_s: []
         },
-        
         // Filtros para exportar
         f_siembra : '',
         f_especie: '', 
@@ -596,28 +484,12 @@
           me.listadoRegistros = response.data
         })
       },
-      listarAlimentos(){
-        let me = this;
-        axios.get("api/alimentos")
-        .then(function (response){
-          me.listadoAlimentos = response.data; 
-          var auxAlimento = response.data;
-       
-        })
-      },
       anadirItem(){
         let me = this;
         $('#modalSiembra').modal('show');
         this.listarEspecies();
         this.listarContenedores();
         console.log('añadir item') 
-      },
-      abrirCrear(id){
-        let me = this;
-        $('#modalRecursos').modal('show');
-        this.form.id_siembra = id;
-        this.idSiembraR= id;
-        console.log(id);
       },
       anadirEspecie(){
         let me = this;
@@ -653,8 +525,6 @@
         let me = this;
         this.listarEspecies();
         this.listadoExcel();
-        this.listarAlimentos();
-        this.listarRecursosNecesarios();
         axios.get("api/siembras")
         .then(function (response){
           me.listadoSiembras = response.data.siembra;
@@ -672,13 +542,6 @@
           me.imprimirSiembras = response.data.filtrarSiembras;                    
           
         })      
-      },
-      listarRecursosNecesarios(){
-        let me = this;
-        axios.get("api/recursos-necesarios")
-        .then(function (response){
-          me.listadoRN = response.data.recursosSiembra;         
-        })
       },
       abrirIngreso(id){
         let me = this;
@@ -734,7 +597,6 @@
         })
         
       },
-            
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
         this.id_finalizar = id;
@@ -803,15 +665,6 @@
           alert('Debe diligenciar todos los campos');
         }
         console.log('guardar') ;
-      },
-      guardarRecursos(id){
-        let me = this;      
-        axios.post("api/recursos-necesarios", this.form)
-        .then(({data})=>{
-          console.log('guardado');
-          me.listar();
-         $('#modalRecursos').modal('hide');
-        })
       },
       eliminarRegistro(index){
         let me = this;
