@@ -45,4 +45,6 @@ Route::namespace('API')->group(function () {
     Route::get('traer-existencias', 'InformeController@traerExistencias');
     Route::post('filtro-ciclos', 'InformeController@filtroExistencias');
     Route::post('filtro-parametros', 'ParametroCalidadController@filtroParametros');
+    Route::post('parametro-x-contenedor/{id}', 'ParametroCalidadController@mostrarParametrosxContenedores');
+    Route::get('parametros-contenedores', 'ParametroCalidadController@listadoParametrosContenedores');
 });

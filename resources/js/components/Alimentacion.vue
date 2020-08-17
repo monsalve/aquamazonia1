@@ -39,8 +39,20 @@
                 </form>
               </div>
               <div class="col-md-2 text-right ">
-                <!-- Button trigger modal -->
-                <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
+                <div class="form-group">                            
+                  <downloadexcel                                
+                    class = "btn btn-success form-control"
+                    :fetch   = "fetchData"
+                    :fields = "json_fields"
+                    :before-generate = "startDownload"
+                    :before-finish = "finishDownload"
+                    name    = "informe-alimentos.xls"
+                    type    = "xls">
+                      <i class="fa fa-fw fa-download"></i> Generar Excel 
+                  </downloadexcel>      
+                  <!-- Button trigger modal -->
+                  <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
+                </div>
               </div>
             </div>
          
@@ -167,6 +179,16 @@ import downloadexcel from "vue-json-excel"
   export default {
     data(){
       return {
+        json_fields : {
+          'Tipo actividad' : 'tipo_actividad = Alimentacion',
+          'Siembra' : 'nombre_siembra',
+          'Fecha' : 'fecha_ra',
+          'Alimento' : 'alimento',
+          'Horas hombre' : 'horas_hombre',
+          'Kg Mañana' : 'cant_manana', 
+          'Kg tarde' : 'cant_tarde',
+          'Detalles' : 'detalles'
+        },
         form : new Form({
           id_siembra: [],
           id_recurso : '1',
@@ -183,6 +205,7 @@ import downloadexcel from "vue-json-excel"
         fecha_ra2 :'',
         f_siembra : '',
         alimento_s :'',
+        recurso_s : '',
         busqueda:'',
         addSiembras :[],
         listado : [],
@@ -195,7 +218,22 @@ import downloadexcel from "vue-json-excel"
         nombresAlimentos:[]
       }
     },
+    components: {
+      downloadexcel,
+    },
     methods:{
+     async fetchData(){
+      let me = this;
+      const response = await this.listado
+      return this.listado;
+      //  imprimirSiembras
+      },
+      startDownload(){
+          alert('show loading');
+      },
+      finishDownload(){
+          alert('hide loading');
+      },
       abrirCrear(){
         let me = this;
         $('#modalRecursos').modal('show');
@@ -207,11 +245,13 @@ import downloadexcel from "vue-json-excel"
         if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
+        if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
      
         const data ={
           'f_siembra' : this.f_s,
           'tipo_actividad' : 'Alimentacion',
           'alimento_s' : this.ali,
+          'recurso_s' : this.rec,
           'fecha_ra1' :this.fecha1,
           'fecha_ra2' : this.fecha2
         }

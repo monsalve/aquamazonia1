@@ -42,107 +42,73 @@
                 <button type="button" class="btn btn-success" @click="crearParametros()">Añadir párametros</button>
               </div>
             </div>
-            <!-- Contenido de parametros -->
-            <div v-if="mostrar == 1">   
-              <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="ocultarParametros()">
-                  Regresar
-                </button>
-              </div>
-              <div> 
-              <h2>Párametros de calidad del agua</h2>
-                <table class="table table-striped table-hover table-sm table-responsive">
-                 
-                  <thead class="">
-                    <tr>                    
-                      <th rowspan="2" data-field="id">#</th>                    
-                      <th rowspan="2">ID registro párametros</th>
-                      <th rowspan="2" data-field="id">Fecha</th>      
-                      <th colspan="5" class="text-center">% Saturación de oxígeno</th>
-                      <th rowspan="2" data-field="id">Temperatura</th>
-                      <th rowspan="2" data-field="id">PH</th>
-                      <th rowspan="2" data-field="id">Amonio</th>
-                      <th rowspan="2" data-field="id">Nitrito</th>
-                      <th rowspan="2" data-field="id">Nitrato</th>
-                      <th rowspan="2" data-field="id">Otros</th>
-                      <th rowspan="2" data-field="id">Editar/Eliminar</th>
-                    </tr>
-                    <tr>
-                      <th data-field="" data-not-first-th="">12:00 am</th>
-                      <th data-field="">4:00 am</th>
-                      <th data-field="">7:00 am </th>
-                      <th data-field="">4:00 pm </th>
-                      <th data-field="">8:00 pm </th>
-                    </tr>                  
-                  </thead>
-                  <tbody>
-                    <tr v-for="(lp, index) in listadoParametros" :key="index">
-                      <th v-text="index"></th>
-                      <th v-text="lp.id"></th>
-                      <td v-text="lp.fecha_parametro"></td>
-                      <td v-text="lp['12_am']"></td>
-                      <td v-text="lp['4_am']"></td>
-                      <td v-text="lp['7_am']"></td>
-                      <td v-text="lp['4_pm']"></td>
-                      <td v-text="lp['8_pm']"></td>
-                      <td v-text="lp.temperatura"></td>
-                      <td v-text="lp.ph"></td>
-                      <td v-text="lp.amonio"></td>
-                      <td v-text="lp.nitrito"></td>
-                      <td v-text="lp.nitrato"></td>
-                      <td v-text="lp.otros"></td>
-                      <td>
-                        <button class="btn btn-success" type="button" @click="editarParametros(lp)">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" type="button" @click="eliminarParametros(lp.id)">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="bg-secondary text-white">
-                      
-                      <th colspan="3">PROMEDIO:</th>
-                      <td v-text="promedios.promedio_12_am"></td>
-                      <td v-text="promedios.promedio_4_am"></td>
-                      <td v-text="promedios.promedio_7_am"></td>
-                      <td v-text="promedios.promedio_4_pm"></td>
-                      <td v-text="promedios.promedio_8_pm"></td>
-                      <td v-text="promedios.promedio_temperatura"></td>
-                      <td v-text="promedios.promedio_ph"></td>
-                      <td v-text="promedios.promedio_amonio"></td>
-                      <td v-text="promedios.promedio_nitrito"></td>
-                      <td v-text="promedios.promedio_nitrato"></td>
-                      <td v-text="promedios.promedio_otros"></td>
-                      
-                    </tr>                  
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="row" v-if="mostrar==0">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Contenedor</th>
-                    <th scope="col">Capacidad</th>
-                    <th scope="col">Estado contenedor</th>
-                    <th scope="col">Ver párametros de calidad</th>
+            <div>   
+              <table class="table table-striped table-hover table-sm">                
+                <thead class="">
+                  <tr>                    
+                    <th rowspan="2" data-field="id">#</th>                    
+                    <th rowspan="2">ID registro párametros</th>
+                    <!-- <th rowspan="2" data-field="id">Siembra</th>       -->
+                    <th rowspan="2" data-field="id">Fecha</th>      
+                    <th colspan="5" class="text-center">% Saturación de oxígeno</th>
+                    <th rowspan="2" data-field="id">Temperatura</th>
+                    <th rowspan="2" data-field="id">PH</th>
+                    <th rowspan="2" data-field="id">Amonio</th>
+                    <th rowspan="2" data-field="id">Nitrito</th>
+                    <th rowspan="2" data-field="id">Nitrato</th>
+                    <th rowspan="2" data-field="id">Otros</th>
+                    <th rowspan="2" data-field="id">Editar/Eliminar</th>
                   </tr>
+                  <tr>
+                    <th data-field="" data-not-first-th="">12:00 am</th>
+                    <th data-field="">4:00 am</th>
+                    <th data-field="">7:00 am </th>
+                    <th data-field="">4:00 pm </th>
+                    <th data-field="">8:00 pm </th>
+                  </tr>                  
                 </thead>
                 <tbody>
-                  <tr v-for="(contenedor,index) in listadoParametrosContenedores" :key="index">
-                    <th scope="row" v-text="index+1"></th>
-                    <td v-text="contenedor.contenedor"></td>
-                    <td v-text="contenedor.capacidad"></td>
-                    <td v-text="estados[contenedor.estado]"></td>
-                    <td>                     
-                      <button class="btn btn-primary">
-                          <i class="far fa-eye" @click="mostrarParametros(contenedor.id)"></i>
+                  <tr v-for="(lp, index) in listadoParametros" :key="index">
+                    <th v-text="index"></th>
+                    <th v-text="lp.id"></th>
+                    <!-- <td v-text="lp.nombre_siembra"></td> -->
+                    <td v-text="lp.fecha_parametro"></td>
+                    <td v-text="lp['12_am']"></td>
+                    <td v-text="lp['4_am']"></td>
+                    <td v-text="lp['7_am']"></td>
+                    <td v-text="lp['4_pm']"></td>
+                    <td v-text="lp['8_pm']"></td>
+                    <td v-text="lp.temperatura"></td>
+                    <td v-text="lp.ph"></td>
+                    <td v-text="lp.amonio"></td>
+                    <td v-text="lp.nitrito"></td>
+                    <td v-text="lp.nitrato"></td>
+                    <td v-text="lp.otros"></td>
+                    <td>
+                      <button class="btn btn-success" type="button" @click="editarParametros(lp)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-danger" type="button" @click="eliminarParametros(lp.id)">
+                        <i class="fas fa-trash"></i>
                       </button>
                     </td>
                   </tr>
+                  <tr class="bg-secondary text-white">
+                    
+                    <th colspan="3">PROMEDIO:</th>
+                    <td v-text="promedios.promedio_12_am"></td>
+                    <td v-text="promedios.promedio_4_am"></td>
+                    <td v-text="promedios.promedio_7_am"></td>
+                    <td v-text="promedios.promedio_4_pm"></td>
+                    <td v-text="promedios.promedio_8_pm"></td>
+                    <td v-text="promedios.promedio_temperatura"></td>
+                    <td v-text="promedios.promedio_ph"></td>
+                    <td v-text="promedios.promedio_amonio"></td>
+                    <td v-text="promedios.promedio_nitrito"></td>
+                    <td v-text="promedios.promedio_nitrato"></td>
+                    <td v-text="promedios.promedio_otros"></td>
+                    
+                  </tr>                  
                 </tbody>
               </table>
             </div>
@@ -243,9 +209,9 @@
                     <input type="number" class="form-control" id="otros" placeholder="Otros" v-model="form.otros">
                   </div>
                 </div>
-                <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
-                  <input type="checkbox" v-bind:value="lc.id" v-model="form.id_contenedor">
-                  <label for="siembra">{{lc.contenedor}}</label>
+                <div v-for="(ls, index) in listadoSiembras" :key="index">                                 
+                  <input type="checkbox" v-bind:value="ls.id" v-model="form.id_siembra">
+                  <label for="siembra">{{ls.nombre_siembra}}</label>
                   <br>
                 </div>
                 <!-- <span>Checked names: {{ item.nombre_siembra }}</span> -->
@@ -292,11 +258,9 @@
           
         },     
         editando : 0,
-        mostrar : 0,
-        idSiembra : 0,
         form : new Form({
           id : '',
-          id_contenedor : [],
+          id_siembra : [],
           id_especie : '',
           fecha_parametro : '',
           '12_am' : '',
@@ -311,13 +275,10 @@
           nitrato : '',
           otros : ''
         }),
-        estados :[],
         listadoExistencias : [],
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
-        listadoParametrosContenedores : [],
-        listadoContenedores : [],
         promedios : [],
         f_inicio_d : '',
         f_inicio_h : '',
@@ -360,9 +321,7 @@
       listar(){
         let me = this;      
         this.listarParametros();
-        this.listarSiembras(); 
-        this.listarParametrosContenedores();
-        this.listarContenedores();
+        this.listarSiembras()
       },
       listarParametros(){
         let me = this;
@@ -379,42 +338,6 @@
         .then(function (response){
           me.listadoSiembras = response.data.siembra;         
         })
-      },
-      listarParametrosContenedores(){
-          let me = this;
-          axios.get("api/parametros-contenedores")
-          .then(function (response) {
-              me.listadoParametrosContenedores = response.data
-          });
-      },
-      listarContenedores(){
-          let me = this;
-          axios.get("api/contenedores")
-          .then(function (response) {
-              me.listadoContenedores = response.data
-          });
-      },
-      mostrarParametros(objeto){
-        
-        this.idSiembra = objeto
-        let me = this;
-        const data = {
-          'id_siembra' : this.idSiembra
-        }
-        axios.post('api/parametro-x-contenedor/'+objeto)
-        .then(response=>{
-          this.mostrar = 1
-          this.listadoParametros = response.data.calidad_agua;
-          this.promedios = response.data.promedios,
-            console.log(response);
-          console.log(this.mostrar)
-        })
-       
-      },
-      ocultarParametros(){
-        let me = this;
-        this.mostrar = 0;
-        this.listar();
       },
       crearParametros(){
         this.editando = 0;
@@ -473,10 +396,6 @@
     },
     mounted() {
       this.listar();
-      this.estados[0] = 'Inactivo';
-      this.estados[1] = 'Activo';
-      this.estados[2] = 'Ocupado';
-      this.estados[3] = 'Descanso';       
     }
   }
 </script>

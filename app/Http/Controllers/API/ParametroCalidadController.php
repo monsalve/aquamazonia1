@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\CalidadAgua;
 use App\CalidadSiembra;
 use App\Siembra;
+use App\Contenedor;
+
 
 class ParametroCalidadController extends Controller
 {
@@ -100,6 +102,23 @@ class ParametroCalidadController extends Controller
         $calidad_agua->nitrato = $request['nitrato'];
         $calidad_agua->otros = $request['otros'];
         $calidad_agua->save();
+        
+        
+        foreach($request->id_contenedor as $contenedor){
+            
+            
+            $calidad_siembra = new CalidadSiembra();
+            $siembras =  Siembra::select('id')->get();
+            if($siembras[0]->id_contenedor == $request->id_contenedor){
+                // $calidad_siembra = new CalidadSiembra();
+                
+                var_dump($siembras);
+                $calidad_siembra->id_siembra = $siembras->id;                
+            }
+            $calidad_siembra->id_calidad_parametros = $calidad_agua->id;
+            $calidad_siembra->id_contenedor = $contenedor;
+            $calidad_siembra->save();
+        }
         
         return ($request);
         
@@ -215,5 +234,84 @@ class ParametroCalidadController extends Controller
       return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
         // return $calidad_agua;
     }   
+    
+    public function listadoParametrosContenedores() {
+        $contenedores = Contenedor::select(
+        'capacidad',
+        'contenedores.id as id',
+        'contenedores.estado as estado',
+        'contenedor',
+        'nombre_siembra',
+        'siembras.id as id_siembra'
+        )
+        ->leftJoin('siembras', 'contenedores.id', 'siembras.id_contenedor')
+        ->get()
+        ;
+        
+        return $contenedores;
+    }
+    
+    public function mostrarParametrosxContenedores($id){
+        //
+          $calidad_agua = CalidadAgua::select()
+          ->join('calidad_siembra', 'calidad_agua.id', 'calidad_siembra.id_calidad_parametros')
+          ->where('calidad_siembra.id_contenedor', '=',$id)          
+          ->orderBy('fecha_parametro', 'desc')
+          ->get();
+          
+          $promedios = array();
+          $prom_12am = 0;
+          $prom_4am = 0;
+          $prom_7am = 0;
+          $prom_4pm = 0;
+          $prom_8pm = 0;
+          $prom_temperatura = 0;
+          $prom_ph = 0;
+          $prom_amonio = 0;
+          $prom_nitrito = 0;
+          $prom_nitrato = 0;
+          $prom_otros = 0;
+   
+          if(count($calidad_agua)>0){
+              for($i=0;$i<count($calidad_agua);$i++){
+                  $prom_12am += $calidad_agua[$i]['12_am'];
+                  $promedios['promedio_12_am'] = (round($prom_12am/(count($calidad_agua)),2));
+                  
+                  $prom_4am += $calidad_agua[$i]['4_am'];
+                  $promedios['promedio_4_am'] = (round($prom_4am/(count($calidad_agua)),2));
+                  
+                  $prom_7am += $calidad_agua[$i]['7_am'];
+                  $promedios['promedio_7_am'] = (round($prom_7am/(count($calidad_agua)),2));
+                  
+                  $prom_4pm += $calidad_agua[$i]['4_pm'];
+                  $promedios['promedio_4_pm'] = (round($prom_4pm/(count($calidad_agua)),2));
+                 
+                  $prom_8pm += $calidad_agua[$i]['8_pm'];
+                  $promedios['promedio_8_pm'] = (round($prom_8pm/(count($calidad_agua)),2));
+                  
+                  $prom_temperatura += $calidad_agua[$i]['temperatura'];
+                  $promedios['promedio_temperatura'] = (round($prom_temperatura/(count($calidad_agua)),2));
+                  
+                  $prom_ph += $calidad_agua[$i]['ph'];
+                  $promedios['promedio_ph'] = (round($prom_ph/(count($calidad_agua)),2));
+                  
+                  $prom_amonio += $calidad_agua[$i]['amonio'];
+                  $promedios['promedio_amonio'] = (round($prom_amonio/(count($calidad_agua)),2));
+                  
+                  $prom_nitrito += $calidad_agua[$i]['nitrito'];
+                  $promedios['promedio_nitrito'] = (round($prom_nitrito/(count($calidad_agua)),2));
+                  
+                  $prom_nitrato += $calidad_agua[$i]['nitrato'];
+                  $promedios['promedio_nitrato'] = (round($prom_nitrato/(count($calidad_agua)),2));
+                  
+                  $prom_otros += $calidad_agua[$i]['otros'];
+                  $promedios['promedio_otros'] = (round($prom_otros/(count($calidad_agua)),2));
+              }
+              // print_r('Promedio:'.$div_promedio);
+          }
+          
+           
+        return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
+    }
     
 }

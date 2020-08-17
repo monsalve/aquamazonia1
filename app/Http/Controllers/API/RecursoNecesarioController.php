@@ -123,12 +123,12 @@ class RecursoNecesarioController extends Controller
         
     }
     public function searchResults(Request $request){
-        $c1 = "tipo_actividad"; $op1="!="; $c2 = "-1";
-        $c3 = "tipo_actividad"; $op2="!=";  $c4="-3";
-        $c5 = "tipo_actividad"; $op3="!=";  $c6="-1";
-        $c7 = "tipo_actividad"; $op4="!=";  $c8="-1";
-        $c9 = "tipo_actividad"; $op5="!=";  $c10="-1";
-        $c11 = 'tipo_actividad'; $op6 = '!='; $c12 = '-1';
+        $c1 = "recursos_necesarios.id"; $op1="!="; $c2 = "-1";
+        $c3 = "recursos_necesarios.id"; $op2="!=";  $c4="-3";
+        $c5 = "recursos_necesarios.id"; $op3="!=";  $c6="-1";
+        $c7 = "recursos_necesarios.id"; $op4="!=";  $c8="-1";
+        $c9 = "recursos_necesarios.id"; $op5="!=";  $c10="-1";
+        $c11 = 'recursos_necesarios.id'; $op6 = '!='; $c12 = '-1';
         
         if($request['tipo_actividad']!='1'){$c1="tipo_actividad"; $op1='='; $c2= $request['tipo_actividad'];}
         if($request['fecha_ra1']!='-3'){$c3="fecha_ra"; $op2='>='; $c4=$request['fecha_ra1'];}
@@ -140,6 +140,7 @@ class RecursoNecesarioController extends Controller
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')    
         ->where($c1, $op1, $c2)
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)

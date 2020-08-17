@@ -10,6 +10,8 @@ class CalidadSiembra extends Model
 
     protected $fillable = [
         'id_calidad_parametros',
-        'id_siembra'           
+        'id_siembra',
+        'id_contenedor'
+        
     ];
 }

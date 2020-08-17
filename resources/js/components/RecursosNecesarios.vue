@@ -52,6 +52,18 @@
                   <div class="form-group col-md-2">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
+                  <div class="col-md-2">
+                    <downloadexcel                                
+                    class = "btn btn-success form-control"
+                    :fetch   = "fetchData"
+                    :fields = "json_fields"
+                    :before-generate = "startDownload"
+                    :before-finish = "finishDownload"
+                    name    = "informe-recursos.xls"
+                    type    = "xls">
+                      <i class="fa fa-fw fa-download"></i> Generar Excel 
+                    </downloadexcel>      
+                  </div>
                 </form>
               </div>
               
@@ -179,9 +191,20 @@
 
 <script>
 import { Form, HasError, AlertError } from 'vform'
+import downloadexcel from "vue-json-excel"
   export default {
     data(){
       return {
+        json_fields : {
+          'Tipo actividad' : 'tipo_actividad',
+          'Siembra' : 'nombre_siembra',
+          'Fecha' : 'fecha_ra',
+          'Recurso' : 'recurso',
+          'Horas hombre' : 'horas_hombre',
+          'Kg Mañana' : 'cant_manana', 
+          'Kg tarde' : 'cant_tarde',
+          'Detalles' : 'detalles'
+        },
         form : new Form({
           id_siembra: [],
           id_recurso : '',
@@ -197,6 +220,7 @@ import { Form, HasError, AlertError } from 'vform'
         fecha_ra1 :'',
         fecha_ra2 :'',
         f_siembra:'',
+        alimento_s :'',
         recurso_s : '',
         busqueda:'',
         addSiembras :[],
@@ -210,7 +234,22 @@ import { Form, HasError, AlertError } from 'vform'
         nombresAlimentos:[]
       }
     },
+     components: {
+      downloadexcel,
+    },
     methods:{
+      async fetchData(){
+      let me = this;
+      const response = await this.listado
+      return this.listado;
+      //  imprimirSiembras
+      },
+      startDownload(){
+          alert('show loading');
+      },
+      finishDownload(){
+          alert('hide loading');
+      },
       abrirCrear(){
         let me = this;
         $('#modalRecursos').modal('show');
@@ -222,11 +261,13 @@ import { Form, HasError, AlertError } from 'vform'
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
+        if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
      
         const data ={
           'f_siembra' : this.f_s,
           'tipo_actividad' : this.actividad,
           'recurso_s' : this.rec,
+          'alimento_s' : this.ali,
           'fecha_ra1' :this.fecha1,
           'fecha_ra2' : this.fecha2,
           

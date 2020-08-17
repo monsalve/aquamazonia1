@@ -62,13 +62,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-striped table-hover table-sm">
+                            <table class="table table-striped table-hover table-sm table-responsive">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
                                   <th>Nombre <br> siembra</th>
                                   <th scope="col">Contenedor</th>
-                                  <th scope="col" class="text-center" style="width:340px">
+                                  <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
                                     <h5> Especie</h5>
                                     <div class="nav">
                                       <li class="nav-item" style="width:80px">Especie</li>
@@ -91,7 +91,7 @@
                                   <th v-text="index+1" scope="row"></th>
                                   <td v-text="siembra.nombre_siembra" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
-                                  <td>
+                                  <td class="d-sm-none d-none d-md-block">
                                     <div v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == siembra.id">
                                       <div class="nav text-center" >
                                         <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
