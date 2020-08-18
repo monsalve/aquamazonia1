@@ -86,7 +86,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in listado" :key="index" v-if="item.tipo_actividad != 'Alimentacion'">
+                  <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
                     <td v-text="item.nombre_siembra"></td>
@@ -208,7 +208,7 @@ import downloadexcel from "vue-json-excel"
         form : new Form({
           id_siembra: [],
           id_recurso : '',
-          id_alimento :1,
+          id_alimento :0,
           tipo_actividad : '',
           fecha_ra : '',
           horas_hombre : '',

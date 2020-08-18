@@ -23,8 +23,8 @@ class InformeController extends Controller
         //
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+        ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
@@ -54,7 +54,6 @@ class InformeController extends Controller
         ->get();
         
         return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
-        // return ['siembras'=>$siembras, 'recursosSiembrass'=>$recursosSiembras, 'recursosNecesarios' => $recursosNecesarios,'especies'=>$especies];
     }
     public function informeRecursos(Request $request)
     {
@@ -74,8 +73,8 @@ class InformeController extends Controller
         if($request['fecha_ra2']!='-1'){$c11="fecha_ra"; $op6='<='; $c12=$request['fecha_ra2'];}        
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+        ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
@@ -159,9 +158,12 @@ class InformeController extends Controller
         if($request['fecha_ra2']!='-1'){$c11="fecha_ra"; $op6='<='; $c12=$request['fecha_ra2'];}        
     
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->rightJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->rightJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a')
+        ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+        ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
+        ->where($c1, $op1, $c2)
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
         ->where($c7, $op4, $c8)
@@ -177,9 +179,11 @@ class InformeController extends Controller
             for($i=0;$i<count($recursosNecesarios); $i++){
                 $acumula+=$recursosNecesarios[$i]->costo_r;
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
+                
                 $acumula2+=$recursosNecesarios[$i]->costo_a;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
-                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $recursosNecesarios[$i]->costo_horash = (round(($recursosNecesarios[$i]->horas_hombre*3000),2));
+                
                 $acumula3+=$recursosNecesarios[$i]->costo_horash;
                 $recursosNecesarios[$i]->costo_h_acum = $acumula3;
                 
@@ -226,7 +230,7 @@ class InformeController extends Controller
     
         if(count($existencias)>0){
             for($i=0;$i<count($existencias); $i++){
-                // $existencias[$i]->mortalidad_kg = ((floatval($existencias[$i]->mortalidad) * floatval($existencias[$i]->peso_ganado)) / 1000);
+            
                 $existencias[$i]->biomasa_final = ((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000);
                 
                 
@@ -235,12 +239,11 @@ class InformeController extends Controller
                         if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie){
                             $var1 = $var1 + $registros[$j]->mortalidad;
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
-                            $existencias[$i]->mortalidad_kg_au = $var2;                         
+                            $existencias[$i]->mortalidad_kg_au = (round(($var2),2));
                             
                             $var3 = $var3 + $registros[$j]->biomasa;
                             $var4 =  $existencias[$i]->cant_actual;
-                        
-                            $existencias[$i]->cantidad_pescas = ((floatval($var3))*1000)/(floatval($var4));                            
+                            $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));                            
                         }
                     }
                 }
@@ -308,7 +311,7 @@ class InformeController extends Controller
                             $var3 = $var3 + $registros[$j]->biomasa;
                             $var4 =  $existencias[$i]->cant_actual;
                         
-                            $existencias[$i]->cantidad_pescas = ((floatval($var3))*1000)/(floatval($var4));                            
+                            $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));
                         }
                     }
                 }

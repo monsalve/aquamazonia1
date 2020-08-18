@@ -54,8 +54,12 @@
                               <label for="search">Hasta: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                             </div>
+                            <div class="form-group col-md-1">
+                              <label for="">Buscar</label>
+                              <button  class="btn btn-primary form-control" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
+                            </div>
                             <div class="form-group col-md-3">                                      
-                              <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
+                              
                               <downloadexcel
                               class = "btn btn-success"
                               :fetch   = "fetchData"
@@ -71,7 +75,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm">
+                        <table class="table table-sm table-responsive">
                           <thead>
                             <tr>
                               <th>#</th>

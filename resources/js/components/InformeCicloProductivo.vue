@@ -50,7 +50,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm table-hover">
+                        <table class="table table-sm table-hover table-responsive">
                           <thead>
                             <tr>   
                               <!-- <th>Cantidad inicial</th>
@@ -81,7 +81,7 @@
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.peso_inicial"></td>
                               <!-- <td v-text="le.mortalidad"></td> -->
-                              <td v-text="le.mortalidad_kg_au+' kg'"></td>
+                              <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td>
                               <td v-text="le.cantidad_pescas"></td>
                               <!-- <td v-text="le.peso_ganado"></td> -->
                               <td v-text="le.peso_actual"></td>                              

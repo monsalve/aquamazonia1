@@ -36,15 +36,17 @@ Route::apiResources([
 
 Route::namespace('API')->group(function () {
     Route::post('actualizarEstado/{id}', 'SiembraController@actualizarEstado');
+    Route::post('filtro-siembras', 'SiembraController@filtroSiembras');
     Route::post('searchResults', 'RecursoNecesarioController@searchResults');
     Route::post('filtroInformes', 'InformeController@filtroInformes');
-    Route::post('informe-recursos', 'InformeController@informeRecursos');
-    Route::get('traer-recursos', 'InformeController@traerInformes');
-    Route::post('filtro-siembras', 'SiembraController@filtroSiembras');
-    Route::get('traer-siembras', 'SiembraController@traerSiembras');
-    Route::get('traer-existencias', 'InformeController@traerExistencias');
     Route::post('filtro-ciclos', 'InformeController@filtroExistencias');
+    Route::post('informe-recursos', 'InformeController@informeRecursos');
     Route::post('filtro-parametros', 'ParametroCalidadController@filtroParametros');
     Route::post('parametro-x-contenedor/{id}', 'ParametroCalidadController@mostrarParametrosxContenedores');
+    
+    Route::get('lista-alimentacion', 'RecursoNecesarioController@alimentacion');
+    Route::get('traer-siembras', 'SiembraController@traerSiembras');    
+    Route::get('traer-recursos', 'InformeController@traerInformes');
+    Route::get('traer-existencias', 'InformeController@traerExistencias');
     Route::get('parametros-contenedores', 'ParametroCalidadController@listadoParametrosContenedores');
 });

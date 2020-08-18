@@ -69,8 +69,8 @@
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-12 text-right">
-                      <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-primary btn-lg"  v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-primary"  v-text="editando ==0 ? 'Crear' : 'Actualizar'"></button>
                     </div>
                   </div>
                 </form>

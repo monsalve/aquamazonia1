@@ -11,7 +11,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-sm">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>

@@ -12,7 +12,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-sm">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
@@ -22,8 +22,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr v-for="alimento in listado" :key="alimento.id">
-                                  <th scope="row" v-text="alimento.id"></th>
+                                <tr v-for="(alimento, index) in listado" :key="index">
+                                  <th scope="row" v-text="index"></th>
                                   <td v-text="alimento.alimento"></td>
                                   <td v-text="alimento.costo_kg"></td>
                                   <td>

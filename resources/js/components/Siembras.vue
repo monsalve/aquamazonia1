@@ -104,9 +104,10 @@
                                   <td v-text="siembra.fecha_inicio"></td>
                                   <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
                                   <td v-text="estados[siembra.estado]"></td>
-                                  <td v-bind:class="[fechaActual == siembra.fecha_alimento ? 'bg-success' : 'bg-warning']">
+                                  <td v-bind:class="[fechaActual == siembra.fecha_alimento ? '' : 'bg-warning']">
                                     {{siembra.fecha_alimento}}
-                                    <button type="button" class="btn btn-success" @click="abrirCrear(siembra.id)">Añadir Alimento</button>
+                                    
+                                    <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
                                   </td>
                                   <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
                                   <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
@@ -265,9 +266,13 @@
                       <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                     </div>
                 </form>
+                <div class="modal-footer">
+                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                  <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+                </div>
               </div>
               <div class="container">
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover table-responsive">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -304,7 +309,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+                <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
               </div>
             </div>
           </div>
@@ -666,7 +671,7 @@
       },
       listarRecursosNecesarios(){
         let me = this;
-        axios.get("api/recursos-necesarios")
+        axios.get("api/lista-alimentacion")
         .then(function (response){
           me.listadoRN = response.data.recursosNecesarios;         
         })
@@ -801,7 +806,8 @@
         .then(({data})=>{
           console.log('guardado');
           me.listar();
-         $('#modalRecursos').modal('hide');
+          // $('#modalRecursos').modal('hide');
+          this.form.reset();
         })
       },
       eliminarRegistro(index){

@@ -57,7 +57,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover">
+              <table class="table table-sm table-hover table-responsive">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -73,7 +73,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in listado" :key="index" v-if="item.tipo_actividad == 'Alimentacion'">
+                  <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
                     <td v-text="item.nombre_siembra"></td>
@@ -180,7 +180,7 @@ import downloadexcel from "vue-json-excel"
     data(){
       return {
         json_fields : {
-          'Tipo actividad' : 'tipo_actividad = Alimentacion',
+          'Tipo actividad' : 'tipo_actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
           'Alimento' : 'alimento',
@@ -191,7 +191,7 @@ import downloadexcel from "vue-json-excel"
         },
         form : new Form({
           id_siembra: [],
-          id_recurso : '1',
+          id_recurso : '0',
           id_alimento :'',
           tipo_actividad : 'Alimentacion',
           fecha_ra : '',
@@ -263,7 +263,7 @@ import downloadexcel from "vue-json-excel"
       },
       listar(){
         let me = this;
-        axios.get("api/recursos-necesarios")
+        axios.get("api/lista-alimentacion")
         .then(function (response){
           me.listado = response.data.recursosNecesarios;         
           me.listadoRS = response.data.recursosSiembra;

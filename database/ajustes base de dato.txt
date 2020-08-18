@@ -1,0 +1,2 @@
+Tabla 'calidad_agua' se eliminó la columna 'id_siembra'
+Tabla 'siembras' se añadió la columna 'fecha_alimento'

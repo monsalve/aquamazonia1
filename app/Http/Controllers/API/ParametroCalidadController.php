@@ -105,16 +105,7 @@ class ParametroCalidadController extends Controller
         
         
         foreach($request->id_contenedor as $contenedor){
-            
-            
             $calidad_siembra = new CalidadSiembra();
-            $siembras =  Siembra::select('id')->get();
-            if($siembras[0]->id_contenedor == $request->id_contenedor){
-                // $calidad_siembra = new CalidadSiembra();
-                
-                var_dump($siembras);
-                $calidad_siembra->id_siembra = $siembras->id;                
-            }
             $calidad_siembra->id_calidad_parametros = $calidad_agua->id;
             $calidad_siembra->id_contenedor = $contenedor;
             $calidad_siembra->save();

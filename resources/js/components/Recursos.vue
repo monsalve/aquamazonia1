@@ -66,12 +66,12 @@
                                 <label for="unidad" class="col-sm-12  col-md-4 col-form-label">Unidad
                                 </label>
                                 <div class="col-sm-12 col-md-8">
-                                  <input type="text" class="form-control" id="unidad"  :class="{ 'is-invalid': form.errors.has('unidad') }" v-model="form.unidad">
+                                  <input type="text" class="form-control" id="unidad"  :class="{ 'is-invalid': form.errors.has('unidad') }" v-model="form.unidad" placeholder="Kg, Kl, Hora, Lt">
                                    <has-error :form="form" field="unidad"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="costo" class="col-sm-12  col-md-4 col-form-label">Costo
+                                <label for="costo" class="col-sm-12  col-md-4 col-form-label">Costo Unidad
                                 </label>
                                 <div class="col-sm-12 col-md-8">
                                   <input type="text" class="form-control" id="costo" v-model="form.costo" :class="{ 'is-invalid': form.errors.has('costo') }">

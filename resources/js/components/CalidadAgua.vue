@@ -121,11 +121,12 @@
               </div>
             </div>
             <div class="row" v-if="mostrar==0">
-              <table class="table table-striped">
+              <table class="table table-striped table-responsive">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Contenedor</th>
+                    <th scope="col">Siembra asociada</th>
                     <th scope="col">Capacidad</th>
                     <th scope="col">Estado contenedor</th>
                     <th scope="col">Ver párametros de calidad</th>
@@ -135,11 +136,12 @@
                   <tr v-for="(contenedor,index) in listadoParametrosContenedores" :key="index">
                     <th scope="row" v-text="index+1"></th>
                     <td v-text="contenedor.contenedor"></td>
+                    <td v-text="contenedor.nombre_siembra"></td>
                     <td v-text="contenedor.capacidad"></td>
                     <td v-text="estados[contenedor.estado]"></td>
                     <td>                     
-                      <button class="btn btn-primary">
-                          <i class="far fa-eye" @click="mostrarParametros(contenedor.id)"></i>
+                      <button class="btn btn-primary" @click="mostrarParametros(contenedor.id)">
+                          <i class="far fa-eye"></i>
                       </button>
                     </td>
                   </tr>
@@ -248,7 +250,6 @@
                   <label for="siembra">{{lc.contenedor}}</label>
                   <br>
                 </div>
-                <!-- <span>Checked names: {{ item.nombre_siembra }}</span> -->
               </div>
               <div class="form-group row">
                   <div class="col-sm-12 text-right">
@@ -258,10 +259,6 @@
               </div>
             </form>
           </div>
-          <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="guardarParametros()">Guardar</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -269,7 +266,7 @@
 </template>
 
 <script>
-  import downloadexcel from "vue-json-excel";
+  import downloadexcel from "vue-json-excel"
   import { Form, HasError, AlertError } from 'vform'
   export default {
     data(){
@@ -330,7 +327,7 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-Parametros');
-        const response = await this.listadoParametros
+        const response = await this.listadoParametros;
         // console.log(response);
         return this.listadoParametros;
       },
@@ -381,18 +378,18 @@
         })
       },
       listarParametrosContenedores(){
-          let me = this;
-          axios.get("api/parametros-contenedores")
-          .then(function (response) {
-              me.listadoParametrosContenedores = response.data
-          });
+        let me = this;
+        axios.get("api/parametros-contenedores")
+        .then(function (response) {
+            me.listadoParametrosContenedores = response.data
+        });
       },
       listarContenedores(){
-          let me = this;
-          axios.get("api/contenedores")
-          .then(function (response) {
-              me.listadoContenedores = response.data
-          });
+        let me = this;
+        axios.get("api/contenedores")
+        .then(function (response) {
+            me.listadoContenedores = response.data
+        });
       },
       mostrarParametros(objeto){
         
@@ -405,9 +402,7 @@
         .then(response=>{
           this.mostrar = 1
           this.listadoParametros = response.data.calidad_agua;
-          this.promedios = response.data.promedios,
-            console.log(response);
-          console.log(this.mostrar)
+          this.promedios = response.data.promedios
         })
        
       },
@@ -436,18 +431,18 @@
         let me = this;
         this.form.fill(objeto);
         this.editando = 1;
-          $('#modalParametros').modal('show');
+        $('#modalParametros').modal('show');
       },
       editar(){
         let me = this;
-            this.form.put('api/parametros-calidad/'+this.form.id)
-            .then(({data})=>{
-              console.log(data);
-              $('#modalParametros').modal('hide');
-              me.listar();
-              this.form.reset();
-            })          
-            console.log('editando' + this.form.id)
+        
+        this.form.put('api/parametros-calidad/'+this.form.id)
+        .then(({data})=>{              
+          $('#modalParametros').modal('hide');
+          me.listar();
+          this.form.reset();
+        })          
+        console.log('editando' + this.form.id)
         
       },
       eliminarParametros(objeto){
