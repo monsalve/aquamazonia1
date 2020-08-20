@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light border-dark bg-warning shadow-sm border-bottom-0">
             <div class="container">
                 
                 {{ config('app.name', 'Aquamazonia') }}
