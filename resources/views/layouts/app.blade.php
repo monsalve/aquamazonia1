@@ -79,7 +79,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <router-link class="dropdown-item" to="/informes">Informe recursos </router-link>                            
-                                    <router-link class="dropdown-item" to="/siembras">Informe siembras</router-link>      
+                                    <router-link class="dropdown-item" to="/informe-siembras">Informe siembras</router-link>      
                                     <router-link class="dropdown-item" to="/ciclo-productivo">Informe ciclo productivo</router-link>      
                                     <!-- <router-link class="dropdown-item" to="/calidad-agua">Informe Calidad Agua</router-link>       -->
                                 </div>

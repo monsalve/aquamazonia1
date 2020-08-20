@@ -31,12 +31,13 @@ Route::apiResources([
     'recursos-siembras' => 'API\RecursoSiembraController',
     'informes' => 'API\InformeController',
     'parametros-calidad' => 'API\ParametroCalidadController',
+    'informes-siembras' => 'API\InformeSiembraController',
     // 'informes-recursos' => 'API\InformeRecursosController',
 ]);
 
 Route::namespace('API')->group(function () {
     Route::post('actualizarEstado/{id}', 'SiembraController@actualizarEstado');
-    Route::post('filtro-siembras', 'SiembraController@filtroSiembras');
+    Route::post('filtro-siembras', 'InformeSiembraController@filtroSiembras');
     Route::post('searchResults', 'RecursoNecesarioController@searchResults');
     Route::post('filtroInformes', 'InformeController@filtroInformes');
     Route::post('filtro-ciclos', 'InformeController@filtroExistencias');
