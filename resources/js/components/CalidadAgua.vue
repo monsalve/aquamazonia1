@@ -51,7 +51,7 @@
               </div>
               <div> 
               <h2>Párametros de calidad del agua</h2>
-                <table class="table table-striped table-hover table-sm table-responsive">
+                <table class="table table-striped table-hover">
                  
                   <thead class="">
                     <tr>                    
@@ -121,7 +121,7 @@
               </div>
             </div>
             <div class="row" v-if="mostrar==0">
-              <table class="table table-striped table-responsive">
+              <table class="table table-striped table-responsive-sm">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

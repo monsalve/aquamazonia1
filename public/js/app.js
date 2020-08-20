@@ -3724,6 +3724,398 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"]);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    var _ref;
+
+    return _ref = {
+      json_fields: {
+        'Siembras': 'nombre_siembra',
+        'Contenedor': 'contenedor',
+        'Fecha Inicio': 'fecha_inicio',
+        'Estado': 'estado',
+        'Especies': 'especie',
+        'Lotes': 'lote',
+        'Cantidad Inicial': 'cantidad',
+        'Peso Inicial': 'peso_inicial',
+        'Cantidad Actual': 'cant_actual',
+        'Peso actual': 'peso_actual'
+      },
+      fechaActual: [],
+      ver_registros: 1,
+      itemRegistro: [],
+      newLote: '',
+      newEspecie: '',
+      newCantidad: '',
+      newPeso: '',
+      listadoEspecies: [],
+      listadoContenedores: [],
+      listado: [],
+      listadoSiembras: [],
+      listadoItems: []
+    }, _defineProperty(_ref, "listado", []), _defineProperty(_ref, "listadoRegistros", []), _defineProperty(_ref, "nombresEspecies", []), _defineProperty(_ref, "listadoAlimentos", []), _defineProperty(_ref, "listadoRN", []), _defineProperty(_ref, "pecesxSiembra", []), _defineProperty(_ref, "lotes", []), _defineProperty(_ref, "anadirRegistro", 0), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "id_especie", ''), _defineProperty(_ref, "fecha_registro", ''), _defineProperty(_ref, "tiempo", ''), _defineProperty(_ref, "tipo_registro", ''), _defineProperty(_ref, "peso_ganado", ''), _defineProperty(_ref, "mortalidad", ''), _defineProperty(_ref, "biomasa", ''), _defineProperty(_ref, "cantidad", ''), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "f_estado_s", ''), _ref;
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this;
+                _context.next = 3;
+                return _this.listado;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listado);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startDownload: function startDownload() {
+      alert('show loading');
+    },
+    finishDownload: function finishDownload() {
+      alert('hide loading');
+    },
+    listarEspecies: function listarEspecies() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        me.listadoEspecies = response.data;
+      });
+    },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
+      });
+    },
+    listarRegistros: function listarRegistros() {
+      var me = this;
+      axios.get("api/registros").then(function (response) {
+        me.listadoRegistros = response.data;
+      });
+    },
+    listarAlimentos: function listarAlimentos() {
+      var me = this;
+      axios.get("api/alimentos").then(function (response) {
+        me.listadoAlimentos = response.data;
+        var auxAlimento = response.data;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      this.listarEspecies();
+      this.listadoExcel();
+      this.listarAlimentos();
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    nombreEspecie: function nombreEspecie() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        var auxEspecie = response.data;
+        auxEspecie.forEach(function (element) {
+          return me.nombresEspecies[element.id] = element.especie;
+        });
+      });
+    },
+    listar: function listar() {
+      var me = this;
+      this.listarEspecies();
+      this.listadoExcel();
+      this.listarAlimentos();
+      this.listarSiembras();
+      axios.get("api/informes-siembras").then(function (response) {
+        me.listado = response.data.siembras;
+        me.lotes = response.data.lotes;
+        me.fechaActual = response.data.fecha_actual;
+      });
+    },
+    listadoExcel: function listadoExcel() {
+      var me = this;
+      axios.get("api/traer-siembras").then(function (response) {
+        me.imprimirSiembras = response.data.filtrarSiembras;
+      });
+    },
+    abrirIngreso: function abrirIngreso(id) {
+      var me = this;
+      this.ver_registros = 1;
+      $("#modalIngreso").modal('show');
+      console.log(id);
+      this.idSiembraRegistro = id;
+      this.tipo_registro = 0;
+    },
+    exportarSiembras: function exportarSiembras() {
+      var me = this;
+
+      if (this.f_siembra == '') {
+        this.f_s = '-1';
+      } else {
+        this.f_s = this.f_siembra;
+      }
+
+      if (this.f_estado_s == '') {
+        this.f_e_s = '-1';
+      } else {
+        this.f_e_s = this.f_estado_s;
+      }
+
+      if (this.f_especie == '') {
+        this.f_e = '-1';
+      } else {
+        this.f_e = this.f_especie;
+      }
+
+      if (this.f_lote == '') {
+        this.f_l = '-1';
+      } else {
+        this.f_l = this.f_lote;
+      }
+
+      if (this.f_inicio_d == '') {
+        this.f_d = '-1';
+      } else {
+        this.f_d = this.f_inicio_d;
+      }
+
+      if (this.f_inicio_h == '') {
+        this.f_h = '-1';
+      } else {
+        this.f_h = this.f_inicio_h;
+      }
+
+      var data = {
+        'f_siembra': this.f_s,
+        'f_estado_s': this.f_e_s,
+        'f_especie': this.f_e,
+        'f_lote': this.f_l,
+        'f_inicio_d': this.f_d,
+        'f_inicio_h': this.f_h
+      };
+      axios.post("api/filtro-siembras", data).then(function (response) {
+        console.log(response.data);
+        me.listado = response.data.siembras; // alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
+      });
+    },
+    finalizarSiembra: function finalizarSiembra(id) {
+      $("#modalFinalizar").modal('show');
+      this.id_finalizar = id;
+    },
+    fechaDescanso: function fechaDescanso(id) {
+      var _this2 = this;
+
+      var me = this;
+
+      if (this.ini_descanso != '') {
+        if (this.fin_descanso != '') {
+          var data = {
+            'id': this.id_finalizar,
+            'ini_descanso': this.ini_descanso,
+            'fin_descanso': this.fin_descanso
+          };
+          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref2) {
+            var response = _ref2.response;
+            console.log(response);
+            _this2.id_finalizar = '';
+            _this2.ini_descanso = '';
+            _this2.fin_descanso = '';
+            $('#modalFinalizar').modal('hide');
+
+            _this2.listar();
+          });
+        } else {
+          var _data = {
+            'id': this.id_finalizar,
+            'ini_descanso': this.ini_descanso
+          };
+          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref3) {
+            var response = _ref3.response;
+            console.log(response);
+            _this2.id_finalizar = '';
+            _this2.ini_descanso = '';
+            $('#modalFinalizar').modal('hide');
+
+            _this2.listar();
+          });
+        }
+      } else {
+        swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
+      }
+
+      console.log('finalizar' + this.id_finalizar);
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
+    this.listarRegistros();
+    this.nombreEspecie();
+    this.estados[0] = 'Inactivo';
+    this.estados[1] = 'Activo';
+    this.estados[2] = 'Ocupado';
+    this.estados[3] = 'Descanso';
+    this.tipoRegistro[0] = 'Muestreo';
+    this.tipoRegistro[1] = 'Pesca';
+    this.tipoRegistro[2] = 'Mortalidad Inicial';
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Informes.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Informes.vue?vue&type=script&lang=js& ***!
@@ -44957,10 +45349,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "table",
-                      {
-                        staticClass:
-                          "table table-striped table-hover table-sm table-responsive"
-                      },
+                      { staticClass: "table table-striped table-hover" },
                       [
                         _vm._m(0),
                         _vm._v(" "),
@@ -45171,7 +45560,7 @@ var render = function() {
               ? _c("div", { staticClass: "row" }, [
                   _c(
                     "table",
-                    { staticClass: "table table-striped table-responsive" },
+                    { staticClass: "table table-striped table-responsive-sm" },
                     [
                       _vm._m(1),
                       _vm._v(" "),
@@ -47187,6 +47576,507 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Gestión de Siembras")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h6", [_vm._v("Filtros de exportación: ")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Siembra" } }, [
+                  _vm._v("Siembra:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_siembra,
+                        expression: "f_siembra"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "f_siembra" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_siembra = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: ls.id } },
+                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Siembra" } }, [
+                  _vm._v("Estado Siembra:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_estado_s,
+                        expression: "f_estado_s"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "f_estado_s" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_estado_s = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Todos")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v("Inactivo")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("Activo")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Especie" } }, [_vm._v("Especie")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_especie,
+                        expression: "f_especie"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "f_especie" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_especie = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoEspecies, function(especie) {
+                      return _c(
+                        "option",
+                        { key: especie.id, domProps: { value: especie.id } },
+                        [_vm._v(_vm._s(especie.especie))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Lote" } }, [_vm._v(" Lote")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_lote,
+                        expression: "f_lote"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "f_lote" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_lote = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1", selected: "" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.lotes, function(lote, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: lote.lote } },
+                        [_vm._v(_vm._s(lote.lote))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Fecha desde" } }, [
+                  _vm._v("Fecha inicio desde: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_d,
+                      expression: "f_inicio_d"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_d" },
+                  domProps: { value: _vm.f_inicio_d },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_d = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "fecha hasta" } }, [
+                  _vm._v("Fecha inicio hasta: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_h,
+                      expression: "f_inicio_h"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_h" },
+                  domProps: { value: _vm.f_inicio_h },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_h = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "fecha hasta" } }, [
+                  _vm._v("Hacer click para filtrar: ")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary form-control",
+                    on: {
+                      click: function($event) {
+                        return _vm.exportarSiembras()
+                      }
+                    }
+                  },
+                  [_vm._v(" Filtrar Por criterios")]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group col-md-2" },
+                [
+                  _c(
+                    "downloadexcel",
+                    {
+                      staticClass: "btn btn-success form-control",
+                      attrs: {
+                        fetch: _vm.fetchData,
+                        fields: _vm.json_fields,
+                        "before-generate": _vm.startDownload,
+                        "before-finish": _vm.finishDownload,
+                        name: "informe-siembras-especies.xls",
+                        type: "xls"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-fw fa-download" }),
+                      _vm._v(" Generar Excel \n                          ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-striped table-hover table-sm table-responsive-sm"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listado, function(siembra, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", {
+                          attrs: { scope: "row" },
+                          domProps: { textContent: _vm._s(index + 1) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          attrs: { scope: "row" },
+                          domProps: {
+                            textContent: _vm._s(siembra.nombre_siembra)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(siembra.contenedor) }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "d-sm-none d-none d-md-block" },
+                          [
+                            _c("div", { staticClass: "nav text-center" }, [
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item border-bottom",
+                                  staticStyle: { width: "80px" },
+                                  domProps: {
+                                    textContent: _vm._s(siembra.especie)
+                                  }
+                                },
+                                [_vm._v("Especie")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item border-bottom",
+                                  staticStyle: { width: "80px" },
+                                  domProps: {
+                                    textContent: _vm._s(siembra.lote)
+                                  }
+                                },
+                                [_vm._v("Lote")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item border-bottom",
+                                  staticStyle: { width: "80px" },
+                                  domProps: {
+                                    textContent: _vm._s(siembra.cant_actual)
+                                  }
+                                },
+                                [_vm._v("Cantidad")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item border-bottom",
+                                  staticStyle: { width: "60px" },
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      siembra.peso_actual + "Gr"
+                                    )
+                                  }
+                                },
+                                [_vm._v("Peso")]
+                              )
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(siembra.fecha_inicio)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(_vm.estados[siembra.estado])
+                          }
+                        })
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nombre "), _c("br"), _vm._v(" siembra")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "text-center d-sm-none d-none d-md-block",
+            attrs: { scope: "col" }
+          },
+          [
+            _c("h5", [_vm._v(" Especie")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "nav" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                [_vm._v("Especie")]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                [_vm._v("Lote")]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                [_vm._v("Cantidad")]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item", staticStyle: { width: "60px" } },
+                [_vm._v("Peso gr")]
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Inicio siembra")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Informes.vue?vue&type=template&id=566327c2&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Informes.vue?vue&type=template&id=566327c2& ***!
@@ -48995,260 +49885,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("h6", [_vm._v("Filtros de exportación: ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "Siembra" } }, [
-                  _vm._v("Siembra:")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_siembra,
-                        expression: "f_siembra"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "f_siembra" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_siembra = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1", selected: "" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoSiembras, function(ls, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: ls.id } },
-                        [_vm._v(_vm._s(ls.nombre_siembra))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "Especie" } }, [_vm._v("Especie")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_especie,
-                        expression: "f_especie"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "f_especie" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_especie = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1", selected: "" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoEspecies, function(especie) {
-                      return _c(
-                        "option",
-                        { key: especie.id, domProps: { value: especie.id } },
-                        [_vm._v(_vm._s(especie.especie))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "Lote" } }, [_vm._v(" Lote")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_lote,
-                        expression: "f_lote"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "f_lote" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_lote = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1", selected: "" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.lotes, function(lote, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: lote.lote } },
-                        [_vm._v(_vm._s(lote.lote))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "Fecha desde" } }, [
-                  _vm._v("Fecha inicio desde: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.f_inicio_d,
-                      expression: "f_inicio_d"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "date", id: "f_inicio_d" },
-                  domProps: { value: _vm.f_inicio_d },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.f_inicio_d = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "fecha hasta" } }, [
-                  _vm._v("Fecha inicio hasta: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.f_inicio_h,
-                      expression: "f_inicio_h"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "date", id: "f_inicio_h" },
-                  domProps: { value: _vm.f_inicio_h },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.f_inicio_h = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "fecha hasta" } }, [
-                  _vm._v("Hacer click para filtrar: ")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary form-control",
-                    on: {
-                      click: function($event) {
-                        return _vm.exportarSiembras()
-                      }
-                    }
-                  },
-                  [_vm._v(" Filtrar Por criterios")]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-md-2" },
-                [
-                  _c(
-                    "downloadexcel",
-                    {
-                      staticClass: "btn btn-success form-control",
-                      attrs: {
-                        fetch: _vm.fetchData,
-                        fields: _vm.json_fields,
-                        "before-generate": _vm.startDownload,
-                        "before-finish": _vm.finishDownload,
-                        name: "informe-siembras-especies.xls",
-                        type: "xls"
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-fw fa-download" }),
-                      _vm._v(" Generar Excel \n                          ")
-                    ]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
             _c("div", { staticClass: "row mb-1" }, [
               _c("div", { staticClass: "col-12 text-right " }, [
                 _c(
@@ -69718,6 +70354,9 @@ var routes = [{
   path: '/calidad-agua',
   component: __webpack_require__(/*! ./components/CalidadAgua.vue */ "./resources/js/components/CalidadAgua.vue")["default"]
 }, {
+  path: '/informe-siembras',
+  component: __webpack_require__(/*! ./components/InformeSiembras.vue */ "./resources/js/components/InformeSiembras.vue")["default"]
+}, {
   path: '/example',
   component: __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]
 }];
@@ -70343,6 +70982,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCicloProductivo_vue_vue_type_template_id_b9a4f8bc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeSiembras.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/InformeSiembras.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeSiembras.vue?vue&type=template&id=65f090be& */ "./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be&");
+/* harmony import */ var _InformeSiembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeSiembras.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InformeSiembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InformeSiembras.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeSiembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeSiembras.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeSiembras_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeSiembras.vue?vue&type=template&id=65f090be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeSiembras_vue_vue_type_template_id_65f090be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

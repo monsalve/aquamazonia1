@@ -6,7 +6,7 @@
                     <div class="card-header">Gestión de Siembras</div>
 
                     <div class="card-body">
-                        <h6>Filtros de exportación: </h6>
+                        <!-- <h6>Filtros de exportación: </h6>
                         
                         <div class="row">
                           <div class="form-group col-md-2">
@@ -54,7 +54,7 @@
                               </downloadexcel>                            
                           </div>
                         </div>
-                        
+                         -->
                         
                         <div class="row mb-1">
                             <div class="col-12 text-right ">
