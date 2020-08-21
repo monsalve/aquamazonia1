@@ -23,7 +23,7 @@
                               </thead>
                               <tbody>
                                 <tr v-for="(alimento, index) in listado" :key="index">
-                                  <th scope="row" v-text="index"></th>
+                                  <th scope="row" v-text="index+1"></th>
                                   <td v-text="alimento.alimento"></td>
                                   <td v-text="alimento.costo_kg"></td>
                                   <td>

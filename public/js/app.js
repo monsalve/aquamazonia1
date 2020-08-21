@@ -2123,7 +2123,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
         id_siembra: [],
-        id_recurso: '0',
+        id_recurso: '',
         id_alimento: '',
         tipo_actividad: 'Alimentacion',
         fecha_ra: '',
@@ -2794,7 +2794,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2817,10 +2816,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       editando: 0,
       mostrar: 0,
-      idSiembra: 0,
+      idContenedor: 0,
+      nombreContenedor: '',
       form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
         id: '',
-        id_contenedor: [],
+        id_contenedor: '',
         id_especie: '',
         fecha_parametro: '',
         '12_am': '',
@@ -2899,6 +2899,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       var data = {
+        'id_contenedor': this.idContenedor,
         'f_inicio_d': this.f_d,
         'f_inicio_h': this.f_h
       };
@@ -2909,8 +2910,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     listar: function listar() {
-      var me = this;
-      this.listarParametros();
+      var me = this; // this.listarParametros();
+
       this.listarSiembras();
       this.listarParametrosContenedores();
       this.listarContenedores();
@@ -2943,10 +2944,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     mostrarParametros: function mostrarParametros(objeto) {
       var _this2 = this;
 
-      this.idSiembra = objeto;
+      this.idContenedor = objeto;
       var me = this;
       var data = {
-        'id_siembra': this.idSiembra
+        'id_siembra': this.idContenedor
       };
       axios.post('api/parametro-x-contenedor/' + objeto).then(function (response) {
         _this2.mostrar = 1;
@@ -2966,18 +2967,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     guardar: function guardar() {
       var me = this;
+      this.form.id_contenedor = this.idContenedor;
+      console.log(this.form.id_contenedor);
       this.form.post("api/parametros-calidad").then(function (_ref) {
         var data = _ref.data;
 
         editando: 0;
 
         console.log('guardado');
-        me.listar();
+        me.filtrarParametros();
         $('#modalParametros').modal('hide');
       });
     },
     editarParametros: function editarParametros(objeto) {
       var me = this;
+      this.form.id = idContenedor;
       this.form.fill(objeto);
       this.editando = 1;
       $('#modalParametros').modal('show');
@@ -4856,7 +4860,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
         id_siembra: [],
         id_recurso: '',
-        id_alimento: 0,
+        id_alimento: '',
         tipo_actividad: '',
         fecha_ra: '',
         horas_hombre: '',
@@ -5492,53 +5496,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -5567,7 +5524,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         nombre_siembra: '',
         id_contenedor: '',
         id_siembra: '',
-        id_recurso: '1',
+        id_recurso: 0,
         id_alimento: '',
         tipo_actividad: 'Alimentacion',
         fecha_ra: '',
@@ -5657,10 +5614,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       });
     },
     listarRegistros: function listarRegistros() {
-      var me = this;
-      axios.get("api/registros").then(function (response) {
-        me.listadoRegistros = response.data;
-      });
+      var me = this; // axios.get("api/registros")
+      // .then(function (response){
+      //   me.listadoRegistros = response.data
+      // })
     },
     listarAlimentos: function listarAlimentos() {
       var me = this;
@@ -5681,6 +5638,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       $('#modalRecursos').modal('show');
       this.form.id_siembra = id;
       this.idSiembraR = id;
+      axios.post("api/siembras-alimentacion/" + id).then(function (response) {
+        me.listadoRN = response.data.recursosNecesarios;
+      });
       console.log(id);
     },
     anadirEspecie: function anadirEspecie() {
@@ -5709,6 +5669,15 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         alert('Debe diligenciar todos los campos');
       }
     },
+    removeItem: function removeItem(index) {
+      console.log(index);
+      var me = this;
+      me.listadoItems.pop(index, 1);
+      this.listadoEspecies.push({
+        'id': index,
+        'especie': this.nombresEspecies[index]
+      });
+    },
     nombreEspecie: function nombreEspecie() {
       var me = this;
       axios.get("api/especies").then(function (response) {
@@ -5723,7 +5692,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.listarEspecies();
       this.listadoExcel();
       this.listarAlimentos();
-      this.listarRecursosNecesarios();
       axios.get("api/siembras").then(function (response) {
         me.listadoSiembras = response.data.siembra;
         me.pecesxSiembra = response.data.pecesSiembra;
@@ -5738,26 +5706,27 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.imprimirSiembras = response.data.filtrarSiembras;
       });
     },
-    listarRecursosNecesarios: function listarRecursosNecesarios() {
-      var me = this;
-      axios.get("api/lista-alimentacion").then(function (response) {
-        me.listadoRN = response.data.recursosNecesarios;
-      });
-    },
     abrirIngreso: function abrirIngreso(id) {
       var me = this;
       this.ver_registros = 1;
       $("#modalIngreso").modal('show');
-      console.log(id);
       this.idSiembraRegistro = id;
       this.tipo_registro = 0;
+      axios.post("api/registros-siembra/" + id).then(function (response) {
+        me.listadoRegistros = response.data;
+      });
     },
     crearRegistro: function crearRegistro(id) {
       var me = this;
       this.ver_registros = 0;
       this.idSiembraRegistro = id;
       var aux_campos = me.campos[id];
-      console.log(me.campos);
+      console.log(me.campos); // [pez.id_siembra][pez.id]['peso_ganado']
+
+      if (aux_campos == '') {
+        alert('camos vacios');
+      }
+
       var data = {
         campos: aux_campos,
         id_siembra: id,
@@ -5767,8 +5736,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       };
       axios.post('api/registros', data).then(function (_ref2) {
         var response = _ref2.response;
-        me.aux_campos = []; //  $("#modalIngreso").modal('hide');
-
+        me.aux_campos = [];
         me.ver_registros = 1;
         me.listarRegistros();
         me.listar();
@@ -5899,15 +5867,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('guardar');
     },
     guardarRecursos: function guardarRecursos(id) {
-      var _this5 = this;
-
       var me = this;
       axios.post("api/recursos-necesarios", this.form).then(function (_ref6) {
         var data = _ref6.data;
         console.log('guardado');
-        me.listar(); // $('#modalRecursos').modal('hide');
-
-        _this5.form.reset();
+        me.listar(); // $('#modalRecursos').modal('hide');          
       });
     },
     eliminarRegistro: function eliminarRegistro(index) {
@@ -5940,7 +5904,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref8) {
             var data = _ref8.data;
             console.log('eliminar' + objeto);
-            me.listarRecursosNecesarios();
             me.listar();
           });
         }
@@ -44369,13 +44332,21 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(item.cant_manana + "kg")
+                            textContent: _vm._s(
+                              item.cant_manana == null
+                                ? "-"
+                                : item.cant_manana + " kg"
+                            )
                           }
                         }),
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(item.cant_tarde + "kg")
+                            textContent: _vm._s(
+                              item.cant_tarde == null
+                                ? "-"
+                                : item.cant_tarde + " kg"
+                            )
                           }
                         }),
                         _vm._v(" "),
@@ -44536,6 +44507,7 @@ var render = function() {
                         attrs: {
                           type: "number",
                           id: "horas_hombre",
+                          step: "any",
                           "aria-describedby": "horas_hombre",
                           placeholder: "Horas hombre"
                         },
@@ -44906,7 +44878,7 @@ var render = function() {
                     return _c("tr", { key: index }, [
                       _c("th", {
                         attrs: { scope: "row" },
-                        domProps: { textContent: _vm._s(index) }
+                        domProps: { textContent: _vm._s(index + 1) }
                       }),
                       _vm._v(" "),
                       _c("td", {
@@ -45199,136 +45171,136 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "row mb-1" }, [
-              _c("div", { staticClass: "col-md-10" }, [
-                _c("h5", [_vm._v("Filtrar por:")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "Fecha desde" } }, [
-                      _vm._v("Fecha inicio desde: ")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
+            _vm.mostrar == 1
+              ? _c("div", [
+                  _c("div", { staticClass: "row  text-right mb-3" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_inicio_d,
-                          expression: "f_inicio_d"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "date", id: "f_inicio_d" },
-                      domProps: { value: _vm.f_inicio_d },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                          staticClass: "btn btn-success",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.crearParametros()
+                            }
                           }
-                          _vm.f_inicio_d = $event.target.value
-                        }
-                      }
-                    })
+                        },
+                        [_vm._v("Añadir párametros")]
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "fecha hasta" } }, [
-                      _vm._v("Fecha inicio hasta: ")
-                    ]),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("h5", [_vm._v("Filtrar por:")]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.f_inicio_h,
-                          expression: "f_inicio_h"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "date", id: "f_inicio_h" },
-                      domProps: { value: _vm.f_inicio_h },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "form-group col-md-3" }, [
+                        _c("label", { attrs: { for: "Fecha desde" } }, [
+                          _vm._v("Fecha inicio desde: ")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.f_inicio_d,
+                              expression: "f_inicio_d"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", id: "f_inicio_d" },
+                          domProps: { value: _vm.f_inicio_d },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.f_inicio_d = $event.target.value
+                            }
                           }
-                          _vm.f_inicio_h = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-1" }, [
-                    _c("label", { attrs: { for: "fecha hasta" } }, [
-                      _vm._v("Buscar: ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary form-control",
-                        on: {
-                          click: function($event) {
-                            return _vm.filtrarParametros()
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-3" }, [
+                        _c("label", { attrs: { for: "fecha hasta" } }, [
+                          _vm._v("Fecha inicio hasta: ")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.f_inicio_h,
+                              expression: "f_inicio_h"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", id: "f_inicio_h" },
+                          domProps: { value: _vm.f_inicio_h },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.f_inicio_h = $event.target.value
+                            }
                           }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-search" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group  col-md-3" },
-                    [
-                      _c("label", { attrs: { for: "Generar excel" } }, [
-                        _vm._v("Generar Excel:")
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-1" }, [
+                        _c("label", { attrs: { for: "fecha hasta" } }, [
+                          _vm._v("Buscar: ")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary form-control",
+                            on: {
+                              click: function($event) {
+                                return _vm.filtrarParametros()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-search" })]
+                        )
                       ]),
                       _vm._v(" "),
                       _c(
-                        "downloadexcel",
-                        {
-                          staticClass: "btn btn-success form-control",
-                          attrs: {
-                            fetch: _vm.fetchData,
-                            fields: _vm.json_fields,
-                            "before-generate": _vm.startDownload,
-                            name: "informe-parametros-calidad-agua.xls",
-                            type: "xls"
-                          }
-                        },
+                        "div",
+                        { staticClass: "form-group  col-md-3" },
                         [
-                          _c("i", { staticClass: "fa fa-fw fa-download" }),
-                          _vm._v(" Exportar Excel \n                  ")
-                        ]
+                          _c("label", { attrs: { for: "Generar excel" } }, [
+                            _vm._v("Generar Excel:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "downloadexcel",
+                            {
+                              staticClass: "btn btn-success form-control",
+                              attrs: {
+                                fetch: _vm.fetchData,
+                                fields: _vm.json_fields,
+                                "before-generate": _vm.startDownload,
+                                name: "informe-parametros-calidad-agua.xls",
+                                type: "xls"
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-fw fa-download" }),
+                              _vm._v(" Exportar Excel \n                  ")
+                            ]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2 text-right " }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.crearParametros()
-                      }
-                    }
-                  },
-                  [_vm._v("Añadir párametros")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _vm.mostrar == 1
-              ? _c("div", [
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "col-md-12 text-right" }, [
                     _c(
                       "button",
@@ -45345,11 +45317,18 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", [
-                    _c("h2", [_vm._v("Párametros de calidad del agua")]),
+                    _c("h2", [
+                      _vm._v(
+                        "Registros de párametros de agua " +
+                          _vm._s(_vm.listadoParametros[0].contenedor)
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "table",
-                      { staticClass: "table table-striped table-hover" },
+                      {
+                        staticClass: "table table-striped table-hover table-sm"
+                      },
                       [
                         _vm._m(0),
                         _vm._v(" "),
@@ -45359,7 +45338,7 @@ var render = function() {
                             _vm._l(_vm.listadoParametros, function(lp, index) {
                               return _c("tr", { key: index }, [
                                 _c("th", {
-                                  domProps: { textContent: _vm._s(index) }
+                                  domProps: { textContent: _vm._s(index + 1) }
                                 }),
                                 _vm._v(" "),
                                 _c("th", {
@@ -45683,6 +45662,7 @@ var render = function() {
                               type: "date",
                               id: "fecha_registro",
                               placeholder: "Fecha de registro",
+                              step: "any",
                               required: ""
                             },
                             domProps: { value: _vm.form.fecha_parametro },
@@ -45722,7 +45702,8 @@ var render = function() {
                               attrs: {
                                 type: "number",
                                 id: "12am",
-                                placeholder: "Párametros 12am "
+                                placeholder: "Párametros 12am ",
+                                step: "any"
                               },
                               domProps: { value: _vm.form["12_am"] },
                               on: {
@@ -45758,7 +45739,8 @@ var render = function() {
                               attrs: {
                                 type: "number",
                                 id: "4am",
-                                placeholder: "Párametros 4am"
+                                placeholder: "Párametros 4am",
+                                step: "any"
                               },
                               domProps: { value: _vm.form["4_am"] },
                               on: {
@@ -45794,7 +45776,8 @@ var render = function() {
                               attrs: {
                                 type: "number",
                                 id: "7am",
-                                placeholder: "Párametros 7am"
+                                placeholder: "Párametros 7am",
+                                step: "any"
                               },
                               domProps: { value: _vm.form["7_am"] },
                               on: {
@@ -45830,7 +45813,8 @@ var render = function() {
                               attrs: {
                                 type: "number",
                                 id: "4pm",
-                                placeholder: "Párametros 4pm"
+                                placeholder: "Párametros 4pm",
+                                step: "any"
                               },
                               domProps: { value: _vm.form["4_pm"] },
                               on: {
@@ -45866,7 +45850,8 @@ var render = function() {
                               attrs: {
                                 type: "number",
                                 id: "8pm",
-                                placeholder: "Párametros 8pm"
+                                placeholder: "Párametros 8pm",
+                                step: "any"
                               },
                               domProps: { value: _vm.form["8_pm"] },
                               on: {
@@ -45884,8 +45869,10 @@ var render = function() {
                             })
                           ])
                         ])
-                      ]),
-                      _vm._v(" "),
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "form-group row" }, [
                         _c(
                           "label",
@@ -45910,7 +45897,8 @@ var render = function() {
                             attrs: {
                               type: "number",
                               id: "temperatura",
-                              placeholder: "Temperatura"
+                              placeholder: "Temperatura",
+                              step: "any"
                             },
                             domProps: { value: _vm.form.temperatura },
                             on: {
@@ -45953,7 +45941,8 @@ var render = function() {
                             attrs: {
                               type: "number",
                               id: "ph",
-                              placeholder: "ph"
+                              placeholder: "ph",
+                              step: "any"
                             },
                             domProps: { value: _vm.form.ph },
                             on: {
@@ -45966,245 +45955,180 @@ var render = function() {
                             }
                           })
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "Amonio" }
+                          },
+                          [_vm._v("Amonio: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.amonio,
+                                expression: "form.amonio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "amonio",
+                              placeholder: "Amonio",
+                              step: "any"
+                            },
+                            domProps: { value: _vm.form.amonio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "amonio",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "Nitrito" }
+                          },
+                          [_vm._v("Nitrito: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.nitrito,
+                                expression: "form.nitrito"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "nitrito",
+                              placeholder: "Nitrito",
+                              step: "any"
+                            },
+                            domProps: { value: _vm.form.nitrito },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "nitrito",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "Nitrato" }
+                          },
+                          [_vm._v("Nitrato: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.nitrato,
+                                expression: "form.nitrato"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "nitrato",
+                              placeholder: "Nitrato",
+                              step: "any"
+                            },
+                            domProps: { value: _vm.form.nitrato },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "nitrato",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-6 col-form-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Otros: ")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.otros,
+                                expression: "form.otros"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "otros",
+                              placeholder: "Otros",
+                              step: "any"
+                            },
+                            domProps: { value: _vm.form.otros },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "otros", $event.target.value)
+                              }
+                            }
+                          })
+                        ])
                       ])
                     ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-6" },
-                      [
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-6 col-form-label",
-                              attrs: { for: "Amonio" }
-                            },
-                            [_vm._v("Amonio: ")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.amonio,
-                                  expression: "form.amonio"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                id: "amonio",
-                                placeholder: "Amonio"
-                              },
-                              domProps: { value: _vm.form.amonio },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "amonio",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-6 col-form-label",
-                              attrs: { for: "Nitrito" }
-                            },
-                            [_vm._v("Nitrito: ")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.nitrito,
-                                  expression: "form.nitrito"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                id: "nitrito",
-                                placeholder: "Nitrito"
-                              },
-                              domProps: { value: _vm.form.nitrito },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "nitrito",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-6 col-form-label",
-                              attrs: { for: "Nitrato" }
-                            },
-                            [_vm._v("Nitrato: ")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.nitrato,
-                                  expression: "form.nitrato"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                id: "nitrato",
-                                placeholder: "Nitrato"
-                              },
-                              domProps: { value: _vm.form.nitrato },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "nitrato",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-6 col-form-label",
-                              attrs: { for: "" }
-                            },
-                            [_vm._v("Otros: ")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-6" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.otros,
-                                  expression: "form.otros"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                id: "otros",
-                                placeholder: "Otros"
-                              },
-                              domProps: { value: _vm.form.otros },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "otros",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.listadoContenedores, function(lc, index) {
-                          return _c("div", { key: index }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.id_contenedor,
-                                  expression: "form.id_contenedor"
-                                }
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                value: lc.id,
-                                checked: Array.isArray(_vm.form.id_contenedor)
-                                  ? _vm._i(_vm.form.id_contenedor, lc.id) > -1
-                                  : _vm.form.id_contenedor
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.form.id_contenedor,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = lc.id,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.form,
-                                          "id_contenedor",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.form,
-                                          "id_contenedor",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
-                                  } else {
-                                    _vm.$set(_vm.form, "id_contenedor", $$c)
-                                  }
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "siembra" } }, [
-                              _vm._v(_vm._s(lc.contenedor))
-                            ]),
-                            _vm._v(" "),
-                            _c("br")
-                          ])
-                        })
-                      ],
-                      2
-                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c("div", { staticClass: "col-sm-12 text-right" }, [
@@ -49326,13 +49250,21 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(item.cant_manana + "kg")
+                          textContent: _vm._s(
+                            item.cant_manana == null
+                              ? "-"
+                              : item.cant_manana + " kg"
+                          )
                         }
                       }),
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(item.cant_tarde + "kg")
+                          textContent: _vm._s(
+                            item.cant_tarde == null
+                              ? "-"
+                              : item.cant_tarde + " kg"
+                          )
                         }
                       }),
                       _vm._v(" "),
@@ -49566,6 +49498,7 @@ var render = function() {
                         attrs: {
                           type: "number",
                           id: "horas_hombre",
+                          step: "any",
                           "aria-describedby": "horas_hombre",
                           placeholder: "Horas hombre"
                         },
@@ -49758,11 +49691,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("br")
                         ])
-                      }),
-                      _vm._v(" "),
-                      _c("span", [
-                        _vm._v("Checked names: " + _vm._s(_vm.form.id_siembra))
-                      ])
+                      })
                     ],
                     2
                   )
@@ -50021,7 +49950,7 @@ var render = function() {
                           "td",
                           {
                             class: [
-                              _vm.fechaActual == siembra.fecha_alimento
+                              _vm.fechaActual <= siembra.fecha_alimento
                                 ? ""
                                 : "bg-warning"
                             ]
@@ -50166,12 +50095,15 @@ var render = function() {
                           }
                         }
                       },
-                      _vm._l(_vm.listadoContenedores, function(contenedor) {
+                      _vm._l(_vm.listadoContenedores, function(
+                        contenedor,
+                        index
+                      ) {
                         return contenedor.estado == 1
                           ? _c(
                               "option",
                               {
-                                key: contenedor.id,
+                                key: index,
                                 attrs: { selected: "" },
                                 domProps: { value: contenedor.id }
                               },
@@ -50433,7 +50365,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _vm._l(_vm.listadoItems, function(item, index) {
-                        return _c("tr", { key: item.id }, [
+                        return _c("tr", { key: index }, [
                           _c("th", { attrs: { scope: "row" } }, [
                             _vm._v(_vm._s(index + 1))
                           ]),
@@ -50456,7 +50388,22 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(item.peso_inicial) }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.removeItem(item.id_especie)
+                                  }
+                                }
+                              },
+                              [_vm._v("X")]
+                            )
+                          ])
                         ])
                       })
                     ],
@@ -50656,6 +50603,7 @@ var render = function() {
                       staticClass: "form-control",
                       attrs: {
                         type: "number",
+                        step: "any",
                         id: "horas_hombre",
                         "aria-describedby": "horas_hombre",
                         placeholder: "Horas hombre"
@@ -50772,65 +50720,66 @@ var render = function() {
                     _c(
                       "tbody",
                       _vm._l(_vm.listadoRN, function(item, index) {
-                        return item.tipo_actividad == "Alimentacion" &&
-                          item.id_siembra == _vm.idSiembraR
-                          ? _c("tr", { key: index }, [
-                              _c("td", {
-                                domProps: { textContent: _vm._s(index + 1) }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.tipo_actividad)
+                        return _c("tr", { key: index }, [
+                          _c("td", {
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.tipo_actividad)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.fecha_ra) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" " + _vm._s(item.alimento))]),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.horas_hombre) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                item.cant_manana == null
+                                  ? "-"
+                                  : item.cant_manana + " kg"
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                item.cant_tarde == null
+                                  ? "-"
+                                  : item.cant_tarde + " kg"
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.detalles) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarRecurso(item.id_registro)
+                                  }
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: { textContent: _vm._s(item.fecha_ra) }
-                              }),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(" " + _vm._s(item.alimento))]),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.horas_hombre)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.cant_manana + "kg")
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(item.cant_tarde + "kg")
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: { textContent: _vm._s(item.detalles) }
-                              }),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.eliminarRecurso(
-                                          item.id_registro
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-trash" })]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ])
+                        ])
                       }),
                       0
                     )
@@ -51196,7 +51145,14 @@ var render = function() {
                                                 }
                                               ],
                                               staticClass: "form-control",
-                                              attrs: { type: "number" },
+                                              attrs: {
+                                                type: "number",
+                                                required:
+                                                  _vm.tipo_registro == 0
+                                                    ? "required"
+                                                    : "",
+                                                step: "any"
+                                              },
                                               domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
@@ -51240,7 +51196,11 @@ var render = function() {
                                               staticClass: "form-control",
                                               attrs: {
                                                 type: "number",
-                                                id: "mortalidad"
+                                                id: "mortalidad",
+                                                required:
+                                                  _vm.tipo_registro == 0 || 2
+                                                    ? "required"
+                                                    : ""
                                               },
                                               domProps: {
                                                 value:
@@ -51282,7 +51242,14 @@ var render = function() {
                                                 }
                                               ],
                                               staticClass: "form-control",
-                                              attrs: { type: "number" },
+                                              attrs: {
+                                                type: "number",
+                                                step: "any",
+                                                required:
+                                                  _vm.tipo_registro == 1
+                                                    ? "required"
+                                                    : ""
+                                              },
                                               domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][
@@ -51323,7 +51290,13 @@ var render = function() {
                                                 }
                                               ],
                                               staticClass: "form-control",
-                                              attrs: { type: "number" },
+                                              attrs: {
+                                                type: "number",
+                                                required:
+                                                  _vm.tipo_registro == 1
+                                                    ? "required"
+                                                    : ""
+                                              },
                                               domProps: {
                                                 value:
                                                   _vm.campos[pez.id_siembra][

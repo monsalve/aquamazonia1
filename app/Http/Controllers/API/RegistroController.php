@@ -24,7 +24,17 @@ class RegistroController extends Controller
         return $registros;
         
     }
-
+    public function registrosxSiembra($id)
+    {
+        //
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie')
+            ->join('especies', 'registros.id_especie', 'especies.id')
+            ->where('id_siembra', '=', $id)
+            ->orderBy('registros.id', 'desc')
+            ->get();
+        return $registros;
+        
+    }
     /**
      * Store a newly created resource in storage.
      *

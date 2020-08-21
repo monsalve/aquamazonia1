@@ -86,6 +86,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.tipo_actividad"></td>
@@ -93,8 +94,8 @@
                     <td v-text="item.fecha_ra"></td>
                     <td> {{nombresRecursos[item.id_recurso]}}</td>
                     <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.cant_manana+'kg'"></td>
-                    <td v-text="item.cant_tarde+'kg'"></td>
+                    <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
+                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
                     <td v-text="item.detalles"></td>
                     <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id_registro)">
@@ -150,7 +151,7 @@
                 
                 <div class="form-group">   
                   <label for="horas hombre">Horas hombre</label>
-                  <input type="number" class="form-control" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                  <input type="number" class="form-control" id="horas_hombre" step="any" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
                 </div>
                     
                 <div class="form-group">                    
@@ -174,7 +175,6 @@
                   <label for="siembra">{{item.nombre_siembra}}</label>
                   <br>
                 </div>
-                <span>Checked names: {{ form.id_siembra }}</span>
               </div>
               
             </form>
@@ -208,7 +208,7 @@ import downloadexcel from "vue-json-excel"
         form : new Form({
           id_siembra: [],
           id_recurso : '',
-          id_alimento :0,
+          id_alimento :'',
           tipo_actividad : '',
           fecha_ra : '',
           horas_hombre : '',

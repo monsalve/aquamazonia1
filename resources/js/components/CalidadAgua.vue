@@ -6,8 +6,15 @@
           <div class="card-header">Parametros de calidad del agua</div>
 
           <div class="card-body">
-            <div class="row mb-1">
-              <div class="col-md-10">
+            <!-- Contenido de parametros -->
+            <div v-if="mostrar == 1">   
+              <div class="row  text-right mb-3">             
+                <div class="col-md-12">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-success" @click="crearParametros()">Añadir párametros</button>
+                </div>
+              </div>
+              <div class="col-md-12">
                 <h5>Filtrar por:</h5>     
                 <div class="row">                 
                   <div class="form-group col-md-3">
@@ -37,21 +44,14 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-2 text-right ">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" @click="crearParametros()">Añadir párametros</button>
-              </div>
-            </div>
-            <!-- Contenido de parametros -->
-            <div v-if="mostrar == 1">   
               <div class="col-md-12 text-right">
                 <button class="btn btn-primary" @click="ocultarParametros()">
                   Regresar
                 </button>
               </div>
               <div> 
-              <h2>Párametros de calidad del agua</h2>
-                <table class="table table-striped table-hover">
+              <h2>Registros de párametros de agua {{ listadoParametros[0].contenedor }}</h2>
+                <table class="table table-striped table-hover table-sm">
                  
                   <thead class="">
                     <tr>                    
@@ -77,7 +77,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="(lp, index) in listadoParametros" :key="index">
-                      <th v-text="index"></th>
+                      <th v-text="index+1"></th>
                       <th v-text="lp.id"></th>
                       <td v-text="lp.fecha_parametro"></td>
                       <td v-text="lp['12_am']"></td>
@@ -168,7 +168,7 @@
                 <div class="form-group row">
                   <label for="Fecha" class="col-sm-6 col-form-label"><i class="far fa-calendar-alt"></i>  Fecha registro: </label>
                   <div class="col-sm-6">
-                    <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha de registro" v-model="form.fecha_parametro" required>
+                    <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha de registro" step="any" v-model="form.fecha_parametro" required>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -178,78 +178,77 @@
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  12:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " v-model="form['12_am']">
+                      <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " step="any" v-model="form['12_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" v-model="form['4_am']">
+                      <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" step="any" v-model="form['4_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  7:00 am: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" v-model="form['7_am']">
+                      <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" step="any" v-model="form['7_am']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00pm: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" v-model="form['4_pm']">
+                      <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" step="any" v-model="form['4_pm']">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="8pm" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  8:00pm: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" v-model="form['8_pm']">
+                      <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" step="any" v-model="form['8_pm']">
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="col-md-6">
                 <div class="form-group row">
                   <label for="Temperatura" class="col-sm-6 col-form-label">Temperatura: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="temperatura" placeholder="Temperatura" v-model="form.temperatura">
+                    <input type="number" class="form-control" id="temperatura" placeholder="Temperatura" step="any" v-model="form.temperatura">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="ph" class="col-sm-6 col-form-label">PH: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="ph" placeholder="ph" v-model="form.ph">
+                    <input type="number" class="form-control" id="ph" placeholder="ph" step="any" v-model="form.ph">
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                
                 <div class="form-group row">
                   <label for="Amonio" class="col-sm-6 col-form-label">Amonio: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="amonio" placeholder="Amonio" v-model="form.amonio">
+                    <input type="number" class="form-control" id="amonio" placeholder="Amonio" step="any" v-model="form.amonio">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="Nitrito" class="col-sm-6 col-form-label">Nitrito: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="nitrito" placeholder="Nitrito" v-model="form.nitrito">
+                    <input type="number" class="form-control" id="nitrito" placeholder="Nitrito" step="any" v-model="form.nitrito">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="Nitrato" class="col-sm-6 col-form-label">Nitrato: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="nitrato" placeholder="Nitrato" v-model="form.nitrato">
+                    <input type="number" class="form-control" id="nitrato" placeholder="Nitrato" step="any" v-model="form.nitrato">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="" class="col-sm-6 col-form-label">Otros: </label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="otros" placeholder="Otros" v-model="form.otros">
+                    <input type="number" class="form-control" id="otros" placeholder="Otros" step="any" v-model="form.otros">
                   </div>
                 </div>
-                <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
-                  <input type="checkbox" v-bind:value="lc.id" v-model="form.id_contenedor">
+                <!-- <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
+                  <input type="checkbox" v-bind:value="lc.id" step="any" v-model="form.id_contenedor">
                   <label for="siembra">{{lc.contenedor}}</label>
                   <br>
-                </div>
+                </div> -->
               </div>
               <div class="form-group row">
                   <div class="col-sm-12 text-right">
@@ -290,10 +289,11 @@
         },     
         editando : 0,
         mostrar : 0,
-        idSiembra : 0,
+        idContenedor : 0,
+        nombreContenedor : '',
         form : new Form({
           id : '',
-          id_contenedor : [],
+          id_contenedor : '',
           id_especie : '',
           fecha_parametro : '',
           '12_am' : '',
@@ -339,10 +339,13 @@
       },
       filtrarParametros(){
         let me = this;
+        
+        
         if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
         
         const data = {
+          'id_contenedor' : this.idContenedor,
           'f_inicio_d' : this.f_d,
           'f_inicio_h' : this.f_h
         }
@@ -356,7 +359,7 @@
       },
       listar(){
         let me = this;      
-        this.listarParametros();
+        // this.listarParametros();
         this.listarSiembras(); 
         this.listarParametrosContenedores();
         this.listarContenedores();
@@ -392,11 +395,10 @@
         });
       },
       mostrarParametros(objeto){
-        
-        this.idSiembra = objeto
+        this.idContenedor = objeto
         let me = this;
         const data = {
-          'id_siembra' : this.idSiembra
+          'id_siembra' : this.idContenedor
         }
         axios.post('api/parametro-x-contenedor/'+objeto)
         .then(response=>{
@@ -418,24 +420,26 @@
       },
       
       guardar(){
-        let me = this;        
+        let me = this;      
+        this.form.id_contenedor = this.idContenedor;
+        console.log(this.form.id_contenedor)
         this.form.post("api/parametros-calidad")
         .then(({data})=>{
           editando: 0;
           console.log('guardado');
-          me.listar();
+          me.filtrarParametros();
          $('#modalParametros').modal('hide');
         })
       },
       editarParametros(objeto){
         let me = this;
+        this.form.id = idContenedor;
         this.form.fill(objeto);
         this.editando = 1;
         $('#modalParametros').modal('show');
       },
       editar(){
         let me = this;
-        
         this.form.put('api/parametros-calidad/'+this.form.id)
         .then(({data})=>{              
           $('#modalParametros').modal('hide');
