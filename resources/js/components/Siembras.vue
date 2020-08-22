@@ -42,8 +42,8 @@
                                   <td v-text="siembra.nombre_siembra" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
                                   <td class="d-sm-none d-none d-md-block">
-                                    <div v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == siembra.id">
-                                      <div class="nav text-center" >
+                                    <div v-for="pez in pecesxSiembra" :key="pez.id" >
+                                      <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
                                         <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
                                         <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
                                         <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
@@ -90,7 +90,9 @@
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Contenedor</label>
                       <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor">
-                        <option :value="contenedor.id" v-for="(contenedor, index) in listadoContenedores" :key="index" v-if="contenedor.estado == 1" selected>{{contenedor.contenedor}}</option>
+                        <option :value="contenedor.id" v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                          <span v-if="contenedor.estado == 1">{{contenedor.contenedor}}</span>
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -299,7 +301,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(registro, index) in listadoRegistros" :key="registro.id" v-if="registro.id_siembra == idSiembraRegistro">
+                      <tr v-for="(registro, index) in listadoRegistros" :key="registro.id">
                         <th v-text="index+1"></th>
                         <td v-text="registro.especie"></td>
                         <td v-text="tipoRegistro[registro.tipo_registro]"></td>
@@ -310,7 +312,7 @@
                         <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
                         <td v-text="registro.cantidad  == null ? '-' : registro.cantidad"></td>
                         <td>
-                          <button class="btn btn-danger" @click="eliminarRegistro(registro.id)">
+                          <button class="btn btn-danger" @click="eliminarRegistro(registro.id, registro)">
                             <i class="fas fa-trash"></i>
                           </button>
                         </td>
@@ -654,9 +656,6 @@
         let aux_campos = me.campos[id];
         console.log(me.campos);
         // [pez.id_siembra][pez.id]['peso_ganado']
-        if(aux_campos == ''){
-          alert('camos vacios')
-        }
         const data = {
           campos : aux_campos,
           id_siembra : id,        
@@ -775,7 +774,8 @@
           // $('#modalRecursos').modal('hide');          
         })
       },
-      eliminarRegistro(index){
+      eliminarRegistro(id, objeto){
+        console.log(id, '+', objeto)
         let me = this;
         swal({
           title: "Estás seguro?",
@@ -786,10 +786,14 @@
         })
         .then((willDelete) => {
           if (willDelete) {
-            axios.delete('api/registros/'+index)
+          
+            const data = {
+              campos :  objeto 
+            }
+            axios.put('api/registros/'+id, data)
             .then(({data})=>{
               
-              console.log('eliminar'+index)
+              console.log('eliminar'+id)
             })
           }
         });

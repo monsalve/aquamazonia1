@@ -68,7 +68,7 @@
                                 <router-link class="nav-link" to="/alimentacion">Alimentación</router-link>
                             </li>
                             <li class="nav-item ">
-                                <router-link class="nav-link" to="/calidad-agua">Párametros de calidad  del Agua</router-link>
+                                <router-link class="nav-link" to="/calidad-agua">Registrar parametros </br> de calidad  del Agua</router-link>
                             </li>
                             <!-- <li class="nav-item ">
                                 <router-link class="nav-link" to="/informes">Informes</router-link>
@@ -79,6 +79,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <router-link class="dropdown-item" to="/informes">Informe recursos </router-link>                            
+                                    <router-link class="dropdown-item" to="/informes-parametros">Informe Párametros de calidad del agua </router-link>                            
                                     <router-link class="dropdown-item" to="/informe-siembras">Informe siembras</router-link>      
                                     <router-link class="dropdown-item" to="/ciclo-productivo">Informe ciclo productivo</router-link>      
                                     <!-- <router-link class="dropdown-item" to="/calidad-agua">Informe Calidad Agua</router-link>       -->

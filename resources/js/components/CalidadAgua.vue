@@ -340,7 +340,6 @@
       filtrarParametros(){
         let me = this;
         
-        
         if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
         
