@@ -6430,6 +6430,17 @@ __webpack_require__.r(__webpack_exports__);
       this.id_edita = '';
       this.editando = 0;
     },
+    eliminar: function eliminar(id_elim) {
+      var me = this;
+
+      if (confirm('Esta seguro de inactivar este usuario?')) {
+        axios["delete"]("api/usuarios/" + id_elim).then(function (response) {
+          me.listar();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
     guardar: function guardar() {
       var me = this;
 
@@ -52628,7 +52639,18 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-edit" })]
                           ),
                           _vm._v(" "),
-                          _vm._m(1, true)
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminar(usuario.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash" })]
+                          )
                         ])
                       ])
                     }),
@@ -52668,7 +52690,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "form",
@@ -52914,14 +52936,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-danger" }, [
-      _c("i", { staticClass: "fas fa-trash" })
     ])
   },
   function() {

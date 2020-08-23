@@ -87,6 +87,9 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        $usuario->estado = 0;
+        $usuario->save();
+        return "borrado";
     }
 }

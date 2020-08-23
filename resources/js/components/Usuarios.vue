@@ -35,7 +35,7 @@
                                             <button @click="editar(usuario)" class="btn btn-success" type="button" data-toggle="modal" data-target="#agregar">                                            
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-danger">                                               
+                                            <button class="btn btn-danger" @click="eliminar(usuario.id)">
                                                 <i class="fas fa-trash"></i>                                               
                                             </button>
                                         </td>
@@ -133,6 +133,18 @@ import form from 'vuejs-form'
                 this.form.password = '';
                 this.id_edita = '';
                 this.editando = 0;
+            },
+            eliminar(id_elim) {
+                let me = this;
+                if(confirm('Esta seguro de inactivar este usuario?')){
+                    axios.delete("api/usuarios/"+id_elim)
+                    .then(function (response) {                    
+                        me.listar();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
             },
             guardar() {
                 let me = this;
