@@ -6098,6 +6098,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editando: 0,
+      id_edita: 0,
       form: vuejs_form__WEBPACK_IMPORTED_MODULE_0___default.a["default"]({
         name: '',
         email: '',
@@ -6105,12 +6106,10 @@ __webpack_require__.r(__webpack_exports__);
         estado: 1
       }).rules({
         email: 'email|min:7|required',
-        name: 'required|min:5|',
-        password: 'required|min:5|'
+        name: 'required|min:5|'
       }).messages({
         'name.name': 'El nombre es requerido',
-        'email.email': 'Ingrese un correo válido',
-        'password.password': 'El password es requerido'
+        'email.email': 'Ingrese un correo válido'
       }),
       errores: [],
       success: false,
@@ -6118,19 +6117,42 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    limpiar: function limpiar() {
+      this.form.name = '';
+      this.form.email = '';
+      this.form.password = '';
+      this.id_edita = '';
+      this.editando = 0;
+    },
     guardar: function guardar() {
       var me = this;
 
       if (!this.form.errors().any()) {
-        axios.post("api/usuarios", this.form.all()).then(function (response) {
-          me.form.email = '';
-          me.form.name = '';
-          me.form.password = '';
-          $('#agregar').modal('hide');
-          me.listar();
-        })["catch"](function (error) {
-          console.log(error);
-        });
+        if (me.editando == 0) {
+          if (me.form.password == '') {
+            alert("Debe digitar el password!!!");
+          } else {
+            axios.post("api/usuarios", this.form.all()).then(function (response) {
+              me.form.email = '';
+              me.form.name = '';
+              me.form.password = '';
+              $('#agregar').modal('hide');
+              me.listar();
+            })["catch"](function (error) {
+              console.log(error);
+            });
+          }
+        } else {
+          axios.put("api/usuarios/" + this.id_edita, this.form.all()).then(function (response) {
+            me.form.email = '';
+            me.form.name = '';
+            me.form.password = '';
+            $('#agregar').modal('hide');
+            me.listar();
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
       } else {
         console.log('errors: ', this.form.errors().all());
       }
@@ -6143,7 +6165,13 @@ __webpack_require__.r(__webpack_exports__);
         me.listado = response.data;
       });
     },
-    cargaEditar: function cargaEditar(objeto) {}
+    editar: function editar(objeto) {
+      this.id_edita = objeto.id;
+      this.editando = 1;
+      this.form.name = objeto.name;
+      this.form.email = objeto.email;
+      this.editando = 1;
+    }
   },
   mounted: function mounted() {
     this.listar(); //console.log('Component mounted.')
@@ -50021,7 +50049,7 @@ var render = function() {
                           "td",
                           {
                             class: [
-                              _vm.fechaActual == siembra.fecha_alimento
+                              _vm.fechaActual <= siembra.fecha_alimento
                                 ? ""
                                 : "bg-warning"
                             ]
@@ -51789,11 +51817,35 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "row mb-1" }, [
+              _c("div", { staticClass: "col-12 " }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success float-right",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#agregar"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                Agregar\n                            "
+                    )
+                  ]
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("table", { staticClass: "table table-striped table-sm" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -51817,7 +51869,27 @@ var render = function() {
                             )
                           }
                         }),
-                        _vm._m(2, true)
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#agregar"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editar(usuario)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(1, true)
+                        ])
                       ])
                     }),
                     _vm._v(" "),
@@ -51856,7 +51928,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "form",
@@ -51965,8 +52037,7 @@ var render = function() {
                             attrs: {
                               id: "email",
                               name: "email",
-                              type: "email",
-                              required: ""
+                              type: "email"
                             },
                             domProps: { value: _vm.form.email },
                             on: {
@@ -52025,8 +52096,7 @@ var render = function() {
                             attrs: {
                               id: "password",
                               name: "password",
-                              type: "password",
-                              required: ""
+                              type: "password"
                             },
                             domProps: { value: _vm.form.password },
                             on: {
@@ -52092,31 +52162,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-1" }, [
-      _c("div", { staticClass: "col-12 " }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success float-right",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#agregar"
-            }
-          },
-          [
-            _vm._v(
-              "\n                                Agregar\n                            "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
@@ -52135,14 +52180,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-success" }, [
-        _c("i", { staticClass: "fas fa-edit" })
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-danger" }, [
-        _c("i", { staticClass: "fas fa-trash" })
-      ])
+    return _c("button", { staticClass: "btn btn-danger" }, [
+      _c("i", { staticClass: "fas fa-trash" })
     ])
   },
   function() {

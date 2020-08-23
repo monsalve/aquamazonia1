@@ -68,7 +68,15 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        $usuario->name = $request['name'];
+        $usuario->email  = $request['email'];
+        if($request['password'])
+        {
+            $usuario->email = $request['password'];
+        }
+        $usuario->save();
+        return $usuario;
     }
 
     /**

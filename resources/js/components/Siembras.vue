@@ -104,7 +104,7 @@
                                   <td v-text="siembra.fecha_inicio"></td>
                                   <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
                                   <td v-text="estados[siembra.estado]"></td>
-                                  <td v-bind:class="[fechaActual == siembra.fecha_alimento ? '' : 'bg-warning']">
+                                  <td v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'bg-warning']">
                                     {{siembra.fecha_alimento}}
                                     
                                     <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
