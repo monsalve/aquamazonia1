@@ -17,14 +17,24 @@ class RegistroController extends Controller
     public function index()
     {
         //
-        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie')
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie' )
             ->join('especies', 'registros.id_especie', 'especies.id')
             ->orderBy('registros.id', 'desc')
             ->get();
         return $registros;
         
     }
-
+    public function registrosxSiembra($id)
+    {
+        //
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie')
+            ->join('especies', 'registros.id_especie', 'especies.id')
+            ->where('id_siembra', '=', $id)
+            ->orderBy('registros.id', 'desc')
+            ->get();
+        return $registros;
+        
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -33,12 +43,7 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $especie = Especie::create([
-        //     'especie' => $request['especie'],            
-        //     'descripcion' => $request['descripcion'],            
-        // ]);
-        
+       
         foreach($request->campos as $campo){
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             if($campo['mortalidad'] > 0){
@@ -87,7 +92,22 @@ class RegistroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 8970
+        // 2869
+        $registro = Registro::destroy($id);
+        
+        // $exs = EspecieSiembra::select()
+        // ->join('registros')
+        $exs = EspecieSiembra::where('id_siembra', $request['campos']['id_siembra'])->where('id_especie', $request['campos']['id_especie'])->first();
+        
+        if($request['campos']['mortalidad'] > 0){
+            $exs->cant_actual= $exs->cant_actual + $request['campos']['mortalidad'];
+        }
+        if($request['campos']['cantidad'] > 0){
+            $exs->cant_actual= $exs->cant_actual + $request['campos']['cantidad'];
+        }        
+        $exs->save();
+        return ($request);
     }
 
     /**
@@ -96,9 +116,11 @@ class RegistroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request )
     {
         //
         $registro = Registro::destroy($id);
+        
+        
     }
 }
