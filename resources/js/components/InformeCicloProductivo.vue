@@ -60,16 +60,19 @@
                               <th>#</th>
                               <th>Siembra</th>
                               <th>Especie</th>
-                              <th>Fecha inicio siembra</th>
-                              <th>Cantidad Inicial</th>
-                              <th>Peso inicial</th>
-                              <!-- <th>Mortalidad</th> -->
-                              <th>Mortalidad Kg <br> Aumentada</th>
+                              <th>Inicio siembra</th>
+                              <th>Cant Ini</th>
+                              <th>Peso Ini</th>
+                              <th>Cant Actual</th>
+                              <th>Peso Actual</th>                              
+                              <th>Biomasa dispo</th>
+                              <th>Mortalidad</th>                              
+                              <th>Mort. Kg</th>
+                              <th>% Mortalidad</th>
                               <th>Salida animales acumulado</th>
                               <!-- <th>Peso ganado</th> -->
-                              <th>Peso actual</th>
-                              <th>Cantidad Actual</th>
-                              <th>Biomasa disponible kg</th>
+                              
+                              
                             </tr>
                           </thead>
                           <tbody>
@@ -79,14 +82,16 @@
                               <td v-text="le.especie"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.cantidad_inicial"></td>
-                              <td v-text="le.peso_inicial"></td>
+                              <td v-text="le.peso_inicial+' gr'"></td>
+                              <td v-text="le.cant_actual"></td>
+                              <td v-text="le.peso_actual+' gr'"></td>   
+                              <td v-text="le.biomasa_final+' kg'"></td>                           
                               <!-- <td v-text="le.mortalidad"></td> -->
                               <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td>
                               <td v-text="le.cantidad_pescas"></td>
                               <!-- <td v-text="le.peso_ganado"></td> -->
-                              <td v-text="le.peso_actual"></td>                              
-                              <td v-text="le.cant_actual"></td>
-                              <td v-text="le.biomasa_final+' kg'"></td>
+                              
+                              
                             </tr>
                           </tbody>
                         </table>

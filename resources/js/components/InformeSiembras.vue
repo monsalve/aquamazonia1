@@ -46,9 +46,8 @@
                             <label for="fecha hasta">Fecha inicio hasta: </label>
                             <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                           </div>
-                          <div class="form-group col-md-2">
-                            <label for="fecha hasta">Hacer click para filtrar: </label>
-                            <button class="btn btn-primary form-control" @click="exportarSiembras()"> Filtrar Por criterios</button>
+                          <div class="form-group col-md-2">                            
+                            <button class="btn btn-primary form-control" @click="exportarSiembras()"> Filtrar</button>
                           </div>
                           <div class="form-group col-md-2">                            
                               <downloadexcel                                
@@ -71,15 +70,11 @@
                                   <th scope="col">#</th>
                                   <th>Nombre <br> siembra</th>
                                   <th scope="col">Contenedor</th>
-                                  <th scope="col" class="text-center d-sm-none d-none d-md-block">
-                                    <h5> Especie</h5>
-                                    <div class="nav">
-                                      <li class="nav-item" style="width:80px">Especie</li>
-                                      <li class="nav-item" style="width:80px">Lote</li>
-                                      <li class="nav-item" style="width:80px">Cantidad</li>
-                                      <li class="nav-item" style="width:60px">Peso gr</li>
-                                    </div>
-                                  </th>
+                                  <th>Especie</th>
+                                  <th>Lote</th>
+                                  <th>Cant</th>
+                                  <th>Peso</th>
+                                  <th>Mortalidad</th>
                                   <th scope="col">Inicio siembra</th>                                  
                                   <th scope="col">Estado</th>                            
                                 </tr>
@@ -89,14 +84,12 @@
                                   <th v-text="index+1" scope="row"></th>
                                   <td v-text="siembra.nombre_siembra" scope="row"></td>
                                   <td v-text="siembra.contenedor"></td>
-                                  <td class="d-sm-none d-none d-md-block">
-                                    <div class="nav text-center" >
-                                      <li v-text="siembra.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
-                                      <li v-text="siembra.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
-                                      <li v-text="siembra.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
-                                      <li v-text="siembra.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
-                                    </div>
-                                  </td>
+                                  <td v-text="siembra.especie"></td>
+                                  <td v-text="siembra.lote" ></td>
+                                  <td v-text="siembra.cant_actual"></td>
+                                  <td v-text="siembra.peso_actual+'Gr'"></td>                                    
+                                  <td v-if="list_mortalidad[siembra.id][siembra.id_esp]">{{list_mortalidad[siembra.id][siembra.id_esp]}}</td>
+                                  <td v-else>0</td>
                                   <td v-text="siembra.fecha_inicio"></td>                              
                                   <td v-text="estados[siembra.estado]"></td>                                  
                                 </tr>
@@ -182,7 +175,8 @@
         f_lote : '',
         f_inicio_d : '',
         f_inicio_h : '',
-        f_estado_s : ''
+        f_estado_s : '',
+        list_mortalidad : [],
         
       }
     },
@@ -262,8 +256,8 @@
         .then(function (response){
           me.listado = response.data.siembras;
           me.lotes = response.data.lotes; 
-          me.fechaActual = response.data.fecha_actual
-          
+          me.fechaActual = response.data.fecha_actual;
+          me.list_mortalidad = response.data.mortalidad_siembra;
         })
       },
       listadoExcel(){
