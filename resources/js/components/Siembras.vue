@@ -474,7 +474,6 @@
         pecesxSiembra: [],
         lotes :[],
         // Registros
-        anadirRegistro : 0,        
         id_siembra:'',
         id_especie : '',        
         fecha_registro:'',
@@ -655,7 +654,7 @@
         this.idSiembraRegistro = id;
         let aux_campos = me.campos[id];
         console.log(me.campos);
-        // [pez.id_siembra][pez.id]['peso_ganado']
+                
         const data = {
           campos : aux_campos,
           id_siembra : id,        
@@ -664,7 +663,8 @@
           tiempo : this.tiempo
         }
         axios.post('api/registros', data)
-        .then(({response})=>{          
+        .then(({response})=>{     
+          console.log(response)
           me.aux_campos = [];          
           me.ver_registros = 1;
           me.listarRegistros();
@@ -843,7 +843,6 @@
     },
     mounted() {
       this.listar();
-      this.listarRegistros();
       this.nombreEspecie();
       this.estados[0] = 'Inactivo';
       this.estados[1] = 'Activo';

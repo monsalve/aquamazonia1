@@ -8,6 +8,7 @@ use App\EspecieSiembra;
 use App\Siembra;
 use App\Contenedor;
 use App\Registro;
+use Illuminate\Support\Facades\DB;
 
 
 class InformeSiembraController extends Controller
@@ -20,21 +21,38 @@ class InformeSiembraController extends Controller
     public function index()
     {
         //
-        $siembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento', 'lote', 'cant_actual', 'especie', 'peso_actual')
+        $siembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento', 'lote', 'cant_actual', 'especie', 'peso_actual', 'especies.id as id_esp')
             ->join('especies_siembra', 'siembras.id', 'especies_siembra.id_siembra')
             ->join('especies', 'especies_siembra.id_especie', 'especies.id')
             ->join('contenedores','siembras.id_contenedor','contenedores.id')            
             ->where('siembras.estado','=',1)
             ->orderBy('siembras.id', 'desc')
             ->get();
-                    
+        $mortalidad_siembra = array();
+        
+        foreach($siembras as $s) {
+            $aux_mortalidad = Registro::select( DB::raw('SUM(mortalidad) as mortalidad'),'id_especie')
+                        ->where('id_siembra','=',$s->id)
+                        ->where('estado','=','1')
+                        ->where('tipo_registro','!=','1')
+                        ->groupBy('id_especie')
+                        ->get();
+                        
+            foreach($aux_mortalidad as $a_mort) {
+            
+                $mortalidad_siembra[$s->id][$a_mort->id_especie] =  $a_mort->mortalidad;
+            }            
+        }
+              
         $fecha_actual = date('Y-m-d');
         $lotes = EspecieSiembra::select('lote')->distinct()->get();
         
         return [
-          "siembras"=> $siembras,        
-          'lotes' => $lotes,
-          'fecha_actual'=> $fecha_actual];
+            "siembras"=> $siembras,        
+            'lotes' => $lotes,
+            'fecha_actual'=> $fecha_actual,
+            'mortalidad_siembra'=> $mortalidad_siembra
+        ];
     }
 
     /**

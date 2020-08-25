@@ -68,7 +68,15 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        $usuario->name = $request['name'];
+        $usuario->email  = $request['email'];
+        if($request['password'])
+        {
+            $usuario->password = $request['password'];
+        }
+        $usuario->save();
+        return $usuario;
     }
 
     /**
@@ -79,6 +87,9 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        $usuario->estado = 0;
+        $usuario->save();
+        return "borrado";
     }
 }

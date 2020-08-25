@@ -3599,6 +3599,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3613,7 +3618,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Salida animales acumulado': 'cantidad_pescas',
         'Peso actual': 'peso_actual',
         'Cantidad actual': 'cant_actual',
-        'Biomasa final': 'biomasa_final'
+        'Biomasa final': 'biomasa_disponible'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -4205,6 +4210,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -4239,7 +4245,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       listado: [],
       listadoSiembras: [],
       listadoItems: []
-    }, _defineProperty(_ref, "listado", []), _defineProperty(_ref, "listadoRegistros", []), _defineProperty(_ref, "nombresEspecies", []), _defineProperty(_ref, "listadoAlimentos", []), _defineProperty(_ref, "listadoRN", []), _defineProperty(_ref, "pecesxSiembra", []), _defineProperty(_ref, "lotes", []), _defineProperty(_ref, "anadirRegistro", 0), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "id_especie", ''), _defineProperty(_ref, "fecha_registro", ''), _defineProperty(_ref, "tiempo", ''), _defineProperty(_ref, "tipo_registro", ''), _defineProperty(_ref, "peso_ganado", ''), _defineProperty(_ref, "mortalidad", ''), _defineProperty(_ref, "biomasa", ''), _defineProperty(_ref, "cantidad", ''), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "f_estado_s", ''), _ref;
+    }, _defineProperty(_ref, "listado", []), _defineProperty(_ref, "listadoRegistros", []), _defineProperty(_ref, "nombresEspecies", []), _defineProperty(_ref, "listadoAlimentos", []), _defineProperty(_ref, "listadoRN", []), _defineProperty(_ref, "pecesxSiembra", []), _defineProperty(_ref, "lotes", []), _defineProperty(_ref, "anadirRegistro", 0), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "id_especie", ''), _defineProperty(_ref, "fecha_registro", ''), _defineProperty(_ref, "tiempo", ''), _defineProperty(_ref, "tipo_registro", ''), _defineProperty(_ref, "peso_ganado", ''), _defineProperty(_ref, "mortalidad", ''), _defineProperty(_ref, "biomasa", ''), _defineProperty(_ref, "cantidad", ''), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "f_estado_s", ''), _defineProperty(_ref, "list_mortalidad", []), _ref;
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -4329,6 +4335,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listado = response.data.siembras;
         me.lotes = response.data.lotes;
         me.fechaActual = response.data.fecha_actual;
+        me.list_mortalidad = response.data.mortalidad_siembra;
       });
     },
     listadoExcel: function listadoExcel() {
@@ -4604,6 +4611,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4628,9 +4642,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadorn: [],
       listadoe: [],
       listadoAlimentos: [],
+      listadoSiembras: [],
       listadoRecursos: [],
       imprimirRecursos: [],
       estados: [],
+      f_siembra: '',
       estado_s: '',
       actividad_s: '',
       alimento_s: '',
@@ -4707,8 +4723,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var auxRecurso = response.data; // auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
       });
     },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
     filtroResultados: function filtroResultados() {
       var me = this;
+
+      if (this.f_siembra == '') {
+        this.smb = '-1';
+      } else {
+        this.smb = this.f_siembra;
+      }
 
       if (this.estado_s == '') {
         this.est = '-1';
@@ -4747,6 +4775,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       var data = {
+        'f_siembra': this.smb,
         'estado_s': this.est,
         'actividad_s': this.act,
         'alimento_s': this.ali,
@@ -4768,6 +4797,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     console.log('Component mounted.');
     this.listar();
+    this.listarSiembras();
     this.listarAlimentos();
     this.listarRecursos();
     this.estados[0] = 'Inactivo';
@@ -5895,7 +5925,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       pecesxSiembra: [],
       lotes: [],
       // Registros
-      anadirRegistro: 0,
       id_siembra: '',
       id_especie: '',
       fecha_registro: '',
@@ -6064,8 +6093,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.ver_registros = 0;
       this.idSiembraRegistro = id;
       var aux_campos = me.campos[id];
-      console.log(me.campos); // [pez.id_siembra][pez.id]['peso_ganado']
-
+      console.log(me.campos);
       var data = {
         campos: aux_campos,
         id_siembra: id,
@@ -6075,6 +6103,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       };
       axios.post('api/registros', data).then(function (_ref2) {
         var response = _ref2.response;
+        console.log(response);
         me.aux_campos = [];
         me.ver_registros = 1;
         me.listarRegistros();
@@ -6274,7 +6303,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
   },
   mounted: function mounted() {
     this.listar();
-    this.listarRegistros();
     this.nombreEspecie();
     this.estados[0] = 'Inactivo';
     this.estados[1] = 'Activo';
@@ -6404,6 +6432,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editando: 0,
+      id_edita: 0,
       form: vuejs_form__WEBPACK_IMPORTED_MODULE_0___default.a["default"]({
         name: '',
         email: '',
@@ -6411,12 +6440,10 @@ __webpack_require__.r(__webpack_exports__);
         estado: 1
       }).rules({
         email: 'email|min:7|required',
-        name: 'required|min:5|',
-        password: 'required|min:5|'
+        name: 'required|min:5|'
       }).messages({
         'name.name': 'El nombre es requerido',
-        'email.email': 'Ingrese un correo válido',
-        'password.password': 'El password es requerido'
+        'email.email': 'Ingrese un correo válido'
       }),
       errores: [],
       success: false,
@@ -6424,19 +6451,53 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    guardar: function guardar() {
+    limpiar: function limpiar() {
+      this.form.name = '';
+      this.form.email = '';
+      this.form.password = '';
+      this.id_edita = '';
+      this.editando = 0;
+    },
+    eliminar: function eliminar(id_elim) {
       var me = this;
 
-      if (!this.form.errors().any()) {
-        axios.post("api/usuarios", this.form.all()).then(function (response) {
-          me.form.email = '';
-          me.form.name = '';
-          me.form.password = '';
-          $('#agregar').modal('hide');
+      if (confirm('Esta seguro de inactivar este usuario?')) {
+        axios["delete"]("api/usuarios/" + id_elim).then(function (response) {
           me.listar();
         })["catch"](function (error) {
           console.log(error);
         });
+      }
+    },
+    guardar: function guardar() {
+      var me = this;
+
+      if (!this.form.errors().any()) {
+        if (me.editando == 0) {
+          if (me.form.password == '') {
+            alert("Debe digitar el password!!!");
+          } else {
+            axios.post("api/usuarios", this.form.all()).then(function (response) {
+              me.form.email = '';
+              me.form.name = '';
+              me.form.password = '';
+              $('#agregar').modal('hide');
+              me.listar();
+            })["catch"](function (error) {
+              console.log(error);
+            });
+          }
+        } else {
+          axios.put("api/usuarios/" + this.id_edita, this.form.all()).then(function (response) {
+            me.form.email = '';
+            me.form.name = '';
+            me.form.password = '';
+            $('#agregar').modal('hide');
+            me.listar();
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
       } else {
         console.log('errors: ', this.form.errors().all());
       }
@@ -6449,7 +6510,13 @@ __webpack_require__.r(__webpack_exports__);
         me.listado = response.data;
       });
     },
-    cargaEditar: function cargaEditar(objeto) {}
+    editar: function editar(objeto) {
+      this.id_edita = objeto.id;
+      this.editando = 1;
+      this.form.name = objeto.name;
+      this.form.email = objeto.email;
+      this.editando = 1;
+    }
   },
   mounted: function mounted() {
     this.listar(); //console.log('Component mounted.')
@@ -47724,8 +47791,32 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(le.peso_inicial) }
+                          domProps: {
+                            textContent: _vm._s(le.peso_inicial + " gr")
+                          }
                         }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.cant_actual) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.peso_actual + " gr")
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.biomasa_disponible + " kg")
+                          }
+                        }),
+                        _vm._v(" "),
+                        le.salida_biomasa
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.salida_biomasa) + " kg")
+                            ])
+                          : _c("td", [_vm._v("0")]),
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
@@ -47739,20 +47830,6 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(le.cantidad_pescas) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(le.peso_actual) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(le.cant_actual) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(le.biomasa_final + " kg")
-                          }
                         })
                       ])
                     }),
@@ -47818,21 +47895,27 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Especie")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha inicio siembra")]),
+        _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Inicial")]),
+        _c("th", [_vm._v("Cant Ini")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Peso inicial")]),
+        _c("th", [_vm._v("Peso Ini")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Mortalidad Kg "), _c("br"), _vm._v(" Aumentada")]),
+        _c("th", [_vm._v("Cant Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales acumulado")]),
+        _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Peso actual")]),
+        _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Actual")]),
+        _c("th", [_vm._v("Salida de biomasa")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible kg")])
+        _c("th", [_vm._v("Mortalidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mort. Kg")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("% Mortalidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salida animales acumulado")])
       ])
     ])
   }
@@ -48547,10 +48630,6 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "fecha hasta" } }, [
-                  _vm._v("Hacer click para filtrar: ")
-                ]),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -48561,7 +48640,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v(" Filtrar Por criterios")]
+                  [_vm._v(" Filtrar")]
                 )
               ]),
               _vm._v(" "),
@@ -48622,63 +48701,41 @@ var render = function() {
                           domProps: { textContent: _vm._s(siembra.contenedor) }
                         }),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "d-sm-none d-none d-md-block" },
-                          [
-                            _c("div", { staticClass: "nav text-center" }, [
-                              _c(
-                                "li",
-                                {
-                                  staticClass: "nav-item border-bottom",
-                                  staticStyle: { width: "80px" },
-                                  domProps: {
-                                    textContent: _vm._s(siembra.especie)
-                                  }
-                                },
-                                [_vm._v("Especie")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "li",
-                                {
-                                  staticClass: "nav-item border-bottom",
-                                  staticStyle: { width: "80px" },
-                                  domProps: {
-                                    textContent: _vm._s(siembra.lote)
-                                  }
-                                },
-                                [_vm._v("Lote")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "li",
-                                {
-                                  staticClass: "nav-item border-bottom",
-                                  staticStyle: { width: "80px" },
-                                  domProps: {
-                                    textContent: _vm._s(siembra.cant_actual)
-                                  }
-                                },
-                                [_vm._v("Cantidad")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "li",
-                                {
-                                  staticClass: "nav-item border-bottom",
-                                  staticStyle: { width: "60px" },
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      siembra.peso_actual + "Gr"
-                                    )
-                                  }
-                                },
-                                [_vm._v("Peso")]
-                              )
-                            ])
-                          ]
-                        ),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(siembra.especie) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(siembra.lote) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(siembra.cant_actual) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(siembra.peso_actual + "Gr")
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm.list_mortalidad[siembra.id]
+                            ? _c("div", [
+                                _vm._v(
+                                  "                                    \n                                  " +
+                                    _vm._s(
+                                      _vm.list_mortalidad[siembra.id][
+                                        siembra.id_esp
+                                      ]
+                                    ) +
+                                    "\n                                "
+                                )
+                              ])
+                            : _c("div", [
+                                _vm._v("0\n                                ")
+                              ])
+                        ]),
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
@@ -48717,42 +48774,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
         _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "text-center d-sm-none d-none d-md-block",
-            attrs: { scope: "col" }
-          },
-          [
-            _c("h5", [_vm._v(" Especie")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "nav" }, [
-              _c(
-                "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
-                [_vm._v("Especie")]
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
-                [_vm._v("Lote")]
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
-                [_vm._v("Cantidad")]
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item", staticStyle: { width: "60px" } },
-                [_vm._v("Peso gr")]
-              )
-            ])
-          ]
-        ),
+        _c("th", [_vm._v("Especie")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lote")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cant")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Inicio siembra")]),
         _vm._v(" "),
@@ -48806,7 +48836,60 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "Siembra" } }, [
+                        _vm._v("Siembra:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.f_siembra,
+                              expression: "f_siembra"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "f_siembra" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.f_siembra = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "-1", selected: "" } },
+                            [_vm._v("Seleccionar")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoSiembras, function(ls, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: ls.id } },
+                              [_vm._v(_vm._s(ls.nombre_siembra))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "Estado" } }, [
                         _vm._v("Estado siembra ")
                       ]),
@@ -48858,7 +48941,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "actividad" } }, [
                         _vm._v("Tipo actividad: ")
                       ]),
@@ -48936,7 +49019,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "alimento" } }, [
                         _vm._v("Alimento: ")
                       ]),
@@ -48990,7 +49073,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "recurso" } }, [
                         _vm._v("Recurso: ")
                       ]),
@@ -49041,7 +49124,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "search" } }, [
                         _vm._v("Desde: ")
                       ]),
@@ -49073,7 +49156,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "search" } }, [
                         _vm._v("Hasta: ")
                       ]),
@@ -49125,7 +49208,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "form-group col-md-3" },
+                      { staticClass: "form-group col-md-2" },
                       [
                         _c(
                           "downloadexcel",
@@ -52529,11 +52612,35 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "row mb-1" }, [
+              _c("div", { staticClass: "col-12 " }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success float-right",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#agregar"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.limpiar()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                Agregar\n                            "
+                    )
+                  ]
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("table", { staticClass: "table table-striped table-sm" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -52557,7 +52664,38 @@ var render = function() {
                             )
                           }
                         }),
-                        _vm._m(2, true)
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#agregar"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editar(usuario)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminar(usuario.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash" })]
+                          )
+                        ])
                       ])
                     }),
                     _vm._v(" "),
@@ -52596,7 +52734,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "form",
@@ -52705,8 +52843,7 @@ var render = function() {
                             attrs: {
                               id: "email",
                               name: "email",
-                              type: "email",
-                              required: ""
+                              type: "email"
                             },
                             domProps: { value: _vm.form.email },
                             on: {
@@ -52765,8 +52902,7 @@ var render = function() {
                             attrs: {
                               id: "password",
                               name: "password",
-                              type: "password",
-                              required: ""
+                              type: "password"
                             },
                             domProps: { value: _vm.form.password },
                             on: {
@@ -52832,31 +52968,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-1" }, [
-      _c("div", { staticClass: "col-12 " }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success float-right",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#agregar"
-            }
-          },
-          [
-            _vm._v(
-              "\n                                Agregar\n                            "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
@@ -52868,20 +52979,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-success" }, [
-        _c("i", { staticClass: "fas fa-edit" })
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-danger" }, [
-        _c("i", { staticClass: "fas fa-trash" })
       ])
     ])
   },

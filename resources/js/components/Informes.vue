@@ -10,7 +10,14 @@
                         <div class="col-md-12">
                           <h2>Filtrar por:</h2>
                           <form class="row" method="POST" action="informe-excel" target="_blank">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
+                              <label for="Siembra">Siembra:</label>
+                              <select class="form-control" id="f_siembra" v-model="f_siembra">
+                                <option value="-1" selected>Seleccionar</option>                             
+                                <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
                               <label for="Estado">Estado siembra </label>
                               <select class="form-control" id="estado_s" v-model="estado_s" name="estado_s">
                                 <option value="-1">Todos</option>
@@ -18,7 +25,7 @@
                                 <option value="1" selected>Activo</option>                                
                               </select>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
                                 <option selected value="-1"> --Seleccionar--</option>
@@ -32,25 +39,25 @@
                                 <option value="Lavado">Lavado</option>
                               </select>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                              <label for="alimento">Alimento: </label>
                               <select class="form-control" id="alimento" v-model="alimento_s">
                                 <option selected> Seleccionar</option>
                                 <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>
                               </select>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                              <label for="recurso">Recurso: </label>
                               <select class="form-control" id="recurso" v-model="recurso_s">
                                 <option selected> Seleccionar</option>   
                                 <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                               </select>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                               <label for="search">Desde: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra1" v-model="fecha_ra1">
                             </div>
-                             <div class="form-group col-md-3">
+                             <div class="form-group col-md-2">
                               <label for="search">Hasta: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                             </div>
@@ -58,7 +65,7 @@
                               <label for="">Buscar</label>
                               <button  class="btn btn-primary form-control" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
                             </div>
-                            <div class="form-group col-md-3">                                      
+                            <div class="form-group col-md-2">                                      
                               
                               <downloadexcel
                               class = "btn btn-success"
@@ -149,9 +156,11 @@
         listadorn:[],
         listadoe:[],
         listadoAlimentos:[],
+        listadoSiembras: [], 
         listadoRecursos:[],
         imprimirRecursos: [],
         estados : [],
+        f_siembra: '',
         estado_s: '',
         actividad_s:'',
         alimento_s : '',
@@ -216,10 +225,16 @@
           // auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
         })
       },
-      
+      listarSiembras(){
+        let me = this;
+        axios.get("api/siembras")
+        .then(function (response){
+          me.listadoSiembras = response.data.siembra;
+        })
+      },
       filtroResultados(){
         let me = this;
-        
+        if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
         if(this.estado_s == ''){this.est = '-1'}else{this.est = this.estado_s}
         if(this.actividad_s == ''){this.act = '-1'}else{this.act = this.actividad_s}
         if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
@@ -228,6 +243,7 @@
         if(this.fecha_ra2 == ''){this.fec2 = '-1'}else{this.fec2 = this.fecha_ra2}
         
         const data ={
+          'f_siembra' : this.smb,
           'estado_s': this.est,
           'actividad_s':this.act,
           'alimento_s' : this.ali,
@@ -252,6 +268,7 @@
     mounted() {
       console.log('Component mounted.');
       this.listar();
+      this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();
       this.estados[0] = 'Inactivo';

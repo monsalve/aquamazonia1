@@ -45,16 +45,22 @@ class RegistroController extends Controller
     {
        
         foreach($request->campos as $campo){
+            // $mensajes = array();
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
-            if($campo['mortalidad'] > 0){
+            
+            if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
                 $exs->cant_actual= $exs->cant_actual -$campo['mortalidad'];
-            }
-            if($campo['cantidad'] > 0){
-                $exs->cant_actual= $exs->cant_actual -$campo['cantidad'];
-            }
-            if($campo['peso_ganado'] > 0){
-                // $exs->peso_actual= floatval($exs->peso_actual) + floatval($campo['peso_ganado']);
+                $mensajes[]= 'Datos guardados correctamente';
+            }else{ $mensajes[]= 'Esta cifra no puede ser mayor';}
+            
+            if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
+                $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
+                $mensajes[]= 'Datos guardados correctamente';
+            }else{ $mensajes[]= 'Esta cifra no puede ser mayor'; }
+            
+            if($campo['peso_ganado'] > $exs->cant_actual){
                 $exs->peso_actual = ($campo['peso_ganado']);
+                $mensajes[]= 'Datos guardados correctamente';
             }
             $exs->save();
             $registro = Registro::create([
@@ -66,9 +72,11 @@ class RegistroController extends Controller
                 'peso_ganado' => $campo['peso_ganado'],
                 'mortalidad' => $campo['mortalidad'],
                 'biomasa' => $campo['biomasa'],
-                'cantidad' => $campo['cantidad'],               
-            
+                'cantidad' => $campo['cantidad']
             ]);
+            
+            return ($mensajes);
+            
         }
     }
 
@@ -92,22 +100,17 @@ class RegistroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 8970
-        // 2869
         $registro = Registro::destroy($id);
-        
-        // $exs = EspecieSiembra::select()
-        // ->join('registros')
+     
         $exs = EspecieSiembra::where('id_siembra', $request['campos']['id_siembra'])->where('id_especie', $request['campos']['id_especie'])->first();
-        
         if($request['campos']['mortalidad'] > 0){
             $exs->cant_actual= $exs->cant_actual + $request['campos']['mortalidad'];
         }
         if($request['campos']['cantidad'] > 0){
             $exs->cant_actual= $exs->cant_actual + $request['campos']['cantidad'];
-        }        
+        }
         $exs->save();
-        return ($request);
+       
     }
 
     /**

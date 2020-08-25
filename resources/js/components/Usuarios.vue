@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div class="row mb-1">
                             <div class="col-12 ">
-                                <button class="btn btn-success float-right" type="button" data-toggle="modal" data-target="#agregar">
+                                <button class="btn btn-success float-right" @click="limpiar()" type="button" data-toggle="modal" data-target="#agregar">
                                     Agregar
                                 </button>
                             </div>
@@ -32,10 +32,10 @@
                                         <td v-text="usuario.estado == 1 ? 'Activo' : 'Inacitvo'">
                                         <td>
                                             <!-- <span style="font-size: 1.5em; color:#FFC107;"><i class="fas fa-user"></i></span>-->
-                                            <button class="btn btn-success">
+                                            <button @click="editar(usuario)" class="btn btn-success" type="button" data-toggle="modal" data-target="#agregar">                                            
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-danger">                                               
+                                            <button class="btn btn-danger" @click="eliminar(usuario.id)">
                                                 <i class="fas fa-trash"></i>                                               
                                             </button>
                                         </td>
@@ -74,7 +74,7 @@
                             <div :class="['form-group row', form.errors().has('email') ? 'has-error' : '']" >
                                 <label for="email" class="col-sm-12 col-md-4 col-form-label">Correo</label> 
                                 <div class="col-sm-12 col-md-8">
-                                    <input id="email" name="email"  class="form-control" type="email" v-model="form.email" required>
+                                    <input id="email" name="email"  class="form-control" type="email" v-model="form.email" >
                                     <span v-if="form.errors().has('email')" class="label label-danger" v-text="form.errors().get('email')"></span>
                                 </div>
                                 
@@ -82,7 +82,7 @@
                             <div :class="['form-group row', form.errors().has('password') ? 'has-error' : '']" >
                                 <label for="password" class="col-sm-12 col-md-4 col-form-label">Password</label> 
                                 <div class="col-sm-12 col-md-8">
-                                    <input id="password" name="password"  class="form-control" type="password" v-model="form.password" required>
+                                    <input id="password" name="password"  class="form-control" type="password" v-model="form.password" >
                                     <span v-if="form.errors().has('password')" class="label label-danger" v-text="form.errors().get('password')"></span>
                                 </div>                                   
                             </div>
@@ -104,21 +104,21 @@ import form from 'vuejs-form'
         data() {    
             return {
                 editando: 0,
+                id_edita: 0,
                 form: form.default({
                     name : '',
                     email : '',
                     password: '',
-                    estado: 1,
+                    estado: 1,                    
                 })
                 .rules({
                     email: 'email|min:7|required',
-                    name: 'required|min:5|',
-                    password: 'required|min:5|'
+                    name: 'required|min:5|',                    
                 })
                 .messages({
                     'name.name': 'El nombre es requerido',
                     'email.email': 'Ingrese un correo válido',
-                    'password.password': 'El password es requerido',
+                    
                 }),
                 errores: [],
                 success : false,
@@ -127,29 +127,64 @@ import form from 'vuejs-form'
         },
        
         methods : {
-                      
-            guardar() {
+            limpiar() {
+                this.form.name = '';
+                this.form.email = '';
+                this.form.password = '';
+                this.id_edita = '';
+                this.editando = 0;
+            },
+            eliminar(id_elim) {
                 let me = this;
-                if( !this.form.errors().any() ) {
-                     axios.post("api/usuarios",this.form.all())
-                    .then(function (response) {
-                        
-                        me.form.email='';
-                        me.form.name='';
-                        me.form.password='';
-                        $('#agregar').modal('hide');
+                if(confirm('Esta seguro de inactivar este usuario?')){
+                    axios.delete("api/usuarios/"+id_elim)
+                    .then(function (response) {                    
                         me.listar();
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
                 }
+            },
+            guardar() {
+                let me = this;
+                if( !this.form.errors().any() ) {
+                    if (me.editando == 0) {
+                        if(me.form.password == '') {
+                            alert("Debe digitar el password!!!");
+                        } else {
+                            axios.post("api/usuarios",this.form.all())
+                            .then(function (response) {
+                                
+                                me.form.email='';
+                                me.form.name='';
+                                me.form.password='';
+                                $('#agregar').modal('hide');
+                                me.listar();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+                    } else { 
+                         axios.put("api/usuarios/"+this.id_edita,this.form.all())
+                            .then(function (response) {                                
+                                me.form.email='';
+                                me.form.name='';
+                                me.form.password='';
+                                $('#agregar').modal('hide');
+                                me.listar();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                        
+                    }
+                }
                 else 
                 {
                     console.log('errors: ', this.form.errors().all());
                 }
-                
-                
             },
             listar(){
                 let me = this;
@@ -161,8 +196,13 @@ import form from 'vuejs-form'
                     });
                 
             },
-            cargaEditar(objeto){
 
+            editar(objeto){
+                this.id_edita = objeto.id;
+                this.editando = 1;
+                this.form.name = objeto.name;
+                this.form.email = objeto.email;                
+                this.editando = 1;
             }
         },
         mounted() {
