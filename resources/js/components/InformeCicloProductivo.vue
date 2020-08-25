@@ -62,7 +62,10 @@
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>                              
                               <th>Biomasa dispo</th>
+<<<<<<< HEAD
                               <th>Salida de biomasa</th>                              
+=======
+>>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>

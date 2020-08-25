@@ -4203,6 +4203,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -4211,6 +4212,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+=======
+>>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -47808,7 +47811,11 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
+<<<<<<< HEAD
                             textContent: _vm._s(le.biomasa_disponible + " kg")
+=======
+                            textContent: _vm._s(le.biomasa_final + " kg")
+>>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
                           }
                         }),
                         _vm._v(" "),
@@ -47898,6 +47905,7 @@ var staticRenderFns = [
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cant Ini")]),
+<<<<<<< HEAD
         _vm._v(" "),
         _c("th", [_vm._v("Peso Ini")]),
         _vm._v(" "),
@@ -47911,6 +47919,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
+=======
+        _vm._v(" "),
+        _c("th", [_vm._v("Peso Ini")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cant Actual")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Peso Actual")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa dispo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mortalidad")]),
+        _vm._v(" "),
+>>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
@@ -48719,6 +48740,7 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+<<<<<<< HEAD
                         _c("td", [
                           _vm.list_mortalidad[siembra.id]
                             ? _c("div", [
@@ -48736,6 +48758,19 @@ var render = function() {
                                 _vm._v("0\n                                ")
                               ])
                         ]),
+=======
+                        _vm.list_mortalidad[siembra.id][siembra.id_esp]
+                          ? _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.list_mortalidad[siembra.id][
+                                    siembra.id_esp
+                                  ]
+                                )
+                              )
+                            ])
+                          : _c("td", [_vm._v("0")]),
+>>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
@@ -72328,8 +72363,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
