@@ -73,7 +73,7 @@ class UsuarioController extends Controller
         $usuario->email  = $request['email'];
         if($request['password'])
         {
-            $usuario->password = $request['password'];
+            $usuario->password = Hash::make($request['password']);
         }
         $usuario->save();
         return $usuario;
