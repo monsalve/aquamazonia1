@@ -43,14 +43,14 @@
                           :fetch   = "fetchData"
                           :fields = "json_fields"
                           :before-generate = "startDownload"
-                          name    = "informe-recursos.xls"
+                          name    = "informe-ciclo-productivo.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
                           </downloadexcel>
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm table-hover table-responsive">
+                        <table class="table table-striped table-sm table-hover table-responsive">
                           <thead>
                             <tr>                           
                               <th>#</th>
@@ -60,16 +60,15 @@
                               <th>Cant Ini</th>
                               <th>Peso Ini</th>
                               <th>Cant Actual</th>
-                              <th>Peso Actual</th>                              
+                              <th>Peso Actual</th>   
+                              <th>Intervalo de tiempo</th>
                               <th>Biomasa dispo</th>
-<<<<<<< HEAD
-                              <th>Salida de biomasa</th>                              
-=======
->>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
+                              <th>Salida de biomasa</th>                 
+                              <th>Biomasa acumulada</th>
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
-                              <th>Salida animales acumulado</th>
+                              <th>Salida animales</th>
                               <!-- <th>Peso ganado</th> -->
                               
                               
@@ -85,16 +84,22 @@
                               <td v-text="le.peso_inicial+' gr'"></td>
                               <td v-text="le.cant_actual"></td>
                               <td v-text="le.peso_actual+' gr'"></td>   
+                              <td v-if="le.intervalo_tiempo">{{le.intervalo_tiempo}} días</td>
+                              <td v-else>0</td>
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
                               <td v-else>0</td>
-                            
-                              <!-- <td v-text="le.mortalidad"></td> -->
-                              <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td>
-                              <td v-text="le.cantidad_pescas"></td>
+                              <td v-if="le.biomasa_acumulada">{{le.biomasa_acumulada}} kg</td>
+                              <td v-else>0</td>
+                              <td v-if="le.mortalidad">{{le.mortalidad}}</td>
+                              <td v-else>0</td>
+                              <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
+                              <td v-if="le.mortalidad_porcentaje">{{le.mortalidad_porcentaje}}</td>
+                              <td v-else>0</td>
+                              <td v-if="le.salida_animales">{{le.salida_animales}}</td>
+                              <td v-else>0</td>
                               <!-- <td v-text="le.peso_ganado"></td> -->
-                              
-                              
+                              <!-- <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td> -->
                             </tr>
                           </tbody>
                         </table>
@@ -110,7 +115,6 @@
   import downloadexcel from "vue-json-excel";
   export default {
     data(){
-    
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
@@ -118,11 +122,16 @@
           'Fecha inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
-          'Mortalidad kg aumentada' : 'mortalidad_kg_au',
-          'Salida animales acumulado' : 'cantidad_pescas',
-          'Peso actual' : 'peso_actual',
           'Cantidad actual' : 'cant_actual',
-          'Biomasa final' : 'biomasa_disponible'
+          'Peso actual' : 'peso_actual',
+          'Intervalo de tiempo' : 'intervalo_tiempo',
+          'Biomasa disponible' : 'biomasa_disponible',
+          'Salida de biomasa' : 'salida_biomasa',
+          'Biomasa acumulada' : 'biomasa_acumulada',
+          'Mortalidad' : 'mortalidad',
+          'Mortalidad kg' : 'mortalidad_kg',
+          'Mortalidad %' : 'mortalidad_porcentaje',
+          'Salida animales' : 'salida_animales',
         },       
         listadoExistencias : [],
         listadoEspecies : [],

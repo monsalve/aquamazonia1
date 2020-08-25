@@ -3604,6 +3604,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3614,11 +3622,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Fecha inicio siembra': 'fecha_inicio',
         'Cantidad Inicial': 'cantidad_inicial',
         'Peso inicial': 'peso_inicial',
-        'Mortalidad kg aumentada': 'mortalidad_kg_au',
-        'Salida animales acumulado': 'cantidad_pescas',
-        'Peso actual': 'peso_actual',
         'Cantidad actual': 'cant_actual',
-        'Biomasa final': 'biomasa_disponible'
+        'Peso actual': 'peso_actual',
+        'Intervalo de tiempo': 'intervalo_tiempo',
+        'Biomasa disponible': 'biomasa_disponible',
+        'Salida de biomasa': 'salida_biomasa',
+        'Biomasa acumulada': 'biomasa_acumulada',
+        'Mortalidad': 'mortalidad',
+        'Mortalidad kg': 'mortalidad_kg',
+        'Mortalidad %': 'mortalidad_porcentaje',
+        'Salida animales': 'salida_animales'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -4203,7 +4216,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -4212,8 +4224,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-=======
->>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -47748,7 +47758,7 @@ var render = function() {
                         fetch: _vm.fetchData,
                         fields: _vm.json_fields,
                         "before-generate": _vm.startDownload,
-                        name: "informe-recursos.xls",
+                        name: "informe-ciclo-productivo.xls",
                         type: "xls"
                       }
                     },
@@ -47765,7 +47775,10 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                { staticClass: "table table-sm table-hover table-responsive" },
+                {
+                  staticClass:
+                    "table table-striped table-sm table-hover table-responsive"
+                },
                 [
                   _vm._m(3),
                   _vm._v(" "),
@@ -47809,13 +47822,15 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+                        le.intervalo_tiempo
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.intervalo_tiempo) + " días")
+                            ])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
                         _c("td", {
                           domProps: {
-<<<<<<< HEAD
                             textContent: _vm._s(le.biomasa_disponible + " kg")
-=======
-                            textContent: _vm._s(le.biomasa_final + " kg")
->>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
                           }
                         }),
                         _vm._v(" "),
@@ -47825,19 +47840,31 @@ var render = function() {
                             ])
                           : _c("td", [_vm._v("0")]),
                         _vm._v(" "),
+                        le.biomasa_acumulada
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.biomasa_acumulada) + " kg")
+                            ])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        le.mortalidad
+                          ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
                         _c("td", {
                           domProps: {
                             textContent: _vm._s(
-                              le.mortalidad_kg_au == null
-                                ? "-"
-                                : le.mortalidad_kg_au + " kg"
+                              le.mortalidad_kg ? le.mortalidad_kg + " kg" : "0"
                             )
                           }
                         }),
                         _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(le.cantidad_pescas) }
-                        })
+                        le.mortalidad_porcentaje
+                          ? _c("td", [_vm._v(_vm._s(le.mortalidad_porcentaje))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        le.salida_animales
+                          ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
+                          : _c("td", [_vm._v("0")])
                       ])
                     }),
                     0
@@ -47905,38 +47932,28 @@ var staticRenderFns = [
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cant Ini")]),
-<<<<<<< HEAD
         _vm._v(" "),
         _c("th", [_vm._v("Peso Ini")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cant Actual")]),
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Intervalo de tiempo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida de biomasa")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Mortalidad")]),
-        _vm._v(" "),
-=======
-        _vm._v(" "),
-        _c("th", [_vm._v("Peso Ini")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cant Actual")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Peso Actual")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa dispo")]),
+        _c("th", [_vm._v("Biomasa acumulada")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
->>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales acumulado")])
+        _c("th", [_vm._v("Salida animales")])
       ])
     ])
   }
@@ -48740,7 +48757,6 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
-<<<<<<< HEAD
                         _c("td", [
                           _vm.list_mortalidad[siembra.id]
                             ? _c("div", [
@@ -48758,19 +48774,6 @@ var render = function() {
                                 _vm._v("0\n                                ")
                               ])
                         ]),
-=======
-                        _vm.list_mortalidad[siembra.id][siembra.id_esp]
-                          ? _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.list_mortalidad[siembra.id][
-                                    siembra.id_esp
-                                  ]
-                                )
-                              )
-                            ])
-                          : _c("td", [_vm._v("0")]),
->>>>>>> bda3d5675d46eedc8d8a03cd87d4856b64fc2a9d
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
@@ -72363,8 +72366,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

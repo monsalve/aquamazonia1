@@ -10,6 +10,7 @@ use App\RecursoSiembra;
 use App\RecursoNecesario;
 use App\Recurso;
 use App\Registro;
+use Illuminate\Support\Facades\DB;
 
 class InformeController extends Controller
 {
@@ -206,6 +207,7 @@ class InformeController extends Controller
         return ['recursosNecesarios' => $recursosNecesarios, 'recursosSiembras' => $recursosSiembras];
     }    
     public function traerExistencias(){
+    
         $existencias = EspecieSiembra::select(
             'cant_actual',
             'especies_siembra.cantidad as cantidad_inicial',            
@@ -223,50 +225,65 @@ class InformeController extends Controller
         ->join('especies', 'especies_siembra.id_especie', 'especies.id')
         ->where('siembras.estado', '=', 1)
         ->get();
-        
-        $registros = Registro::select()
-        ->get();
+                
+        $siembras = Siembra::select()->get();
         
         $var1 = 0;
         $var2 = 0;
         $var3 = 0;
         $var4 = 0;
         $sal_bio = 0;
-        $bio_acum = 0;
-    
+        $bio_acum  = 0;
+        $int_tiempo = 0;
+        $registros = Registro::select()->get();
+         
         if(count($existencias)>0){
         
         
             for($i=0;$i<count($existencias); $i++){
             
                 if($existencias[$i]->id_siembra == $existencias[$i]->id_siembra && $existencias[$i]->id_especie == $existencias[$i]->id_especie){
-                    $existencias[$i]->biomasa_disponible = ((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000);
+                
+                    $existencias[$i]->biomasa_disponible = (round(((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000),2));
                 }
                 
-                
                 for($j=0;$j<count($registros); $j++){
+                    
                     if(count($registros)>0){
-                        
-                        if($existencias[$i]->id_siembra  == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie ){
-                            $sal_bio += $registros[$j]->biomasa;
-                            $existencias[$i]->salida_biomasa = $sal_bio;                        
+                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra ){
+                            $bio_acum += $registros[$j]->biomasa;      
+                                               
                         }
                         
+                        $existencias[$i]->biomasa_acumulada = $bio_acum;
                         
-                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie){
-                            $var1 = $var1 + $registros[$j]->mortalidad;
+                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie ){                        
+                        
+                            $existencias[$i]->intervalo_tiempo  += $registros[$j]->tiempo;
+                            
+                        
+                            $sal_bio += $registros[$j]->biomasa;
+                            $existencias[$i]->salida_biomasa = $sal_bio;     
+                            
+                            $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
+                            $existencias[$i]->mortalidad_kg =  (round((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2));
+                            $existencias[$i]->mortalidad_porcentaje =  (round((($existencias[$i]->mortalidad * 100)/$existencias[$i]->peso_actual),2)) .' %';
+                            
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (round(($var2),2));
+                            $existencias[$i]->salida_animales = (round((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2)) .' kg';                            
                             
                             $var3 = $var3 + $registros[$j]->biomasa;
                             $var4 =  $existencias[$i]->cant_actual;
-                            $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));                            
+                            // $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));                            
                         }
+                        
+                        
                     }
                 }
             }               
         }           
-        return ['existencias'=> $existencias, $registros];
+        return ['existencias'=> $existencias, 'registros'=> $registros];
         
     }
     public function filtroExistencias(Request $request){
@@ -293,8 +310,6 @@ class InformeController extends Controller
             )
         ->orderBy('especies_siembra.id_siembra')
         ->orderBy('especies_siembra.id_especie')
-        // ->orderBy('registros.fecha_registro')
-        // ->join('registros', 'especies_siembra.id_siembra', 'registros.id_siembra')
         ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
         ->join('especies', 'especies_siembra.id_especie', 'especies.id')
         ->where('siembras.estado', '=', 1)
@@ -304,36 +319,55 @@ class InformeController extends Controller
         ->where($c7, $op4, $c8)
         ->get();
         
-        $registros = Registro::select()
-        ->get();
-        
         $var1 = 0;
         $var2 = 0;
         $var3 = 0;
         $var4 = 0;
-    
-        if(count($existencias)>0){
+        $sal_bio = 0;
+        $bio_acum  = 0;
+        $int_tiempo = 0;
+        $registros = Registro::select()->get();
+         
+        if(count($existencias)>0){        
+        
             for($i=0;$i<count($existencias); $i++){
-                // $existencias[$i]->mortalidad_kg = ((floatval($existencias[$i]->mortalidad) * floatval($existencias[$i]->peso_ganado)) / 1000);
-                $existencias[$i]->biomasa_disponible = ((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000);
-                
-                
+            
+                if($existencias[$i]->id_siembra == $existencias[$i]->id_siembra && $existencias[$i]->id_especie == $existencias[$i]->id_especie){                
+                    $existencias[$i]->biomasa_disponible = (round(((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000),2));
+                    
+                }
+                // $existencias[$i]->mortalidad_kg_au += (round((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2));
                 for($j=0;$j<count($registros); $j++){
+                    
                     if(count($registros)>0){
-                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie){
-                            $var1 = $var1 + $registros[$j]->mortalidad;
+                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra ){}                        
+                        
+                        if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie ){                        
+                            $bio_acum += $registros[$j]->biomasa;                     
+                            $existencias[$i]->biomasa_acumulada = $bio_acum;
+                            $existencias[$i]->intervalo_tiempo  += $registros[$j]->tiempo;
+                            $bio_acum += $registros[$j]->biomasa;       
+                        
+                            $sal_bio += $registros[$j]->biomasa;
+                            $existencias[$i]->salida_biomasa = $sal_bio;     
+                            
+                            $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
+                            $existencias[$i]->mortalidad_kg =  (round((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2));
+                            $existencias[$i]->mortalidad_porcentaje =  (round((($existencias[$i]->mortalidad * 100)/$existencias[$i]->peso_actual),2)) .' %';
+                            
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
-                            $existencias[$i]->mortalidad_kg_au = $var2;                         
+                            
+                            $existencias[$i]->salida_animales = (round((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2)) .' kg';                            
                             
                             $var3 = $var3 + $registros[$j]->biomasa;
                             $var4 =  $existencias[$i]->cant_actual;
+                            // $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));                            
+                        }   
                         
-                            $existencias[$i]->cantidad_pescas = (round(((floatval($var3))*1000)/(floatval($var4)),2));
-                        }
                     }
                 }
             }               
-        }           
+        }                 
         return ['existencias'=> $existencias, $registros];
     }
 }
