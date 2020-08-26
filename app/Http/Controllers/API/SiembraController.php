@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\EspecieSiembra;
+use App\Especie;
 use App\Siembra;
 use App\Contenedor;
 use App\Registro;
@@ -195,5 +196,26 @@ class SiembraController extends Controller
         return ['filtrarSiembras' => $filtrarSiembras];
             
     } 
+    public function getEspeciesSiembra(Request $request) {
+        $espxsiembra = EspecieSiembra::select('cantidad','id_especie','lote','peso_inicial')
+                        ->join('especies','especies_siembra.id_especie','especies.id')
+                        ->where('id_siembra',$request['id'])                        
+                        ->orderBy('especies.especie')
+                        ->get();
+        $aux_id_es = array();
+        $aux_es = array();
+        foreach($espxsiembra as $axs) {
+            $aux_id_es[] = $axs->id_especie;
+            $aux_es[] = array('cantidad'=>$axs->cantidad,'id_especie'=>$axs->id_especie,'lote'=> $axs->lote, 'peso_inicial' => $axs->peso_inicial,'es_edita' => '1');
+        }
+        if(count($aux_id_es)>0) {
+            $especies = Especie::whereNotIn('id',$aux_id_es)->orderBy('especie')->get();
+        }
+        else {
+            $especies = Especie::orderBy('especie')->get();
+        }
+        
+        return ['espxsiembra' => $aux_es , 'especies' => $especies];
+    }
     
 }

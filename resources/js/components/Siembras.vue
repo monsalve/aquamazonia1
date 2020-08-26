@@ -29,11 +29,12 @@
                                   </th>
                                   <th scope="col">Inicio siembra</th>
                                   <th scope="col">Inicio - fin de <br> descanso estanque</th>
-                                  <th scope="col">Estado</th>
+                                  <!--<th scope="col">Estado</th>-->
                                   <th scope="col">Fecha <br>Alimentación</th>
                                   <th scope="col">Ingreso</th>
                                   <th scope="col">Finalizar</th>
-                                  <th scope="col">Acciones</th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -53,7 +54,7 @@
                                   </td>
                                   <td v-text="siembra.fecha_inicio"></td>
                                   <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
-                                  <td v-text="estados[siembra.estado]"></td>
+                                  <!--<td v-text="estados[siembra.estado]"></td>-->
                                   <td v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'bg-warning']">
                                     {{siembra.fecha_alimento}}
                                     
@@ -62,7 +63,12 @@
                                   <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
                                   <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
                                   <td>
-                                    <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
+                                    <button class="btn btn-success" @click="editarSiembra(siembra)">
+                                      <i class="fas fa-edit"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button  class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -89,23 +95,35 @@
                   <div class="form-group row   col-md-4">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Contenedor</label>
-                      <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor">
-                        <option :value="contenedor.id" v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
-                          <span v-if="contenedor.estado == 1">{{contenedor.contenedor}}</span>
-                        </option>
-                      </select>
+                      <div v-if="id_edita == ''">
+                        <select  v-model="form.id_contenedor"  name="id_contenedor" class="form-control" id="id_contenedor">
+                          <option v-if="contenedor.estado == 1" :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                            {{contenedor.contenedor}}
+                          </option>
+                        </select>
+                      </div>
+                      <div v-else>
+                          <select disabled v-model="form.id_contenedor"  name="id_contenedor" class="form-control" id="id_contenedor">
+                          <option :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                            {{contenedor.contenedor}}
+                          </option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group row   col-md-4">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="nombre_siembra">Nombre de Siembra</label>
-                      <input class="form-control" type="text" id="nombre_siembra" v-model="form.nombre_siembra">
+                      <input v-if="id_edita == ''" class="form-control" type="text"  id="nombre_siembra" v-model="form.nombre_siembra">
+                      <input v-else disabled class="form-control" type="text"  id="nombre_siembra" v-model="form.nombre_siembra">
                     </div>
                   </div>
+                  
                   <div class="form-group row  col-md-4">
                     <div class="col-sm-12 col-md-12 text-left">
                       <label for="">Fecha Inicio</label>
-                      <input type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
+                      <input v-if="id_edita == ''" type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
+                      <input v-else type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" disabled>
                     </div>
                   </div>
                   <table class="table">
@@ -158,7 +176,7 @@
                         <td v-text="item.lote"></td>
                         <td v-text="item.cantidad"></td>
                         <td v-text="item.peso_inicial"></td>
-                        <td><button @click="removeItem(item.id_especie)" class="btn btn-primary">X</button></td>
+                        <td><button v-if="item.es_edita!=1" @click="removeItem(item.id_especie)" class="btn btn-primary">X</button></td>
                       </tr>
                       
                     </tbody>
@@ -169,7 +187,8 @@
                   <div class="form-group row">
                     <div class="col-sm-12 text-right">
                       <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                      <button type="submit" @click="guardar()" class="btn btn-primary">Crear</button>
+                      <button v-if="id_edita==''" type="submit" @click="guardar()" class="btn btn-primary">Crear</button>
+                      <button v-else type="button" @click="guardarEdita()" class="btn btn-primary">Actualizar</button>
                     </div>
                   </div>
                 </div>
@@ -505,7 +524,7 @@
         f_lote : '',
         f_inicio_d : '',
         f_inicio_h : '',
-        
+        id_edita : '',
       }
     },
     components: {
@@ -561,13 +580,35 @@
         $('#modalSiembra').modal('show');
         this.listarEspecies();
         this.listarContenedores();
-        console.log('añadir item') 
+        this.id_edita = '';
+        this.listadoItems = [];
+        //console.log('añadir item') 
+      },
+      editarSiembra(siembra) {
+        let me = this;
+        $('#modalSiembra').modal('show');
+        me.listarContenedores();
+        me.form.nombre_siembra = siembra.nombre_siembra;
+        me.form.id_contenedor = siembra.id_contenedor;
+        me.form.fecha_inicio = siembra.fecha_inicio;
+        me.form.id_siembra = siembra.id;
+        me.idSiembraR= siembra.id;
+        me.id_edita = siembra.id;
+        axios.get("api/especies-siembra-edita/"+siembra.id)
+        .then(function (response){
+          me.listadoEspecies = response.data.especies;      
+          me.listadoItems =  response.data.espxsiembra;      
+        })
+      },
+      guardarEdita(){
+        
       },
       abrirCrear(id){
         let me = this;
         $('#modalRecursos').modal('show');
         this.form.id_siembra = id;
         this.idSiembraR= id;
+        
         axios.post("api/siembras-alimentacion/"+id)
         .then(function (response){
           me.listadoRN = response.data.recursosNecesarios;         
@@ -596,8 +637,8 @@
           alert ('Debe diligenciar todos los campos');
         }
       },
-       removeItem(index){
-       console.log(index)
+       removeItem(index) {
+        console.log(index)
         let me =  this;
         me.listadoItems.pop(index,1)   
         this.listadoEspecies.push({
