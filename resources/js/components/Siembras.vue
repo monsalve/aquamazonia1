@@ -1,419 +1,439 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Gestión de Siembras</div>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Gestión de Siembras</div>
 
-                    <div class="card-body">                        
-                        <div class="row mb-1">
-                            <div class="col-12 text-right ">
-                              <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
-                            </div>
+                <div class="card-body">                        
+                    <div class="row mb-1">
+                        <div class="col-12 text-right ">
+                          <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
                         </div>
-                        <div class="row">
-                            <table class="table table-striped table-hover table-sm table-responsive">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th>Nombre <br> siembra</th>
-                                  <th scope="col">Contenedor</th>
-                                  <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
-                                    <h5> Especie</h5>
-                                    <div class="nav">
-                                      <li class="nav-item" style="width:80px">Especie</li>
-                                      <li class="nav-item" style="width:80px">Lote</li>
-                                      <li class="nav-item" style="width:80px">Cantidad</li>
-                                      <li class="nav-item" style="width:60px">Peso gr</li>
-                                    </div>
-                                  </th>
-                                  <th scope="col">Inicio siembra</th>
-                                  <th scope="col">Inicio - fin de <br> descanso estanque</th>
-                                  <th scope="col">Estado</th>
-                                  <th scope="col">Fecha <br>Alimentación</th>
-                                  <th scope="col">Ingreso</th>
-                                  <th scope="col">Finalizar</th>
-                                  <th scope="col">Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
-                                  <th v-text="index+1" scope="row"></th>
-                                  <td v-text="siembra.nombre_siembra" scope="row"></td>
-                                  <td v-text="siembra.contenedor"></td>
-                                  <td class="d-sm-none d-none d-md-block">
-                                    <div v-for="pez in pecesxSiembra" :key="pez.id" >
-                                      <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
-                                        <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
-                                        <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
-                                        <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
-                                        <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td v-text="siembra.fecha_inicio"></td>
-                                  <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
-                                  <td v-text="estados[siembra.estado]"></td>
-                                  <td v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'bg-warning']">
-                                    {{siembra.fecha_alimento}}
-                                    
-                                    <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
-                                  </td>
-                                  <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
-                                  <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
-                                  <td>
-                                    <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                         </div>
                     </div>
+                    <div class="row">
+                        <table class="table table-striped table-hover table-sm table-responsive">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th>Nombre <br> siembra</th>
+                              <th scope="col">Contenedor</th>
+                              <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
+                                <h5> Especie</h5>
+                                <div class="nav">
+                                  <li class="nav-item" style="width:80px">Especie</li>
+                                  <li class="nav-item" style="width:80px">Lote</li>
+                                  <li class="nav-item" style="width:80px">Cantidad</li>
+                                  <li class="nav-item" style="width:60px">Peso gr</li>
+                                </div>
+                              </th>
+                              <th scope="col">Inicio siembra</th>
+                              <th scope="col">Inicio - fin de <br> descanso estanque</th>
+                              <!-- <th scope="col">Estado</th> -->
+                              <th scope="col">Fecha <br>Alimentación</th>
+                              <th scope="col">Ingreso</th>
+                              <th scope="col">Finalizar</th>
+                              <th scope="col">Editar</th>
+                              <th>Eliminar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
+                              <th v-text="index+1" scope="row"></th>
+                              <td v-text="siembra.nombre_siembra" scope="row"></td>
+                              <td v-text="siembra.contenedor"></td>
+                              <td class="d-sm-none d-none d-md-block">
+                                <div v-for="pez in pecesxSiembra" :key="pez.id" >
+                                  <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
+                                    <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
+                                    <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
+                                    <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
+                                    <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
+                                  </div>
+                                </div>
+                              </td>
+                              <td v-text="siembra.fecha_inicio"></td>
+                              <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
+                              <!-- <td v-text="estados[siembra.estado]"></td> -->
+                              <td v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'bg-warning']">
+                                {{siembra.fecha_alimento}}
+                                
+                                <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
+                              </td>
+                              <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
+                              <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
+                              <td>
+                                <button class="btn btn-success" @click="editarSiembra(siembra)">
+                                  <i class="fas fa-edit"></i>
+                                </button>  
+                              </td>
+                              <td>
+                                <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal Siembras -->
-        <div class="modal fade" id="modalSiembra" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalSiembraLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalSiembralLabel">Crear siembra</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="container row">
-                  <div class="form-group row   col-md-4">
-                    <div class="col-sm-12 col-md-12 text-left">
-                      <label for="">Contenedor</label>
-                      <select v-model="form.id_contenedor" name="" class="form-control" id="id_contenedor">
-                        <option :value="contenedor.id" v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
-                          <span v-if="contenedor.estado == 1">{{contenedor.contenedor}}</span>
-                        </option>
-                      </select>
-                    </div>
+    </div>
+    <!-- Modal especies x siembras -->
+    <div class="modal fade" id="modalSiembra" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalSiembraLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalSiembralLabel">Crear siembra</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container row">
+              <div class="form-group row   col-md-4">
+                <div class="col-sm-12 col-md-12 text-left">
+                  <label for="">Contenedor</label>
+                  <div v-if="id_edita == ''">
+                    <select  v-model="form.id_contenedor"  name="id_contenedor" class="form-control" id="id_contenedor">
+                      <option v-if="contenedor.estado == 1" :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                        {{contenedor.contenedor}}
+                      </option>
+                    </select>
                   </div>
-                  <div class="form-group row   col-md-4">
-                    <div class="col-sm-12 col-md-12 text-left">
-                      <label for="nombre_siembra">Nombre de Siembra</label>
-                      <input class="form-control" type="text" id="nombre_siembra" v-model="form.nombre_siembra">
-                    </div>
+                  <div v-else>
+                      <select disabled v-model="form.id_contenedor"  name="id_contenedor" class="form-control" id="id_contenedor">
+                      <option :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                        {{contenedor.contenedor}}
+                      </option>
+                    </select>
                   </div>
-                  <div class="form-group row  col-md-4">
-                    <div class="col-sm-12 col-md-12 text-left">
-                      <label for="">Fecha Inicio</label>
-                      <input type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
-                    </div>
-                  </div>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" style="width:20%">Especie</th>
-                        <th scope="col">Lote</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Peso gr</th>
-                        <th scope="col">Añadir</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row" v-text="form.id">
-                        </th>
-                        <td> 
-                          <select  v-model="newEspecie" name="" class="form-control" id="id_especie" required>
-                            <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id" selected >{{especie.especie}}</option>
-                          </select>
-                        </td>
-                        <td>
-                          <input  type="text" min="1" class="form-control" id="lote" v-model="newLote" required>                          
-                        </td>
-                        <td>
-                          <input  type="number" min="1" class="form-control" id="cantidad" v-model="newCantidad" required>                          
-                        </td>
-                        <td>
-                          <input type="number" min="1" class="form-control" id="peso_inicial" v-model="newPeso" required>
-                          <span style="
-                            position: relative;
-                            float: right;
-                            right: 30px;
-                            color: #ccc;
-                            bottom: 30px;"
-                          >Gr</span>
-                        </td>
-                         
-                        <td>
-                          <button class="btn btn-success" @click='anadirEspecie()' type="button">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </td>
-                        
-                      </tr>
-                      <tr v-for="( item, index) in listadoItems" :key="index" >
-                        <th scope="row">{{index + 1}}</th>
-                        <td v-text="nombresEspecies[item.id_especie]"></td>
-                        <td v-text="item.lote"></td>
-                        <td v-text="item.cantidad"></td>
-                        <td v-text="item.peso_inicial"></td>
-                        <td><button @click="removeItem(item.id_especie)" class="btn btn-primary">X</button></td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                  
                 </div>
-                <div class="modal-footer">
-                  <div class="form-group row">
-                    <div class="col-sm-12 text-right">
-                      <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
-                      <button type="submit" @click="guardar()" class="btn btn-primary">Crear</button>
-                    </div>
-                  </div>
+              </div>
+              <div class="form-group row   col-md-4">
+                <div class="col-sm-12 col-md-12 text-left">
+                  <label for="nombre_siembra">Nombre de Siembra</label>
+                  <!-- <input class="form-control" type="text" id="nombre_siembra" v-model="form.nombre_siembra"> -->
+                  <input v-if="id_edita == ''" class="form-control" type="text"  id="nombre_siembra" v-model="form.nombre_siembra">
+                  <input v-else disabled class="form-control" type="text"  id="nombre_siembra" v-model="form.nombre_siembra">
+                </div>
+              </div>
+              <div class="form-group row  col-md-4">
+                <div class="col-sm-12 col-md-12 text-left">
+                  <label for="">Fecha Inicio</label>
+                  <input v-if="id_edita == ''" type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" required>
+                  <input v-else type="date" class="form-control" id="fecha_inicio" v-model="form.fecha_inicio" disabled>
+                </div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" style="width:20%">Especie</th>
+                    <th scope="col">Lote</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Peso gr</th>
+                    <th scope="col">Añadir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" v-text="form.id">
+                    </th>
+                    <td> 
+                      <select  v-model="newEspecie" name="" class="form-control" id="id_especie" required>
+                        <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id" selected >{{especie.especie}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input  type="text" min="0" class="form-control" id="lote" v-model="newLote" required>                          
+                    </td>
+                    <td>
+                      <input  type="number" min="0" class="form-control" id="cantidad" v-model="newCantidad" required>                          
+                    </td>
+                    <td>
+                      <input type="number" min="0" class="form-control" id="peso_inicial" v-model="newPeso" required>
+                      <span style="
+                        position: relative;
+                        float: right;
+                        right: 30px;
+                        color: #ccc;
+                        bottom: 30px;"
+                      >Gr</span>
+                    </td>
+                     
+                    <td>
+                      <button class="btn btn-success" @click='anadirEspecie()' type="button">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </td>
+                    
+                  </tr>
+                  <tr v-for="( item, index) in listadoItems" :key="index" >
+                    <th scope="row">{{index + 1}}</th>
+                    <td v-text="nombresEspecies[item.id_especie]"></td>
+                    <td v-text="item.lote"></td>
+                    <td v-text="item.cantidad"></td>
+                    <td v-text="item.peso_inicial"></td>
+                    <td><button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-primary">X</button></td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="modal-footer">
+              <div class="form-group row">
+                <div class="col-sm-12 text-right">
+                  <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                  <button v-if="id_edita==''" type="submit" @click="guardar()" class="btn btn-primary">Crear</button>
+                  <button v-else type="button" @click="guardarEdita(form.id_contenedor)" class="btn btn-primary">Actualizar</button>
+                  <!-- <button type="submit" @click="guardar()" class="btn btn-primary">Crear</button> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-         <!-- Modal añadir alimentos a siembras -->
-        <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">          
-                <form class="row">
-                  <!-- <div class="col-md-6"> -->
-                    <div class="form-group col-md-3 ">   
-                      <label for="horas hombre" class="">Fecha</label>
-                      <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
-                    </div>
-                   
-                    <div class="form-group col-md-3">
-                      <label for="Alimento" class="">Alimento</label>
-                      <select class="form-control" id="alimento" v-model="form.id_alimento" >
-                        <option>--Seleccionar--</option>
-                        <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
-                      </select>
-                    </div>        
-                     <div class="form-group col-md-6">   
-                      <label for="detalles" class="">Detalles</label>
-                      <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
-                    </div>     
-                  
-                    <div class="form-group col-md-3">   
-                      <label for="horas hombre" class="">Horas hombre</label>
-                      <input type="number" class="form-control" step="any" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                    </div>
+      </div>
+    </div>
+     <!-- Modal añadir alimentos a siembras -->
+    <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">          
+            <form class="row">
+              <!-- <div class="col-md-6"> -->
+                <div class="form-group col-md-3 ">   
+                  <label for="horas hombre" class="">Fecha</label>
+                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                </div>
+               
+                <div class="form-group col-md-3">
+                  <label for="Alimento" class="">Alimento</label>
+                  <select class="form-control" id="alimento" v-model="form.id_alimento" >
+                    <option>--Seleccionar--</option>
+                    <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
+                  </select>
+                </div>        
+                 <div class="form-group col-md-6">   
+                  <label for="detalles" class="">Detalles</label>
+                  <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
+                </div>     
               
-                    <div class="form-group col-md-3">                    
-                      <label for="cant_manana" class="">Kg Mañana</label>
-                      <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
-                    </div>
-                    <div class="form-group col-md-3">    
-                      <label for="cant_tarde" class="">Kg tarde</label>
-                      <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
-                    </div>
-                </form>
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+                <div class="form-group col-md-3">   
+                  <label for="horas hombre" class="">Horas hombre</label>
+                  <input type="number" class="form-control" step="any" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                </div>
+          
+                <div class="form-group col-md-3">                    
+                  <label for="cant_manana" class="">Kg Mañana</label>
+                  <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                </div>
+                <div class="form-group col-md-3">    
+                  <label for="cant_tarde" class="">Kg tarde</label>
+                  <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                </div>
+            </form>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+              <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+            </div>
+          </div>
+          <div class="container">
+            <table class="table table-sm table-hover table-responsive">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tipo de <br> Actividad</th>
+                  <!-- <th>Siembras</th> -->
+                  <th>Fecha</th>
+                  <th><br>Alimento</th>
+                  <th>Horas hombre</th>
+                  <th>Cantidad<br>Mañana</th>
+                  <th>Cantidad<br>Tarde</th>
+                  <th width=15%>Detalles</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in listadoRN" :key="index">
+                  <td v-text="index+1"></td>
+                  <td v-text="item.tipo_actividad"></td>                   
+                  <td v-text="item.fecha_ra"></td>
+                  <td> {{item.alimento}}</td>
+                  <td v-text="item.horas_hombre"></td>
+                  <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
+                  <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
+                  <td v-text="item.detalles"></td>
+                  <td>
+                    <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+    
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal registros -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center col-md-9">Registros</h5>
+            <button type="button" class="btn btn-primary"  @click="ver_registros == 1 ? ver_registros = 0 : ver_registros = 1">
+              <span v-if="ver_registros == 1">Crear Registros  <i class="fas fa-arrow-right"></i></span>
+              <span v-if="ver_registros == 0"><i class="fas fa-arrow-left"></i>  Ver listado de registros</span>
+            </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="mostrarRegistros" v-if="ver_registros == 1">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Especie</th>
+                    <th>Tipo de registro</th>
+                    <th>Fecha</th>
+                    <th>Tiempo (días)</th>
+                    <th>Peso ganado (gr)</th>
+                    <th>Mortalidad</th>
+                    <th>Biomasa</th>
+                    <th>Cantidad</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(registro, index) in listadoRegistros" :key="registro.id">
+                    <th v-text="index+1"></th>
+                    <td v-text="registro.especie"></td>
+                    <td v-text="tipoRegistro[registro.tipo_registro]"></td>
+                    <td v-text="registro.fecha_registro"></td>
+                    <td v-text="registro.tiempo"></td>
+                    <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
+                    <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
+                    <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
+                    <td v-text="registro.cantidad  == null ? '-' : registro.cantidad"></td>
+                    <td>
+                      <button class="btn btn-danger" @click="eliminarRegistro(registro.id, registro)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div id="crearRegistros" v-if="ver_registros == 0">
+              <div class="row">
+                 <div class="form-group col-md-4">
+                  <label for="fecha_registro">Fecha Registro</label>
+                  <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="tiempo">Tiempo (días)</label>
+                  <input type="number" class="form-control" id="tiempo" placeholder="Tiempo" v-model="tiempo">
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="tipo_registro">Tipo</label>
+                  <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
+                    <option value="0" >Muestreo</option>
+                    <option value="1">Pesca</option>
+                    <option value="2">Mortalidad inicial</option>
+                  </select>
                 </div>
               </div>
-              <div class="container">
-                <table class="table table-sm table-hover table-responsive">
+              <div style="width:60%; margin:auto">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Tipo de <br> Actividad</th>
-                      <!-- <th>Siembras</th> -->
-                      <th>Fecha</th>
-                      <th><br>Alimento</th>
-                      <th>Horas hombre</th>
-                      <th>Cantidad<br>Mañana</th>
-                      <th>Cantidad<br>Tarde</th>
-                      <th width=15%>Detalles</th>
-                      <th>Eliminar</th>
+                      <th scope="col">Especie</th>
+                      <th scope="col" v-if="tipo_registro == 0">Peso Ganado actual (gr)</th>
+                      <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
+                      <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
+                      <th scope="col" v-if="tipo_registro == 1">Cantidad</th>
+                      <th scope="col" v-if="tipo_registro == 2">Mortalidad Inicial</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr v-for="(item, index) in listadoRN" :key="index">
-                      <td v-text="index+1"></td>
-                      <td v-text="item.tipo_actividad"></td>                   
-                      <td v-text="item.fecha_ra"></td>
-                      <td> {{item.alimento}}</td>
-                      <td v-text="item.horas_hombre"></td>
-                      <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
-                      <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
-                      <td v-text="item.detalles"></td>
-                      <td>
-                        <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
-                          <i class="fas fa-trash"></i>
-                        </button>
+                  <tbody>                      
+                    <tr v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == idSiembraRegistro" >
+                      <th scope="row" v-text="pez.especie">
+                      </th>
+                      <td v-if="tipo_registro == 0"> 
+                        <input type="number" class="form-control" v-bind:required="tipo_registro == 0 ? 'required' : ''" step="any" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
+                      </td>                        
+                      <td v-if="tipo_registro == 0 || tipo_registro == 2">
+                        <input type="number" id="mortalidad" class="form-control" v-bind:required="tipo_registro == 0 || 2 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
                       </td>
-        
-                    </tr>
+                      <td v-if="tipo_registro == 1">
+                        <input type="number" step="any" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
+                      </td>
+                      <td v-if="tipo_registro == 1 ">
+                        <input type="number" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
+                      </td>                                                 
+                    </tr>                      
                   </tbody>
                 </table>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
-              </div>
             </div>
           </div>
-        </div>
-        <!-- Modal registros -->
-        <div class="modal" tabindex="-1" role="dialog" id="modalIngreso">
-          <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-center col-md-9">Registros</h5>
-                <button type="button" class="btn btn-primary"  @click="ver_registros == 1 ? ver_registros = 0 : ver_registros = 1">
-                  <span v-if="ver_registros == 1">Crear Registros  <i class="fas fa-arrow-right"></i></span>
-                  <span v-if="ver_registros == 0"><i class="fas fa-arrow-left"></i>  Ver listado de registros</span>
-                </button>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div id="mostrarRegistros" v-if="ver_registros == 1">
-                  <table class="table table-sm">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Especie</th>
-                        <th>Tipo de registro</th>
-                        <th>Fecha</th>
-                        <th>Tiempo (días)</th>
-                        <th>Peso ganado (gr)</th>
-                        <th>Mortalidad</th>
-                        <th>Biomasa</th>
-                        <th>Cantidad</th>
-                        <th>Eliminar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(registro, index) in listadoRegistros" :key="registro.id">
-                        <th v-text="index+1"></th>
-                        <td v-text="registro.especie"></td>
-                        <td v-text="tipoRegistro[registro.tipo_registro]"></td>
-                        <td v-text="registro.fecha_registro"></td>
-                        <td v-text="registro.tiempo"></td>
-                        <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
-                        <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
-                        <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
-                        <td v-text="registro.cantidad  == null ? '-' : registro.cantidad"></td>
-                        <td>
-                          <button class="btn btn-danger" @click="eliminarRegistro(registro.id, registro)">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </div>
-                <div id="crearRegistros" v-if="ver_registros == 0">
-                  <div class="row">
-                     <div class="form-group col-md-4">
-                      <label for="fecha_registro">Fecha Registro</label>
-                      <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="tiempo">Tiempo (días)</label>
-                      <input type="number" class="form-control" id="tiempo" placeholder="Tiempo" v-model="tiempo">
-                    </div>
-                    
-                    <div class="form-group col-md-4">
-                      <label for="tipo_registro">Tipo</label>
-                      <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
-                        <option value="0" >Muestreo</option>
-                        <option value="1">Pesca</option>
-                        <option value="2">Mortalidad inicial</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div style="width:60%; margin:auto">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">Especie</th>
-                          <th scope="col" v-if="tipo_registro == 0">Peso Ganado actual (gr)</th>
-                          <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
-                          <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
-                          <th scope="col" v-if="tipo_registro == 1">Cantidad</th>
-                          <th scope="col" v-if="tipo_registro == 2">Mortalidad Inicial</th>
-                        </tr>
-                      </thead>
-                      <tbody>                      
-                        <tr v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == idSiembraRegistro" >
-                          <th scope="row" v-text="pez.especie">
-                          </th>
-                          <td v-if="tipo_registro == 0"> 
-                            <input type="number" class="form-control" v-bind:required="tipo_registro == 0 ? 'required' : ''" step="any" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
-                          </td>                        
-                          <td v-if="tipo_registro == 0 || tipo_registro == 2">
-                            <input type="number" id="mortalidad" class="form-control" v-bind:required="tipo_registro == 0 || 2 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
-                          </td>
-                          <td v-if="tipo_registro == 1">
-                            <input type="number" step="any" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
-                          </td>
-                          <td v-if="tipo_registro == 1 ">
-                            <input type="number" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
-                          </td>                                                 
-                        </tr>                      
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" v-if="ver_registros == 0" @click="crearRegistro(idSiembraRegistro)">Crear registro</button>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" v-if="ver_registros == 0" @click="crearRegistro(idSiembraRegistro)">Crear registro</button>
           </div>
         </div>
-        <!-- Modal Finalizar -->
-        <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="modalFinalizarLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Finalizar siembra</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form method="POST">
-                  <div class="row">
-                    <div class="col">
-                      <h6>Inicio Descanso</h6>
-                      <input type="date" class="form-control" placeholder="First name" v-model="ini_descanso" required>
-                    </div>
-                    <div class="col">
-                      <h6>Fin descanso</h6>
-                      <input type="date" class="form-control" placeholder="Last name" v-model="fin_descanso">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" @click="fechaDescanso(id_finalizar)">Guardar</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
+    <!-- Modal Finalizar -->
+    <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="modalFinalizarLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Finalizar siembra</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+              <div class="row">
+                <div class="col">
+                  <h6>Inicio Descanso</h6>
+                  <input type="date" class="form-control" placeholder="First name" v-model="ini_descanso" required>
+                </div>
+                <div class="col">
+                  <h6>Fin descanso</h6>
+                  <input type="date" class="form-control" placeholder="Last name" v-model="fin_descanso">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" @click="fechaDescanso(id_finalizar)">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -505,7 +525,7 @@
         f_lote : '',
         f_inicio_d : '',
         f_inicio_h : '',
-        
+        id_edita : '',
       }
     },
     components: {
@@ -540,13 +560,7 @@
           me.listadoContenedores = response.data
         })
       },
-      listarRegistros(){
-        let me = this;
-        // axios.get("api/registros")
-        // .then(function (response){
-        //   me.listadoRegistros = response.data
-        // })
-      },
+      
       listarAlimentos(){
         let me = this;
         axios.get("api/alimentos")
@@ -561,7 +575,47 @@
         $('#modalSiembra').modal('show');
         this.listarEspecies();
         this.listarContenedores();
-        console.log('añadir item') 
+        this.id_edita = '';
+        this.listadoItems = [];
+        // console.log('añadir item') 
+      },
+      editarSiembra(siembra) {
+        let me = this;
+        $('#modalSiembra').modal('show');
+        me.listarContenedores();
+        me.form.nombre_siembra = siembra.nombre_siembra;
+        me.form.id_contenedor = siembra.id_contenedor;
+        me.form.fecha_inicio = siembra.fecha_inicio;
+        me.form.id_siembra = siembra.id;
+        me.idSiembraR= siembra.id;
+        me.id_edita = siembra.id;
+        axios.get("api/especies-siembra-edita/"+siembra.id)
+        .then(function (response){
+          me.listadoEspecies = response.data.especies;      
+          me.listadoItems =  response.data.espxsiembra;      
+        })
+      },
+      guardarEdita(objeto){
+        console.log(objeto)
+        let me =  this;
+       
+        const data = {
+          siembra: this.form, 
+          especies : this.listadoItems
+        }
+        axios.post('api/anadir-especie-siembra',data)
+        .then(({response})=>{
+          this.form.nombre_siembra = '';
+          this.form.id_contenedor = '';
+          this.form.fecha_inicio = '';
+          this.newEspecie = '';
+          this.newLote = '';
+          this.newCantidad = '';
+          this.newPeso = '';
+          this.listadoItems = [];              
+          this.listar();
+           $('#modalSiembra').modal('hide');
+        });
       },
       abrirCrear(id){
         let me = this;
@@ -570,11 +624,10 @@
         this.idSiembraR= id;
         axios.post("api/siembras-alimentacion/"+id)
         .then(function (response){
-          me.listadoRN = response.data.recursosNecesarios;         
+          me.listadoRN = response.data.recursosNecesarios;               
         })
         console.log(id);
       },
-     
       anadirEspecie(){
         let me = this;
         if(this.newEspecie != '' && this.newCantidad != '' && this.newPeso != ''){
@@ -603,7 +656,7 @@
         this.listadoEspecies.push({
           'id':index,
           'especie' : this.nombresEspecies[index]
-          });
+        });
       },
       nombreEspecie(){
         let me = this;
@@ -667,7 +720,6 @@
           console.log(response)
           me.aux_campos = [];          
           me.ver_registros = 1;
-          me.listarRegistros();
           me.listar();
         });
       },
@@ -771,7 +823,8 @@
         .then(({data})=>{
           console.log('guardado');
           me.listar();
-          // $('#modalRecursos').modal('hide');          
+          // $('#modalRecursos').modal('hide');        
+          swal("Excelente!", "Los datos se guardaron correctamente!", "success");
         })
       },
       eliminarRegistro(id, objeto){
@@ -832,7 +885,6 @@
           if (willDelete) {
             axios.delete('api/siembras/'+index)
             .then(({data})=>{
-              me.listarRegistros();
               me.listar();
               console.log('eliminar'+index)
             })

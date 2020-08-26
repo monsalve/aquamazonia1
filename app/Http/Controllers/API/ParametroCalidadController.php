@@ -251,8 +251,8 @@ class ParametroCalidadController extends Controller
     public function mostrarParametrosxContenedores($id){
         //
           $calidad_agua = CalidadAgua::select()
-          ->where('calidad_agua.id_contenedor', '=',$id)          
-          ->join('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
+          ->where('contenedores.id', '=',$id)          
+          ->rightJoin('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
           ->orderBy('fecha_parametro', 'desc')
           ->get();
           
@@ -305,10 +305,11 @@ class ParametroCalidadController extends Controller
                   $promedios['promedio_otros'] = (round($prom_otros/(count($calidad_agua)),2));
               }
               // print_r('Promedio:'.$div_promedio);
+              return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
           }
           
            
-        return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
+        
     }
     
 }

@@ -2789,11 +2789,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5882,6 +5877,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -5949,7 +5964,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       cantidad: ''
     }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "imprimirSiembras", []), _defineProperty(_ref, "campos", {
       camps_s: []
-    }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _ref;
+    }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "id_edita", ''), _ref;
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -5998,12 +6013,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoContenedores = response.data;
       });
     },
-    listarRegistros: function listarRegistros() {
-      var me = this; // axios.get("api/registros")
-      // .then(function (response){
-      //   me.listadoRegistros = response.data
-      // })
-    },
     listarAlimentos: function listarAlimentos() {
       var me = this;
       axios.get("api/alimentos").then(function (response) {
@@ -6016,7 +6025,48 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       $('#modalSiembra').modal('show');
       this.listarEspecies();
       this.listarContenedores();
-      console.log('añadir item');
+      this.id_edita = '';
+      this.listadoItems = []; // console.log('añadir item') 
+    },
+    editarSiembra: function editarSiembra(siembra) {
+      var me = this;
+      $('#modalSiembra').modal('show');
+      me.listarContenedores();
+      me.form.nombre_siembra = siembra.nombre_siembra;
+      me.form.id_contenedor = siembra.id_contenedor;
+      me.form.fecha_inicio = siembra.fecha_inicio;
+      me.form.id_siembra = siembra.id;
+      me.idSiembraR = siembra.id;
+      me.id_edita = siembra.id;
+      axios.get("api/especies-siembra-edita/" + siembra.id).then(function (response) {
+        me.listadoEspecies = response.data.especies;
+        me.listadoItems = response.data.espxsiembra;
+      });
+    },
+    guardarEdita: function guardarEdita(objeto) {
+      var _this2 = this;
+
+      console.log(objeto);
+      var me = this;
+      var data = {
+        siembra: this.form,
+        especies: this.listadoItems
+      };
+      axios.post('api/anadir-especie-siembra', data).then(function (_ref2) {
+        var response = _ref2.response;
+        _this2.form.nombre_siembra = '';
+        _this2.form.id_contenedor = '';
+        _this2.form.fecha_inicio = '';
+        _this2.newEspecie = '';
+        _this2.newLote = '';
+        _this2.newCantidad = '';
+        _this2.newPeso = '';
+        _this2.listadoItems = [];
+
+        _this2.listar();
+
+        $('#modalSiembra').modal('hide');
+      });
     },
     abrirCrear: function abrirCrear(id) {
       var me = this;
@@ -6029,7 +6079,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log(id);
     },
     anadirEspecie: function anadirEspecie() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
 
@@ -6042,7 +6092,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         });
 
         var idEspecie = function idEspecie(element) {
-          return element.id == _this2.newEspecie;
+          return element.id == _this3.newEspecie;
         };
 
         var index = this.listadoEspecies.findIndex(idEspecie);
@@ -6114,12 +6164,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         tipo_registro: this.tipo_registro,
         tiempo: this.tiempo
       };
-      axios.post('api/registros', data).then(function (_ref2) {
-        var response = _ref2.response;
+      axios.post('api/registros', data).then(function (_ref3) {
+        var response = _ref3.response;
         console.log(response);
         me.aux_campos = [];
         me.ver_registros = 1;
-        me.listarRegistros();
         me.listar();
       });
     },
@@ -6174,7 +6223,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.id_finalizar = id;
     },
     fechaDescanso: function fechaDescanso(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       var me = this;
 
@@ -6185,29 +6234,29 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
             'ini_descanso': this.ini_descanso,
             'fin_descanso': this.fin_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref3) {
-            var response = _ref3.response;
+          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref4) {
+            var response = _ref4.response;
             console.log(response);
-            _this3.id_finalizar = '';
-            _this3.ini_descanso = '';
-            _this3.fin_descanso = '';
+            _this4.id_finalizar = '';
+            _this4.ini_descanso = '';
+            _this4.fin_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this3.listar();
+            _this4.listar();
           });
         } else {
           var _data = {
             'id': this.id_finalizar,
             'ini_descanso': this.ini_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref4) {
-            var response = _ref4.response;
+          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref5) {
+            var response = _ref5.response;
             console.log(response);
-            _this3.id_finalizar = '';
-            _this3.ini_descanso = '';
+            _this4.id_finalizar = '';
+            _this4.ini_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this3.listar();
+            _this4.listar();
           });
         }
       } else {
@@ -6217,7 +6266,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('finalizar' + this.id_finalizar);
     },
     guardar: function guardar() {
-      var _this4 = this;
+      var _this5 = this;
 
       var me = this;
 
@@ -6226,18 +6275,18 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           siembra: this.form,
           especies: this.listadoItems
         };
-        axios.post('api/siembras', data).then(function (_ref5) {
-          var response = _ref5.response;
-          _this4.form.nombre_siembra = '';
-          _this4.form.id_contenedor = '';
-          _this4.form.fecha_inicio = '';
-          _this4.newEspecie = '';
-          _this4.newLote = '';
-          _this4.newCantidad = '';
-          _this4.newPeso = '';
-          _this4.listadoItems = [];
+        axios.post('api/siembras', data).then(function (_ref6) {
+          var response = _ref6.response;
+          _this5.form.nombre_siembra = '';
+          _this5.form.id_contenedor = '';
+          _this5.form.fecha_inicio = '';
+          _this5.newEspecie = '';
+          _this5.newLote = '';
+          _this5.newCantidad = '';
+          _this5.newPeso = '';
+          _this5.listadoItems = [];
 
-          _this4.listar();
+          _this5.listar();
 
           $('#modalSiembra').modal('hide');
         });
@@ -6249,10 +6298,12 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     guardarRecursos: function guardarRecursos(id) {
       var me = this;
-      axios.post("api/recursos-necesarios", this.form).then(function (_ref6) {
-        var data = _ref6.data;
+      axios.post("api/recursos-necesarios", this.form).then(function (_ref7) {
+        var data = _ref7.data;
         console.log('guardado');
-        me.listar(); // $('#modalRecursos').modal('hide');          
+        me.listar(); // $('#modalRecursos').modal('hide');        
+
+        swal("Excelente!", "Los datos se guardaron correctamente!", "success");
       });
     },
     eliminarRegistro: function eliminarRegistro(id, objeto) {
@@ -6269,8 +6320,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           var data = {
             campos: objeto
           };
-          axios.put('api/registros/' + id, data).then(function (_ref7) {
-            var data = _ref7.data;
+          axios.put('api/registros/' + id, data).then(function (_ref8) {
+            var data = _ref8.data;
             console.log('eliminar' + id);
           });
         }
@@ -6286,8 +6337,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref8) {
-            var data = _ref8.data;
+          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref9) {
+            var data = _ref9.data;
             console.log('eliminar' + objeto);
             me.listar();
           });
@@ -6304,9 +6355,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/siembras/' + index).then(function (_ref9) {
-            var data = _ref9.data;
-            me.listarRegistros();
+          axios["delete"]('api/siembras/' + index).then(function (_ref10) {
+            var data = _ref10.data;
             me.listar();
             console.log('eliminar' + index);
           });
@@ -45759,97 +45809,129 @@ var render = function() {
                           "tbody",
                           [
                             _vm._l(_vm.listadoParametros, function(lp, index) {
-                              return _c("tr", { key: index }, [
-                                _c("th", {
-                                  domProps: { textContent: _vm._s(index + 1) }
-                                }),
-                                _vm._v(" "),
-                                _c("th", {
-                                  domProps: { textContent: _vm._s(lp.id) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: {
-                                    textContent: _vm._s(lp.fecha_parametro)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp["12_am"]) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp["4_am"]) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp["7_am"]) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp["4_pm"]) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp["8_pm"]) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: {
-                                    textContent: _vm._s(lp.temperatura)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp.ph) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp.amonio) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp.nitrito) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp.nitrato) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: { textContent: _vm._s(lp.otros) }
-                                }),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-success",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editarParametros(lp)
-                                        }
+                              return lp.id_contenedor != null
+                                ? _c("tr", { key: index }, [
+                                    _c("th", {
+                                      domProps: {
+                                        textContent: _vm._s(index + 1)
                                       }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.eliminarParametros(lp.id)
-                                        }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("th", {
+                                      domProps: { textContent: _vm._s(lp.id) }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.fecha_parametro)
                                       }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-trash" })]
-                                  )
-                                ])
-                              ])
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp["12_am"])
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp["4_am"])
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp["7_am"])
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp["4_pm"])
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp["8_pm"])
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.temperatura)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: { textContent: _vm._s(lp.ph) }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.amonio)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.nitrito)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.nitrato)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(lp.otros)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-success",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.editarParametros(lp)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-danger",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.eliminarParametros(
+                                                lp.id
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
                             }),
                             _vm._v(" "),
                             _c(
@@ -50827,12 +50909,6 @@ var render = function() {
                           _vm._v(" " + _vm._s(siembra.fin_descanso))
                         ]),
                         _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(_vm.estados[siembra.estado])
-                          }
-                        }),
-                        _vm._v(" "),
                         _c(
                           "td",
                           {
@@ -50844,9 +50920,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                " +
+                              "\n                              " +
                                 _vm._s(siembra.fecha_alimento) +
-                                "\n                                \n                                "
+                                "\n                              \n                              "
                             ),
                             _c(
                               "button",
@@ -50903,6 +50979,21 @@ var render = function() {
                           _c(
                             "button",
                             {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.editarSiembra(siembra)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
                               staticClass: "btn btn-danger",
                               on: {
                                 click: function($event) {
@@ -50949,61 +51040,132 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-12 col-md-12 text-left" }, [
                     _c("label", { attrs: { for: "" } }, [_vm._v("Contenedor")]),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.id_contenedor,
-                            expression: "form.id_contenedor"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "", id: "id_contenedor" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "id_contenedor",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.listadoContenedores, function(
-                        contenedor,
-                        index
-                      ) {
-                        return _c(
-                          "option",
-                          {
-                            key: index,
-                            attrs: { selected: "" },
-                            domProps: { value: contenedor.id }
-                          },
-                          [
-                            contenedor.estado == 1
-                              ? _c("span", [
-                                  _vm._v(_vm._s(contenedor.contenedor))
-                                ])
-                              : _vm._e()
-                          ]
-                        )
-                      }),
-                      0
-                    )
+                    _vm.id_edita == ""
+                      ? _c("div", [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.id_contenedor,
+                                  expression: "form.id_contenedor"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                name: "id_contenedor",
+                                id: "id_contenedor"
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "id_contenedor",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.listadoContenedores, function(
+                              contenedor,
+                              index
+                            ) {
+                              return contenedor.estado == 1
+                                ? _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      attrs: { selected: "" },
+                                      domProps: { value: contenedor.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(contenedor.contenedor) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            }),
+                            0
+                          )
+                        ])
+                      : _c("div", [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.id_contenedor,
+                                  expression: "form.id_contenedor"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                disabled: "",
+                                name: "id_contenedor",
+                                id: "id_contenedor"
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "id_contenedor",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.listadoContenedores, function(
+                              contenedor,
+                              index
+                            ) {
+                              return _c(
+                                "option",
+                                {
+                                  key: index,
+                                  attrs: { selected: "" },
+                                  domProps: { value: contenedor.id }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                      " +
+                                      _vm._s(contenedor.contenedor) +
+                                      "\n                    "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -51013,31 +51175,61 @@ var render = function() {
                       _vm._v("Nombre de Siembra")
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.nombre_siembra,
-                          expression: "form.nombre_siembra"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", id: "nombre_siembra" },
-                      domProps: { value: _vm.form.nombre_siembra },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _vm.id_edita == ""
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.nombre_siembra,
+                              expression: "form.nombre_siembra"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "nombre_siembra" },
+                          domProps: { value: _vm.form.nombre_siembra },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "nombre_siembra",
+                                $event.target.value
+                              )
+                            }
                           }
-                          _vm.$set(
-                            _vm.form,
-                            "nombre_siembra",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.nombre_siembra,
+                              expression: "form.nombre_siembra"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: "",
+                            type: "text",
+                            id: "nombre_siembra"
+                          },
+                          domProps: { value: _vm.form.nombre_siembra },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "nombre_siembra",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
                   ])
                 ]),
                 _vm._v(" "),
@@ -51047,31 +51239,65 @@ var render = function() {
                       _vm._v("Fecha Inicio")
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.fecha_inicio,
-                          expression: "form.fecha_inicio"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "date", id: "fecha_inicio", required: "" },
-                      domProps: { value: _vm.form.fecha_inicio },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _vm.id_edita == ""
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.fecha_inicio,
+                              expression: "form.fecha_inicio"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            id: "fecha_inicio",
+                            required: ""
+                          },
+                          domProps: { value: _vm.form.fecha_inicio },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "fecha_inicio",
+                                $event.target.value
+                              )
+                            }
                           }
-                          _vm.$set(
-                            _vm.form,
-                            "fecha_inicio",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.fecha_inicio,
+                              expression: "form.fecha_inicio"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            id: "fecha_inicio",
+                            disabled: ""
+                          },
+                          domProps: { value: _vm.form.fecha_inicio },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "fecha_inicio",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
                   ])
                 ]),
                 _vm._v(" "),
@@ -51150,7 +51376,7 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               type: "text",
-                              min: "1",
+                              min: "0",
                               id: "lote",
                               required: ""
                             },
@@ -51179,7 +51405,7 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               type: "number",
-                              min: "1",
+                              min: "0",
                               id: "cantidad",
                               required: ""
                             },
@@ -51208,7 +51434,7 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               type: "number",
-                              min: "1",
+                              min: "0",
                               id: "peso_inicial",
                               required: ""
                             },
@@ -51282,18 +51508,20 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.removeItem(item.id_especie)
-                                  }
-                                }
-                              },
-                              [_vm._v("X")]
-                            )
+                            !item.es_edita
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.removeItem(item.id_especie)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("X")]
+                                )
+                              : _vm._e()
                           ])
                         ])
                       })
@@ -51315,19 +51543,33 @@ var render = function() {
                       [_vm._v("Cancelar")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" },
-                        on: {
-                          click: function($event) {
-                            return _vm.guardar()
-                          }
-                        }
-                      },
-                      [_vm._v("Crear")]
-                    )
+                    _vm.id_edita == ""
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.guardar()
+                              }
+                            }
+                          },
+                          [_vm._v("Crear")]
+                        )
+                      : _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.guardarEdita(_vm.form.id_contenedor)
+                              }
+                            }
+                          },
+                          [_vm._v("Actualizar")]
+                        )
                   ])
                 ])
               ])
@@ -52420,8 +52662,6 @@ var staticRenderFns = [
           _vm._v(" descanso estanque")
         ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
-        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [
           _vm._v("Fecha "),
           _c("br"),
@@ -52432,7 +52672,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Finalizar")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Eliminar")])
       ])
     ])
   },

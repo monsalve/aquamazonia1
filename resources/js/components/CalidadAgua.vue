@@ -76,7 +76,7 @@
                     </tr>                  
                   </thead>
                   <tbody>
-                    <tr v-for="(lp, index) in listadoParametros" :key="index">
+                    <tr v-for="(lp, index) in listadoParametros" :key="index" v-if="lp.id_contenedor != null">                
                       <th v-text="index+1"></th>
                       <th v-text="lp.id"></th>
                       <td v-text="lp.fecha_parametro"></td>
@@ -98,8 +98,8 @@
                         <button class="btn btn-danger" type="button" @click="eliminarParametros(lp.id)">
                           <i class="fas fa-trash"></i>
                         </button>
-                      </td>
-                    </tr>
+                      </td>                     
+                    </tr>                   
                     <tr class="bg-secondary text-white">
                       
                       <th colspan="3">PROMEDIO:</th>
@@ -244,11 +244,6 @@
                     <input type="number" class="form-control" id="otros" placeholder="Otros" step="any" v-model="form.otros">
                   </div>
                 </div>
-                <!-- <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
-                  <input type="checkbox" v-bind:value="lc.id" step="any" v-model="form.id_contenedor">
-                  <label for="siembra">{{lc.contenedor}}</label>
-                  <br>
-                </div> -->
               </div>
               <div class="form-group row">
                   <div class="col-sm-12 text-right">

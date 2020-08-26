@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\EspecieSiembra;
+use App\Especie;
 use App\Siembra;
 use App\Contenedor;
 use App\Registro;
@@ -95,9 +96,31 @@ class SiembraController extends Controller
             $especieSiembra->peso_actual = $especie['peso_inicial'];
             $especieSiembra->save();
         }
+    }
+    // Añadir especies a la siembra
+    public function anadirEspeciesxSiembra(Request $request)
+    {
         
+        foreach($request['especies'] as $especie){            
+            if(!isset($especie['es_edita'])){
+            
+                $especieSiembra = new EspecieSiembra();
+                $especieSiembra->id_siembra = $request->siembra['id_siembra'];
+                $especieSiembra->id_especie = $especie['id_especie'];
+                $especieSiembra->cantidad =  $especie['cantidad'];
+                $especieSiembra->lote =  $especie['lote'];
+                $especieSiembra->peso_inicial = $especie['peso_inicial'];
+                $especieSiembra->cant_actual =  $especie['cantidad'];;
+                $especieSiembra->peso_actual = $especie['peso_inicial'];
+                $especieSiembra->save();
+            }
+        }
+        
+        // return $request->especies;
     }
 
+    
+    
     /**
      * Display the specified unidad.
      *
@@ -118,13 +141,9 @@ class SiembraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         // $especieSiembras = EspecieSiembra::findOrFail($id);
         // $especieSiembras->update($request->all());
-          
-            
         return $request;
-      
     }
     public function actualizarEstado(Request $request, $id){
         $val = $request->validate([
@@ -195,5 +214,26 @@ class SiembraController extends Controller
         return ['filtrarSiembras' => $filtrarSiembras];
             
     } 
+    public function getEspeciesSiembra(Request $request, $id) {
+        $espxsiembra = EspecieSiembra::select('cantidad','id_especie','lote','peso_inicial')
+                        ->join('especies','especies_siembra.id_especie','especies.id')
+                        ->where('id_siembra',$id)                        
+                        ->orderBy('especies.especie')
+                        ->get();
+        $aux_id_es = array();
+        $aux_es = array();
+        foreach($espxsiembra as $axs) {
+            $aux_id_es[] = $axs->id_especie;
+            $aux_es[] = array('cantidad'=>$axs->cantidad,'id_especie'=>$axs->id_especie,'lote'=> $axs->lote, 'peso_inicial' => $axs->peso_inicial,'es_edita' => '1');
+        }
+        if(count($aux_id_es)>0) {
+            $especies = Especie::whereNotIn('id',$aux_id_es)->orderBy('especie')->get();
+        }
+        else {
+            $especies = Especie::orderBy('especie')->get();
+        }
+
+        return ['espxsiembra' => $aux_es , 'especies' => $especies];
+    }
     
 }
