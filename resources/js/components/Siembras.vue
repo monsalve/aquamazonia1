@@ -622,6 +622,7 @@
         $('#modalRecursos').modal('show');
         this.form.id_siembra = id;
         this.idSiembraR= id;
+        
         axios.post("api/siembras-alimentacion/"+id)
         .then(function (response){
           me.listadoRN = response.data.recursosNecesarios;               
@@ -649,8 +650,8 @@
           alert ('Debe diligenciar todos los campos');
         }
       },
-       removeItem(index){
-       console.log(index)
+       removeItem(index) {
+        console.log(index)
         let me =  this;
         me.listadoItems.pop(index,1)   
         this.listadoEspecies.push({

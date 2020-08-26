@@ -232,7 +232,6 @@ class SiembraController extends Controller
         else {
             $especies = Especie::orderBy('especie')->get();
         }
-
         return ['espxsiembra' => $aux_es , 'especies' => $especies];
     }
     
