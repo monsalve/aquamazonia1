@@ -57,7 +57,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover table-responsive">
+              <table class="table table-sm table-hover table-responsive-sm">
                 <thead>
                   <tr>
                     <th>#</th>

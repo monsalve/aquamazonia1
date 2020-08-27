@@ -5896,10 +5896,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-<<<<<<< HEAD
 //
-=======
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -6029,11 +6026,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.listarEspecies();
       this.listarContenedores();
       this.id_edita = '';
-<<<<<<< HEAD
       this.listadoItems = []; // console.log('añadir item') 
-=======
-      this.listadoItems = []; //console.log('añadir item') 
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
     },
     editarSiembra: function editarSiembra(siembra) {
       var me = this;
@@ -6049,7 +6042,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoEspecies = response.data.especies;
         me.listadoItems = response.data.espxsiembra;
       });
-<<<<<<< HEAD
     },
     guardarEdita: function guardarEdita(objeto) {
       var _this2 = this;
@@ -6075,10 +6067,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
         $('#modalSiembra').modal('hide');
       });
-=======
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
     },
-    guardarEdita: function guardarEdita() {},
     abrirCrear: function abrirCrear(id) {
       var me = this;
       $('#modalRecursos').modal('show');
@@ -44782,7 +44771,9 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                { staticClass: "table table-sm table-hover table-responsive" },
+                {
+                  staticClass: "table table-sm table-hover table-responsive-sm"
+                },
                 [
                   _vm._m(0),
                   _vm._v(" "),
@@ -51104,15 +51095,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-<<<<<<< HEAD
                                         "\n                      " +
                                           _vm._s(contenedor.contenedor) +
                                           "\n                    "
-=======
-                                        "\n                        " +
-                                          _vm._s(contenedor.contenedor) +
-                                          "\n                      "
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
                                       )
                                     ]
                                   )
@@ -51173,15 +51158,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-<<<<<<< HEAD
                                     "\n                      " +
                                       _vm._s(contenedor.contenedor) +
                                       "\n                    "
-=======
-                                    "\n                        " +
-                                      _vm._s(contenedor.contenedor) +
-                                      "\n                      "
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
                                   )
                                 ]
                               )
@@ -51531,11 +51510,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", [
-<<<<<<< HEAD
                             !item.es_edita
-=======
-                            item.es_edita != 1
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
                               ? _c(
                                   "button",
                                   {
@@ -51591,11 +51566,7 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-<<<<<<< HEAD
                                 return _vm.guardarEdita(_vm.form.id_contenedor)
-=======
-                                return _vm.guardarEdita()
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
                               }
                             }
                           },
@@ -52703,15 +52674,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Finalizar")]),
         _vm._v(" "),
-<<<<<<< HEAD
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
-=======
-        _c("th", { attrs: { scope: "col" } }),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } })
->>>>>>> 4c29177636219344d7a0a7f83aacb6e12fde2003
       ])
     ])
   },
@@ -72645,8 +72610,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
