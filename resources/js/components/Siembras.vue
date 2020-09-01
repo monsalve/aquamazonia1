@@ -82,7 +82,7 @@
     </div>
     <!-- Modal especies x siembras -->
     <div class="modal fade" id="modalSiembra" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalSiembraLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalSiembralLabel">Crear siembra</h5>
@@ -199,7 +199,7 @@
     </div>
      <!-- Modal añadir alimentos a siembras -->
     <div class="modal fade" id="modalRecursos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title" id="exampleModalLabel">Alimentos por siembra</h3>
@@ -240,48 +240,51 @@
                   <label for="cant_tarde" class="">Kg tarde</label>
                   <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
+                
             </form>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
               <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
             </div>
+            <div class="container">              
+              <table class="table table-sm table-hover table-responsive">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tipo de <br> Actividad</th>
+                    <!-- <th>Siembras</th> -->
+                    <th>Fecha</th>
+                    <th><br>Alimento</th>
+                    <th>Horas hombre</th>
+                    <th>Cantidad<br>Mañana</th>
+                    <th>Cantidad<br>Tarde</th>
+                    <th width=15%>Detalles</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in listadoRN" :key="index">
+                    <td v-text="index+1"></td>
+                    <td v-text="item.tipo_actividad"></td>                   
+                    <td v-text="item.fecha_ra"></td>
+                    <td> {{item.alimento}}</td>
+                    <td v-text="item.horas_hombre"></td>
+                    <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
+                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
+                    <td v-text="item.detalles"></td>
+                    <td>
+                      <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+      
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
           </div>
-          <div class="container">
-            <table class="table table-sm table-hover table-responsive">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Tipo de <br> Actividad</th>
-                  <!-- <th>Siembras</th> -->
-                  <th>Fecha</th>
-                  <th><br>Alimento</th>
-                  <th>Horas hombre</th>
-                  <th>Cantidad<br>Mañana</th>
-                  <th>Cantidad<br>Tarde</th>
-                  <th width=15%>Detalles</th>
-                  <th>Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in listadoRN" :key="index">
-                  <td v-text="index+1"></td>
-                  <td v-text="item.tipo_actividad"></td>                   
-                  <td v-text="item.fecha_ra"></td>
-                  <td> {{item.alimento}}</td>
-                  <td v-text="item.horas_hombre"></td>
-                  <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
-                  <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
-                  <td v-text="item.detalles"></td>
-                  <td>
-                    <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-    
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
@@ -305,6 +308,30 @@
           </div>
           <div class="modal-body">
             <div id="mostrarRegistros" v-if="ver_registros == 1">
+              <div class="col-md-12">
+                <h5>Filtrar por:</h5>
+                <form class="row">
+                  <div class="form-group col-md-4">
+                    <label for="tipo_registro">Tipo</label>
+                    <select class="form-control" id="tipo_registro" v-model="f_actividad">                      
+                      <option value="0" >Muestreo</option>
+                      <option value="1">Pesca</option>
+                      <option value="2">Mortalidad inicial</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="search">Desde: </label>
+                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_desde" v-model="f_fecha_d">
+                  </div>
+                   <div class="form-group col-md-3">
+                    <label for="search">Hasta: </label>
+                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_hasta" v-model="f_fecha_h">                                        
+                  </div>
+                  <div class="form-group col-md-2">                                      
+                    <button  class="btn btn-primary rounded-circle mt-4" @click="filtrarIngresos()" type="button"><i class="fas fa-search"></i></button>
+                  </div>
+                </form>
+              </div>
               <table class="table table-sm">
                 <thead>
                   <tr>
@@ -312,6 +339,7 @@
                     <th>Especie</th>
                     <th>Tipo de registro</th>
                     <th>Fecha</th>
+                    <th>Conversión alimenticia teórica</th>
                     <th>Tiempo (días)</th>
                     <th>Peso ganado (gr)</th>
                     <th>Mortalidad</th>
@@ -326,6 +354,7 @@
                     <td v-text="registro.especie"></td>
                     <td v-text="tipoRegistro[registro.tipo_registro]"></td>
                     <td v-text="registro.fecha_registro"></td>
+                    <td v-text="registro.conv_alimenticia  == null ? '-' : registro.conv_alimenticia"></td>
                     <td v-text="registro.tiempo"></td>
                     <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
                     <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
@@ -343,16 +372,16 @@
             </div>
             <div id="crearRegistros" v-if="ver_registros == 0">
               <div class="row">
-                 <div class="form-group col-md-4">
+                 <div class="form-group col-md-3">
                   <label for="fecha_registro">Fecha Registro</label>
                   <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                   <label for="tiempo">Tiempo (días)</label>
                   <input type="number" class="form-control" id="tiempo" placeholder="Tiempo" v-model="tiempo">
                 </div>
                 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                   <label for="tipo_registro">Tipo</label>
                   <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
                     <option value="0" >Muestreo</option>
@@ -360,6 +389,11 @@
                     <option value="2">Mortalidad inicial</option>
                   </select>
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="conv_alimenticia">Conversión alimenticia teórica</label>
+                  <input type="number" step="any" class="form-control" id="conv_alimenticia" placeholder="Conversión alimenticia teórica" v-model="conv_alimenticia">
+                </div>
+                
               </div>
               <div style="width:60%; margin:auto">
                 <table class="table table-bordered">
@@ -404,7 +438,7 @@
     </div>
     <!-- Modal Finalizar -->
     <div class="modal fade" id="modalFinalizar" tabindex="-1" role="dialog" aria-labelledby="modalFinalizarLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Finalizar siembra</h5>
@@ -442,7 +476,6 @@
     
   Vue.component(HasError.name, HasError)
   Vue.component(AlertError.name, AlertError)
-  import downloadexcel from "vue-json-excel"
     
   export default {
     data(){
@@ -477,6 +510,7 @@
         },
         fechaActual: [],
         ver_registros : 1,
+        id_edita : '',
         itemRegistro : [],
         newLote:'',
         newEspecie: '',
@@ -497,6 +531,7 @@
         id_siembra:'',
         id_especie : '',        
         fecha_registro:'',
+        conv_alimenticia : '',
         tiempo :'',
         tipo_registro:'',
         peso_ganado:'',
@@ -518,34 +553,17 @@
         campos: {
           camps_s: []
         },
-        
-        // Filtros para exportar
+        // Filtros ingresos
         f_siembra : '',
-        f_especie: '', 
-        f_lote : '',
-        f_inicio_d : '',
-        f_inicio_h : '',
-        id_edita : '',
+        f_actividad : '',
+        f_fecha_d : '',
+        f_fecha_h : ''
+        
       }
     },
-    components: {
-      downloadexcel,
-    },
-    
+  
     methods:{
       
-      async fetchData(){
-        let me = this;
-        const response = await this.imprimirSiembras
-        return this.imprimirSiembras;
-        //  imprimirSiembras
-      },
-      startDownload(){
-          alert('show loading');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
       listarEspecies(){
         let me = this;
         axios.get("api/especies")
@@ -702,6 +720,7 @@
           me.listadoRegistros = response.data
         })
       },      
+      
       crearRegistro(id){        
         let me = this;
         this.ver_registros = 0;
@@ -714,41 +733,37 @@
           id_siembra : id,        
           fecha_registro : this.fecha_registro,
           tipo_registro : this.tipo_registro,
-          tiempo : this.tiempo
+          tiempo : this.tiempo,
+          conv_alimenticia : this.conv_alimenticia
         }
         axios.post('api/registros', data)
         .then(({response})=>{     
           console.log(response)
           me.aux_campos = [];          
           me.ver_registros = 1;
-          me.listar();
+          me.abrirIngreso();
         });
       },
-      
-      exportarSiembras(){
+      filtrarIngresos(){
         let me = this;
-        if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
-        if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
-        if(this.f_lote == ''){this.f_l = '-1'}else{this.f_l = this.f_lote}
-        if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
-        if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
+        
+        // if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+        if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad} 
+        if(this.f_fecha_d == ''){this.f_d = '-1'}else{this.f_d = this.f_fecha_d}
+        if(this.f_fecha_h == ''){this.f_h = '-1'}else{this.f_h = this.f_fecha_h}
         
         const data = {
-          'f_siembra' : this.f_s,
-          'f_especie' : this.f_e,
-          'f_lote' : this.f_l,
-          'f_inicio_d' : this.f_d,
-          'f_inicio_h' : this.f_h
+          'f_siembra' : this.idSiembraRegistro,
+          'f_actividad' : this.act,
+          'f_fecha_d' : this.f_d,
+          'f_fecha_h' : this.f_h
         }
-        axios.post("api/filtro-siembras", data)
+        axios.post("api/filtro-registros", data)
         .then(response=>{
-          console.log(response.data);
-          me.imprimirSiembras = response.data.filtrarSiembras;
-          alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
+          me.listadoRegistros = response.data
         })
-        
       },
-            
+   
       finalizarSiembra(id){
         $("#modalFinalizar").modal('show');
         this.id_finalizar = id;

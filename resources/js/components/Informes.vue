@@ -117,7 +117,7 @@
                               <th v-text="lrn.costo_r_acum"></th>        
                               <td v-text="lrn.fecha_ra"></td>     
                               <td v-text="lrn.alimento"></td>
-                              <td v-text="lrn.costo_a"></td>
+                              <td v-text="lrn.costo_total"></td>
                               <th v-text="lrn.costo_a_acum"></th>
                             </tr>
                           </tbody>
@@ -149,6 +149,7 @@
             'Costo acumulado' : 'costo_r_acum',
             'Alimento' : 'alimento',
             'Costo Alimento' : 'costo_a',
+            'Costo Total' : 'costo_total',
             'Costo acumulado Alimento' : 'costo_a_acum', 
         },       
         listados: [],

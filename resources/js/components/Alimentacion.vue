@@ -7,7 +7,23 @@
 
           <div class="card-body">
             <div class="row mb-1">
-              <div class="col-md-10">
+            <div class="col-md-12 text-right ">
+                <div class="form-group col-md-2">                            
+                  <downloadexcel                                
+                    class = "btn btn-success form-control"
+                    :fetch   = "fetchData"
+                    :fields = "json_fields"
+                    :before-generate = "startDownload"
+                    :before-finish = "finishDownload"
+                    name    = "informe-alimentos.xls"
+                    type    = "xls">
+                      <i class="fa fa-fw fa-download"></i> Generar Excel 
+                  </downloadexcel>      
+                  <!-- Button trigger modal -->
+                  <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
+                </div>
+              </div>
+              <div class="col-md-12">
                 <h5>Filtrar por:</h5>
                 <form class="row">
                   <input type="hidden" value="Alimentacion" v-model="t_actividad">
@@ -38,22 +54,7 @@
                   </div>
                 </form>
               </div>
-              <div class="col-md-2 text-right ">
-                <div class="form-group">                            
-                  <downloadexcel                                
-                    class = "btn btn-success form-control"
-                    :fetch   = "fetchData"
-                    :fields = "json_fields"
-                    :before-generate = "startDownload"
-                    :before-finish = "finishDownload"
-                    name    = "informe-alimentos.xls"
-                    type    = "xls">
-                      <i class="fa fa-fw fa-download"></i> Generar Excel 
-                  </downloadexcel>      
-                  <!-- Button trigger modal -->
-                  <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
-                </div>
-              </div>
+              
             </div>
          
             <div>
@@ -68,6 +69,8 @@
                     <th>Horas hombre</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
+                    <th>Costo Kg</th>
+                    <th>Costo total</th>
                     <th width=15%>Detalles</th>
                     <!-- <th>Eliminar</th> -->
                   </tr>
@@ -81,8 +84,10 @@
                     <td v-text="item.alimento"></td>
                     <td v-text="item.horas_hombre"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
-                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
-                    <td v-text="item.detalles"></td>
+                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
+                    <td v-text="item.costo_kg"></td>
+                    <td v-text="item.costo_total"></td>
+                     <td v-text="item.detalles"></td>
                     <!-- <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
                         <i class="fas fa-trash"></i>

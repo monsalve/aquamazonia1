@@ -25,10 +25,11 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light border-dark bg-warning shadow-sm border-bottom-0">
+        <nav class="navbar navbar-expand-md navbar-light border-dark bg-light shadow-sm border-bottom-0">
             <div class="container">
+                <img id="logo-app" src="{{ asset('img/logo-aquamazonia.jpg') }}" alt="Logo-aquamazonia" style="width:70px">
                 
-                {{ config('app.name', 'Aquamazonia') }}
+               <h3>{{ config('app.name', 'Aquamazonia') }}</h3> 
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

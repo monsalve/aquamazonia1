@@ -27,19 +27,6 @@ class RecursoNecesarioController extends Controller
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->where('tipo_actividad', '!=', 'Alimentacion')
         ->get();
-      
-        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
-        ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
-        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->get();
-        
-        $registrosxSiembra=array();
-        
-        foreach($recursosSiembra as $rs){
-            $registrosxSiembra[$rs['id_registro']][$rs['id']] = array('id_registro' => $rs['id_registro'], 'id_siembra' => $rs['id_siembra'], 'id_recurso' => $rs['id_recurso'], 'id_alimento' => $rs['id_alimento'], 'fecha_ra'=>$rs['fecha_ra'], 'horas_hombre' => $rs['horas_hombre'], 'cant_manana' => $rs['cant_manana'], 'cant_tarde'=>$rs['cant_tarde'], 'detalles' => $rs['detalles'], 'tipo_actividad'=> $rs['tipo_actividad'], 'idrn' => $rs['idrn']);
-        }
         
         return ['recursosNecesarios' => $recursosNecesarios];
     }
@@ -51,8 +38,14 @@ class RecursoNecesarioController extends Controller
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->where('tipo_actividad', '=', 'Alimentacion')
-        
         ->get();
+        
+        if(count($recursosNecesarios)>0){
+            for($i=0;$i<count($recursosNecesarios); $i++){        
+                // $recursosNecesarios[$i]->costo_total = number_format(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg, 2, ',', '.');
+                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
+            }
+        }
       
         $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
         ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
@@ -205,6 +198,12 @@ class RecursoNecesarioController extends Controller
         ->where($c11, $op6, $c12)
         ->where($c13, $op7, $c14)
         ->get();
+        
+        if(count($recursosNecesarios)>0){
+            for($i=0;$i<count($recursosNecesarios); $i++){        
+                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;      
+            }
+        }
       
         $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
         ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')

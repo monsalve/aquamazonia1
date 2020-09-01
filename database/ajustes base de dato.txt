@@ -4,3 +4,6 @@ Tabla 'siembras' se añadió la columna 'fecha_alimento'
 
 20/08/2020
 Se añadio la columna 'id_contenedor' en la Tabla 'calidad_agua'
+
+01/09/2020
+Se añadio columna 'conv_alimenticia' en la Tabla 'registros'
