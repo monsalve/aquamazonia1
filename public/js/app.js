@@ -4647,6 +4647,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo': 'costo_r',
         'Costo acumulado': 'costo_r_acum',
         'Alimento': 'alimento',
+        'Cantidad KG mañana': 'cant_manana',
+        'Cantidad KG tarde': 'cant_tarde',
         'Costo Alimento': 'costo_a',
         'Costo Total': 'costo_total',
         'Costo acumulado Alimento': 'costo_a_acum'
