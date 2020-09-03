@@ -3612,6 +3612,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3631,7 +3634,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Mortalidad': 'mortalidad',
         'Mortalidad kg': 'mortalidad_kg',
         'Mortalidad %': 'mortalidad_porcentaje',
-        'Salida animales': 'salida_animales'
+        'Salida animales': 'salida_animales',
+        'Densidad final (Animales/m2)': 'densidad_final',
+        'Carga final (Kg/m2)': 'carga_final'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -47946,7 +47951,15 @@ var render = function() {
                         _vm._v(" "),
                         le.salida_animales
                           ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                          : _c("td", [_vm._v("0")])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.densidad_final) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.carga_final) }
+                        })
                       ])
                     }),
                     0
@@ -48035,7 +48048,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales")])
+        _c("th", [_vm._v("Salida animales")]),
+        _vm._v(" "),
+        _c("th", [
+          _vm._v("Densidad Final (Animales/m"),
+          _c("sup", [_vm._v("2")]),
+          _vm._v(")")
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _vm._v("Carga Final (Kg/m"),
+          _c("sup", [_vm._v("2")]),
+          _vm._v(")")
+        ])
       ])
     ])
   }

@@ -70,7 +70,8 @@
                               <th>% Mortalidad</th>
                               <th>Salida animales</th>
                               <!-- <th>Peso ganado</th> -->
-                              
+                              <th>Densidad Final (Animales/m<sup>2</sup>)</th>
+                              <th>Carga Final (Kg/m<sup>2</sup>)</th>
                               
                             </tr>
                           </thead>
@@ -98,6 +99,8 @@
                               <td v-else>0</td>
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
                               <td v-else>0</td>
+                              <td v-text="le.densidad_final"></td>
+                              <td v-text="le.carga_final"></td>
                               <!-- <td v-text="le.peso_ganado"></td> -->
                               <!-- <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td> -->
                             </tr>
@@ -132,6 +135,8 @@
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
+          'Densidad final (Animales/m2)' : 'densidad_final',
+          'Carga final (Kg/m2)' : 'carga_final',
         },       
         listadoExistencias : [],
         listadoEspecies : [],
