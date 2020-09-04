@@ -47,6 +47,7 @@ class RegistroController extends Controller
             ->where('id_siembra', '=', $id)
             ->orderBy('registros.id', 'desc')
             ->get();
+        
         return $registros;
         
     }
