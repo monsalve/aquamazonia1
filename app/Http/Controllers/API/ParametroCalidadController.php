@@ -20,7 +20,22 @@ class ParametroCalidadController extends Controller
     public function index()
     {
       //
-        $calidad_agua = CalidadAgua::select()
+        $calidad_agua = CalidadAgua::select(
+            'calidad_agua.id as id',
+            'contenedores.id as id_contenedor',
+            '4_am',
+            '4_pm',
+            '7_am',
+            '8_pm',
+            '12_am',
+            'amonio',
+            'contenedor',
+            'fecha_parametro',
+            'nitrato',
+            'nitrito',
+            'otros',
+            'ph',
+            'temperatura')
             ->join('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
             ->orderBy('fecha_parametro', 'desc')
             ->get();
@@ -89,22 +104,24 @@ class ParametroCalidadController extends Controller
     public function store(Request $request)
     {
         //
-        $calidad_agua = new CalidadAgua();
-        $calidad_agua->fecha_parametro = $request['fecha_parametro'];
-        $calidad_agua->id_contenedor = $request['id_contenedor'];
-        $calidad_agua->{'12_am'} = $request['12_am'];
-        $calidad_agua->{'4_am'} = $request['4_am'];
-        $calidad_agua->{'7_am'} = $request['7_am'];
-        $calidad_agua->{'4_pm'} = $request['4_pm'];
-        $calidad_agua->{'8_pm'} = $request['8_pm'];
-        $calidad_agua->temperatura = $request['temperatura'];
-        $calidad_agua->ph = $request['ph'];
-        $calidad_agua->amonio = $request['amonio'];
-        $calidad_agua->nitrito = $request['nitrito'];
-        $calidad_agua->nitrato = $request['nitrato'];
-        $calidad_agua->otros = $request['otros'];
-        $calidad_agua->save();
-        
+        foreach($request->id_contenedor as $contenedor){
+            $calidad_agua = new CalidadAgua();
+            $calidad_agua->fecha_parametro = $request['fecha_parametro'];
+            // $calidad_agua->id_contenedor = $request['id_contenedor'];
+            $calidad_agua->id_contenedor = $contenedor;
+            $calidad_agua->{'12_am'} = $request['12_am'];
+            $calidad_agua->{'4_am'} = $request['4_am'];
+            $calidad_agua->{'7_am'} = $request['7_am'];
+            $calidad_agua->{'4_pm'} = $request['4_pm'];
+            $calidad_agua->{'8_pm'} = $request['8_pm'];
+            $calidad_agua->temperatura = $request['temperatura'];
+            $calidad_agua->ph = $request['ph'];
+            $calidad_agua->amonio = $request['amonio'];
+            $calidad_agua->nitrito = $request['nitrito'];
+            $calidad_agua->nitrato = $request['nitrato'];
+            $calidad_agua->otros = $request['otros'];
+            $calidad_agua->save();
+        }
         
         // foreach($request->id_contenedor as $contenedor){
         //     $calidad_siembra = new CalidadSiembra();
@@ -250,7 +267,23 @@ class ParametroCalidadController extends Controller
     
     public function mostrarParametrosxContenedores($id){
         //
-          $calidad_agua = CalidadAgua::select()
+          $calidad_agua = CalidadAgua::select(
+            'calidad_agua.id as id',
+            'contenedores.id as id_contenedor',
+            '4_am',
+            '4_pm',
+            '7_am',
+            '8_pm',
+            '12_am',
+            'amonio',
+            'contenedor',
+            'fecha_parametro',
+            'nitrato',
+            'nitrito',
+            'otros',
+            'ph',
+            'temperatura'
+          )
           ->where('contenedores.id', '=',$id)          
           ->rightJoin('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
           ->orderBy('fecha_parametro', 'desc')
@@ -307,7 +340,7 @@ class ParametroCalidadController extends Controller
               // print_r('Promedio:'.$div_promedio);
               return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
           }
-          
+          return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
            
         
     }

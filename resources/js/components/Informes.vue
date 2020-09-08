@@ -28,15 +28,8 @@
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
-                                <option selected value="-1"> --Seleccionar--</option>
-                                <option value="Encalado" selected>Encalado</option>
-                                <option value="Alimentacion"> Alimentación</option>
-                                <option value="Llenado">Llenado</option>
-                                <option value="Siembra">Siembra</option>
-                                <option value="Cultivo">Cultivo</option>
-                                <option value="Pesca">Pesca</option>
-                                <option value="Secado">Secado</option>
-                                <option value="Lavado">Lavado</option>
+                                <option selected> Seleccionar</option>   
+                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -107,7 +100,7 @@
                               <th v-text="index+1"></th>
                               <td v-text="lrn.nombre_siembra"></td>
                               <td v-text="estados[lrn.estado]"></td>
-                              <td v-text="lrn.tipo_actividad"></td>
+                              <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.horas_hombre +'hr'"></td>
                               <td v-text="lrn.costo_horash +'hr'"></td>
@@ -117,7 +110,7 @@
                               <th v-text="lrn.costo_r_acum"></th>        
                               <td v-text="lrn.fecha_ra"></td>     
                               <td v-text="lrn.alimento"></td>
-                              <td v-text="lrn.costo_total"></td>
+                              <td v-text="lrn.costo_total_alimento"></td>
                               <th v-text="lrn.costo_a_acum"></th>
                             </tr>
                           </tbody>
@@ -139,7 +132,7 @@
         json_fields: {
             'Nombre Siembra' : 'nombre_siembra',
             'Estado Siembra' : 'estado',
-            'Tipo de Actividad' : 'tipo_actividad',
+            'Tipo de Actividad' : 'actividad',
             'Fecha Registro' : 'fecha_ra',
             'Horas hombre' : 'horas_hombre',
             'Costo horas hombre' : 'costo_horash',
@@ -151,7 +144,7 @@
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
             'Costo Alimento' : 'costo_a',
-            'Costo Total' : 'costo_total',
+            'Costo Total' : 'costo_total_alimento',
             'Costo acumulado Alimento' : 'costo_a_acum', 
             
         },       
@@ -159,6 +152,7 @@
         listadors:[],
         listadorn:[],
         listadoe:[],
+        listadoActividades:[],
         listadoAlimentos:[],
         listadoSiembras: [], 
         listadoRecursos:[],
@@ -210,6 +204,13 @@
         var aux_acum = parseFloat(this.costo_acum);
         console.log('aux_acum=' + aux_acum);
         return aux_acum;
+      },
+      listarActividades(){
+        let me = this;
+        axios.get("api/actividades")
+        .then(function (response){
+          me.listadoActividades = response.data; 
+        })
       },
       listarAlimentos(){
         let me = this;
@@ -275,6 +276,7 @@
       this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();
+      this.listarActividades();
       this.estados[0] = 'Inactivo';
       this.estados[1] = 'Activo';
     }

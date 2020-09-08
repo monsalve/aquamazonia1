@@ -26,7 +26,7 @@
               <div class="col-md-12">
                 <h5>Filtrar por:</h5>
                 <form class="row">
-                  <input type="hidden" value="Alimentacion" v-model="t_actividad">
+                  <input type="hidden" value="1" v-model="t_actividad">
                   <div class="form-group col-md-2">
                     <label for="Siembra">Siembra:</label>
                     <select class="form-control" id="f_siembra" v-model="f_siembra">
@@ -65,8 +65,10 @@
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>
-                    <th><br>Alimento</th>
+                    
                     <th>Horas hombre</th>
+                    <th>Total horas hombre</th>
+                    <th><br>Alimento</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
                     <th>Costo Kg</th>
@@ -78,15 +80,16 @@
                 <tbody>
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
-                    <td v-text="item.tipo_actividad"></td>
+                    <td v-text="item.actividad"></td>
                     <td v-text="item.nombre_siembra"></td>
-                    <td v-text="item.fecha_ra"></td>
-                    <td v-text="item.alimento"></td>
+                    <td v-text="item.fecha_ra"></td>                    
                     <td v-text="item.horas_hombre"></td>
+                    <td v-text="item.total_horas_hombre"></td>
+                    <td v-text="item.alimento"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
                     <td v-text="item.costo_kg"></td>
-                    <td v-text="item.costo_total"></td>
+                    <td v-text="item.costo_total_alimento"></td>
                      <td v-text="item.detalles"></td>
                     <!-- <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
@@ -185,7 +188,7 @@ import downloadexcel from "vue-json-excel"
     data(){
       return {
         json_fields : {
-          'Tipo actividad' : 'tipo_actividad',
+          'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
           'Alimento' : 'alimento',
@@ -198,7 +201,7 @@ import downloadexcel from "vue-json-excel"
           id_siembra: [],
           id_recurso : '',
           id_alimento :'',
-          tipo_actividad : 'Alimentacion',
+          tipo_actividad : '1',
           fecha_ra : '',
           horas_hombre : '',
           cant_manana : '',
@@ -254,7 +257,7 @@ import downloadexcel from "vue-json-excel"
      
         const data ={
           'f_siembra' : this.f_s,
-          'tipo_actividad' : 'Alimentacion',
+          'tipo_actividad' : '1',
           'alimento_s' : this.ali,
           'recurso_s' : this.rec,
           'fecha_ra1' :this.fecha1,

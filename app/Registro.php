@@ -13,7 +13,6 @@ class Registro extends Model
         'id_especie',
         'fecha_registro',
         'conv_alimenticia',
-        'tiempo',
         'tipo_registro',
         'peso_ganado',
         'mortalidad',

@@ -10,6 +10,7 @@ use App\RecursoSiembra;
 use App\RecursoNecesario;
 use App\Recurso;
 use App\Registro;
+use App\Actividad;
 use Illuminate\Support\Facades\DB;
 
 class InformeController extends Controller
@@ -28,7 +29,8 @@ class InformeController extends Controller
         ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
+        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id','actividad', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
         ->get();
             
         $acumula=0;
@@ -41,9 +43,9 @@ class InformeController extends Controller
                 $acumula+=$recursosNecesarios[$i]->costo_r;
                 $recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '.');
                 
-                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
                 
-                $acumula2+=$recursosNecesarios[$i]->costo_total;
+                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '.');
                 
                 $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
@@ -84,7 +86,8 @@ class InformeController extends Controller
         ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
+        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id','actividad', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'siembras.estado as estado')
         ->where($c1, $op1, $c3)
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
@@ -104,9 +107,9 @@ class InformeController extends Controller
                 $acumula+=$recursosNecesarios[$i]->costo_r;
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 
-                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
                 
-                $acumula2+=$recursosNecesarios[$i]->costo_total;
+                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
                 
                 $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
@@ -125,7 +128,8 @@ class InformeController extends Controller
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
+        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+        ->select('recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento','actividad', 'fecha_ra', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
         ->get();
         
         $acumula=0;
@@ -138,9 +142,9 @@ class InformeController extends Controller
                 $acumula+=$recursosNecesarios[$i]->costo_r;
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 
-                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
                 
-                $acumula2+=$recursosNecesarios[$i]->costo_total;
+                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
                 
                 $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
@@ -173,7 +177,8 @@ class InformeController extends Controller
         ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
+        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+        ->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'actividad','horas_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado')
         ->where($c1, $op1, $c2)
         ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
@@ -193,9 +198,9 @@ class InformeController extends Controller
                 $acumula+=$recursosNecesarios[$i]->costo_r;
                 $recursosNecesarios[$i]->costo_r_acum = $acumula;
                 
-                $recursosNecesarios[$i]->costo_total = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
                 
-                $acumula2+=$recursosNecesarios[$i]->costo_total;
+                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
                 
                 $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
@@ -276,7 +281,7 @@ class InformeController extends Controller
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','.');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',','.'));
-                            $existencias[$i]->mortalidad_porcentaje =  (round((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2)) .' %';
+                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',','.')) .' %';
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',','.'));
                             $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','.')) .' kg';                    

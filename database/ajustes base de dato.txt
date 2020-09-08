@@ -7,3 +7,10 @@ Se añadio la columna 'id_contenedor' en la Tabla 'calidad_agua'
 
 01/09/2020
 Se añadio columna 'conv_alimenticia' en la Tabla 'registros'
+
+05/09/2020
+Se eliminó la columna 'tiempo' de la Tabla 'registros'
+Se modificó la columna 'detalles de la tabla 'recursos_necesarios' para que pueda permitir datos nulos
+
+07/09/2020
+Se creó la tabla 'actividades'

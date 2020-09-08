@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'contenedores' => 'API\ContenedorController',
+    'actividades' => 'API\ActividadController',
     'alimentos' => 'API\AlimentosController',
     'recursos' => 'API\RecursosController',
     'especies' => 'API\EspeciesController',
@@ -31,8 +32,7 @@ Route::apiResources([
     'recursos-siembras' => 'API\RecursoSiembraController',
     'informes' => 'API\InformeController',
     'parametros-calidad' => 'API\ParametroCalidadController',
-    'informes-siembras' => 'API\InformeSiembraController',
-    // 'informes-recursos' => 'API\InformeRecursosController',
+    'informes-siembras' => 'API\InformeSiembraController'
 ]);
 
 Route::namespace('API')->group(function () {

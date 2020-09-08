@@ -24,14 +24,8 @@
                   <div class="form-group col-md-2">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
-                      <option selected value="1"> Seleccionar</option>
-                      <option value="Encalado">Encalado</option>
-                      <option value="Llenado">Llenado</option>
-                      <option value="Siembra">Siembra</option>
-                      <option value="Cultivo">Cultivo</option>
-                      <option value="Pesca">Pesca</option>
-                      <option value="Secado">Secado</option>
-                      <option value="Lavado">Lavado</option>
+                      <option selected> Seleccionar</option>   
+                      <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>                 
                     </select>
                   </div>
                   <div class="form-group col-md-2">
@@ -76,11 +70,15 @@
                     <th>#</th>
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
-                    <th>Fecha</th>
-                    <th>Recurso</th>
+                    <th>Fecha</th>                  
                     <th>Horas hombre</th>
-                    <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th>
+                    <th>Total horas hombre</th>
+                    <th>Recurso</th>                   
+                    <th>Cantidad</th>
+                    <th>Costo</th>
+                    <th>Costo Total</th>
+                    <!-- <th>Cantidad<br>Mañana</th>
+                    <th>Cantidad<br>Tarde</th> -->
                     <th width=15%>Detalles</th>
                     <th>Eliminar</th>
                   </tr>
@@ -89,13 +87,16 @@
                 
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
-                    <td v-text="item.tipo_actividad"></td>
+                    <td v-text="item.actividad"></td>
                     <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>
-                    <td> {{nombresRecursos[item.id_recurso]}}</td>
                     <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
-                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
+                    <td v-text="item.total_horas_hombre"></td>
+                    <td v-text="item.recurso"></td>
+                    <td v-text="item.cantidad_recurso"></td>
+                    <td v-text="item.costo"></td>
+                    <td v-text="item.costo_total_recurso"></td>
+                   
                     <td v-text="item.detalles"></td>
                     <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id_registro)">
@@ -127,16 +128,18 @@
                 <div class="form-group">
                   <label for="">Tipo de Actividad</label>
                   <select class="form-control" id="tipo_actividad" v-model="form.tipo_actividad">
-                    <option value="Encalado" selected>Encalado</option>
-                    <option value="Llenado">Llenado</option>
-                    <option value="Siembra">Siembra</option>
-                    <option value="Cultivo">Cultivo</option>
-                    <option value="Pesca">Pesca</option>
-                    <option value="Secado">Secado</option>
-                    <option value="Lavado">Lavado</option>
+                    <option selected>--Seleccionar--</option>
+                    <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                   </select>
                 </div>
-               
+                <div class="form-group">   
+                  <label for="horas hombre">Fecha</label>
+                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                </div>                
+                <div class="form-group">   
+                  <label for="horas hombre">Horas hombre</label>
+                  <input type="number" class="form-control" id="horas_hombre" step="any" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                </div>
                 <div class="form-group">
                   <label for="recurso">Recurso</label>
                   <select class="form-control" id="recurso" v-model="form.id_recurso">
@@ -144,27 +147,13 @@
                     <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                   </select>
                 </div>
-                 <div class="form-group">   
-                  <label for="horas hombre">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
-                </div>
-                
-                <div class="form-group">   
-                  <label for="horas hombre">Horas hombre</label>
-                  <input type="number" class="form-control" id="horas_hombre" step="any" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                </div>
-                    
                 <div class="form-group">                    
-                  <label for="cant_manana">Kg Mañana</label>
-                  <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                  <label for="cantidad_recurso">Cantidad</label>
+                  <input type="number" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
                 </div>
               </div>
               <div class="col-md-6"> 
-                <div class="form-group">    
-                  <label for="cant_tarde">Kg tarde</label>
-                  <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
-                </div>
-              
+                             
                 <div class="form-group">   
                   <label for="detalles">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
@@ -196,13 +185,15 @@ import downloadexcel from "vue-json-excel"
     data(){
       return {
         json_fields : {
-          'Tipo actividad' : 'tipo_actividad',
+          'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
-          'Fecha' : 'fecha_ra',
-          'Recurso' : 'recurso',
+          'Fecha' : 'fecha_ra',        
           'Horas hombre' : 'horas_hombre',
-          'Kg Mañana' : 'cant_manana', 
-          'Kg tarde' : 'cant_tarde',
+          'Costo total horas' : 'total_horas_hombre',
+          'Recurso' : 'recurso',
+          'Cantidad' : 'cantidad_recurso',
+          'Costo' : 'costo',
+          'Costo total recurso' :'costo_total_recurso',
           'Detalles' : 'detalles'
         },
         form : new Form({
@@ -212,8 +203,7 @@ import downloadexcel from "vue-json-excel"
           tipo_actividad : '',
           fecha_ra : '',
           horas_hombre : '',
-          cant_manana : '',
-          cant_tarde : '',
+          cantidad_recurso : '',
           detalles : ''
         }),    
         t_actividad:'',
@@ -229,6 +219,7 @@ import downloadexcel from "vue-json-excel"
         listadorxs:[],
         listadoSiembras : [],
         listadoAlimentos:[],
+        listadoActividades : [],
         listadoRecursos:[],
         nombresRecursos:[],
         nombresAlimentos:[]
@@ -305,6 +296,13 @@ import downloadexcel from "vue-json-excel"
           
         })
       },
+      listarActividades(){
+        let me = this;
+        axios.get("api/actividades")
+        .then(function (response){
+          me.listadoActividades = response.data; 
+        })
+      },
       listarRecursos(){
         let me = this;
         axios.get("api/recursos")
@@ -355,6 +353,7 @@ import downloadexcel from "vue-json-excel"
       this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();
+      this.listarActividades();
       console.log('Component mounted.')
     }
   }

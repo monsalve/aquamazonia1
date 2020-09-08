@@ -173,10 +173,18 @@
                   <tr v-for="( item, index) in listadoItems" :key="index" >
                     <th scope="row">{{index + 1}}</th>
                     <td v-text="nombresEspecies[item.id_especie]"></td>
-                    <td v-text="item.lote"></td>
+                    <td>
+                      <span v-if="id_edit_item == ''" v-text="item.lote"></span>
+                      <input v-if="id_edit_item == item.id_especie" type="text" name="aux_lote" id="aux_lote" v-model="aux_lote">
+                    </td>
                     <td v-text="item.cantidad"></td>
                     <td v-text="item.peso_inicial"></td>
-                    <td><button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-primary">X</button></td>
+                    <td>
+                      <button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-danger">X</button>
+                      <button v-if="item.es_edita && id_edit_item == ''" @click="editItem(item)" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                      <button v-if="item.es_edita && id_edit_item == item.id_especie" @click="guardaEditItem(item)" class="btn btn-success"><i class="fas fa-check"></i></button>
+                      {{index}}
+                    </td>
                   </tr>
                   
                 </tbody>
@@ -340,7 +348,6 @@
                     <th>Tipo de registro</th>
                     <th>Fecha</th>
                     <th>Conversión alimenticia teórica</th>
-                    <th>Tiempo (días)</th>
                     <th>Peso ganado (gr)</th>
                     <th>Mortalidad</th>
                     <th>Biomasa</th>
@@ -355,7 +362,6 @@
                     <td v-text="tipoRegistro[registro.tipo_registro]"></td>
                     <td v-text="registro.fecha_registro"></td>
                     <td v-text="registro.conv_alimenticia  == null ? '-' : registro.conv_alimenticia"></td>
-                    <td v-text="registro.tiempo"></td>
                     <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
                     <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
                     <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
@@ -376,11 +382,6 @@
                   <label for="fecha_registro">Fecha Registro</label>
                   <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
                 </div>
-                <div class="form-group col-md-2">
-                  <label for="tiempo">Tiempo (días)</label>
-                  <input type="number" class="form-control" id="tiempo" placeholder="Tiempo" v-model="tiempo">
-                </div>
-                
                 <div class="form-group col-md-3">
                   <label for="tipo_registro">Tipo</label>
                   <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
@@ -500,7 +501,7 @@
           id_siembra: '',
           id_recurso : 0,
           id_alimento :'',
-          tipo_actividad : 'Alimentacion',
+          tipo_actividad : '1',
           fecha_ra : '',
           horas_hombre : '',
           cant_manana : '',
@@ -532,12 +533,17 @@
         id_especie : '',        
         fecha_registro:'',
         conv_alimenticia : '',
-        tiempo :'',
         tipo_registro:'',
         peso_ganado:'',
         mortalidad:'',
         biomasa:'',
-        cantidad:'',        
+        cantidad:'',
+        
+        aux_lote:'',
+        aux_cantidad:'',
+        aux_peso_inicial:'',
+        id_edit_item:'',
+        
         id_siembra:'',
         mortalidad_inicial : '',
         idSiembraRegistro:'',
@@ -563,6 +569,16 @@
     },
   
     methods:{
+      editItem(especie){
+        this.id_edit_item = especie.id_especie
+        this.aux_lote = especie.lote
+        this.aux_cantidad = especie.cantidad
+        this.aux_peso_inicial = especie.peso_inicial
+        
+      },
+      guardaEditItem(){
+        
+      },
       
       listarEspecies(){
         let me = this;
@@ -650,13 +666,14 @@
       anadirEspecie(){
         let me = this;
         if(this.newEspecie != '' && this.newCantidad != '' && this.newPeso != ''){
-          me.listadoItems.push(
-          {
-            'id_especie' : this.newEspecie,
-            'lote' : this.newLote,
-            'cantidad' : this.newCantidad,
-            'peso_inicial' : this.newPeso
-          });
+            me.listadoItems.push(
+            {
+              'id_especie' : this.newEspecie,
+              'lote' : this.newLote,
+              'cantidad' : this.newCantidad,
+              'peso_inicial' : this.newPeso
+            });
+         
           const idEspecie = (element) => element.id == this.newEspecie;
           var index = this.listadoEspecies.findIndex(idEspecie);
           this.listadoEspecies.splice(index,1);
@@ -733,7 +750,6 @@
           id_siembra : id,        
           fecha_registro : this.fecha_registro,
           tipo_registro : this.tipo_registro,
-          tiempo : this.tiempo,
           conv_alimenticia : this.conv_alimenticia
         }
         axios.post('api/registros', data)

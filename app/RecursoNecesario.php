@@ -13,6 +13,7 @@ class RecursoNecesario extends Model{
         'tipo_actividad',
         'fecha_ra',
         'horas_hombre',
+        'cantidad_recurso',
         'cant_manana',
         'cant_tarde',
         'detalles'

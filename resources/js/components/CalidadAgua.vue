@@ -7,13 +7,14 @@
 
           <div class="card-body">
             <!-- Contenido de parametros -->
-            <div v-if="mostrar == 1">   
-              <div class="row  text-right mb-3">             
-                <div class="col-md-12">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-success" @click="crearParametros()">Añadir párametros</button>
-                </div>
+            <div class="row  text-right mb-3">             
+              <div class="col-md-12">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" @click="crearParametros()">Añadir párametros</button>
               </div>
+            </div>
+            <div v-if="mostrar == 1">   
+              
               <div class="col-md-12">
                 <h5>Filtrar por:</h5>     
                 <div class="row">                 
@@ -76,7 +77,7 @@
                     </tr>                  
                   </thead>
                   <tbody>
-                    <tr v-for="(lp, index) in listadoParametros" :key="index" v-if="lp.id_contenedor != null">                
+                    <tr v-for="(lp, index) in listadoParametros" :key="index" v-if="lp.id != null">                
                       <th v-text="index+1"></th>
                       <th v-text="lp.id"></th>
                       <td v-text="lp.fecha_parametro"></td>
@@ -206,8 +207,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
+            
                 <div class="form-group row">
                   <label for="Temperatura" class="col-sm-6 col-form-label">Temperatura: </label>
                   <div class="col-sm-6">
@@ -242,6 +242,16 @@
                   <label for="" class="col-sm-6 col-form-label">Otros: </label>
                   <div class="col-sm-6">
                     <input type="number" class="form-control" id="otros" placeholder="Otros" step="any" v-model="form.otros">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+               
+                <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
+                  <div v-if="editando == 0">
+                    <input type="checkbox" v-bind:value="lc.id" v-model="form.id_contenedor">
+                    <label for="siembra">{{lc.contenedor}}</label>
+                    <br>
                   </div>
                 </div>
               </div>
@@ -284,11 +294,11 @@
         },     
         editando : 0,
         mostrar : 0,
-        idContenedor : 0,
+        idContenedor : '',
         nombreContenedor : '',
         form : new Form({
           id : '',
-          id_contenedor : '',
+          id_contenedor : [],
           id_especie : '',
           fecha_parametro : '',
           '12_am' : '',
@@ -389,10 +399,11 @@
         });
       },
       mostrarParametros(objeto){
+       
         this.idContenedor = objeto
         let me = this;
         const data = {
-          'id_siembra' : this.idContenedor
+          'id_contenedor' : this.idContenedor
         }
         axios.post('api/parametro-x-contenedor/'+objeto)
         .then(response=>{
@@ -403,6 +414,7 @@
        
       },
       ocultarParametros(){
+        this.editando = 0
         let me = this;
         this.mostrar = 0;
         this.listar();
@@ -415,7 +427,10 @@
       
       guardar(){
         let me = this;      
-        this.form.id_contenedor = this.idContenedor;
+        if(this.editando == 1){
+          this.form.id_contenedor = this.idContenedor;
+        }
+        
         console.log(this.form.id_contenedor)
         this.form.post("api/parametros-calidad")
         .then(({data})=>{
@@ -427,7 +442,7 @@
       },
       editarParametros(objeto){
         let me = this;
-        this.form.id = idContenedor;
+        // this.form.id = idContenedor;
         this.form.fill(objeto);
         this.editando = 1;
         $('#modalParametros').modal('show');
@@ -438,6 +453,7 @@
         .then(({data})=>{              
           $('#modalParametros').modal('hide');
           me.listar();
+          console.log(data)
           this.form.reset();
         })          
         console.log('editando' + this.form.id)

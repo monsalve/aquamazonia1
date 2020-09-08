@@ -21,7 +21,6 @@ class RegistroController extends Controller
                 'id_siembra',
                 'fecha_registro',
                 'conv_alimenticia',
-                'tiempo',
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',
@@ -42,7 +41,7 @@ class RegistroController extends Controller
     public function registrosxSiembra($id)
     {
         //
-        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro','conv_alimenticia', 'tiempo', 'tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie')
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro','conv_alimenticia','tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie')
             ->join('especies', 'registros.id_especie', 'especies.id')
             ->where('id_siembra', '=', $id)
             ->orderBy('registros.id', 'desc')
@@ -84,7 +83,6 @@ class RegistroController extends Controller
                 'id_siembra' => $campo['id_siembra'],
                 'fecha_registro' => $request['fecha_registro'],
                 'conv_alimenticia' => $request['conv_alimenticia'],
-                'tiempo' => $request['tiempo'],
                 'tipo_registro' => $request['tipo_registro'],
                 'peso_ganado' => $campo['peso_ganado'],
                 'mortalidad' => $campo['mortalidad'],
@@ -160,7 +158,6 @@ class RegistroController extends Controller
                 'id_siembra',
                 'fecha_registro',
                 'conv_alimenticia',
-                'tiempo',
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',
