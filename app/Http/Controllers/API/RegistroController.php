@@ -65,17 +65,12 @@ class RegistroController extends Controller
             
             if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
                 $exs->cant_actual= $exs->cant_actual -$campo['mortalidad'];
-                $mensajes[]= 'Datos guardados correctamente';
-            }else{ $mensajes[]= 'Esta cifra no puede ser mayor';}
-            
+            }            
             if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
                 $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
-                $mensajes[]= 'Datos guardados correctamente';
-            }else{ $mensajes[]= 'Esta cifra no puede ser mayor'; }
-            
+            }            
             if($campo['peso_ganado'] > $exs->cant_actual){
                 $exs->peso_actual = ($campo['peso_ganado']);
-                $mensajes[]= 'Datos guardados correctamente';
             }
             $exs->save();
             $registro = Registro::create([
@@ -89,9 +84,7 @@ class RegistroController extends Controller
                 'biomasa' => $campo['biomasa'],
                 'cantidad' => $campo['cantidad']
             ]);
-            
-            return ($mensajes);
-            
+                        
         }
     }
 

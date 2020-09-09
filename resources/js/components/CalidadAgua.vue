@@ -250,7 +250,7 @@
                 <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
                   <div v-if="editando == 0">
                     <input type="checkbox" v-bind:value="lc.id" v-model="form.id_contenedor">
-                    <label for="siembra">{{lc.contenedor}}</label>
+                    <label for="contenedor">{{lc.contenedor}}</label>
                     <br>
                   </div>
                 </div>

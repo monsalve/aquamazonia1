@@ -177,8 +177,14 @@
                       <span v-if="id_edit_item == ''" v-text="item.lote"></span>
                       <input v-if="id_edit_item == item.id_especie" type="text" name="aux_lote" id="aux_lote" v-model="aux_lote">
                     </td>
-                    <td v-text="item.cantidad"></td>
-                    <td v-text="item.peso_inicial"></td>
+                    <td >
+                      <span v-if="id_edit_item == ''" v-text="item.cantidad"></span>
+                      <input type="text" v-if="id_edit_item == item.id_especie" name="aux_cantidad" id="aux_cantidad" v-model="aux_cantidad">
+                    </td>
+                    <td >
+                      <span v-if="id_edit_item == ''" v-text="item.peso_inicial"></span>
+                      <input type="text" v-if="id_edit_item == item.id_especie" name="aux_peso_inicial" id="aux_peso_inicial" v-model="aux_peso_inicial">                    
+                    </td>
                     <td>
                       <button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-danger">X</button>
                       <button v-if="item.es_edita && id_edit_item == ''" @click="editItem(item)" class="btn btn-primary"><i class="fas fa-edit"></i></button>
@@ -234,11 +240,11 @@
                   <label for="detalles" class="">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>     
-              
+<!--               
                 <div class="form-group col-md-3">   
                   <label for="horas hombre" class="">Horas hombre</label>
                   <input type="number" class="form-control" step="any" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                </div>
+                </div> -->
           
                 <div class="form-group col-md-3">                    
                   <label for="cant_manana" class="">Kg Mañana</label>
@@ -262,8 +268,7 @@
                     <th>Tipo de <br> Actividad</th>
                     <!-- <th>Siembras</th> -->
                     <th>Fecha</th>
-                    <th><br>Alimento</th>
-                    <th>Horas hombre</th>
+                    <th><br>Alimento</th>                  
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
                     <th width=15%>Detalles</th>
@@ -273,10 +278,9 @@
                 <tbody>
                   <tr v-for="(item, index) in listadoRN" :key="index">
                     <td v-text="index+1"></td>
-                    <td v-text="item.tipo_actividad"></td>                   
+                    <td v-text="item.actividad"></td>                   
                     <td v-text="item.fecha_ra"></td>
-                    <td> {{item.alimento}}</td>
-                    <td v-text="item.horas_hombre"></td>
+                    <td> {{item.alimento}}</td>                   
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
                     <td v-text="item.detalles"></td>
@@ -552,10 +556,9 @@
         ini_descanso:'',
         fin_descanso:'',
         id_finalizar: '',
-        nombresContenedores: [],
         estados: [],
         tipoRegistro : [],
-        imprimirSiembras : [],
+
         campos: {
           camps_s: []
         },
@@ -685,7 +688,7 @@
           alert ('Debe diligenciar todos los campos');
         }
       },
-       removeItem(index) {
+      removeItem(index) {
         console.log(index)
         let me =  this;
         me.listadoItems.pop(index,1)   
@@ -706,7 +709,6 @@
       listar(){
         let me = this;
         this.listarEspecies();
-        this.listadoExcel();
         this.listarAlimentos();
         axios.get("api/siembras")
         .then(function (response){
@@ -718,19 +720,12 @@
           
         })
       },
-      listadoExcel(){
-        let me = this;
-        axios.get("api/traer-siembras")
-        .then(function (response){
-          me.imprimirSiembras = response.data.filtrarSiembras;                    
-          
-        })      
-      },
       abrirIngreso(id){
+        this.idSiembraRegistro = id;
         let me = this;
         this.ver_registros = 1;
         $("#modalIngreso").modal('show');
-        this.idSiembraRegistro = id;
+        
         this.tipo_registro = 0;
         axios.post("api/registros-siembra/"+id)
         .then(function (response){
@@ -741,9 +736,9 @@
       crearRegistro(id){        
         let me = this;
         this.ver_registros = 0;
-        this.idSiembraRegistro = id;
+        // this.idSiembraRegistro = id;
         let aux_campos = me.campos[id];
-        console.log(me.campos);
+        // console.log(me.campos);
                 
         const data = {
           campos : aux_campos,
@@ -757,7 +752,7 @@
           console.log(response)
           me.aux_campos = [];          
           me.ver_registros = 1;
-          me.abrirIngreso();
+          me.abrirIngreso(id);
         });
       },
       filtrarIngresos(){
@@ -855,12 +850,12 @@
         .then(({data})=>{
           console.log('guardado');
           me.listar();
-          // $('#modalRecursos').modal('hide');        
+          me.abrirCrear(this.form.id_siembra);
           swal("Excelente!", "Los datos se guardaron correctamente!", "success");
         })
       },
       eliminarRegistro(id, objeto){
-        console.log(id, '+', objeto)
+      
         let me = this;
         swal({
           title: "Estás seguro?",
@@ -877,8 +872,7 @@
             }
             axios.put('api/registros/'+id, data)
             .then(({data})=>{
-              
-              console.log('eliminar'+id)
+              me.abrirIngreso(objeto.id_siembra);
             })
           }
         });
@@ -897,6 +891,7 @@
             axios.delete('api/recursos-necesarios/'+objeto)
             .then(({data})=>{
               console.log('eliminar'+objeto);
+              me.abrirCrear(this.idSiembraR);
               me.listar();
               
             })
@@ -917,8 +912,7 @@
           if (willDelete) {
             axios.delete('api/siembras/'+index)
             .then(({data})=>{
-              me.listar();
-              console.log('eliminar'+index)
+              me.listar();              
             })
           }
         });

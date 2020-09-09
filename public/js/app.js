@@ -5954,6 +5954,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -6023,7 +6027,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       aux_cantidad: '',
       aux_peso_inicial: '',
       id_edit_item: ''
-    }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "imprimirSiembras", []), _defineProperty(_ref, "campos", {
+    }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "campos", {
       camps_s: []
     }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_actividad", ''), _defineProperty(_ref, "f_fecha_d", ''), _defineProperty(_ref, "f_fecha_h", ''), _ref;
   },
@@ -6159,7 +6163,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     listar: function listar() {
       var me = this;
       this.listarEspecies();
-      this.listadoExcel();
       this.listarAlimentos();
       axios.get("api/siembras").then(function (response) {
         me.listadoSiembras = response.data.siembra;
@@ -6169,17 +6172,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.fechaActual = response.data.fecha_actual;
       });
     },
-    listadoExcel: function listadoExcel() {
-      var me = this;
-      axios.get("api/traer-siembras").then(function (response) {
-        me.imprimirSiembras = response.data.filtrarSiembras;
-      });
-    },
     abrirIngreso: function abrirIngreso(id) {
+      this.idSiembraRegistro = id;
       var me = this;
       this.ver_registros = 1;
       $("#modalIngreso").modal('show');
-      this.idSiembraRegistro = id;
       this.tipo_registro = 0;
       axios.post("api/registros-siembra/" + id).then(function (response) {
         me.listadoRegistros = response.data;
@@ -6187,10 +6184,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     crearRegistro: function crearRegistro(id) {
       var me = this;
-      this.ver_registros = 0;
-      this.idSiembraRegistro = id;
-      var aux_campos = me.campos[id];
-      console.log(me.campos);
+      this.ver_registros = 0; // this.idSiembraRegistro = id;
+
+      var aux_campos = me.campos[id]; // console.log(me.campos);
+
       var data = {
         campos: aux_campos,
         id_siembra: id,
@@ -6203,7 +6200,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         console.log(response);
         me.aux_campos = [];
         me.ver_registros = 1;
-        me.abrirIngreso();
+        me.abrirIngreso(id);
       });
     },
     filtrarIngresos: function filtrarIngresos() {
@@ -6316,17 +6313,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('guardar');
     },
     guardarRecursos: function guardarRecursos(id) {
+      var _this5 = this;
+
       var me = this;
       axios.post("api/recursos-necesarios", this.form).then(function (_ref7) {
         var data = _ref7.data;
         console.log('guardado');
-        me.listar(); // $('#modalRecursos').modal('hide');        
-
+        me.listar();
+        me.abrirCrear(_this5.form.id_siembra);
         swal("Excelente!", "Los datos se guardaron correctamente!", "success");
       });
     },
     eliminarRegistro: function eliminarRegistro(id, objeto) {
-      console.log(id, '+', objeto);
       var me = this;
       swal({
         title: "Estás seguro?",
@@ -6341,12 +6339,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           };
           axios.put('api/registros/' + id, data).then(function (_ref8) {
             var data = _ref8.data;
-            console.log('eliminar' + id);
+            me.abrirIngreso(objeto.id_siembra);
           });
         }
       });
     },
     eliminarRecurso: function eliminarRecurso(objeto) {
+      var _this6 = this;
+
       var me = this;
       swal({
         title: "Estás seguro?",
@@ -6359,6 +6359,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref9) {
             var data = _ref9.data;
             console.log('eliminar' + objeto);
+            me.abrirCrear(_this6.idSiembraR);
             me.listar();
           });
         }
@@ -6377,7 +6378,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios["delete"]('api/siembras/' + index).then(function (_ref10) {
             var data = _ref10.data;
             me.listar();
-            console.log('eliminar' + index);
           });
         }
       });
@@ -46734,7 +46734,7 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("label", { attrs: { for: "siembra" } }, [
+                                _c("label", { attrs: { for: "contenedor" } }, [
                                   _vm._v(_vm._s(lc.contenedor))
                                 ]),
                                 _vm._v(" "),
@@ -50964,9 +50964,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                              " +
+                              "\n                                " +
                                 _vm._s(siembra.fecha_alimento) +
-                                "\n                              \n                              "
+                                "\n                                \n                                "
                             ),
                             _c(
                               "button",
@@ -51147,9 +51147,9 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                      " +
+                                            "\n                        " +
                                               _vm._s(contenedor.contenedor) +
-                                              "\n                    "
+                                              "\n                      "
                                           )
                                         ]
                                       )
@@ -51212,9 +51212,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                      " +
+                                        "\n                        " +
                                           _vm._s(contenedor.contenedor) +
-                                          "\n                    "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -51595,15 +51595,80 @@ var render = function() {
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
-                            _c("td", {
-                              domProps: { textContent: _vm._s(item.cantidad) }
-                            }),
+                            _c("td", [
+                              _vm.id_edit_item == ""
+                                ? _c("span", {
+                                    domProps: {
+                                      textContent: _vm._s(item.cantidad)
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.id_edit_item == item.id_especie
+                                ? _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.aux_cantidad,
+                                        expression: "aux_cantidad"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "aux_cantidad",
+                                      id: "aux_cantidad"
+                                    },
+                                    domProps: { value: _vm.aux_cantidad },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.aux_cantidad = $event.target.value
+                                      }
+                                    }
+                                  })
+                                : _vm._e()
+                            ]),
                             _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(item.peso_inicial)
-                              }
-                            }),
+                            _c("td", [
+                              _vm.id_edit_item == ""
+                                ? _c("span", {
+                                    domProps: {
+                                      textContent: _vm._s(item.peso_inicial)
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.id_edit_item == item.id_especie
+                                ? _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.aux_peso_inicial,
+                                        expression: "aux_peso_inicial"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "aux_peso_inicial",
+                                      id: "aux_peso_inicial"
+                                    },
+                                    domProps: { value: _vm.aux_peso_inicial },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.aux_peso_inicial =
+                                          $event.target.value
+                                      }
+                                    }
+                                  })
+                                : _vm._e()
+                            ]),
                             _vm._v(" "),
                             _c("td", [
                               !item.es_edita
@@ -51652,9 +51717,9 @@ var render = function() {
                                   )
                                 : _vm._e(),
                               _vm._v(
-                                "\n                    " +
+                                "\n                      " +
                                   _vm._s(index) +
-                                  "\n                  "
+                                  "\n                    "
                               )
                             ])
                           ])
@@ -51860,44 +51925,6 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "horas hombre" } }, [
-                      _vm._v("Horas hombre")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.horas_hombre,
-                          expression: "form.horas_hombre"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        step: "any",
-                        id: "horas_hombre",
-                        "aria-describedby": "horas_hombre",
-                        placeholder: "Horas hombre"
-                      },
-                      domProps: { value: _vm.form.horas_hombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "horas_hombre",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
                     _c("label", { attrs: { for: "cant_manana" } }, [
                       _vm._v("Kg Mañana")
                     ]),
@@ -51998,9 +52025,7 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("td", {
-                              domProps: {
-                                textContent: _vm._s(item.tipo_actividad)
-                              }
+                              domProps: { textContent: _vm._s(item.actividad) }
                             }),
                             _vm._v(" "),
                             _c("td", {
@@ -52008,12 +52033,6 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("td", [_vm._v(" " + _vm._s(item.alimento))]),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(item.horas_hombre)
-                              }
-                            }),
                             _vm._v(" "),
                             _c("td", {
                               domProps: {
@@ -53050,8 +53069,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
         _c("th", [_c("br"), _vm._v("Alimento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Horas hombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Mañana")]),
         _vm._v(" "),

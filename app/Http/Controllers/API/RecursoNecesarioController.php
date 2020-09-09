@@ -70,6 +70,7 @@ class RecursoNecesarioController extends Controller
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
         ->where('id_siembra', '=', $id)
         ->where('tipo_actividad', '=', '1')
         ->get();
