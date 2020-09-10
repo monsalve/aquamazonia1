@@ -5957,7 +5957,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -6038,7 +6037,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.aux_cantidad = especie.cantidad;
       this.aux_peso_inicial = especie.peso_inicial;
     },
-    guardaEditItem: function guardaEditItem() {},
+    guardaEditItem: function guardaEditItem(id) {
+      var _this = this;
+
+      var me = this;
+      var data = {
+        'especie': this.id_edit_item,
+        'lote': this.aux_lote,
+        'cantidad': this.aux_cantidad,
+        'cant_actual': this.aux_cantidad,
+        'peso_inicial': this.aux_peso_inicial
+      };
+      axios.put('api/siembras/' + id, data).then(function (_ref2) {
+        var data = _ref2.data;
+        _this.id_edit_item = '', _this.aux_lote = '', _this.aux_cantidad = '', _this.aux_peso_inicial = ''; // console.log(response)
+      });
+    },
     listarEspecies: function listarEspecies() {
       var me = this;
       axios.get("api/especies").then(function (response) {
@@ -6082,7 +6096,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       });
     },
     guardarEdita: function guardarEdita(objeto) {
-      var _this = this;
+      var _this2 = this;
 
       console.log(objeto);
       var me = this;
@@ -6090,18 +6104,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         siembra: this.form,
         especies: this.listadoItems
       };
-      axios.post('api/anadir-especie-siembra', data).then(function (_ref2) {
-        var response = _ref2.response;
-        _this.form.nombre_siembra = '';
-        _this.form.id_contenedor = '';
-        _this.form.fecha_inicio = '';
-        _this.newEspecie = '';
-        _this.newLote = '';
-        _this.newCantidad = '';
-        _this.newPeso = '';
-        _this.listadoItems = [];
+      axios.post('api/anadir-especie-siembra', data).then(function (_ref3) {
+        var response = _ref3.response;
+        _this2.form.nombre_siembra = '';
+        _this2.form.id_contenedor = '';
+        _this2.form.fecha_inicio = '';
+        _this2.newEspecie = '';
+        _this2.newLote = '';
+        _this2.newCantidad = '';
+        _this2.newPeso = '';
+        _this2.listadoItems = [];
 
-        _this.listar();
+        _this2.listar();
 
         $('#modalSiembra').modal('hide');
       });
@@ -6117,7 +6131,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log(id);
     },
     anadirEspecie: function anadirEspecie() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
 
@@ -6130,7 +6144,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         });
 
         var idEspecie = function idEspecie(element) {
-          return element.id == _this2.newEspecie;
+          return element.id == _this3.newEspecie;
         };
 
         var index = this.listadoEspecies.findIndex(idEspecie);
@@ -6195,8 +6209,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         tipo_registro: this.tipo_registro,
         conv_alimenticia: this.conv_alimenticia
       };
-      axios.post('api/registros', data).then(function (_ref3) {
-        var response = _ref3.response;
+      axios.post('api/registros', data).then(function (_ref4) {
+        var response = _ref4.response;
         console.log(response);
         me.aux_campos = [];
         me.ver_registros = 1;
@@ -6239,7 +6253,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.id_finalizar = id;
     },
     fechaDescanso: function fechaDescanso(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       var me = this;
 
@@ -6250,29 +6264,29 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
             'ini_descanso': this.ini_descanso,
             'fin_descanso': this.fin_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref4) {
-            var response = _ref4.response;
+          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref5) {
+            var response = _ref5.response;
             console.log(response);
-            _this3.id_finalizar = '';
-            _this3.ini_descanso = '';
-            _this3.fin_descanso = '';
+            _this4.id_finalizar = '';
+            _this4.ini_descanso = '';
+            _this4.fin_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this3.listar();
+            _this4.listar();
           });
         } else {
           var _data = {
             'id': this.id_finalizar,
             'ini_descanso': this.ini_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref5) {
-            var response = _ref5.response;
+          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref6) {
+            var response = _ref6.response;
             console.log(response);
-            _this3.id_finalizar = '';
-            _this3.ini_descanso = '';
+            _this4.id_finalizar = '';
+            _this4.ini_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this3.listar();
+            _this4.listar();
           });
         }
       } else {
@@ -6282,7 +6296,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('finalizar' + this.id_finalizar);
     },
     guardar: function guardar() {
-      var _this4 = this;
+      var _this5 = this;
 
       var me = this;
 
@@ -6291,18 +6305,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           siembra: this.form,
           especies: this.listadoItems
         };
-        axios.post('api/siembras', data).then(function (_ref6) {
-          var response = _ref6.response;
-          _this4.form.nombre_siembra = '';
-          _this4.form.id_contenedor = '';
-          _this4.form.fecha_inicio = '';
-          _this4.newEspecie = '';
-          _this4.newLote = '';
-          _this4.newCantidad = '';
-          _this4.newPeso = '';
-          _this4.listadoItems = [];
+        axios.post('api/siembras', data).then(function (_ref7) {
+          var response = _ref7.response;
+          _this5.form.nombre_siembra = '';
+          _this5.form.id_contenedor = '';
+          _this5.form.fecha_inicio = '';
+          _this5.newEspecie = '';
+          _this5.newLote = '';
+          _this5.newCantidad = '';
+          _this5.newPeso = '';
+          _this5.listadoItems = [];
 
-          _this4.listar();
+          _this5.listar();
 
           $('#modalSiembra').modal('hide');
         });
@@ -6313,14 +6327,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       console.log('guardar');
     },
     guardarRecursos: function guardarRecursos(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       var me = this;
-      axios.post("api/recursos-necesarios", this.form).then(function (_ref7) {
-        var data = _ref7.data;
+      axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
+        var data = _ref8.data;
         console.log('guardado');
         me.listar();
-        me.abrirCrear(_this5.form.id_siembra);
+        me.abrirCrear(_this6.form.id_siembra);
         swal("Excelente!", "Los datos se guardaron correctamente!", "success");
       });
     },
@@ -6337,15 +6351,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           var data = {
             campos: objeto
           };
-          axios.put('api/registros/' + id, data).then(function (_ref8) {
-            var data = _ref8.data;
+          axios.put('api/registros/' + id, data).then(function (_ref9) {
+            var data = _ref9.data;
             me.abrirIngreso(objeto.id_siembra);
           });
         }
       });
     },
     eliminarRecurso: function eliminarRecurso(objeto) {
-      var _this6 = this;
+      var _this7 = this;
 
       var me = this;
       swal({
@@ -6356,10 +6370,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref9) {
-            var data = _ref9.data;
+          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref10) {
+            var data = _ref10.data;
             console.log('eliminar' + objeto);
-            me.abrirCrear(_this6.idSiembraR);
+            me.abrirCrear(_this7.idSiembraR);
             me.listar();
           });
         }
@@ -6375,8 +6389,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/siembras/' + index).then(function (_ref10) {
-            var data = _ref10.data;
+          axios["delete"]('api/siembras/' + index).then(function (_ref11) {
+            var data = _ref11.data;
             me.listar();
           });
         }
@@ -51686,7 +51700,9 @@ var render = function() {
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
-                              item.es_edita && _vm.id_edit_item == ""
+                              item.es_edita &&
+                              _vm.id_edit_item == "" &&
+                              item.cantidad == item.cant_actual
                                 ? _c(
                                     "button",
                                     {
@@ -51709,18 +51725,13 @@ var render = function() {
                                       staticClass: "btn btn-success",
                                       on: {
                                         click: function($event) {
-                                          return _vm.guardaEditItem(item)
+                                          return _vm.guardaEditItem(item.id)
                                         }
                                       }
                                     },
                                     [_c("i", { staticClass: "fas fa-check" })]
                                   )
-                                : _vm._e(),
-                              _vm._v(
-                                "\n                      " +
-                                  _vm._s(index) +
-                                  "\n                    "
-                              )
+                                : _vm._e()
                             ])
                           ])
                         })

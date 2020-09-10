@@ -20,7 +20,6 @@ class SiembraController extends Controller
     public function index()
     {
         //
-        //$especieSiembras = EspecieSiembra::all();
         $siembra = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
                     ->join('contenedores','siembras.id_contenedor','contenedores.id')
                     ->where('siembras.estado','=',1)
@@ -141,9 +140,10 @@ class SiembraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $especieSiembras = EspecieSiembra::findOrFail($id);
-        // $especieSiembras->update($request->all());
-        return $request;
+        $especieSiembras = EspecieSiembra::findOrFail($id);
+        $especieSiembras->update($request->all());
+        // $especieSiembra->cantidad = $request['']
+        return $especieSiembras;
     }
     public function actualizarEstado(Request $request, $id){
         $val = $request->validate([
@@ -215,7 +215,7 @@ class SiembraController extends Controller
             
     } 
     public function getEspeciesSiembra(Request $request, $id) {
-        $espxsiembra = EspecieSiembra::select('cantidad','id_especie','lote','peso_inicial')
+        $espxsiembra = EspecieSiembra::select('especies_siembra.id as id','cantidad','id_especie','lote','peso_inicial', 'cant_actual')
                         ->join('especies','especies_siembra.id_especie','especies.id')
                         ->where('id_siembra',$id)                        
                         ->orderBy('especies.especie')
@@ -224,7 +224,7 @@ class SiembraController extends Controller
         $aux_es = array();
         foreach($espxsiembra as $axs) {
             $aux_id_es[] = $axs->id_especie;
-            $aux_es[] = array('cantidad'=>$axs->cantidad,'id_especie'=>$axs->id_especie,'lote'=> $axs->lote, 'peso_inicial' => $axs->peso_inicial,'es_edita' => '1');
+            $aux_es[] = array('id'=>$axs->id,'cantidad'=>$axs->cantidad, 'cant_actual'=>$axs->cant_actual,'id_especie'=>$axs->id_especie,'lote'=> $axs->lote, 'peso_inicial' => $axs->peso_inicial,'es_edita' => '1');
         }
         if(count($aux_id_es)>0) {
             $especies = Especie::whereNotIn('id',$aux_id_es)->orderBy('especie')->get();

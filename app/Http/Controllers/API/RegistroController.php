@@ -64,7 +64,7 @@ class RegistroController extends Controller
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             
             if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
-                $exs->cant_actual= $exs->cant_actual -$campo['mortalidad'];
+                $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
             }            
             if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
                 $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
@@ -131,8 +131,6 @@ class RegistroController extends Controller
     {
         //
         $registro = Registro::destroy($id);
-        
-        
     }
     
     public function filtroRegistros(Request $request){

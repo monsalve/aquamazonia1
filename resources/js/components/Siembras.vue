@@ -187,9 +187,8 @@
                     </td>
                     <td>
                       <button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-danger">X</button>
-                      <button v-if="item.es_edita && id_edit_item == ''" @click="editItem(item)" class="btn btn-primary"><i class="fas fa-edit"></i></button>
-                      <button v-if="item.es_edita && id_edit_item == item.id_especie" @click="guardaEditItem(item)" class="btn btn-success"><i class="fas fa-check"></i></button>
-                      {{index}}
+                      <button v-if="item.es_edita && id_edit_item == '' && item.cantidad == item.cant_actual" @click="editItem(item)" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                      <button v-if="item.es_edita && id_edit_item == item.id_especie" @click="guardaEditItem(item.id)" class="btn btn-success"><i class="fas fa-check"></i></button>
                     </td>
                   </tr>
                   
@@ -576,13 +575,27 @@
         this.id_edit_item = especie.id_especie
         this.aux_lote = especie.lote
         this.aux_cantidad = especie.cantidad
-        this.aux_peso_inicial = especie.peso_inicial
-        
+        this.aux_peso_inicial = especie.peso_inicial        
       },
-      guardaEditItem(){
+      guardaEditItem(id){
+        let me =  this;
+        const data = {
+          'especie': this.id_edit_item,          
+          'lote': this.aux_lote,
+          'cantidad':this.aux_cantidad,
+          'cant_actual':this.aux_cantidad,
+          'peso_inicial':this.aux_peso_inicial
         
-      },
-      
+        }
+        axios.put('api/siembras/'+id,data)
+        .then(({data})=>{
+          this.id_edit_item = '',
+          this.aux_lote = '',
+          this.aux_cantidad = '',
+          this.aux_peso_inicial = ''
+          // console.log(response)
+        })
+      },      
       listarEspecies(){
         let me = this;
         axios.get("api/especies")
