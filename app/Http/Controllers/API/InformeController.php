@@ -256,13 +256,12 @@ class InformeController extends Controller
         if(count($existencias)>0){
         
             for($i=0;$i<count($existencias); $i++){
-                $existencias[$i]->biomasa_disponible = ((((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000)));
+                $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
                 // $existencias[$i]->biomasa_disponible = (number_format((float)4,2,',',''));
                 
             var_dump($existencias[$i]->biomasa_disponible);
                 
-                for($j=0;$j<count($registros); $j++){
-                    
+                for($j=0;$j<count($registros); $j++){                   
                 
                     if(count($registros)>0){
                         if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie ){   

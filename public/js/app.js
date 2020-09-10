@@ -5957,6 +5957,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -5966,25 +5973,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     var _ref;
 
     return _ref = {
-      json_fields: {
-        'Siembras': 'nombre_siembra',
-        'Contenedor': 'contenedor',
-        'Fecha Inicio': 'fecha_inicio',
-        'Estado': 'estado',
-        'Especies': 'especie',
-        'Lotes': 'lote',
-        'Cantidad Inicial': 'cantidad',
-        'Peso Inicial': 'peso_inicial',
-        'Cantidad Actual': 'cant_actual',
-        'Peso actual': 'peso_actual'
-      },
-      form: {
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
         id: '',
         fecha_inicio: '',
         nombre_siembra: '',
         id_contenedor: '',
         id_siembra: '',
         id_recurso: 0,
+        id_registro: '',
         id_alimento: '',
         tipo_actividad: '1',
         fecha_ra: '',
@@ -5992,7 +5988,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         cant_manana: '',
         cant_tarde: '',
         detalles: ''
-      },
+      }),
+      editandoAlimento: 0,
       fechaActual: [],
       ver_registros: 1,
       id_edita: '',
@@ -6094,6 +6091,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoEspecies = response.data.especies;
         me.listadoItems = response.data.espxsiembra;
       });
+    },
+    editarAlimento: function editarAlimento(objeto) {
+      console.log(objeto);
+      var me = this; // let objeto = []
+
+      this.editandoAlimento = 1;
+      this.form.fill(objeto); // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
     },
     guardarEdita: function guardarEdita(objeto) {
       var _this2 = this;
@@ -6326,17 +6330,29 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       console.log('guardar');
     },
-    guardarRecursos: function guardarRecursos(id) {
+    guardarRecursos: function guardarRecursos() {
       var _this6 = this;
 
       var me = this;
-      axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
-        var data = _ref8.data;
-        console.log('guardado');
-        me.listar();
-        me.abrirCrear(_this6.form.id_siembra);
-        swal("Excelente!", "Los datos se guardaron correctamente!", "success");
-      });
+
+      if (this.editandoAlimento == 0) {
+        axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
+          var data = _ref8.data;
+          console.log('guardado');
+          me.listar();
+          me.abrirCrear(_this6.form.id_siembra);
+          swal("Excelente!", "Los datos se guardaron correctamente!", "success");
+        });
+      } else {
+        this.form.put('api/recursos-necesarios/' + this.form.id_registro).then(function (_ref9) {
+          var data = _ref9.data;
+
+          _this6.form.reset();
+
+          _this6.editandoAlimento = 0;
+          me.abrirCrear(_this6.form.id_siembra);
+        });
+      }
     },
     eliminarRegistro: function eliminarRegistro(id, objeto) {
       var me = this;
@@ -6351,14 +6367,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           var data = {
             campos: objeto
           };
-          axios.put('api/registros/' + id, data).then(function (_ref9) {
-            var data = _ref9.data;
+          axios.put('api/registros/' + id, data).then(function (_ref10) {
+            var data = _ref10.data;
             me.abrirIngreso(objeto.id_siembra);
           });
         }
       });
     },
-    eliminarRecurso: function eliminarRecurso(objeto) {
+    eliminarAlimento: function eliminarAlimento(objeto) {
       var _this7 = this;
 
       var me = this;
@@ -6370,8 +6386,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref10) {
-            var data = _ref10.data;
+          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref11) {
+            var data = _ref11.data;
             console.log('eliminar' + objeto);
             me.abrirCrear(_this7.idSiembraR);
             me.listar();
@@ -6389,8 +6405,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          axios["delete"]('api/siembras/' + index).then(function (_ref11) {
-            var data = _ref11.data;
+          axios["delete"]('api/siembras/' + index).then(function (_ref12) {
+            var data = _ref12.data;
             me.listar();
           });
         }
@@ -52014,7 +52030,15 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Guardar")]
+                    [
+                      _c("span", {
+                        domProps: {
+                          textContent: _vm._s(
+                            _vm.editandoAlimento == 0 ? "Guardar" : "Actualizar"
+                          )
+                        }
+                      })
+                    ]
                   )
                 ]),
                 _vm._v(" "),
@@ -52076,7 +52100,22 @@ var render = function() {
                                   staticClass: "btn btn-danger",
                                   on: {
                                     click: function($event) {
-                                      return _vm.eliminarRecurso(
+                                      return _vm.editarAlimento(item)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-trash" })]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.eliminarAlimento(
                                         item.id_registro
                                       )
                                     }
@@ -53086,6 +53125,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Tarde")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Editar")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
       ])

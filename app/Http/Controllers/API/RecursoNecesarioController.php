@@ -142,6 +142,14 @@ class RecursoNecesarioController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $recursoNecesario = RecursoNecesario::where('id', $request['id_registro'])->firstOrFail()
+        ->update([
+            'cant_manana' => $request['cant_manana'],
+            'cant_tarde'=> $request['cant_tarde'],
+            'id_alimento' => $request['id_alimento'],
+        ]);
+        
+        return ['recursoNecesario' => $recursoNecesario];
     }
 
     /**

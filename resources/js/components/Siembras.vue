@@ -255,9 +255,10 @@
                 </div>
                 
             </form>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+            <div class="modal-footer">                
+              <button type="button" class="btn btn-primary" @click="guardarRecursos()">
+                <span v-text="editandoAlimento == 0 ? 'Guardar' : 'Actualizar'"></span>
+              </button>
             </div>
             <div class="container">              
               <table class="table table-sm table-hover table-responsive">
@@ -271,6 +272,7 @@
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
                     <th width=15%>Detalles</th>
+                    <th>Editar</th>
                     <th>Eliminar</th>
                   </tr>
                 </thead>
@@ -284,7 +286,12 @@
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
                     <td v-text="item.detalles"></td>
                     <td>
-                      <button class="btn btn-danger" @click="eliminarRecurso(item.id_registro)">
+                      <button class="btn btn-danger" @click="editarAlimento(item)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" @click="eliminarAlimento(item.id_registro)">
                         <i class="fas fa-trash"></i>
                       </button>
                     </td>
@@ -483,35 +490,24 @@
     
   export default {
     data(){
-      return {
-        json_fields: {
-          'Siembras': 'nombre_siembra',
-          'Contenedor' : 'contenedor',
-          'Fecha Inicio' : 'fecha_inicio',
-          'Estado' : 'estado',
-          'Especies' : 'especie',
-          'Lotes' : 'lote', 
-          'Cantidad Inicial' : 'cantidad',
-          'Peso Inicial' : 'peso_inicial',
-          'Cantidad Actual': 'cant_actual',
-          'Peso actual' : 'peso_actual'
-        },
-        form:{
+      return {        
+        form: new Form({
           id : '',
           fecha_inicio:'',
           nombre_siembra:'',
           id_contenedor:'',
           id_siembra: '',
           id_recurso : 0,
+          id_registro:'',
           id_alimento :'',
           tipo_actividad : '1',
           fecha_ra : '',
           horas_hombre : '',
           cant_manana : '',
           cant_tarde : '',
-          detalles : ''
-          
-        },
+          detalles : ''          
+        }),
+        editandoAlimento : 0,
         fechaActual: [],
         ver_registros : 1,
         id_edita : '',
@@ -645,6 +641,15 @@
           me.listadoItems =  response.data.espxsiembra;      
         })
       },
+      editarAlimento(objeto){
+        console.log(objeto)
+        let me = this;
+        // let objeto = []
+        this.editandoAlimento = 1
+        this.form.fill(objeto);
+        
+            // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
+      },  
       guardarEdita(objeto){
         console.log(objeto)
         let me =  this;
@@ -857,15 +862,23 @@
         }
         console.log('guardar') ;
       },
-      guardarRecursos(id){
+      guardarRecursos(){
         let me = this;      
+        if(this.editandoAlimento == 0){
         axios.post("api/recursos-necesarios", this.form)
         .then(({data})=>{
           console.log('guardado');
           me.listar();
           me.abrirCrear(this.form.id_siembra);
           swal("Excelente!", "Los datos se guardaron correctamente!", "success");
-        })
+        })}else{
+          this.form.put('api/recursos-necesarios/'+this.form.id_registro)
+          .then(({data})=>{
+            this.form.reset()
+            this.editandoAlimento = 0
+            me.abrirCrear(this.form.id_siembra)            
+          })
+        }
       },
       eliminarRegistro(id, objeto){
       
@@ -890,7 +903,8 @@
           }
         });
       },
-      eliminarRecurso(objeto){
+          
+      eliminarAlimento(objeto){
         let me = this;
         swal({
           title: "Estás seguro?",
