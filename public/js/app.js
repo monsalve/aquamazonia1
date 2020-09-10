@@ -2113,7 +2113,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2124,9 +2123,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
         'Alimento': 'alimento',
-        'Horas hombre': 'horas_hombre',
         'Kg Mañana': 'cant_manana',
         'Kg tarde': 'cant_tarde',
+        'Costo': 'costo_kg',
+        'Costo total': 'costo_total_alimento',
         'Detalles': 'detalles'
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
@@ -2246,6 +2246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/searchResults", data).then(function (response) {
         me.listado = response.data.recursosNecesarios;
+        console.log(response);
       });
       console.log('buscar');
     },
@@ -52097,14 +52098,14 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn btn-danger",
+                                  staticClass: "btn btn-success",
                                   on: {
                                     click: function($event) {
                                       return _vm.editarAlimento(item)
                                     }
                                   }
                                 },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [_c("i", { staticClass: "fas fa-edit" })]
                               )
                             ]),
                             _vm._v(" "),

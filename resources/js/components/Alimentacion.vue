@@ -65,7 +65,6 @@
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>
-                    
                     <th>Horas hombre</th>
                     <th>Total horas hombre</th>
                     <th><br>Alimento</th>
@@ -192,9 +191,10 @@ import downloadexcel from "vue-json-excel"
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
           'Alimento' : 'alimento',
-          'Horas hombre' : 'horas_hombre',
           'Kg Mañana' : 'cant_manana', 
           'Kg tarde' : 'cant_tarde',
+          'Costo' : 'costo_kg',
+          'Costo total' : 'costo_total_alimento',
           'Detalles' : 'detalles'
         },
         form : new Form({
@@ -266,6 +266,7 @@ import downloadexcel from "vue-json-excel"
         axios.post("api/searchResults", data)
         .then(response=>{
           me.listado = response.data.recursosNecesarios;
+          console.log(response)
         })
         console.log('buscar')
       },

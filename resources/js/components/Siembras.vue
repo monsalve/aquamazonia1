@@ -286,8 +286,8 @@
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
                     <td v-text="item.detalles"></td>
                     <td>
-                      <button class="btn btn-danger" @click="editarAlimento(item)">
-                        <i class="fas fa-trash"></i>
+                      <button class="btn btn-success" @click="editarAlimento(item)">
+                        <i class="fas fa-edit"></i>
                       </button>
                     </td>
                     <td>
