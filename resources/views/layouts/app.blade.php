@@ -83,6 +83,7 @@
                                     <router-link class="dropdown-item" to="/informes-parametros">Informe Párametros de calidad del agua </router-link>                            
                                     <router-link class="dropdown-item" to="/informe-siembras">Informe siembras</router-link>      
                                     <router-link class="dropdown-item" to="/ciclo-productivo">Informe ciclo productivo</router-link>      
+                                    <router-link class="dropdown-item" to="/informe-actividades">Informe muestreo y pesca</router-link>      
                                     <!-- <router-link class="dropdown-item" to="/calidad-agua">Informe Calidad Agua</router-link>       -->
                                 </div>
                             </li>

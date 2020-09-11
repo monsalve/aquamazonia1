@@ -32,7 +32,8 @@ Route::apiResources([
     'recursos-siembras' => 'API\RecursoSiembraController',
     'informes' => 'API\InformeController',
     'parametros-calidad' => 'API\ParametroCalidadController',
-    'informes-siembras' => 'API\InformeSiembraController'
+    'informes-siembras' => 'API\InformeSiembraController',
+    'informes-registros' => 'API\InformeRegistroController'
 ]);
 
 Route::namespace('API')->group(function () {
@@ -48,6 +49,7 @@ Route::namespace('API')->group(function () {
     Route::post('parametro-x-contenedor/{id}', 'ParametroCalidadController@mostrarParametrosxContenedores');
     Route::post('siembras-alimentacion/{id}', 'RecursoNecesarioController@siembraxAlimentacion');   
     Route::post('anadir-especie-siembra', 'SiembraController@anadirEspeciesxSiembra');   
+    Route::post('filtro-registros', 'InformeRegistroController@filtroRegistros');   
     
     Route::get('especies-siembra-edita/{id}', 'SiembraController@getEspeciesSiembra');    
     Route::get('lista-alimentacion', 'RecursoNecesarioController@alimentacion');

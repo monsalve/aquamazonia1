@@ -257,9 +257,9 @@ class InformeController extends Controller
         
             for($i=0;$i<count($existencias); $i++){
                 $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
-                // $existencias[$i]->biomasa_disponible = (number_format((float)4,2,',',''));
+
                 
-            var_dump($existencias[$i]->biomasa_disponible);
+            // var_dump(number_format((float)$existencias[$i]->biomasa_disponible,2,',',''));
                 
                 for($j=0;$j<count($registros); $j++){                   
                 

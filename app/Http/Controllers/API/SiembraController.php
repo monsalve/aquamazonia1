@@ -25,7 +25,11 @@ class SiembraController extends Controller
                     ->where('siembras.estado','=',1)
                     ->orderBy('siembras.id', 'desc')
                     ->get();
-                    
+        $listado_siembras = Siembra::select('siembras.id as id', 'nombre_siembra','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
+        // ->join('contenedores','siembras.id_contenedor','contenedores.id')
+        // ->where('siembras.estado','=',1)
+        ->orderBy('siembras.id', 'desc')
+        ->get();           
         $fecha_actual = date('Y-m-d');
                     
         $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','lote','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
@@ -54,7 +58,7 @@ class SiembraController extends Controller
                 'peso_actual'=>$p['peso_actual']);
         }                
         // echo date('Y-m-d');
-        return ["siembra"=> $siembra, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes, 'fecha_actual'=> $fecha_actual];
+        return ["siembra"=> $siembra,"listado_siembras"=> $listado_siembras, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes, 'fecha_actual'=> $fecha_actual];
     }
   
     /**

@@ -1,0 +1,198 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Informes Actividades(Muestreo y Pesca)</div>
+                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
+                    <div class="card-body">
+                      <div class="row mb-1">
+                        <div class="col-md-12">
+                          <h2>Filtrar por:</h2>
+                          <form class="row" method="POST" action="informe-excel" target="_blank">
+                            <div class="form-group col-md-2">
+                              <label for="Siembra">Siembra:</label>
+                              <select class="form-control" id="f_siembra" v-model="f_siembra">
+                                <option value="-1" selected>Seleccionar</option>                             
+                                <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="Especie">Especie</label>
+                              <select class="form-control" id="f_especie" v-model="f_especie">
+                                <option value="-1" selected>Seleccionar</option>                             
+                                <option :value="especie.id" v-for="especie in listadoEspecies" :key="especie.id">{{especie.especie}}</option>                            
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="actividad">Tipo actividad: </label>
+                              <select class="form-control" id="actividad" v-model="f_actividad" name="tipo_actividad">
+                                <option selected> Seleccionar</option>                              
+                              </select>
+                            </div>
+                            
+                            <div class="form-group col-md-2">
+                              <label for="search">Desde: </label>
+                              <input class="form-control" type="date" placeholder="Search" aria-label="f_fecha_d" v-model="f_fecha_d">
+                            </div>
+                             <div class="form-group col-md-2">
+                              <label for="search">Hasta: </label>
+                              <input class="form-control" type="date" placeholder="Search" aria-label="f_fecha_h" v-model="f_fecha_h">                                        
+                            </div>
+                            <div class="form-group col-md-1">
+                              <label for="">Buscar</label>
+                              <button  class="btn btn-primary form-control" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group col-md-2">                                      
+                              
+                              <downloadexcel
+                              class = "btn btn-success"
+                              :fetch   = "fetchData"
+                              :fields = "json_fields"
+                              :before-generate = "startDownload"
+                              name    = "informe-muestreos.xls"
+                              type    = "xls">
+                                <i class="fa fa-fw fa-download"></i> Generar Excel 
+                              </downloadexcel>
+                              
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div>
+                        <table class="table table-sm table-responsive table-hover">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Siembra</th>
+                              <th>Fecha de registro</th>
+                              <th>Especie</th>                              
+                              <th>Tipo <br>actividad</th>
+                              <th>Peso ganado</th>
+                              <th>Mortalidad</th>
+                              <th>Biomasa</th>
+                              <th>Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(lr,index) in listadoRegistros" :key="index">
+                              <td v-text="index"></td>
+                              <td v-text="lr.nombre_siembra"></td>
+                              <td v-text="lr.fecha_registro"></td>
+                              <td v-text="lr.especie"></td>
+                              <td v-text="lr.nombre_registro"></td>
+                              <td v-text="lr.peso_ganado"></td>
+                              <td v-text="lr.mortalidad"></td>
+                              <td v-text="lr.biomasa"></td>
+                              <td v-text="lr.cantidad"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+  import downloadexcel from "vue-json-excel";
+  export default {
+    data(){
+    
+      return {
+        json_fields: {
+          'siembra' : 'nombre_siembra',
+          'Fecha de registro' : 'fecha_registro',
+          'Especie' : 'especie',
+          'Tipo registro' : 'nombre_registro',
+         ' Peso ganado' : 'peso_ganado',
+         ' Mortalidad' : 'mortalidad',
+          'Biomasa' : 'bioamasa',
+         ' Cantidad' : 'cantidad',
+          
+        }, 
+        
+        listadoSiembras : [],
+        listadoRegistros : [],
+        listadoEspecies:[],
+        // filtros
+        f_siembra:'',
+        f_especie:'',
+        f_actividad : '',
+        f_fecha_d : '',
+        f_fecha_h : '',
+        
+      }
+    },
+    components: {
+      downloadexcel,
+    },
+    methods:{
+      async fetchData(){
+        let me = this;
+       
+        const response = await this.listadoRegistros
+        return this.listadoRegistros;
+      },
+      startDownload(){
+          alert('show loading');
+      },
+      finishDownload(){
+          alert('hide loading');
+      },
+      listar(){
+        let me = this
+        me.listarSiembras();
+        me.listarRegistros();
+        me.listarEspecies()
+      },
+      listarSiembras(){
+        let me = this;
+        axios.get("api/siembras")
+        .then(function (response){
+          me.listadoSiembras = response.data.listado_siembras;
+        })
+      },
+      listarRegistros(){
+        let me = this;
+        axios.get("api/informes-registros")
+        .then(function (response){
+          me.listadoRegistros = response.data;
+        })
+      },
+      listarEspecies(){
+        let me = this;
+        axios.get("api/especies")
+        .then(function (response){
+          me.listadoEspecies = response.data
+        })
+      },
+      filtroResultados(){
+        let me = this
+      
+        if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+        if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
+        if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad}        
+        if(this.f_fecha_d == ''){this.fec1 = '-1'}else{this.fec1 = this.f_fecha_d}
+        if(this.f_fecha_h == ''){this.fec2 = '-1'}else{this.fec2 = this.f_fecha_h}
+        
+        const data ={
+          'f_siembra' : this.smb,
+          'f_especie' : this.f_e,
+          'f_actividad':this.act,
+          'f_fecha_d' : this.fec1,
+          'f_fecha_h' : this.fec2
+        }
+        axios.post("api/filtro-registros", data)
+        .then(response=>{
+          me.listadoRegistros = response.data;
+        });
+      },
+    },
+    mounted() {
+      this.listar();
+    }
+  }
+</script>
