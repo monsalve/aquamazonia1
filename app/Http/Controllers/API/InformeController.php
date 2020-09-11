@@ -256,8 +256,12 @@ class InformeController extends Controller
         if(count($existencias)>0){
         
             for($i=0;$i<count($existencias); $i++){
-                $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
+                
+                
+                $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);                
+                $existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
 
+                $bio_dispo = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
                 
             // var_dump(number_format((float)$existencias[$i]->biomasa_disponible,2,',',''));
                 
@@ -288,10 +292,11 @@ class InformeController extends Controller
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',',''));
                             $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','')) .' kg';                    
                             $existencias[$i]->densidad_final = (number_format(($existencias[$i]->cant_actual/$existencias[$i]->capacidad),2, ',',''));
-                            $existencias[$i]->carga_final = (number_format(($existencias[$i]->biomasa_disponible/$existencias[$i]->capacidad), 2, ',',''));
+                            $existencias[$i]->carga_final = (number_format(($bio_dispo/$existencias[$i]->capacidad), 2, ',',''));
                         }                        
                     }                    
                 }
+                
             }               
         }           
         
@@ -345,36 +350,47 @@ class InformeController extends Controller
         if(count($existencias)>0){
         
             for($i=0;$i<count($existencias); $i++){
-            
-                $existencias[$i]->biomasa_disponible = (round(((floatval($existencias[$i]->peso_actual) * floatval($existencias[$i]->cant_actual)) / 1000),2));
-            
-                $diff = 0 ;
-                for($j=0;$j<count($registros); $j++){
-                    
+                
+                
+                $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);                
+                $existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
+
+                $bio_dispo = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
+                
+            // var_dump(number_format((float)$existencias[$i]->biomasa_disponible,2,',',''));
+                
+                for($j=0;$j<count($registros); $j++){                   
+                
                     if(count($registros)>0){
-                    
                         if($existencias[$i]->id_siembra == $registros[$j]->id_siembra && $existencias[$i]->id_especie == $registros[$j]->id_especie ){   
                         
-                            $int_tiempo =Registro::select('fecha_registro')->orderBy('fecha_registro', 'desc')->where('id_siembra', $existencias[$i]->id_siembra)->where('id_especie', $existencias[$i]->id_especie)->limit(1)->get();
+                            $int_tiempo =Registro::select('fecha_registro')
+                                ->orderBy('fecha_registro', 'desc')
+                                ->where('id_siembra', $existencias[$i]->id_siembra)
+                                ->where('id_especie', $existencias[$i]->id_especie)
+                                ->limit(1)
+                                ->get();
                             $date1 = new \DateTime($existencias[$i]->fecha_inicio);
                             $date2 = new \DateTime($int_tiempo[0]->fecha_registro);
                             $diff = $date1->diff($date2);
+                      
                             $existencias[$i]->intervalo_tiempo  = $diff->days;
+                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                                 
                             
-                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;
                             $bio_acum += $registros[$j]->biomasa;
-                            $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');                         
+                            $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
-                            $existencias[$i]->mortalidad_porcentaje =  (round((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2)) .' %';                            
+                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',','')) .' %';
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',',''));
-                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','')) .' kg';                                                 
+                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','')) .' kg';                    
                             $existencias[$i]->densidad_final = (number_format(($existencias[$i]->cant_actual/$existencias[$i]->capacidad),2, ',',''));
-                            $existencias[$i]->carga_final = (number_format(($existencias[$i]->biomasa_disponible/$existencias[$i]->capacidad), 2, ',',''));
+                            $existencias[$i]->carga_final = (number_format(($bio_dispo/$existencias[$i]->capacidad), 2, ',',''));
                         }                        
                     }                    
                 }
+                
             }               
         }           
                            
