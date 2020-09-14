@@ -411,7 +411,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Especie</th>
-                      <th scope="col" v-if="tipo_registro == 0">Peso Ganado actual (gr)</th>
+                      <th scope="col" v-if="tipo_registro == 0">Peso actual (gr)</th>
                       <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
                       <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
                       <th scope="col" v-if="tipo_registro == 1">Cantidad</th>

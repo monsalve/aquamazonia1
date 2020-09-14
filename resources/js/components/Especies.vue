@@ -22,8 +22,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr v-for="especie in listado" :key="especie.id">
-                                  <th scope="row" v-text="especie.id"></th>
+                                <tr v-for="(especie, index) in listado" :key="especie.id">
+                                  <th scope="row" v-text="index"></th>
                                   <td v-text="especie.especie">Tilapia</td>
                                   <td v-text="especie.descripcion"></td>
                                   <td>
@@ -158,7 +158,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        me.form.delete('api/siembras/'+index)
+                        me.form.delete('api/especies/'+index)
                         .then(({data})=>{
                             me.listar();
                             console.log('eliminar'+index)

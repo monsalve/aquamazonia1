@@ -63,27 +63,68 @@ class RegistroController extends Controller
             // $mensajes = array();
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             
-            if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
-                $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
-            }            
-            if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
-                $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
-            }            
-            if($campo['peso_ganado'] > $exs->cant_actual){
-                $exs->peso_actual = ($campo['peso_ganado']);
+            if($request->tipo_registro == 0){
+                if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
+                    $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
+                } 
+                
+                if($campo['peso_ganado'] > $exs->cant_actual){
+                    $exs->peso_actual = ($campo['peso_ganado']);                    
+                    // $exs->biomasa = '';
+                    // $exs->cantidad = '';
+                }
             }
+            if($request->tipo_registro == 1){
+                       
+                if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
+                    $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
+                    // $exs->mortalidad = '';
+                    // $exs->peso_ganado = '';
+                }  
+            }    
+            if($request->tipo_registro == 2){
+                if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
+                    $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
+                    // $exs->peso_actual = '';                    
+                    // $exs->biomasa = '';
+                    // $exs->cantidad = '';
+                } 
+            }
+            
             $exs->save();
-            $registro = Registro::create([
-                'id_especie' =>$campo['id_especie'],
-                'id_siembra' => $campo['id_siembra'],
-                'fecha_registro' => $request['fecha_registro'],
-                'conv_alimenticia' => $request['conv_alimenticia'],
-                'tipo_registro' => $request['tipo_registro'],
-                'peso_ganado' => $campo['peso_ganado'],
-                'mortalidad' => $campo['mortalidad'],
-                'biomasa' => $campo['biomasa'],
-                'cantidad' => $campo['cantidad']
-            ]);
+            
+            if($request->tipo_registro == 0){
+                $registro = Registro::create([
+                    'id_especie' =>$campo['id_especie'],
+                    'id_siembra' => $campo['id_siembra'],
+                    'fecha_registro' => $request['fecha_registro'],
+                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    'tipo_registro' => $request['tipo_registro'],
+                    'peso_ganado' => $campo['peso_ganado'],
+                    'mortalidad' => $campo['mortalidad'],                   
+                ]);                    
+            }
+            if($request->tipo_registro == 1){
+                $registro = Registro::create([
+                    'id_especie' =>$campo['id_especie'],
+                    'id_siembra' => $campo['id_siembra'],
+                    'fecha_registro' => $request['fecha_registro'],
+                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    'tipo_registro' => $request['tipo_registro'],                   
+                    'biomasa' => $campo['biomasa'],
+                    'cantidad' => $campo['cantidad']
+                ]);                    
+            }
+            if($request->tipo_registro == 2){
+                $registro = Registro::create([
+                    'id_especie' =>$campo['id_especie'],
+                    'id_siembra' => $campo['id_siembra'],
+                    'fecha_registro' => $request['fecha_registro'],
+                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    'tipo_registro' => $request['tipo_registro'],
+                    'mortalidad' => $campo['mortalidad'],
+                ]);                    
+            }
                         
         }
     }

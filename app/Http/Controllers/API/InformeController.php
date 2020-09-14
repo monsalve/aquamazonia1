@@ -287,10 +287,10 @@ class InformeController extends Controller
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
-                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',','')) .' %';
+                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',',''));
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',',''));
-                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','')) .' kg';                    
+                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',',''));                    
                             $existencias[$i]->densidad_final = (number_format(($existencias[$i]->cant_actual/$existencias[$i]->capacidad),2, ',',''));
                             $existencias[$i]->carga_final = (number_format(($bio_dispo/$existencias[$i]->capacidad), 2, ',',''));
                         }                        
@@ -381,10 +381,10 @@ class InformeController extends Controller
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
-                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',','')) .' %';
+                            $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',',''));
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',',''));
-                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',','')) .' kg';                    
+                            $existencias[$i]->salida_animales = (number_format((($existencias[$i]->salida_biomasa * 1000)/$existencias[$i]->peso_actual),2, ',',''));                    
                             $existencias[$i]->densidad_final = (number_format(($existencias[$i]->cant_actual/$existencias[$i]->capacidad),2, ',',''));
                             $existencias[$i]->carga_final = (number_format(($bio_dispo/$existencias[$i]->capacidad), 2, ',',''));
                         }                        

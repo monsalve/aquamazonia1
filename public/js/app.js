@@ -3452,7 +3452,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         dangerMode: true
       }).then(function (willDelete) {
         if (willDelete) {
-          me.form["delete"]('api/siembras/' + index).then(function (_ref3) {
+          me.form["delete"]('api/especies/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
             console.log('eliminar' + index);
@@ -3519,6 +3519,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -3741,7 +3744,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_fecha_d': this.fec1,
         'f_fecha_h': this.fec2
       };
-      axios.post("api/filtro-registros", data).then(function (response) {
+      axios.post("api/filtro-registros-siembras", data).then(function (response) {
         me.listadoRegistros = response.data;
       });
     }
@@ -47752,11 +47755,11 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.listado, function(especie) {
+                  _vm._l(_vm.listado, function(especie, index) {
                     return _c("tr", { key: especie.id }, [
                       _c("th", {
                         attrs: { scope: "row" },
-                        domProps: { textContent: _vm._s(especie.id) }
+                        domProps: { textContent: _vm._s(index) }
                       }),
                       _vm._v(" "),
                       _c(
@@ -48255,6 +48258,18 @@ var render = function() {
                         [
                           _c("option", { attrs: { selected: "" } }, [
                             _vm._v(" Seleccionar")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("Muestreo")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("Pesca")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("Mortalidad Inicial")
                           ])
                         ]
                       )
@@ -48447,7 +48462,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo "), _c("br"), _vm._v("actividad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Peso ganado")]),
+        _c("th", [_vm._v("Peso actual")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
@@ -53220,7 +53235,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _vm.tipo_registro == 0
                                   ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Peso Ganado actual (gr)")
+                                      _vm._v("Peso actual (gr)")
                                     ])
                                   : _vm._e(),
                                 _vm._v(" "),

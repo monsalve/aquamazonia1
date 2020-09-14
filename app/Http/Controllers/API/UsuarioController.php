@@ -16,7 +16,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::all()->where('estado', '1');
         return $usuarios;
     }
 

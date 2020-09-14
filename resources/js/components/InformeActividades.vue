@@ -27,7 +27,10 @@
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="f_actividad" name="tipo_actividad">
-                                <option selected> Seleccionar</option>                              
+                                <option selected> Seleccionar</option>
+                                <option value="0">Muestreo</option>
+                                <option value="1">Pesca</option>
+                                <option value="2">Mortalidad Inicial</option>
                               </select>
                             </div>
                             
@@ -68,7 +71,7 @@
                               <th>Fecha de registro</th>
                               <th>Especie</th>                              
                               <th>Tipo <br>actividad</th>
-                              <th>Peso ganado</th>
+                              <th>Peso actual</th>
                               <th>Mortalidad</th>
                               <th>Biomasa</th>
                               <th>Cantidad</th>
@@ -185,7 +188,7 @@
           'f_fecha_d' : this.fec1,
           'f_fecha_h' : this.fec2
         }
-        axios.post("api/filtro-registros", data)
+        axios.post("api/filtro-registros-siembras", data)
         .then(response=>{
           me.listadoRegistros = response.data;
         });

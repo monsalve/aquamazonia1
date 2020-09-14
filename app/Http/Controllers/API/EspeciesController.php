@@ -16,7 +16,7 @@ class EspeciesController extends Controller
     public function index()
     {
         //
-        $especies = Especie::all();
+        $especies = Especie::orderBy('especie', 'asc')->get();
         return $especies;
     }
 
