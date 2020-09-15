@@ -178,7 +178,7 @@ class RecursoNecesarioController extends Controller
         $c11 = 'recursos_necesarios.id'; $op6 = '!='; $c12 = '-1';
         $c13 = 'recursos_necesarios.id'; $op7 = '!='; $c14 = '-1';
         
-        if($request['tipo_actividad']!='1'){$c1="tipo_actividad"; $op1='='; $c2= $request['tipo_actividad'];}
+        if($request['tipo_actividad']!='-1'){$c1="tipo_actividad"; $op1='='; $c2= $request['tipo_actividad'];}
         if($request['fecha_ra1']!='-3'){$c3="fecha_ra"; $op2='>='; $c4=$request['fecha_ra1'];}
         if($request['fecha_ra2']!='-1'){$c5="fecha_ra"; $op3='<='; $c6=$request['fecha_ra2'];}
         if($request['f_siembra']!='-1'){$c7="siembras.id"; $op4='='; $c8= $request['f_siembra'];}

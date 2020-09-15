@@ -23,8 +23,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr v-for="recurso in listado" :key="recurso.id">
-                                  <th scope="row" v-text="recurso.id"></th>
+                                <tr v-for="(recurso,index) in listado" :key="recurso.id">
+                                  <th scope="row" v-text="index+1"></th>
                                   <td v-text="recurso.recurso"></td>
                                   <td v-text="recurso.unidad"></td>
                                   <td v-text="recurso.costo"></td>
