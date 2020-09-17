@@ -37,8 +37,9 @@ let routes = [
     { path: '/informe-siembras', component: require('./components/InformeSiembras.vue').default },
     { path: '/informes-parametros', component: require('./components/InformeParametros.vue').default },
     { path: '/informe-actividades', component: require('./components/InformeActividades.vue').default },
+    { path: '/informe-consolidado', component: require('./components/InformeConsolidado.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
-    
+
 ]
 
 const router = new VueRouter({
