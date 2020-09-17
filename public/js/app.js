@@ -4161,6 +4161,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4182,7 +4187,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Mortalidad %': 'mortalidad_porcentaje',
         'Salida animales': 'salida_animales',
         'Densidad final (Animales/m2)': 'densidad_final',
-        'Carga final (Kg/m2)': 'carga_final'
+        'Carga final (Kg/m2)': 'carga_final',
+        'Horas hombre': 'horas_hombre',
+        'Costo horas Hombre': 'costo_horash',
+        'Costo total recursos': 'costo_r',
+        'Costo total alimentos': 'costo_total_alimento',
+        'Costo total': 'costo_tot'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -4191,7 +4201,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_siembra: '',
       f_especie: '',
       f_inicio_d: '',
-      f_inicio_h: ''
+      f_inicio_h: '',
+      f_biomasa_h: ''
     };
   },
   components: {
@@ -4251,20 +4262,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.siembra;
       });
     },
-    filtroCiclo: function filtroCiclo() {
+    filtroSiembra: function filtroSiembra() {
       var me = this;
 
       if (this.f_siembra == '') {
         this.smb = '-1';
       } else {
         this.smb = this.f_siembra;
-      }
+      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
 
-      if (this.f_especie == '') {
-        this.esp = '-1';
-      } else {
-        this.esp = this.f_especie;
-      }
 
       if (this.f_inicio_d == '') {
         this.fecd = '-1';
@@ -4278,13 +4284,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.fech = this.f_inicio_h;
       }
 
+      if (this.f_biomasa_h == '') {
+        this.bh = '-1';
+      } else {
+        this.bh = this.f_biomasa_h;
+      }
+
       var data = {
         'f_siembra': this.smb,
-        'f_especie': this.esp,
         'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
+        'f_inicio_h': this.fech,
+        'f_biomasa_h': this.bh
       };
-      axios.post("api/filtro-ciclos", data).then(function (response) {
+      axios.post("api/filtro-existencias-detalle", data).then(function (response) {
         me.listadoExistencias = response.data.existencias; // console.log(response.data);
       });
       console.log('buscar');
@@ -49219,54 +49231,31 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "especie" } }, [
-                  _vm._v("Especies")
+                _c("label", { attrs: { for: "Biomasa hasta" } }, [
+                  _vm._v("Biomasa disponible(kg) hasta: ")
                 ]),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_especie,
-                        expression: "f_especie"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "especie" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_especie = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_biomasa_h,
+                      expression: "f_biomasa_h"
                     }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoEspecies, function(les, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: les.id } },
-                        [_vm._v(_vm._s(les.especie))]
-                      )
-                    })
                   ],
-                  2
-                )
+                  staticClass: "form-control",
+                  attrs: { type: "number", id: "f_biomasa_h", step: "any" },
+                  domProps: { value: _vm.f_biomasa_h },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_biomasa_h = $event.target.value
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _vm._m(1),
@@ -49280,7 +49269,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: {
                       click: function($event) {
-                        return _vm.filtroCiclo()
+                        return _vm.filtroSiembra()
                       }
                     }
                   },
@@ -50880,7 +50869,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(lrn.costo_r) }
+                        domProps: { textContent: _vm._s(lrn.cantidad_recurso) }
                       }),
                       _vm._v(" "),
                       _c("th", {
@@ -50941,7 +50930,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Recursos")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo")]),
+        _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo "), _c("br"), _vm._v("Acumulado")]),
         _vm._v(" "),
@@ -74441,8 +74430,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp2\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

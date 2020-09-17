@@ -87,7 +87,7 @@
                               <th>Costo horas </th>
                               <th>Costo Acumulado Horas</th>
                               <th>Recursos</th>
-                              <th>Costo</th>
+                              <th>Cantidad</th>
                               <th>Costo <br>Acumulado</th>
                               <th>Fecha</th>
                               <th>Alimentos</th>
@@ -106,7 +106,7 @@
                               <td v-text="lrn.costo_horash +'hr'"></td>
                               <th v-text="lrn.costo_h_acum +'hr'"></th>
                               <td v-text="lrn.recurso"></td>
-                              <td v-text="lrn.costo_r"></td>
+                              <td v-text="lrn.cantidad_recurso"></td>
                               <th v-text="lrn.costo_r_acum"></th>        
                               <td v-text="lrn.fecha_ra"></td>     
                               <td v-text="lrn.alimento"></td>

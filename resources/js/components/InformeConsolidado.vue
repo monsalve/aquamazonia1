@@ -1,4 +1,4 @@
-<template>
+<template>   
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -17,12 +17,17 @@
                             <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
                           </select>
                         </div>
-                        <div class="form-group col-md-2">
+                        <!-- <div class="form-group col-md-2">
                           <label for="especie">Especies</label>
                           <select class="form-control" id="especie" v-model="f_especie">
                             <option value="-1">Seleccionar</option>
                             <option :value="les.id" v-for="(les, index) in listadoEspecies" :key="index">{{les.especie}}</option>
                           </select>
+                        </div> -->
+                        
+                        <div class="form-group col-md-2">
+                          <label for="Biomasa hasta">Biomasa disponible(kg) hasta: </label>
+                          <input type="number" class="form-control" id="f_biomasa_h" step="any"  v-model="f_biomasa_h">
                         </div>
                         <div class="form-group col-md-2">
                           <label for="Fecha desde">Fecha inicio desde: </label>
@@ -33,7 +38,7 @@
                           <input type="date" class="form-control" id="f_inicio_h">
                         </div>
                         <div class="form-group col-md-2">
-                          <button class="btn btn-primary" @click="filtroCiclo()">
+                          <button class="btn btn-primary" @click="filtroSiembra()">
                             Filtrar resultados
                           </button>
                         </div>
@@ -138,6 +143,11 @@
           'Salida animales' : 'salida_animales',
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
+          'Horas hombre':'horas_hombre',
+          'Costo horas Hombre':'costo_horash',
+          'Costo total recursos':'costo_r',
+          'Costo total alimentos':'costo_total_alimento',
+          'Costo total':'costo_tot',
         },       
         listadoExistencias : [],
         listadoEspecies : [],
@@ -147,6 +157,7 @@
         f_especie: '', 
         f_inicio_d : '',
         f_inicio_h : '',
+        f_biomasa_h : '',
       }
     },
     components: {
@@ -191,21 +202,23 @@
           me.listadoSiembras = response.data.siembra;
         })
       },
-      filtroCiclo(){
+      filtroSiembra(){
         let me = this;
         
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
-        if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
+        // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}
+        if(this.f_biomasa_h == ''){this.bh = '-1'}else{this.bh = this.f_biomasa_h}
+        
         
         const data ={
           'f_siembra' : this.smb,
-          'f_especie' : this.esp,
           'f_inicio_d' : this.fecd,
-          'f_inicio_h' : this.fech
+          'f_inicio_h' : this.fech,
+          'f_biomasa_h' : this.bh
         }
-        axios.post("api/filtro-ciclos", data)
+        axios.post("api/filtro-existencias-detalle", data)
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
           // console.log(response.data);
