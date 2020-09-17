@@ -51009,11 +51009,11 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.listado, function(recurso) {
+                  _vm._l(_vm.listado, function(recurso, index) {
                     return _c("tr", { key: recurso.id }, [
                       _c("th", {
                         attrs: { scope: "row" },
-                        domProps: { textContent: _vm._s(recurso.id) }
+                        domProps: { textContent: _vm._s(index + 1) }
                       }),
                       _vm._v(" "),
                       _c("td", {
@@ -51460,7 +51460,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { selected: "" } }, [
+                        _c("option", { attrs: { value: "-1", selected: "" } }, [
                           _vm._v(" Seleccionar")
                         ]),
                         _vm._v(" "),
@@ -51514,7 +51514,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { selected: "" } }, [
+                        _c("option", { attrs: { value: "-1" } }, [
                           _vm._v(" Seleccionar")
                         ]),
                         _vm._v(" "),

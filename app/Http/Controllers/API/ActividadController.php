@@ -16,7 +16,7 @@ class ActividadController extends Controller
     public function index()
     {
         //
-        $actividades = Actividad::all();
+        $actividades = Actividad::orderBy('actividad', 'asc')->get();
         return $actividades;
     }
 

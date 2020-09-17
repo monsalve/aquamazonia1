@@ -16,7 +16,7 @@ class RecursosController extends Controller
     public function index()
     {
         //
-        $recursos = Recursos::all();
+        $recursos = Recursos::orderBy('recurso', 'asc')->get();
         return $recursos;
     }
 

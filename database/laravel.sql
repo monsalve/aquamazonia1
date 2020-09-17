@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-09-2020 a las 22:21:25
+-- Tiempo de generación: 16-09-2020 a las 00:38:21
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -126,12 +126,13 @@ CREATE TABLE `calidad_agua` (
 --
 
 INSERT INTO `calidad_agua` (`id`, `id_contenedor`, `fecha_parametro`, `12_am`, `4_am`, `7_am`, `4_pm`, `8_pm`, `temperatura`, `ph`, `amonio`, `nitrito`, `nitrato`, `otros`, `created_at`, `updated_at`) VALUES
-(4, 0, '2020-05-09', 4, 4, 1, 7, 4, 28, 8, 0, 0, 0, 0, '2020-08-21 17:38:10', '2020-08-21 17:38:10'),
+(4, 0, '2020-09-25', 3, 67, NULL, NULL, NULL, NULL, NULL, NULL, 56, NULL, NULL, '2020-08-21 17:38:10', '2020-09-15 00:58:43'),
 (5, 3, '2020-05-16', 0, 0, 0, 0, 0, 28, 8, 0, 0, 0, 0, '2020-08-21 17:47:02', '2020-08-21 17:47:02'),
 (6, 3, '2020-09-09', 3, 12, 12, 12, NULL, 12, 12, 12, 12, 12, 12, '2020-09-09 03:31:40', '2020-09-09 03:31:40'),
 (7, 17, '2020-09-09', 3, 12, 12, 12, NULL, 12, 12, 12, 12, 12, 12, '2020-09-09 03:31:40', '2020-09-09 03:31:40'),
 (8, 24, '2020-09-09', 3, 12, 12, 12, NULL, 12, 12, 12, 12, 12, 12, '2020-09-09 03:31:40', '2020-09-09 03:31:40'),
-(9, 33, '2020-09-09', 3, 12, 12, 12, NULL, 12, 12, 12, 12, 12, 12, '2020-09-09 03:31:40', '2020-09-09 03:31:40');
+(9, 33, '2020-09-09', 3, 12, 12, 12, NULL, 12, 12, 12, 12, 12, 12, '2020-09-09 03:31:40', '2020-09-09 03:31:40'),
+(10, 4, '2020-09-25', 3, 67, NULL, NULL, NULL, NULL, 67, NULL, NULL, 78, NULL, '2020-09-15 00:58:37', '2020-09-15 01:02:44');
 
 -- --------------------------------------------------------
 
@@ -273,9 +274,6 @@ CREATE TABLE `especies` (
 --
 
 INSERT INTO `especies` (`id`, `especie`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 'Cachama', 'lorem lorem lorem lorem lorem lorem lorem lorem', '2020-08-18 21:02:11', '2020-08-18 21:02:11'),
-(2, 'Tilapia', 'lorem lorem lorem lorem lorem lorem lorem lorem', '2020-08-18 21:02:16', '2020-08-18 21:02:16'),
-(3, 'Salmon', 'lorem lorem lorem lorem lorem lorem lorem lorem', '2020-08-18 21:02:21', '2020-08-18 21:02:21'),
 (4, 'Sábalo', 'lorem lorem lorem lorem lorem lorem lorem lorem', '2020-08-18 21:03:27', '2020-08-18 21:03:27'),
 (10, 'Pirarucu', 'Pirarucu', '2020-07-21 17:29:33', '2020-07-21 17:29:33'),
 (11, 'Cachama', 'Blanca', '2020-07-23 20:44:07', '2020-07-23 20:44:07'),
@@ -316,9 +314,9 @@ INSERT INTO `especies_siembra` (`id`, `id_siembra`, `lote`, `id_especie`, `canti
 (207, 80, 'A1399', 13, 800, 60, '2020-08-21 18:10:33', '2020-08-21 19:07:42', 587, 410),
 (208, 81, 'NR', 12, 17000, 1, '2020-08-22 01:26:04', '2020-08-22 01:26:04', 17000, 0.5),
 (210, 83, 'DE34', 2, 50000, 80, '2020-09-08 03:43:11', '2020-09-09 21:05:48', 49598, 80),
-(211, 83, 'F098', 14, 10000, 500, '2020-09-08 03:43:11', '2020-09-10 06:29:02', 10000, 90),
-(212, 83, 'J099', 17, 20000, 100, '2020-09-08 03:43:11', '2020-09-09 21:04:53', 19676, 100),
-(213, 83, '88F', 15, 5000, 10, '2020-09-10 07:30:53', '2020-09-10 07:30:53', 5000, 10);
+(211, 83, 'F098', 14, 10000, 500, '2020-09-08 03:43:11', '2020-09-15 02:40:45', 9162, 90),
+(212, 83, 'J099', 17, 20000, 100, '2020-09-08 03:43:11', '2020-09-15 02:40:45', 19377, 100),
+(213, 83, '88F', 15, 5000, 10, '2020-09-10 07:30:53', '2020-09-15 02:40:45', 4665, 10);
 
 -- --------------------------------------------------------
 
@@ -699,7 +697,8 @@ INSERT INTO `recursos_necesarios` (`id`, `id_recurso`, `id_alimento`, `tipo_acti
 (349, 0, 39, '1', '2019-10-30', 1, 0, 7, 7, 'E', '2020-09-07 15:35:23', '2020-08-22 02:48:07'),
 (350, 0, 39, '1', '2019-10-31', 1, 0, 7, 5, 'E', '2020-09-07 15:35:23', '2020-08-22 02:48:25'),
 (351, 0, 39, '1', '2019-11-01', 1, 0, 5, 7, 'E', '2020-09-07 15:35:23', '2020-08-22 02:48:47'),
-(357, 0, 2, '1', '2020-09-12', NULL, NULL, 45, 45, '45', '2020-09-10 10:03:41', '2020-09-10 10:03:41');
+(357, 0, 2, '1', '2020-09-12', NULL, NULL, 45, 45, '45', '2020-09-10 10:03:41', '2020-09-10 10:03:41'),
+(358, 9, NULL, '10', '2020-09-19', NULL, 85, NULL, NULL, NULL, '2020-09-15 03:00:56', '2020-09-15 03:00:56');
 
 -- --------------------------------------------------------
 
@@ -988,7 +987,8 @@ INSERT INTO `recursos_siembras` (`id`, `id_registro`, `id_siembra`, `created_at`
 (347, 349, 82, '2020-08-22 02:48:08', '2020-08-22 02:48:08'),
 (348, 350, 82, '2020-08-22 02:48:25', '2020-08-22 02:48:25'),
 (349, 351, 82, '2020-08-22 02:48:47', '2020-08-22 02:48:47'),
-(355, 357, 83, '2020-09-10 10:03:41', '2020-09-10 10:03:41');
+(355, 357, 83, '2020-09-10 10:03:41', '2020-09-10 10:03:41'),
+(356, 358, 83, '2020-09-15 03:00:56', '2020-09-15 03:00:56');
 
 -- --------------------------------------------------------
 
@@ -1113,7 +1113,22 @@ INSERT INTO `registros` (`id`, `id_siembra`, `id_especie`, `fecha_registro`, `co
 (216, 83, 17, '2020-09-11', 12, 0, 12, 12, NULL, NULL, 1, '2020-09-09 21:01:26', '2020-09-09 21:01:26'),
 (217, 83, 2, '2020-09-04', 2, 0, 34, 12, NULL, NULL, 1, '2020-09-09 21:02:19', '2020-09-09 21:02:19'),
 (218, 83, 1, '2020-09-04', 2, 0, 23, 12, NULL, NULL, 1, '2020-09-09 21:02:19', '2020-09-09 21:02:19'),
-(219, 83, 17, '2020-09-04', 2, 0, 3, 45, NULL, NULL, 1, '2020-09-09 21:02:19', '2020-09-09 21:02:19');
+(219, 83, 17, '2020-09-04', 2, 0, 3, 45, NULL, NULL, 1, '2020-09-09 21:02:19', '2020-09-09 21:02:19'),
+(223, 83, 14, '2020-09-16', NULL, 1, NULL, NULL, 556, NULL, 1, '2020-09-15 02:11:56', '2020-09-15 02:11:56'),
+(224, 83, 17, '2020-09-16', NULL, 1, NULL, 45, 664, NULL, 1, '2020-09-15 02:11:56', '2020-09-15 02:11:56'),
+(225, 83, 15, '2020-09-16', NULL, 1, NULL, 45, 55, NULL, 1, '2020-09-15 02:11:56', '2020-09-15 02:11:56'),
+(226, 83, 14, '2020-09-14', NULL, 2, NULL, 56, 556, NULL, 1, '2020-09-15 02:12:49', '2020-09-15 02:12:49'),
+(227, 83, 17, '2020-09-14', NULL, 2, NULL, 45, 664, NULL, 1, '2020-09-15 02:12:49', '2020-09-15 02:12:49'),
+(228, 83, 15, '2020-09-14', NULL, 2, NULL, 45, 55, NULL, 1, '2020-09-15 02:12:49', '2020-09-15 02:12:49'),
+(229, 83, 14, '2020-09-14', NULL, 2, NULL, 35, 556, NULL, 1, '2020-09-15 02:17:47', '2020-09-15 02:17:47'),
+(230, 83, 17, '2020-09-14', NULL, 2, NULL, 66, 664, NULL, 1, '2020-09-15 02:17:47', '2020-09-15 02:17:47'),
+(231, 83, 15, '2020-09-14', NULL, 2, NULL, 78, 55, NULL, 1, '2020-09-15 02:17:47', '2020-09-15 02:17:47'),
+(232, 83, 14, '2020-09-15', NULL, 2, NULL, 35, NULL, NULL, 1, '2020-09-15 02:35:38', '2020-09-15 02:35:38'),
+(233, 83, 17, '2020-09-15', NULL, 2, NULL, 66, NULL, NULL, 1, '2020-09-15 02:35:39', '2020-09-15 02:35:39'),
+(234, 83, 15, '2020-09-15', NULL, 2, NULL, 78, NULL, NULL, 1, '2020-09-15 02:35:39', '2020-09-15 02:35:39'),
+(235, 83, 14, '2020-09-15', NULL, 1, NULL, NULL, 556, 677, 1, '2020-09-15 02:40:45', '2020-09-15 02:40:45'),
+(236, 83, 17, '2020-09-15', NULL, 1, NULL, NULL, 664, 77, 1, '2020-09-15 02:40:45', '2020-09-15 02:40:45'),
+(237, 83, 15, '2020-09-15', NULL, 1, NULL, NULL, 55, 89, 1, '2020-09-15 02:40:45', '2020-09-15 02:40:45');
 
 -- --------------------------------------------------------
 
@@ -1169,8 +1184,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (2, 'Isabella', 'issalazar00@outlook.com', NULL, '$2y$10$SXdLLlbOiMy13006qYM5ze4aqPolr80pvC0vVLWQ6ZRzMm2kOYN/C', NULL, 1, '2020-06-30 01:02:57', '2020-06-30 01:02:57'),
 (4, 'andres rojas', 'andres@gmail.com', NULL, '$2y$10$7QFjVQunNyOKdn4SMZJBU.K88hW03sW11Py.kzdOLDCpaP4DjiOc.', NULL, 1, '2020-07-15 02:54:52', '2020-07-15 02:54:52'),
 (5, 'richard peña', 'richardpen90@gmail.com', NULL, '$2y$10$PkU9jMgFAiSQI7wrZXSk7./29/qO4PUa48Lt4TS0U8wjyFrAXRe.C', NULL, 1, '2020-07-18 21:57:18', '2020-07-18 21:57:18'),
-(6, 'Edison Steve Pecillo', 'estevenup@hotmail.com', NULL, '$2y$10$gDVrSn4.AUooDrx/wuGab.Q9DxsmCD8zSxD/U/kAqJ6Dm3mbdSdz.', NULL, 1, '2020-08-07 02:42:30', '2020-08-07 02:42:30'),
-(7, 'Esteban Jurado', 'esteban_5280@hotmail.com', NULL, '$2y$10$jLrpheNFWBa8WIZ9BqZmSOsjvowZiLKj4r5x0nWE9xyBX1som1Baa', NULL, 1, '2020-08-13 00:06:28', '2020-08-13 00:06:28');
+(6, 'Edison Steve Pecillo', 'estevenup@hotmail.com', NULL, '$2y$10$gDVrSn4.AUooDrx/wuGab.Q9DxsmCD8zSxD/U/kAqJ6Dm3mbdSdz.', NULL, 0, '2020-08-07 02:42:30', '2020-09-14 21:32:09'),
+(7, 'Esteban Jurado', 'esteban_5280@hotmail.com', NULL, '$2y$10$jLrpheNFWBa8WIZ9BqZmSOsjvowZiLKj4r5x0nWE9xyBX1som1Baa', NULL, 0, '2020-08-13 00:06:28', '2020-09-14 21:56:20');
 
 --
 -- Índices para tablas volcadas
@@ -1287,13 +1302,13 @@ ALTER TABLE `actividades`
 -- AUTO_INCREMENT de la tabla `alimentos`
 --
 ALTER TABLE `alimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `calidad_agua`
 --
 ALTER TABLE `calidad_agua`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `calidad_siembra`
@@ -1305,7 +1320,7 @@ ALTER TABLE `calidad_siembra`
 -- AUTO_INCREMENT de la tabla `contenedores`
 --
 ALTER TABLE `contenedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT de la tabla `especies`
@@ -1335,25 +1350,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `recursos`
 --
 ALTER TABLE `recursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `recursos_necesarios`
 --
 ALTER TABLE `recursos_necesarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=359;
 
 --
 -- AUTO_INCREMENT de la tabla `recursos_siembras`
 --
 ALTER TABLE `recursos_siembras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=356;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=357;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 
 --
 -- AUTO_INCREMENT de la tabla `siembras`

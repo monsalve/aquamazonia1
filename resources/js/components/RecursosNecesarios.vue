@@ -24,14 +24,14 @@
                   <div class="form-group col-md-2">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
-                      <option selected> Seleccionar</option>   
+                      <option  value="-1" selected> Seleccionar</option>   
                       <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>                 
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="recurso">Recurso: </label>
                     <select class="form-control" id="recurso" v-model="recurso_s">
-                      <option selected> Seleccionar</option>   
+                      <option value="-1"> Seleccionar</option>   
                       <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                     </select>
                   </div>
