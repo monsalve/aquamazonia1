@@ -17,16 +17,9 @@
                             <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
                           </select>
                         </div>
-                        <!-- <div class="form-group col-md-2">
-                          <label for="especie">Especies</label>
-                          <select class="form-control" id="especie" v-model="f_especie">
-                            <option value="-1">Seleccionar</option>
-                            <option :value="les.id" v-for="(les, index) in listadoEspecies" :key="index">{{les.especie}}</option>
-                          </select>
-                        </div> -->
-                        
+                      
                         <div class="form-group col-md-2">
-                          <label for="Biomasa hasta">Biomasa disponible(kg) hasta: </label>
+                          <label for="Biomasa hasta">Mínimo de Biomasa disponible(kg): </label>
                           <input type="number" class="form-control" id="f_biomasa_h" step="any"  v-model="f_biomasa_h">
                         </div>
                         <div class="form-group col-md-2">
@@ -105,7 +98,7 @@
                               <td v-text="le.carga_final"></td>
                               <td v-text="le.horas_hombre"></td>
                               <td v-text="le.costo_horash"></td>
-                              <td v-text="le.costo_r"></td>
+                              <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
                               
@@ -145,7 +138,7 @@
           'Carga final (Kg/m2)' : 'carga_final',
           'Horas hombre':'horas_hombre',
           'Costo horas Hombre':'costo_horash',
-          'Costo total recursos':'costo_r',
+          'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
         },       

@@ -9,8 +9,9 @@ class Recursos extends Model
     protected $table = 'recursos';
 
     protected $fillable = [
-        'recurso'
-        , 'unidad'
-        , 'costo'        
+        
+        'costo',
+        'recurso',
+        'unidad'
     ];
 }

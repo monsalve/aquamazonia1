@@ -4159,13 +4159,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4190,7 +4183,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Carga final (Kg/m2)': 'carga_final',
         'Horas hombre': 'horas_hombre',
         'Costo horas Hombre': 'costo_horash',
-        'Costo total recursos': 'costo_r',
+        'Costo total recursos': 'costo_total_recurso',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot'
       },
@@ -49232,7 +49225,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "Biomasa hasta" } }, [
-                  _vm._v("Biomasa disponible(kg) hasta: ")
+                  _vm._v("Mínimo de Biomasa disponible(kg): ")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -49402,7 +49395,9 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(le.costo_r) }
+                          domProps: {
+                            textContent: _vm._s(le.costo_total_recurso)
+                          }
                         }),
                         _vm._v(" "),
                         _c("td", {

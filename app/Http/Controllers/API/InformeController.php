@@ -8,7 +8,7 @@ use App\EspecieSiembra;
 use App\Siembra;
 use App\RecursoSiembra;
 use App\RecursoNecesario;
-use App\Recurso;
+use App\Recursos;
 use App\Registro;
 use App\Actividad;
 use Illuminate\Support\Facades\DB;
@@ -404,15 +404,7 @@ class InformeController extends Controller
     public function traerExistenciasDetalle() {
         
         $existencias = EspecieSiembra::select(
-            // 'siembras.id as id',
-            // 'cant_actual',
-            // 'contenedor',
-            // 'capacidad',
-            // 'especies_siembra.id_siembra as id_siembra', 
-            // 'fecha_inicio', 
-            // 'nombre_siembra',
-            // 'peso_inicial',
-            // 'peso_actual'
+            'siembras.id as id',        
             DB::raw('SUM(cant_actual) as cant_actual'),
             'contenedor',
             'capacidad',                     
@@ -423,24 +415,35 @@ class InformeController extends Controller
             DB::raw('SUM(peso_inicial) as peso_inicial'),            
             DB::raw('SUM(peso_actual) as peso_actual'),
             )
-        ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
-        ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
-        ->where('siembras.estado', '=', 1)
-        ->orderBy('siembras.nombre_siembra')
-        ->groupBy('siembras.id')
-        ->groupBy('contenedor')
-        ->groupBy('fecha_inicio')
-        ->groupBy('nombre_siembra')        
-        ->groupBy('capacidad')
-        ->groupBy('especies_siembra.id_siembra')
-        ->get();
+            ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
+            ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
+            ->where('siembras.estado', '=', 1)
+            ->orderBy('siembras.nombre_siembra')
+            ->groupBy('siembras.id')
+            ->groupBy('contenedor')
+            ->groupBy('fecha_inicio')
+            ->groupBy('nombre_siembra')        
+            ->groupBy('capacidad')
+            ->groupBy('especies_siembra.id_siembra')
+            ->get();
 
         $aux_regs = array();
         
         foreach($existencias as $exist ) {
-            
-            $biomasa_disponible = ((($exist->peso_actual)*($exist->cant_actual)) / 1000);
-            $biomasa_disponible = number_format($biomasa_disponible,2,',','');
+            $especies_siembra = EspecieSiembra::select()
+            ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
+            ->where('siembras.id', $exist->id)
+            ->get();
+            $sum_bio = 0;
+            if(count($especies_siembra)>0){        
+                for($i=0;$i<count($especies_siembra); $i++){
+                
+                
+                    $especies_siembra[$i]->biomasa_disponible = ((($especies_siembra[$i]->peso_actual)*($especies_siembra[$i]->cant_actual)) / 1000);
+                    $sum_bio +=$especies_siembra[$i]->biomasa_disponible;
+                    $biomasa_disponible = number_format($sum_bio,2,',','');
+                }
+            }
             
             $registros = Registro::select(
                 'siembras.id',
@@ -456,43 +459,66 @@ class InformeController extends Controller
 
             $mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));
             
-            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));                    
+            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
 
             $densidad_final = (number_format(($exist->cant_actual/$exist->capacidad),2, ',',''));
 
             $bio_dispo = ((($exist->peso_actual)*($exist->cant_actual)) / 1000);
             $carga_final = (number_format(($bio_dispo/$exist->capacidad), 2, ',',''));
-
-
-            $recursosNecesarios = RecursoNecesario::select(
-                    DB::raw('SUM(recursos.costo) as costo_r'),
-                    DB::raw('SUM(horas_hombre) as horas_hombre'),
-                    DB::raw('SUM(alimentos.costo_kg) as costo_a'),
-                    DB::raw('SUM(cant_tarde) as cant_tarde'),
-                    DB::raw('SUM(cant_manana) as cant_manana'),
-                    DB::raw('SUM(cantidad_recurso) as cantidad_recurso'),
-                )
-                ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-                ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-                ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-                ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')                
-                ->where('recursos_siembras.id_siembra','=',$exist->id)
-                ->groupBy('siembras.id')
-                ->first();
-
-
-            $costo_horash = $recursosNecesarios->horas_hombre*3000;
-            // $costo_r = $recursosNecesarios->costo_r*3000;
-            $costo_r = $recursosNecesarios->cantidad_recurso * $recursosNecesarios->costo_r;
-            $costo_total_alimento = ($recursosNecesarios->cant_tarde + $recursosNecesarios->cant_manana) * $recursosNecesarios->costo_a;   
-            $costo_tot = $costo_horash + $costo_r + $costo_total_alimento;
-
+        
+            $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+            ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+            ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+            ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+            ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+            // ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+            ->where('recursos_siembras.id_siembra','=',$exist->id)
+            // ->where('tipo_actividad', '=', '1')
+            ->where('estado',1)
+            ->get();
+            $horas_hombre = 0;
+            $costo_horash  = 0;
+            $costo_total_recurso = 0;
+            $costo_total_alimento = 0;
+            $hh = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+            
+            // print_r($recursosNecesarios);
+            // exit;
+            if(count($recursosNecesarios)>0){
+                for($i=0;$i<count($recursosNecesarios); $i++){   
+                    $costo_total_recurso += $recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo;
+                    $costo_total_alimento += ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
+                    $costo_horash += $recursosNecesarios[$i]->horas_hombre * $hh[0]->costo;
+                    $horas_hombre += $recursosNecesarios[$i]->horas_hombre;
+                    // $costo_horash = $recursosNecesarios[$i]->horas_hombre * $hh[0]->costo;
+                    
+                }
+            }
+            $costo_tot = $costo_horash + $costo_total_recurso + $costo_total_alimento;
             $costo_horash = number_format($costo_horash, 2, ',', '');
-            $costo_r = number_format($costo_r, 2, ',', '');
+            $costo_total_recurso = number_format($costo_total_recurso, 2, ',', '');
             $costo_total_alimento = number_format($costo_total_alimento, 2, ',', '');
             $costo_tot = number_format($costo_tot, 2, ',', '');
-
-            $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra, "fecha_inicio" => $exist->fecha_inicio, "cantidad_inicial" => $exist->cantidad_inicial, "peso_inicial" => $exist->peso_inicial, "peso_actual"=>$exist->peso_actual, "cant_actual" => $exist->cant_actual, "biomasa_disponible" => $biomasa_disponible , "salida_biomasa" => $registros->salida_biomasa, "mortalidad" => $registros->mortalidad, "mortalidad_kg" => $mortalidad_kg, "mortalidad_porcentaje" => $mortalidad_porcentaje , "salida_animales"=>$salida_animales, "densidad_final" => $densidad_final, "carga_final" => $carga_final,"horas_hombre" => $recursosNecesarios->horas_hombre, "costo_horash" => $costo_horash ,"costo_r" => $costo_r , "costo_total_alimento" => $costo_total_alimento, "costo_tot" => $costo_tot ];
+            
+            $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra,
+            "fecha_inicio" => $exist->fecha_inicio,
+            "cantidad_inicial" => $exist->cantidad_inicial,
+            "peso_inicial" => $exist->peso_inicial,
+            "peso_actual"=>$exist->peso_actual,
+            "cant_actual" => $exist->cant_actual,
+            "biomasa_disponible" => $biomasa_disponible ,
+            "salida_biomasa" => $registros->salida_biomasa,
+            "mortalidad" => $registros->mortalidad,
+            "mortalidad_kg" => $mortalidad_kg,
+            "mortalidad_porcentaje" => $mortalidad_porcentaje ,
+            "salida_animales"=>$salida_animales,
+            "densidad_final" => $densidad_final,
+            "carga_final" => $carga_final,
+            "horas_hombre" => $horas_hombre,
+            "costo_horash" => $costo_horash ,
+            "costo_total_recurso" => $costo_total_recurso ,
+            "costo_total_alimento" => $costo_total_alimento,
+            "costo_tot" => $costo_tot ];
         }
         
         return ['existencias'=> $aux_regs];
@@ -510,8 +536,7 @@ class InformeController extends Controller
         // if($request['f_especie']!='-1'){$c3="especies.id"; $op2='='; $c4= $request['f_especie'];}
         if($request['f_inicio_d']!='-1'){$c5="fecha_inicio"; $op3='>='; $c6= $request['f_inicio_d'];}
         if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
-        // if($request['f_biomasa_d']!='-1'){$request['f_biomasa_d'] = 0;}
-        // if($request['f_biomasa_h']!='-1'){}
+     
 
         $existencias = EspecieSiembra::select(
             'siembras.id as id',
@@ -530,11 +555,8 @@ class InformeController extends Controller
         ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
         ->where('siembras.estado', '=', 1)
         ->where($c1, $op1, $c2)
-        // ->where($c3, $op2, $c4)
         ->where($c5, $op3, $c6)
         ->where($c7, $op4, $c8)
-        // ->where($c9, $op5, $c10)
-        // ->where($c11, $op6, $c12)
         ->orderBy('siembras.nombre_siembra')
         ->groupBy('siembras.id')
         ->groupBy('contenedor')
@@ -547,9 +569,20 @@ class InformeController extends Controller
         $aux_regs = array();
         
         foreach($existencias as $exist ) {
-            
-            $biomasa_disponible = ((($exist->peso_actual)*($exist->cant_actual)) / 1000);
-            $biomasa_disponible = number_format($biomasa_disponible,2,',','');
+            $especies_siembra = EspecieSiembra::select()
+            ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
+            ->where('siembras.id', $exist->id)
+            ->get();
+            $sum_bio = 0;
+            if(count($especies_siembra)>0){        
+                for($i=0;$i<count($especies_siembra); $i++){
+                
+                
+                    $especies_siembra[$i]->biomasa_disponible = ((($especies_siembra[$i]->peso_actual)*($especies_siembra[$i]->cant_actual)) / 1000);
+                    $sum_bio +=$especies_siembra[$i]->biomasa_disponible;
+                    $biomasa_disponible = number_format($sum_bio,2,',','');
+                }
+            }
             
             $registros = Registro::select(
                 'siembras.id',
@@ -565,46 +598,66 @@ class InformeController extends Controller
 
             $mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));
             
-            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));                    
+            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
 
             $densidad_final = (number_format(($exist->cant_actual/$exist->capacidad),2, ',',''));
 
             $bio_dispo = ((($exist->peso_actual)*($exist->cant_actual)) / 1000);
             $carga_final = (number_format(($bio_dispo/$exist->capacidad), 2, ',',''));
-
-
-            $recursosNecesarios = RecursoNecesario::select(
-                    DB::raw('SUM(recursos.costo) as costo_r'),
-                    DB::raw('SUM(horas_hombre) as horas_hombre'),
-                    DB::raw('SUM(alimentos.costo_kg) as costo_a'),
-                    DB::raw('SUM(cant_tarde) as cant_tarde'),
-                    DB::raw('SUM(cant_manana) as cant_manana'),
-                )
-                ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-                ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-                ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-                ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')                
-                ->where('siembras.id','=',$exist->id)
-                ->groupBy('siembras.id')
-                ->first();
-                
-            $costo_horash = $recursosNecesarios->horas_hombre*3000;
-            // $costo_r = $recursosNecesarios->costo_r*3000;
-            $costo_r = $recursosNecesarios->cantidad_recurso * $recursosNecesarios->costo_r;
-            $costo_total_alimento = ($recursosNecesarios->cant_tarde + $recursosNecesarios->cant_manana) * $recursosNecesarios->costo_a;   
-            $costo_tot = $costo_horash + $costo_r + $costo_total_alimento;
-
+        
+            $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+            ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+            ->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+            ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+            ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+            ->where('recursos_siembras.id_siembra','=',$exist->id)
+            ->where('estado',1)
+            ->get();
+            $horas_hombre = 0;
+            $costo_horash  = 0;
+            $costo_total_recurso = 0;
+            $costo_total_alimento = 0;
+            $hh = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+            
+         
+            if(count($recursosNecesarios)>0){
+                for($i=0;$i<count($recursosNecesarios); $i++){   
+                    $costo_total_recurso += $recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo;
+                    $costo_total_alimento += ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
+                    $costo_horash += $recursosNecesarios[$i]->horas_hombre * $hh[0]->costo;
+                    $horas_hombre += $recursosNecesarios[$i]->horas_hombre;
+                }
+            }
+            $costo_tot = $costo_horash + $costo_total_recurso + $costo_total_alimento;
             $costo_horash = number_format($costo_horash, 2, ',', '');
-            $costo_r = number_format($costo_r*3000, 2, ',', '');
+            $costo_total_recurso = number_format($costo_total_recurso, 2, ',', '');
             $costo_total_alimento = number_format($costo_total_alimento, 2, ',', '');
             $costo_tot = number_format($costo_tot, 2, ',', '');
-
-            $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra, "fecha_inicio" => $exist->fecha_inicio, "cantidad_inicial" => $exist->cantidad_inicial, "peso_inicial" => $exist->peso_inicial, "peso_actual"=>$exist->peso_actual, "cant_actual" => $exist->cant_actual, "biomasa_disponible" => $biomasa_disponible , "salida_biomasa" => $registros->salida_biomasa, "mortalidad" => $registros->mortalidad, "mortalidad_kg" => $mortalidad_kg, "mortalidad_porcentaje" => $mortalidad_porcentaje , "salida_animales"=>$salida_animales, "densidad_final" => $densidad_final, "carga_final" => $carga_final,"horas_hombre" => $recursosNecesarios->horas_hombre, "costo_horash" => $costo_horash ,"costo_r" => $costo_r , "costo_total_alimento" => $costo_total_alimento, "costo_tot" => $costo_tot ];
+            
+            if(isset($request['f_biomasa_h']) &&  $biomasa_disponible <= $request['f_biomasa_h']){
+            
+                $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra,
+                "fecha_inicio" => $exist->fecha_inicio,
+                "cantidad_inicial" => $exist->cantidad_inicial,
+                "peso_inicial" => $exist->peso_inicial,
+                "peso_actual"=>$exist->peso_actual,
+                "cant_actual" => $exist->cant_actual,
+                "biomasa_disponible" => $biomasa_disponible ,
+                "salida_biomasa" => $registros->salida_biomasa,
+                "mortalidad" => $registros->mortalidad,
+                "mortalidad_kg" => $mortalidad_kg,
+                "mortalidad_porcentaje" => $mortalidad_porcentaje ,
+                "salida_animales"=>$salida_animales,
+                "densidad_final" => $densidad_final,
+                "carga_final" => $carga_final,
+                "horas_hombre" => $horas_hombre,
+                "costo_horash" => $costo_horash ,
+                "costo_total_recurso" => $costo_total_recurso ,
+                "costo_total_alimento" => $costo_total_alimento,
+                "costo_tot" => $costo_tot ];
+            }
         }
-        if($biomasa_disponible <= $request['f_biomasa_h'] ){
-            return ['existencias'=> $aux_regs];
-        }
-
         
+        return ['existencias'=> $aux_regs];
     }
 }
