@@ -44,7 +44,7 @@ Route::namespace('API')->group(function () {
     Route::post('searchResults', 'RecursoNecesarioController@searchResults');
     Route::post('filtroInformes', 'InformeController@filtroInformes');
     Route::post('filtro-ciclos', 'InformeController@filtroExistencias');
-    Route::post('filtro-existencias-detalle', 'InformeController@filtroExistenciasDetalle');
+    Route::get('filtro-existencias-detalle', 'InformeController@filtroExistenciasDetalle');
     Route::post('informe-recursos', 'InformeController@informeRecursos');
     Route::post('informe-recursos-totales', 'InformeController@informeRecursosTotales');
     Route::post('filtro-parametros', 'ParametroCalidadController@filtroParametros');

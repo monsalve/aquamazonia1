@@ -426,7 +426,7 @@ class InformeController extends Controller
             ->groupBy('capacidad')
             ->groupBy('especies_siembra.id_siembra')
             ->get();
-
+		
         $aux_regs = array();
         
         foreach($existencias as $exist ) {
@@ -454,12 +454,18 @@ class InformeController extends Controller
             ->where('siembras.id','=',$exist->id)
             ->groupBy('siembras.id')
             ->first();
-
-            $mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
-
-            $mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));
-            
-            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
+			$mortalidad_kg = 0;	$mortalidad_porcentaje=0;	$salida_animales=0;
+			$salida_biomasa = 0; $mortalidad = 0;
+			
+			if(isset($registros->id)){
+				 $mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
+				$mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));            
+				$salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
+				$salida_biomasa = $registros->$salida_biomasa;
+				$mortalidad = $registros->$mortalidad;
+			}
+			
+           
 
             $densidad_final = (number_format(($exist->cant_actual/$exist->capacidad),2, ',',''));
 
@@ -507,8 +513,8 @@ class InformeController extends Controller
             "peso_actual"=>$exist->peso_actual,
             "cant_actual" => $exist->cant_actual,
             "biomasa_disponible" => $biomasa_disponible ,
-            "salida_biomasa" => $registros->salida_biomasa,
-            "mortalidad" => $registros->mortalidad,
+            "salida_biomasa" => $salida_biomasa, 
+            "mortalidad" => $mortalidad,
             "mortalidad_kg" => $mortalidad_kg,
             "mortalidad_porcentaje" => $mortalidad_porcentaje ,
             "salida_animales"=>$salida_animales,
@@ -593,13 +599,18 @@ class InformeController extends Controller
             ->where('siembras.id','=',$exist->id)
             ->groupBy('siembras.id')
             ->first();
-
-            $mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
-
-            $mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));
-            
-            $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
-
+			
+			
+			$mortalidad_kg = 0;	$mortalidad_porcentaje=0;	$salida_animales=0;
+			$salida_biomasa = 0; $mortalidad = 0;
+			
+			if(isset($registros->id)){
+				
+				$mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
+				$mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));            
+				$salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
+			}
+			
             $densidad_final = (number_format(($exist->cant_actual/$exist->capacidad),2, ',',''));
 
             $bio_dispo = ((($exist->peso_actual)*($exist->cant_actual)) / 1000);
@@ -617,6 +628,7 @@ class InformeController extends Controller
             $costo_horash  = 0;
             $costo_total_recurso = 0;
             $costo_total_alimento = 0;
+			
             $hh = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
             
          
@@ -633,9 +645,12 @@ class InformeController extends Controller
             $costo_total_recurso = number_format($costo_total_recurso, 2, ',', '');
             $costo_total_alimento = number_format($costo_total_alimento, 2, ',', '');
             $costo_tot = number_format($costo_tot, 2, ',', '');
-            
-            if(isset($request['f_biomasa_h']) &&  $biomasa_disponible <= $request['f_biomasa_h']){
-            
+            $ban_pasa==1;
+            if(isset($request['f_biomasa_h']) &&  $biomasa_disponible >= $request['f_biomasa_h']){
+				$ban_pasa=0;
+			}
+			
+            if($ban_pasa == 1)
                 $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra,
                 "fecha_inicio" => $exist->fecha_inicio,
                 "cantidad_inicial" => $exist->cantidad_inicial,
@@ -643,8 +658,8 @@ class InformeController extends Controller
                 "peso_actual"=>$exist->peso_actual,
                 "cant_actual" => $exist->cant_actual,
                 "biomasa_disponible" => $biomasa_disponible ,
-                "salida_biomasa" => $registros->salida_biomasa,
-                "mortalidad" => $registros->mortalidad,
+                "salida_biomasa" => $salida_biomasa,
+                "mortalidad" => $mortalidad,
                 "mortalidad_kg" => $mortalidad_kg,
                 "mortalidad_porcentaje" => $mortalidad_porcentaje ,
                 "salida_animales"=>$salida_animales,
