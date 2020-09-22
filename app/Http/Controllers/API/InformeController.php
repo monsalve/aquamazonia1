@@ -643,7 +643,7 @@ class InformeController extends Controller
             $costo_total_alimento = number_format($costo_total_alimento, 2, ',', '');
             $costo_tot = number_format($costo_tot, 2, ',', '');
             $ban_pasa=1;
-            if(isset($request['f_biomasa_h']) &&  $biomasa_disponible >= $request['f_biomasa_h']){
+            if(isset($request['f_biomasa_h']) &&  $sum_bio >= $request['f_biomasa_h']){
 				$ban_pasa=0;
 			}else{$ban_pasa=1;}
 			
@@ -669,7 +669,7 @@ class InformeController extends Controller
                 "costo_tot" => $costo_tot ];
             }
         }
-        // var_dump($biomasa_disponible);
+        // var_dump($sum_bio);
         // var_dump($request['f_biomasa_h']);
         // var_dump($biomasa_disponible >= $request['f_biomasa_h']);
         return ['existencias'=> $aux_regs];
