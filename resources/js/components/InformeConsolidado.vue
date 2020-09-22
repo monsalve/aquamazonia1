@@ -150,7 +150,7 @@
         f_especie: '', 
         f_inicio_d : '',
         f_inicio_h : '',
-        f_biomasa_h : '',
+        f_biomasa_h : 0,
       }
     },
     components: {
@@ -202,7 +202,7 @@
         // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}
-        if(this.f_biomasa_h == ''){this.bh = '-1'}else{this.bh = this.f_biomasa_h}
+        if(this.f_biomasa_h == 0){this.bh = '-1'}else{this.bh = this.f_biomasa_h}
         
         
         const data ={

@@ -437,8 +437,6 @@ class InformeController extends Controller
             $sum_bio = 0;
             if(count($especies_siembra)>0){        
                 for($i=0;$i<count($especies_siembra); $i++){
-                
-                
                     $especies_siembra[$i]->biomasa_disponible = ((($especies_siembra[$i]->peso_actual)*($especies_siembra[$i]->cant_actual)) / 1000);
                     $sum_bio +=$especies_siembra[$i]->biomasa_disponible;
                     $biomasa_disponible = number_format($sum_bio,2,',','');
@@ -573,6 +571,7 @@ class InformeController extends Controller
         ->get();
 
         $aux_regs = array();
+        $biomasa_disponible = 0;
         
         foreach($existencias as $exist ) {
             $especies_siembra = EspecieSiembra::select()
@@ -582,8 +581,6 @@ class InformeController extends Controller
             $sum_bio = 0;
             if(count($especies_siembra)>0){        
                 for($i=0;$i<count($especies_siembra); $i++){
-                
-                
                     $especies_siembra[$i]->biomasa_disponible = ((($especies_siembra[$i]->peso_actual)*($especies_siembra[$i]->cant_actual)) / 1000);
                     $sum_bio +=$especies_siembra[$i]->biomasa_disponible;
                     $biomasa_disponible = number_format($sum_bio,2,',','');
@@ -645,12 +642,12 @@ class InformeController extends Controller
             $costo_total_recurso = number_format($costo_total_recurso, 2, ',', '');
             $costo_total_alimento = number_format($costo_total_alimento, 2, ',', '');
             $costo_tot = number_format($costo_tot, 2, ',', '');
-            $ban_pasa==1;
+            $ban_pasa=1;
             if(isset($request['f_biomasa_h']) &&  $biomasa_disponible >= $request['f_biomasa_h']){
 				$ban_pasa=0;
-			}
+			}else{$ban_pasa=1;}
 			
-            if($ban_pasa == 1)
+            if($ban_pasa == 0){
                 $aux_regs[]=["nombre_siembra"=>$exist->nombre_siembra,
                 "fecha_inicio" => $exist->fecha_inicio,
                 "cantidad_inicial" => $exist->cantidad_inicial,
@@ -672,7 +669,9 @@ class InformeController extends Controller
                 "costo_tot" => $costo_tot ];
             }
         }
-        
+        // var_dump($biomasa_disponible);
+        // var_dump($request['f_biomasa_h']);
+        // var_dump($biomasa_disponible >= $request['f_biomasa_h']);
         return ['existencias'=> $aux_regs];
     }
 }

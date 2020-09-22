@@ -4195,7 +4195,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_especie: '',
       f_inicio_d: '',
       f_inicio_h: '',
-      f_biomasa_h: ''
+      f_biomasa_h: 0
     };
   },
   components: {
@@ -4277,7 +4277,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.fech = this.f_inicio_h;
       }
 
-      if (this.f_biomasa_h == '') {
+      if (this.f_biomasa_h == 0) {
         this.bh = '-1';
       } else {
         this.bh = this.f_biomasa_h;
