@@ -2113,6 +2113,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2122,9 +2124,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Tipo actividad': 'actividad',
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
+        'Costo horas hombre': 'total_horas_hombre',
         'Alimento': 'alimento',
         'Kg Mañana': 'cant_manana',
         'Kg tarde': 'cant_tarde',
+        'Kg día': 'alimento_dia',
         'Costo': 'costo_kg',
         'Costo total': 'costo_total_alimento',
         'Detalles': 'detalles'
@@ -45412,6 +45416,16 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              item.cant_tarde == null
+                                ? "-"
+                                : item.alimento_dia + " kg"
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(item.costo_kg) }
                         }),
                         _vm._v(" "),
@@ -45863,6 +45877,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Mañana")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Tarde")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("día")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Kg")]),
         _vm._v(" "),

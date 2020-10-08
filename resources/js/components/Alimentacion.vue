@@ -70,6 +70,7 @@
                     <th><br>Alimento</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
+                    <th>Cantidad<br>día</th>
                     <th>Costo Kg</th>
                     <th>Costo total</th>
                     <th width=15%>Detalles</th>
@@ -87,6 +88,7 @@
                     <td v-text="item.alimento"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
+                    <td v-text="item.cant_tarde == null ? '-' : item.alimento_dia +' kg' "></td>  
                     <td v-text="item.costo_kg"></td>
                     <td v-text="item.costo_total_alimento"></td>
                      <td v-text="item.detalles"></td>
@@ -190,9 +192,11 @@ import downloadexcel from "vue-json-excel"
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
+          'Costo horas hombre': 'total_horas_hombre',
           'Alimento' : 'alimento',
           'Kg Mañana' : 'cant_manana', 
           'Kg tarde' : 'cant_tarde',
+          'Kg día' : 'alimento_dia',
           'Costo' : 'costo_kg',
           'Costo total' : 'costo_total_alimento',
           'Detalles' : 'detalles'

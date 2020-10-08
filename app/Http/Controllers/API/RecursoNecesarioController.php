@@ -58,6 +58,7 @@ class RecursoNecesarioController extends Controller
             for($i=0;$i<count($recursosNecesarios); $i++){        
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
                 $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
             }
         }
     
@@ -205,6 +206,7 @@ class RecursoNecesarioController extends Controller
             for($i=0;$i<count($recursosNecesarios); $i++){        
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
                 $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
             }
         }
         $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
