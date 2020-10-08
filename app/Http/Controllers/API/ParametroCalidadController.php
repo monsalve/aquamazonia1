@@ -21,24 +21,32 @@ class ParametroCalidadController extends Controller
     {
       //
         $calidad_agua = CalidadAgua::select(
-            'calidad_agua.id as id',
-            'contenedores.id as id_contenedor',
-            '4_am',
-            '4_pm',
-            '7_am',
-            '8_pm',
-            '12_am',
-            'amonio',
-            'contenedor',
-            'fecha_parametro',
-            'nitrato',
-            'nitrito',
-            'otros',
-            'ph',
-            'temperatura')
+            'calidad_agua.id as id','contenedores.id as id_contenedor','4_am','4_pm','7_am','8_pm','12_am','amonio','contenedor','fecha_parametro','nitrato','nitrito','otros','ph','temperatura'
+            )
             ->join('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
             ->orderBy('fecha_parametro', 'desc')
             ->get();
+        
+        $parametros_calidad = array();
+        foreach($calidad_agua as $cl){           
+            $parametros_calidad[] = array(
+                'id' =>  $cl['id'],
+                'id_contenedor' => $cl['id_contenedor'],
+                '4_am' => number_format($cl['4_am'], 2,',',''),
+                '4_pm' => number_format($cl['4_pm'], 2,',',''),
+                '7_am' => number_format($cl['7_am'], 2,',',''),
+                '8_pm' => number_format($cl['8_pm'], 2,',',''),
+                '12_am' => number_format($cl['12_am'], 2,',',''),
+                'amonio' => number_format($cl['amonio'], 2,',',''),
+                'contenedor' => $cl['contenedor'],
+                'fecha_parametro' => $cl['fecha_parametro'],
+                'nitrato' => number_format($cl['nitrato'], 2,',',''),
+                'nitrito' => number_format($cl['nitrito'], 2,',',''),
+                'otros' => number_format($cl['otros'], 2,',',''),
+                'ph' => number_format($cl['ph'], 2,',',' '),
+                'temperatura' => number_format($cl['temperatura'], 2,',','')                
+            );            
+        }
         
         $promedios = array();
         $prom_12am = 0;
@@ -53,46 +61,58 @@ class ParametroCalidadController extends Controller
         $prom_nitrato = 0;
         $prom_otros = 0;
  
-        if(count($calidad_agua)>0){
+        
             for($i=0;$i<count($calidad_agua);$i++){
+            
                 $prom_12am += $calidad_agua[$i]['12_am'];
                 $promedios['promedio_12_am'] = (round($prom_12am/(count($calidad_agua)),2));
+                $promedios['promedio_12_am']  = number_format($promedios['promedio_12_am'], 2,',','');
                 
                 $prom_4am += $calidad_agua[$i]['4_am'];
                 $promedios['promedio_4_am'] = (round($prom_4am/(count($calidad_agua)),2));
+                $promedios['promedio_4_am']  = number_format($promedios['promedio_4_am'], 2,',','');
                 
                 $prom_7am += $calidad_agua[$i]['7_am'];
                 $promedios['promedio_7_am'] = (round($prom_7am/(count($calidad_agua)),2));
+                $promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2,',','');
                 
                 $prom_4pm += $calidad_agua[$i]['4_pm'];
                 $promedios['promedio_4_pm'] = (round($prom_4pm/(count($calidad_agua)),2));
+                $promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2,',','');               
                
                 $prom_8pm += $calidad_agua[$i]['8_pm'];
                 $promedios['promedio_8_pm'] = (round($prom_8pm/(count($calidad_agua)),2));
-                
+                $promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2,',','');
+               
                 $prom_temperatura += $calidad_agua[$i]['temperatura'];
                 $promedios['promedio_temperatura'] = (round($prom_temperatura/(count($calidad_agua)),2));
+                $promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2,',','');
                 
                 $prom_ph += $calidad_agua[$i]['ph'];
                 $promedios['promedio_ph'] = (round($prom_ph/(count($calidad_agua)),2));
+                $promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2,',','');
                 
                 $prom_amonio += $calidad_agua[$i]['amonio'];
                 $promedios['promedio_amonio'] = (round($prom_amonio/(count($calidad_agua)),2));
+                $promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2,',','');
                 
                 $prom_nitrito += $calidad_agua[$i]['nitrito'];
                 $promedios['promedio_nitrito'] = (round($prom_nitrito/(count($calidad_agua)),2));
+                $promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2,',','');
                 
                 $prom_nitrato += $calidad_agua[$i]['nitrato'];
                 $promedios['promedio_nitrato'] = (round($prom_nitrato/(count($calidad_agua)),2));
+                $promedios['promedio_nitrato']  = number_format($promedios['promedio_nitrato'], 2,',','');
                 
                 $prom_otros += $calidad_agua[$i]['otros'];
                 $promedios['promedio_otros'] = (round($prom_otros/(count($calidad_agua)),2));
+                $promedios['promedio_otros']  = number_format($promedios['promedio_otros'], 2,',','');
             }
-            // print_r('Promedio:'.$div_promedio);
-        }
+            
+        // if(count($calidad_agua)>0){
         
          
-      return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
+      return ['calidad_agua'=> $parametros_calidad,'promedios' => $promedios];
     }
 
     /**
@@ -192,6 +212,27 @@ class ParametroCalidadController extends Controller
             ->where($c5, $op3, $c6)
             ->orderBy('fecha_parametro', 'desc')
             ->get();
+            
+        $parametros_calidad = array();
+        foreach($calidad_agua as $cl){           
+            $parametros_calidad[] = array(
+                'id' =>  $cl['id'],
+                'id_contenedor' => $cl['id_contenedor'],
+                '4_am' => number_format($cl['4_am'], 2,',',''),
+                '4_pm' => number_format($cl['4_pm'], 2,',',''),
+                '7_am' => number_format($cl['7_am'], 2,',',''),
+                '8_pm' => number_format($cl['8_pm'], 2,',',''),
+                '12_am' => number_format($cl['12_am'], 2,',',''),
+                'amonio' => number_format($cl['amonio'], 2,',',''),
+                'contenedor' => $cl['contenedor'],
+                'fecha_parametro' => $cl['fecha_parametro'],
+                'nitrato' => number_format($cl['nitrato'], 2,',',''),
+                'nitrito' => number_format($cl['nitrito'], 2,',',''),
+                'otros' => number_format($cl['otros'], 2,',',''),
+                'ph' => number_format($cl['ph'], 2,',',' '),
+                'temperatura' => number_format($cl['temperatura'], 2,',','')                
+            );            
+        }
         
         $promedios = array();
         $prom_12am = 0;
@@ -245,7 +286,7 @@ class ParametroCalidadController extends Controller
         }
         
          
-      return ['calidad_agua'=> $calidad_agua,'promedios' => $promedios];
+      return ['calidad_agua'=> $parametros_calidad,'promedios' => $promedios];
         // return $calidad_agua;
     }   
     

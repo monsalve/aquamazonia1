@@ -41,9 +41,6 @@ class SiembraController extends Controller
         // $users = DB::table('users')->distinct()->get();
         $lotes = EspecieSiembra::select('lote')->distinct()->get();
         $pxs = array();
-        
-        
-        
         $campos=array();
         foreach($peces as $p) {
             $pxs[$p['id_siembra']][$p['id']] = $p;

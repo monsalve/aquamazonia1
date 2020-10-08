@@ -72,7 +72,7 @@
                     <th>Siembras</th>
                     <th>Fecha</th>                  
                     <th>Horas hombre</th>
-                    <th>Total horas hombre</th>
+                    <th>Costo horas hombre</th>
                     <th>Recurso</th>                   
                     <th>Cantidad</th>
                     <th>Costo</th>

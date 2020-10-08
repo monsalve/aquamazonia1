@@ -61,10 +61,10 @@
                               <th>Peso Ini</th>
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>   
-                              <th>Intervalo de tiempo</th>
+                              <th>Tiempo de cultivo</th>
                               <th>Biomasa dispo</th>
                               <th>Salida de biomasa</th>                 
-                              <th>Biomasa acumulada</th>
+                              <!-- <th>Biomasa acumulada</th> -->
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
@@ -90,8 +90,7 @@
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
                               <td v-else>0</td>
-                              <td v-if="le.biomasa_acumulada">{{le.biomasa_acumulada}} kg</td>
-                              <td v-else>0</td>
+                              <!-- <td v-if="le.biomasa_acumulada">{{le.biomasa_acumulada}} kg</td> -->                             
                               <td v-if="le.mortalidad">{{le.mortalidad}}</td>
                               <td v-else>0</td>
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
@@ -127,10 +126,9 @@
           'Peso inicial' : 'peso_inicial',
           'Cantidad actual' : 'cant_actual',
           'Peso actual' : 'peso_actual',
-          'Intervalo de tiempo' : 'intervalo_tiempo',
+          'Tiempo de cultivo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
-          'Biomasa acumulada' : 'biomasa_acumulada',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',

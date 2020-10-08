@@ -239,11 +239,11 @@
                   <label for="detalles" class="">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>     
-<!--               
+
                 <div class="form-group col-md-3">   
                   <label for="horas hombre" class="">Horas hombre</label>
                   <input type="number" class="form-control" step="any" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
-                </div> -->
+                </div>
           
                 <div class="form-group col-md-3">                    
                   <label for="cant_manana" class="">Kg Mañana</label>
@@ -771,6 +771,7 @@
           me.aux_campos = [];          
           me.ver_registros = 1;
           me.abrirIngreso(id);
+          me.listar();
         });
       },
       filtrarIngresos(){

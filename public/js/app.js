@@ -3889,7 +3889,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3902,10 +3901,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Peso inicial': 'peso_inicial',
         'Cantidad actual': 'cant_actual',
         'Peso actual': 'peso_actual',
-        'Intervalo de tiempo': 'intervalo_tiempo',
+        'Tiempo de cultivo': 'intervalo_tiempo',
         'Biomasa disponible': 'biomasa_disponible',
         'Salida de biomasa': 'salida_biomasa',
-        'Biomasa acumulada': 'biomasa_acumulada',
         'Mortalidad': 'mortalidad',
         'Mortalidad kg': 'mortalidad_kg',
         'Mortalidad %': 'mortalidad_porcentaje',
@@ -6751,6 +6749,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.aux_campos = [];
         me.ver_registros = 1;
         me.abrirIngreso(id);
+        me.listar();
       });
     },
     filtrarIngresos: function filtrarIngresos() {
@@ -49001,12 +49000,6 @@ var render = function() {
                             ])
                           : _c("td", [_vm._v("0")]),
                         _vm._v(" "),
-                        le.biomasa_acumulada
-                          ? _c("td", [
-                              _vm._v(_vm._s(le.biomasa_acumulada) + " kg")
-                            ])
-                          : _c("td", [_vm._v("0")]),
-                        _vm._v(" "),
                         le.mortalidad
                           ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
                           : _c("td", [_vm._v("0")]),
@@ -49108,13 +49101,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Intervalo de tiempo")]),
+        _c("th", [_vm._v("Tiempo de cultivo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida de biomasa")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa acumulada")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
@@ -52102,7 +52093,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Horas hombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total horas hombre")]),
+        _c("th", [_vm._v("Costo horas hombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Recurso")]),
         _vm._v(" "),
@@ -52311,9 +52302,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                " +
+                              "\n                              " +
                                 _vm._s(siembra.fecha_alimento) +
-                                "\n                                \n                                "
+                                "\n                              \n                              "
                             ),
                             _c(
                               "button",
@@ -52494,9 +52485,9 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                        " +
+                                            "\n                      " +
                                               _vm._s(contenedor.contenedor) +
-                                              "\n                      "
+                                              "\n                    "
                                           )
                                         ]
                                       )
@@ -52559,9 +52550,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                        " +
+                                        "\n                      " +
                                           _vm._s(contenedor.contenedor) +
-                                          "\n                      "
+                                          "\n                    "
                                       )
                                     ]
                                   )
@@ -53263,6 +53254,44 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.form, "detalles", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-3" }, [
+                    _c("label", { attrs: { for: "horas hombre" } }, [
+                      _vm._v("Horas hombre")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.horas_hombre,
+                          expression: "form.horas_hombre"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "any",
+                        id: "horas_hombre",
+                        "aria-describedby": "horas_hombre",
+                        placeholder: "Horas hombre"
+                      },
+                      domProps: { value: _vm.form.horas_hombre },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "horas_hombre",
+                            $event.target.value
+                          )
                         }
                       }
                     })

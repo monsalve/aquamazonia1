@@ -23,6 +23,7 @@ class InformeController extends Controller
     public function index()
     {
         //
+        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
@@ -50,7 +51,7 @@ class InformeController extends Controller
                 // $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 // $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
                 
-                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*$horas_hombre[0]->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_horash;
                 $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
@@ -68,7 +69,8 @@ class InformeController extends Controller
 
     public function informeRecursos(Request $request)
     {
-
+        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+        
         $c1 = 'tipo_actividad'; $op1 = '!='; $c2 = '-1';
         $c3 = 'tipo_actividad'; $op2 = '!='; $c4 = '-1';
         $c5 = 'tipo_actividad'; $op3 = '!='; $c6 = '-1';
@@ -116,7 +118,7 @@ class InformeController extends Controller
                 $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
                 
-                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*$horas_hombre[0]->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_horash;
                 $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
@@ -126,6 +128,7 @@ class InformeController extends Controller
         // return redirect()->route('informe-excel',  ['recursosNecesarios' => $recursosNecesarios ]);        
     }
     public function traerInformes(){
+        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
 
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
@@ -151,7 +154,7 @@ class InformeController extends Controller
                 $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
                 $recursosNecesarios[$i]->costo_a_acum = $acumula2;
                 
-                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*$horas_hombre[0]->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_horash;
                 $recursosNecesarios[$i]->costo_h_acum = $acumula3;
             }
@@ -159,6 +162,7 @@ class InformeController extends Controller
         return ['recursosNecesarios' => $recursosNecesarios];
     }
     public function filtroInformes(Request $request){
+        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
     
         $c1 = 'tipo_actividad'; $op1 = '!='; $c2 = '-1';
         $c3 = 'tipo_actividad'; $op2 = '!='; $c4 = '-1';
@@ -207,7 +211,7 @@ class InformeController extends Controller
                 $acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
                 $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
                         
-                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*3000;
+                $recursosNecesarios[$i]->costo_horash = $recursosNecesarios[$i]->horas_hombre*$horas_hombre[0]->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_horash;
                 $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
