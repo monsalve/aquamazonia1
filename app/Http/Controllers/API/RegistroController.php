@@ -64,34 +64,31 @@ class RegistroController extends Controller
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             
             if($request->tipo_registro == 0){
-                if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
+                // if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
                     $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
-                } 
+                // } 
                 
-                if($campo['peso_ganado'] > $exs->cant_actual){
-                    $exs->peso_actual = ($campo['peso_ganado']);                    
-                    // $exs->biomasa = '';
-                    // $exs->cantidad = '';
+                if($campo['peso_ganado'] > $exs->peso_actual){
+                    $exs->peso_actual = $campo['peso_ganado'];                                     
                 }
+                $exs->save();
             }
             if($request->tipo_registro == 1){
                        
                 if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
-                    $exs->cant_actual= $exs->cant_actual - $campo['cantidad'];
-                    // $exs->mortalidad = '';
-                    // $exs->peso_ganado = '';
+                    $exs->cant_actual= $exs->cant_actual - (($campo['cantidad'] * 1000)/$exs->peso_actual);
+
                 }  
+                $exs->save();
             }    
             if($request->tipo_registro == 2){
                 if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
                     $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
-                    // $exs->peso_actual = '';                    
-                    // $exs->biomasa = '';
-                    // $exs->cantidad = '';
                 } 
+                $exs->save();
             }
             
-            $exs->save();
+            
             
             if($request->tipo_registro == 0){
                 $registro = Registro::create([

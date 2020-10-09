@@ -289,9 +289,10 @@ class InformeController extends Controller
                             $diff = $date1->diff($date2);
                       
                             $existencias[$i]->intervalo_tiempo  = $diff->days;
-                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                                 
+                            // $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                                 
+                            $existencias[$i]->salida_biomasa += $registros[$j]->cantidad;
                             
-                            $bio_acum += $registros[$j]->biomasa;
+                            $bio_acum += $registros[$j]->cantidad;
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
@@ -384,9 +385,9 @@ class InformeController extends Controller
                             $diff = $date1->diff($date2);
                       
                             $existencias[$i]->intervalo_tiempo  = $diff->days;
-                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                                 
+                            $existencias[$i]->salida_biomasa += $registros[$j]->cantidad;
                             
-                            $bio_acum += $registros[$j]->biomasa;
+                            $bio_acum += $registros[$j]->cantidad;
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
@@ -449,7 +450,7 @@ class InformeController extends Controller
             
             $registros = Registro::select(
                 'siembras.id',
-                DB::raw('SUM(biomasa) as salida_biomasa'),
+                DB::raw('SUM(cantidad) as salida_biomasa'),
                 DB::raw('SUM(mortalidad) as mortalidad'),
             )
             ->join('siembras', 'registros.id_siembra', 'siembras.id' )->where('siembras.estado','=','1')
@@ -459,12 +460,14 @@ class InformeController extends Controller
 			$mortalidad_kg = 0;	$mortalidad_porcentaje=0;	$salida_animales=0;
 			$salida_biomasa = 0; $mortalidad = 0;
 			
+			$mortalidad = $registros->mortalidad;
+			$salida_biomasa = $registros->salida_biomasa;
+			
 			if(isset($registros->id)){
-				 $mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
-				$mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));            
-				$salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
-				$salida_biomasa = $registros->$salida_biomasa;
-				$mortalidad = $registros->$mortalidad;
+                
+				$mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
+				$mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));
+			    $salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
 			}
 			
            
@@ -606,7 +609,7 @@ class InformeController extends Controller
 			$salida_biomasa = 0; $mortalidad = 0;
 			
 			if(isset($registros->id)){
-				
+				$mortalidad = $registros->mortalidad;
 				$mortalidad_kg =  (number_format((($registros->mortalidad * $exist->peso_actual)/1000),2, ',',''));
 				$mortalidad_porcentaje =  (number_format((($registros->mortalidad * 100)/$exist->cantidad_inicial),2, ',',''));            
 				$salida_animales = (number_format((($registros->salida_biomasa * 1000)/$exist->peso_actual),2, ',',''));
