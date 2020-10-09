@@ -290,9 +290,9 @@ class InformeController extends Controller
                       
                             $existencias[$i]->intervalo_tiempo  = $diff->days;
                             // $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                                 
-                            $existencias[$i]->salida_biomasa += $registros[$j]->cantidad;
+                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;
                             
-                            $bio_acum += $registros[$j]->cantidad;
+                            $bio_acum += $registros[$j]->biomasa;
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
@@ -385,9 +385,8 @@ class InformeController extends Controller
                             $diff = $date1->diff($date2);
                       
                             $existencias[$i]->intervalo_tiempo  = $diff->days;
-                            $existencias[$i]->salida_biomasa += $registros[$j]->cantidad;
-                            
-                            $bio_acum += $registros[$j]->cantidad;
+                            $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;                            
+                            $bio_acum += $registros[$j]->biomasa;
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_actual)/1000),2, ',',''));
@@ -450,7 +449,7 @@ class InformeController extends Controller
             
             $registros = Registro::select(
                 'siembras.id',
-                DB::raw('SUM(cantidad) as salida_biomasa'),
+                DB::raw('SUM(biomasa) as salida_biomasa'),
                 DB::raw('SUM(mortalidad) as mortalidad'),
             )
             ->join('siembras', 'registros.id_siembra', 'siembras.id' )->where('siembras.estado','=','1')

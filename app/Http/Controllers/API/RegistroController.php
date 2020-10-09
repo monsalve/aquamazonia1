@@ -75,10 +75,21 @@ class RegistroController extends Controller
             }
             if($request->tipo_registro == 1){
                        
-                if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
-                    $exs->cant_actual= $exs->cant_actual - (($campo['cantidad'] * 1000)/$exs->peso_actual);
-
-                }  
+                
+                $registro = Registro::create([
+                    'id_especie' =>$campo['id_especie'],
+                    'id_siembra' => $campo['id_siembra'],
+                    'fecha_registro' => $request['fecha_registro'],
+                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    'tipo_registro' => $request['tipo_registro'],                   
+                    'biomasa' => $campo['biomasa'],
+                    // 'cantidad' => $campo['cantidad']
+                    'cantidad' => (($campo['biomasa'] * 1000)/$exs->peso_actual)
+                ]);  
+                // if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
+                    // $exs->cant_actual= $exs->cant_actual - (($campo['biomasa'] * 1000)/$exs->peso_actual);
+                // }  
+                $exs->cant_actual = $exs->cant_actual - $registro->cantidad;
                 $exs->save();
             }    
             if($request->tipo_registro == 2){
@@ -101,17 +112,17 @@ class RegistroController extends Controller
                     'mortalidad' => $campo['mortalidad'],                   
                 ]);                    
             }
-            if($request->tipo_registro == 1){
-                $registro = Registro::create([
-                    'id_especie' =>$campo['id_especie'],
-                    'id_siembra' => $campo['id_siembra'],
-                    'fecha_registro' => $request['fecha_registro'],
-                    'conv_alimenticia' => $request['conv_alimenticia'],
-                    'tipo_registro' => $request['tipo_registro'],                   
-                    'biomasa' => $campo['biomasa'],
-                    'cantidad' => $campo['cantidad']
-                ]);                    
-            }
+            // if($request->tipo_registro == 1){
+            //     $registro = Registro::create([
+            //         'id_especie' =>$campo['id_especie'],
+            //         'id_siembra' => $campo['id_siembra'],
+            //         'fecha_registro' => $request['fecha_registro'],
+            //         'conv_alimenticia' => $request['conv_alimenticia'],
+            //         'tipo_registro' => $request['tipo_registro'],                   
+            //         'biomasa' => $campo['biomasa'],
+            //         'cantidad' => $campo['cantidad']
+            //     ]);                    
+            // }
             if($request->tipo_registro == 2){
                 $registro = Registro::create([
                     'id_especie' =>$campo['id_especie'],

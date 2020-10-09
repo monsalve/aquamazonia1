@@ -53922,260 +53922,256 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticStyle: { width: "60%", margin: "auto" } },
-                        [
-                          _c("table", { staticClass: "table table-bordered" }, [
-                            _c("thead", [
-                              _c("tr", [
-                                _c("th", { attrs: { scope: "col" } }, [
-                                  _vm._v("Especie")
-                                ]),
-                                _vm._v(" "),
-                                _vm.tipo_registro == 0
-                                  ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Peso actual (gr)")
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.tipo_registro == 0
-                                  ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Mortalidad")
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.tipo_registro == 1
-                                  ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Biomasa")
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.tipo_registro == 1
-                                  ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Cantidad")
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.tipo_registro == 2
-                                  ? _c("th", { attrs: { scope: "col" } }, [
-                                      _vm._v("Mortalidad Inicial")
-                                    ])
-                                  : _vm._e()
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.pecesxSiembra, function(pez) {
-                                return pez.id_siembra == _vm.idSiembraRegistro
-                                  ? _c("tr", { key: pez.id }, [
-                                      _c("th", {
-                                        attrs: { scope: "row" },
-                                        domProps: {
-                                          textContent: _vm._s(pez.especie)
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _vm.tipo_registro == 0
-                                        ? _c("td", [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value:
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ]["peso_ganado"],
-                                                  expression:
-                                                    "campos[pez.id_siembra][pez.id]['peso_ganado']"
-                                                }
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "number",
-                                                required:
-                                                  _vm.tipo_registro == 0
-                                                    ? "required"
-                                                    : "",
-                                                step: "any"
-                                              },
-                                              domProps: {
+                      _c("div", { staticClass: "col-sm-12 col-lg-8 mx-auto" }, [
+                        _c("table", { staticClass: "table table-bordered" }, [
+                          _c("thead", [
+                            _c("tr", [
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v("Especie")
+                              ]),
+                              _vm._v(" "),
+                              _vm.tipo_registro == 0
+                                ? _c("th", { attrs: { scope: "col" } }, [
+                                    _vm._v("Peso actual (gr)")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tipo_registro == 0
+                                ? _c("th", { attrs: { scope: "col" } }, [
+                                    _vm._v("Mortalidad")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tipo_registro == 1
+                                ? _c("th", { attrs: { scope: "col" } }, [
+                                    _vm._v("Biomasa")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tipo_registro == 1
+                                ? _c("th", { attrs: { scope: "col" } }, [
+                                    _vm._v("Cantidad")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tipo_registro == 2
+                                ? _c("th", { attrs: { scope: "col" } }, [
+                                    _vm._v("Mortalidad Inicial")
+                                  ])
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.pecesxSiembra, function(pez) {
+                              return pez.id_siembra == _vm.idSiembraRegistro
+                                ? _c("tr", { key: pez.id }, [
+                                    _c("th", {
+                                      attrs: { scope: "row" },
+                                      domProps: {
+                                        textContent: _vm._s(pez.especie)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm.tipo_registro == 0
+                                      ? _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["peso_ganado"]
-                                              },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.$set(
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ],
-                                                    "peso_ganado",
-                                                    $event.target.value
-                                                  )
-                                                }
+                                                  ]["peso_ganado"],
+                                                expression:
+                                                  "campos[pez.id_siembra][pez.id]['peso_ganado']"
                                               }
-                                            })
-                                          ])
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _vm.tipo_registro == 0 ||
-                                      _vm.tipo_registro == 2
-                                        ? _c("td", [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value:
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ]["mortalidad"],
-                                                  expression:
-                                                    "campos[pez.id_siembra][pez.id]['mortalidad']"
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "number",
+                                              required:
+                                                _vm.tipo_registro == 0
+                                                  ? "required"
+                                                  : "",
+                                              step: "any"
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.campos[pez.id_siembra][
+                                                  pez.id
+                                                ]["peso_ganado"]
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
                                                 }
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "number",
-                                                id: "mortalidad",
-                                                required:
-                                                  _vm.tipo_registro == 0 || 2
-                                                    ? "required"
-                                                    : ""
-                                              },
-                                              domProps: {
+                                                _vm.$set(
+                                                  _vm.campos[pez.id_siembra][
+                                                    pez.id
+                                                  ],
+                                                  "peso_ganado",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.tipo_registro == 0 ||
+                                    _vm.tipo_registro == 2
+                                      ? _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["mortalidad"]
-                                              },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.$set(
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ],
-                                                    "mortalidad",
-                                                    $event.target.value
-                                                  )
-                                                }
+                                                  ]["mortalidad"],
+                                                expression:
+                                                  "campos[pez.id_siembra][pez.id]['mortalidad']"
                                               }
-                                            })
-                                          ])
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _vm.tipo_registro == 1
-                                        ? _c("td", [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value:
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ]["biomasa"],
-                                                  expression:
-                                                    "campos[pez.id_siembra][pez.id]['biomasa']"
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "number",
+                                              id: "mortalidad",
+                                              required:
+                                                _vm.tipo_registro == 0 || 2
+                                                  ? "required"
+                                                  : ""
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.campos[pez.id_siembra][
+                                                  pez.id
+                                                ]["mortalidad"]
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
                                                 }
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "number",
-                                                step: "any",
-                                                required:
-                                                  _vm.tipo_registro == 1
-                                                    ? "required"
-                                                    : ""
-                                              },
-                                              domProps: {
+                                                _vm.$set(
+                                                  _vm.campos[pez.id_siembra][
+                                                    pez.id
+                                                  ],
+                                                  "mortalidad",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.tipo_registro == 1
+                                      ? _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["biomasa"]
-                                              },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.$set(
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ],
-                                                    "biomasa",
-                                                    $event.target.value
-                                                  )
-                                                }
+                                                  ]["biomasa"],
+                                                expression:
+                                                  "campos[pez.id_siembra][pez.id]['biomasa']"
                                               }
-                                            })
-                                          ])
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _vm.tipo_registro == 1
-                                        ? _c("td", [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value:
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ]["cantidad"],
-                                                  expression:
-                                                    "campos[pez.id_siembra][pez.id]['cantidad']"
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "number",
+                                              step: "any",
+                                              required:
+                                                _vm.tipo_registro == 1
+                                                  ? "required"
+                                                  : ""
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.campos[pez.id_siembra][
+                                                  pez.id
+                                                ]["biomasa"]
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
                                                 }
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "number",
-                                                required:
-                                                  _vm.tipo_registro == 1
-                                                    ? "required"
-                                                    : ""
-                                              },
-                                              domProps: {
+                                                _vm.$set(
+                                                  _vm.campos[pez.id_siembra][
+                                                    pez.id
+                                                  ],
+                                                  "biomasa",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.tipo_registro == 1
+                                      ? _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
                                                 value:
                                                   _vm.campos[pez.id_siembra][
                                                     pez.id
-                                                  ]["cantidad"]
-                                              },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.$set(
-                                                    _vm.campos[pez.id_siembra][
-                                                      pez.id
-                                                    ],
-                                                    "cantidad",
-                                                    $event.target.value
-                                                  )
-                                                }
+                                                  ]["cantidad"],
+                                                expression:
+                                                  "campos[pez.id_siembra][pez.id]['cantidad']"
                                               }
-                                            })
-                                          ])
-                                        : _vm._e()
-                                    ])
-                                  : _vm._e()
-                              }),
-                              0
-                            )
-                          ])
-                        ]
-                      )
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "number",
+                                              required:
+                                                _vm.tipo_registro == 1
+                                                  ? "required"
+                                                  : ""
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.campos[pez.id_siembra][
+                                                  pez.id
+                                                ]["cantidad"]
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.campos[pez.id_siembra][
+                                                    pez.id
+                                                  ],
+                                                  "cantidad",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ])
+                                      : _vm._e()
+                                  ])
+                                : _vm._e()
+                            }),
+                            0
+                          )
+                        ])
+                      ])
                     ])
                   : _vm._e()
               ]),

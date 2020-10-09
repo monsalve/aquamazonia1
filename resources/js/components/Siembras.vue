@@ -406,7 +406,7 @@
                 </div>
                 
               </div>
-              <div style="width:60%; margin:auto">
+              <div class="col-sm-12 col-lg-8 mx-auto">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
