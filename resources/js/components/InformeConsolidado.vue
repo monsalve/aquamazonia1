@@ -141,6 +141,8 @@
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
+          'Conversión alimenticia teórica' : '',
+          'Biomasa disponible por conversión' : ''
         },       
         listadoExistencias : [],
         listadoEspecies : [],

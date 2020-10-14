@@ -414,7 +414,7 @@
                       <th scope="col" v-if="tipo_registro == 0">Peso actual (gr)</th>
                       <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
                       <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
-                      <th scope="col" v-if="tipo_registro == 1">Cantidad</th>
+                      <!-- <th scope="col" v-if="tipo_registro == 1">Cantidad</th> -->
                       <th scope="col" v-if="tipo_registro == 2">Mortalidad Inicial</th>
                     </tr>
                   </thead>
@@ -431,9 +431,9 @@
                       <td v-if="tipo_registro == 1">
                         <input type="number" step="any" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['biomasa']">
                       </td>
-                      <td v-if="tipo_registro == 1 ">
+                      <!-- <td v-if="tipo_registro == 1 ">
                         <input type="number" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['cantidad']">
-                      </td>                                                 
+                      </td>                                                  -->
                     </tr>                      
                   </tbody>
                 </table>

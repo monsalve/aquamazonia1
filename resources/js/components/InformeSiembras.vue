@@ -69,20 +69,24 @@
                                 <tr>
                                   <th scope="col">#</th>
                                   <th>Nombre <br> siembra</th>
+                                  <th scope="col">Inicio siembra</th>                                  
+                                  <th scope="col">Estado</th>   
                                   <th scope="col">Contenedor</th>
                                   <th>Especie</th>
                                   <th>Lote</th>
-                                  <th>Cant</th>
-                                  <th>Peso</th>
+                                  <th>Cantidad actual</th>
+                                  <th>Peso actual</th>
                                   <th>Mortalidad</th>
-                                  <th scope="col">Inicio siembra</th>                                  
-                                  <th scope="col">Estado</th>                            
+                                  <th>Cantidad Pesca</th>
+                                                           
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr v-for="(siembra, index) in listado" :key="index">
                                   <th v-text="index+1" scope="row"></th>
                                   <td v-text="siembra.nombre_siembra" scope="row"></td>
+                                  <td v-text="siembra.fecha_inicio"></td>                              
+                                  <td v-text="estados[siembra.estado]"></td>                                   
                                   <td v-text="siembra.contenedor"></td>
                                   <td v-text="siembra.especie"></td>
                                   <td v-text="siembra.lote" ></td>
@@ -96,10 +100,15 @@
                                     <div v-else>0
                                     </div>
                                   </td>
-
+                                  <td> 
+                                    <div v-if="list_pesca[siembra.id]">                                    
+                                      {{list_pesca[siembra.id][siembra.id_esp]}}
+                                    </div>
+                                    <div v-else>0
+                                    </div>
+                                  </td>
                                   <!-- <td v-else>0</td>-->
-                                  <td v-text="siembra.fecha_inicio"></td>                              
-                                  <td v-text="estados[siembra.estado]"></td>                                   
+                                  
                                 </tr>
                               </tbody>
                             </table>
@@ -184,7 +193,7 @@
         f_inicio_h : '',
         f_estado_s : '',
         list_mortalidad : [],
-        
+        list_pesca :[]
       }
     },
     components: {
@@ -265,6 +274,7 @@
           me.lotes = response.data.lotes; 
           me.fechaActual = response.data.fecha_actual;
           me.list_mortalidad = response.data.mortalidad_siembra;
+          me.list_pesca = response.data.cantidad_pesca;
         })
       },
       listadoExcel(){

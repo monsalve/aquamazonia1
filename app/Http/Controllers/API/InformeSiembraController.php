@@ -29,18 +29,21 @@ class InformeSiembraController extends Controller
             ->orderBy('siembras.id', 'desc')
             ->get();
         $mortalidad_siembra = array();
-        
+        $cantidad_pesca = array();
         foreach($siembras as $s) {
-            $aux_mortalidad = Registro::select( DB::raw('SUM(mortalidad) as mortalidad'),'id_especie')
+            $aux_mortalidad = Registro::select('id_especie',
+            DB::raw('SUM(cantidad) as cantidad_pesca'),
+            DB::raw('SUM(biomasa) as salida_biomasa'),
+            DB::raw('SUM(mortalidad) as mortalidad'))
                         ->where('id_siembra','=',$s->id)
                         ->where('estado','=','1')
-                        ->where('tipo_registro','!=','1')
+                        // ->where('tipo_registro','!=','1')
                         ->groupBy('id_especie')
                         ->get();
-                        
-            foreach($aux_mortalidad as $a_mort) {
             
+            foreach($aux_mortalidad as $a_mort) {            
                 $mortalidad_siembra[$s->id][$a_mort->id_especie] =  $a_mort->mortalidad;
+                $cantidad_pesca[$s->id][$a_mort->id_especie] =  $a_mort->cantidad_pesca;
             }            
         }
               
@@ -51,7 +54,8 @@ class InformeSiembraController extends Controller
             "siembras"=> $siembras,        
             'lotes' => $lotes,
             'fecha_actual'=> $fecha_actual,
-            'mortalidad_siembra'=> $mortalidad_siembra
+            'mortalidad_siembra'=> $mortalidad_siembra,
+            'cantidad_pesca' => $cantidad_pesca
         ];
     }
 
