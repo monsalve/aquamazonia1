@@ -57,10 +57,12 @@
                               <th>Siembra</th>
                               <th>Especie</th>
                               <th>Inicio siembra</th>
+                             
                               <th>Cant Ini</th>
                               <th>Peso Ini</th>
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>   
+                               <th>Fecha último registro</th>
                               <th>Tiempo de cultivo</th>
                               <th>Biomasa dispo</th>
                               <th>Salida de biomasa</th>                 
@@ -70,6 +72,8 @@
                               <th>% Mortalidad</th>
                               <th>Salida animales</th>
                               <!-- <th>Peso ganado</th> -->
+                              <th>Incremento de biomasa</th>
+                              <th>Ganancia de peso por día</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
                               
@@ -80,17 +84,17 @@
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>
                               <td v-text="le.especie"></td>
-                              <td v-text="le.fecha_inicio"></td>
+                              <td v-text="le.fecha_inicio"></td>                              
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.peso_inicial+' gr'"></td>
                               <td v-text="le.cant_actual"></td>
                               <td v-text="le.peso_actual+' gr'"></td>   
+                              <td v-text="le.fecha_registro"></td>
                               <td v-if="le.intervalo_tiempo">{{le.intervalo_tiempo}} días</td>
                               <td v-else>0</td>
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>
-                              <!-- <td v-if="le.biomasa_acumulada">{{le.biomasa_acumulada}} kg</td> -->                             
+                              <td v-else>0</td>                                          
                               <td v-if="le.mortalidad">{{le.mortalidad}}</td>
                               <td v-else>0</td>
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
@@ -98,10 +102,11 @@
                               <td v-else>0</td>
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
                               <td v-else>0</td>
+                              <td v-text="le.incremento_biomasa"></td>
+                              <td v-text="le.ganancia_peso_dia"></td>
                               <td v-text="le.densidad_final"></td>
                               <td v-text="le.carga_final"></td>
-                              <!-- <td v-text="le.peso_ganado"></td> -->
-                              <!-- <td v-text="le.mortalidad_kg_au == null ? '-' : le.mortalidad_kg_au +' kg' "></td> -->
+                           
                             </tr>
                           </tbody>
                         </table>
@@ -122,6 +127,7 @@
           'Siembra' : 'nombre_siembra',
           'Especie' : 'especie',
           'Fecha inicio siembra' : 'fecha_inicio',
+          'Fecha registro' : 'fecha_registro',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
           'Cantidad actual' : 'cant_actual',
@@ -133,6 +139,8 @@
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
+          'Incremento de biomasa': 'incremento_biomasa',
+          'Gananacia de peso por día': 'ganancia_peso_día',
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
         },       

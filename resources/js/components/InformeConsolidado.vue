@@ -19,10 +19,6 @@
                         </div>
                       
                         <div class="form-group col-md-2">
-                          <label for="Biomasa hasta">Mínimo de Biomasa disponible(kg): </label>
-                          <input type="number" class="form-control" id="f_biomasa_h" step="any"  v-model="f_biomasa_h">
-                        </div>
-                        <div class="form-group col-md-2">
                           <label for="Fecha desde">Fecha inicio desde: </label>
                           <input type="date" class="form-control" id="f_inicio_d">
                         </div>
@@ -54,25 +50,30 @@
                               <th>#</th>
                               <th>Siembra</th>                             
                               <th>Inicio siembra</th>
+                              <th>Intervalo de tiempo</th>
                               <th>Cant Ini</th>
                               <th>Peso Ini</th>
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>                                 
                               <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>                 
-                              
+                              <th>Salida de biomasa</th>    
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
-                              <th>Salida animales</th>
-                              
+                              <th>Salida animales</th>                              
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
                               <th>Hrs Hombre</th>             
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
+                              <th>Total alimento (Kg)</th>
                               <th>Costo Total</th>
+                              <th>Ganancia de peso día estanque</th>
+                              <th>Conversion alimenticia siembra</th>
+                              <th>Incremento biomasa</th>
+                              <th>Incremento biomasa acumulada por conversión</th>
+                              <th>Biomasa disponible por conversión teórica</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -80,6 +81,7 @@
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>                             
                               <td v-text="le.fecha_inicio"></td>
+                              <td v-text="le.intervalo_tiempo"></td>
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.peso_inicial+' gr'"></td>
                               <td v-text="le.cant_actual"></td>
@@ -100,8 +102,13 @@
                               <td v-text="le.costo_horash"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
+                              <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
-                              
+                              <td v-text="le.ganancia_peso_dia"></td>
+                              <td v-text="le.conversion_alimenticia_siembra"></td>
+                              <td v-text="le.incremento_biomasa"></td>
+                              <td v-text="le.incr_bio_acum_conver"></td>
+                              <td v-text="le.bio_dispo_conver"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -141,8 +148,9 @@
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
-          'Conversión alimenticia teórica' : '',
-          'Biomasa disponible por conversión' : ''
+          'Conversión alimenticia ' : 'conversion_alimenticia_siembra',
+          'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
+          'Biomasa disponible por conversión' : 'bio_dispo_conver'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
@@ -152,7 +160,7 @@
         f_especie: '', 
         f_inicio_d : '',
         f_inicio_h : '',
-        f_biomasa_h : 0,
+  
       }
     },
     components: {
@@ -203,15 +211,11 @@
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
         // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
-        if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}
-        if(this.f_biomasa_h == 0){this.bh = '-1'}else{this.bh = this.f_biomasa_h}
-        
-        
+        if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}        
         const data ={
           'f_siembra' : this.smb,
           'f_inicio_d' : this.fecd,
           'f_inicio_h' : this.fech,
-          'f_biomasa_h' : this.bh
         }
         axios.post("api/filtro-existencias-detalle", data)
         .then(response=>{

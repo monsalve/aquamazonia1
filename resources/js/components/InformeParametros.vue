@@ -71,7 +71,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="(lp, index) in listadoParametros" :key="index">
-                    <th v-text="index"></th>
+                    <th v-text="index+1"></th>
                     <th v-text="lp.id"></th>
                     <td v-text="lp.contenedor"></td>
                     <td v-text="lp.fecha_parametro"></td>

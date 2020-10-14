@@ -253,6 +253,10 @@
                   <label for="cant_tarde" class="">Kg tarde</label>
                   <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="conv_alimenticia">Conversión alimenticia teórica</label>
+                  <input type="number" step="any" class="form-control" id="conv_alimenticia" placeholder="Conversión alimenticia teórica" v-model="form.conv_alimenticia">
+                </div>
                 
             </form>
             <div class="modal-footer">                
@@ -270,7 +274,7 @@
                     <th>Fecha</th>
                     <th><br>Alimento</th>                  
                     <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th>
+                    <th>Cantidad<br>Tarde</th>                    
                     <th width=15%>Detalles</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
@@ -283,7 +287,7 @@
                     <td v-text="item.fecha_ra"></td>
                     <td> {{item.alimento}}</td>                   
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
-                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>
+                    <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                     
                     <td v-text="item.detalles"></td>
                     <td>
                       <button class="btn btn-success" @click="editarAlimento(item)">
@@ -356,11 +360,10 @@
                     <th>#</th>
                     <th>Especie</th>
                     <th>Tipo de registro</th>
-                    <th>Fecha</th>
-                    <th>Conversión alimenticia teórica</th>
+                    <th>Fecha</th>                    
                     <th>Peso ganado (gr)</th>
                     <th>Mortalidad</th>
-                    <th>Biomasa</th>
+                    <th>Biomasa(kg)</th>
                     <th>Cantidad</th>
                     <th>Eliminar</th>
                   </tr>
@@ -370,8 +373,7 @@
                     <th v-text="index+1"></th>
                     <td v-text="registro.especie"></td>
                     <td v-text="tipoRegistro[registro.tipo_registro]"></td>
-                    <td v-text="registro.fecha_registro"></td>
-                    <td v-text="registro.conv_alimenticia  == null ? '-' : registro.conv_alimenticia"></td>
+                    <td v-text="registro.fecha_registro"></td>                   
                     <td v-text="registro.peso_ganado == null ? '-' : registro.peso_ganado+'gr'"></td>
                     <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
                     <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
@@ -400,11 +402,6 @@
                     <option value="2">Mortalidad inicial</option>
                   </select>
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="conv_alimenticia">Conversión alimenticia teórica</label>
-                  <input type="number" step="any" class="form-control" id="conv_alimenticia" placeholder="Conversión alimenticia teórica" v-model="conv_alimenticia">
-                </div>
-                
               </div>
               <div class="col-sm-12 col-lg-8 mx-auto">
                 <table class="table table-bordered">
@@ -413,7 +410,7 @@
                       <th scope="col">Especie</th>
                       <th scope="col" v-if="tipo_registro == 0">Peso actual (gr)</th>
                       <th scope="col" v-if="tipo_registro == 0">Mortalidad</th>                      
-                      <th scope="col" v-if="tipo_registro == 1">Biomasa</th>
+                      <th scope="col" v-if="tipo_registro == 1">Biomasa (kg)</th>
                       <!-- <th scope="col" v-if="tipo_registro == 1">Cantidad</th> -->
                       <th scope="col" v-if="tipo_registro == 2">Mortalidad Inicial</th>
                     </tr>
@@ -505,6 +502,7 @@
           horas_hombre : '',
           cant_manana : '',
           cant_tarde : '',
+          conv_alimenticia : '',
           detalles : ''          
         }),
         editandoAlimento : 0,
@@ -531,7 +529,7 @@
         id_siembra:'',
         id_especie : '',        
         fecha_registro:'',
-        conv_alimenticia : '',
+        
         tipo_registro:'',
         peso_ganado:'',
         mortalidad:'',
@@ -763,7 +761,7 @@
           id_siembra : id,        
           fecha_registro : this.fecha_registro,
           tipo_registro : this.tipo_registro,
-          conv_alimenticia : this.conv_alimenticia
+         
         }
         axios.post('api/registros', data)
         .then(({response})=>{     

@@ -16,6 +16,7 @@ class RecursoNecesario extends Model{
         'cantidad_recurso',
         'cant_manana',
         'cant_tarde',
+        'conv_alimenticia',
         'detalles'
     ];
 }

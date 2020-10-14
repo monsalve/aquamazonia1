@@ -20,7 +20,6 @@ class RegistroController extends Controller
         $registros = Registro::select('registros.id as id',
                 'id_siembra',
                 'fecha_registro',
-                'conv_alimenticia',
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',
@@ -41,7 +40,7 @@ class RegistroController extends Controller
     public function registrosxSiembra($id)
     {
         //
-        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro','conv_alimenticia','tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie')
+        $registros = Registro::select('registros.id as id', 'id_siembra','fecha_registro','tipo_registro', 'peso_ganado', 'mortalidad', 'cantidad', 'estado', 'biomasa', 'cantidad', 'especies.especie as especie', 'especies.id as id_especie')
             ->join('especies', 'registros.id_especie', 'especies.id')
             ->where('id_siembra', '=', $id)
             ->orderBy('registros.id', 'desc')
@@ -80,15 +79,13 @@ class RegistroController extends Controller
                     'id_especie' =>$campo['id_especie'],
                     'id_siembra' => $campo['id_siembra'],
                     'fecha_registro' => $request['fecha_registro'],
-                    'conv_alimenticia' => $request['conv_alimenticia'],
+                  
                     'tipo_registro' => $request['tipo_registro'],                   
                     'biomasa' => $campo['biomasa'],
                     // 'cantidad' => $campo['cantidad']
                     'cantidad' => (($campo['biomasa'] * 1000)/$exs->peso_actual)
                 ]);  
-                // if($campo['cantidad'] > 0 && $campo['cantidad'] < $exs->cant_actual){
-                    // $exs->cant_actual= $exs->cant_actual - (($campo['biomasa'] * 1000)/$exs->peso_actual);
-                // }  
+            
                 $exs->cant_actual = $exs->cant_actual - $registro->cantidad;
                 $exs->save();
             }    
@@ -106,29 +103,19 @@ class RegistroController extends Controller
                     'id_especie' =>$campo['id_especie'],
                     'id_siembra' => $campo['id_siembra'],
                     'fecha_registro' => $request['fecha_registro'],
-                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    // 'conv_alimenticia' => $request['conv_alimenticia'],
                     'tipo_registro' => $request['tipo_registro'],
                     'peso_ganado' => $campo['peso_ganado'],
                     'mortalidad' => $campo['mortalidad'],                   
                 ]);                    
             }
-            // if($request->tipo_registro == 1){
-            //     $registro = Registro::create([
-            //         'id_especie' =>$campo['id_especie'],
-            //         'id_siembra' => $campo['id_siembra'],
-            //         'fecha_registro' => $request['fecha_registro'],
-            //         'conv_alimenticia' => $request['conv_alimenticia'],
-            //         'tipo_registro' => $request['tipo_registro'],                   
-            //         'biomasa' => $campo['biomasa'],
-            //         'cantidad' => $campo['cantidad']
-            //     ]);                    
-            // }
+        
             if($request->tipo_registro == 2){
                 $registro = Registro::create([
                     'id_especie' =>$campo['id_especie'],
                     'id_siembra' => $campo['id_siembra'],
                     'fecha_registro' => $request['fecha_registro'],
-                    'conv_alimenticia' => $request['conv_alimenticia'],
+                    // 'conv_alimenticia' => $request['conv_alimenticia'],
                     'tipo_registro' => $request['tipo_registro'],
                     'mortalidad' => $campo['mortalidad'],
                 ]);                    
@@ -197,7 +184,7 @@ class RegistroController extends Controller
                 'registros.id as id',
                 'id_siembra',
                 'fecha_registro',
-                'conv_alimenticia',
+              
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',

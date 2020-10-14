@@ -73,6 +73,8 @@
                     <th>Cantidad<br>día</th>
                     <th>Costo Kg</th>
                     <th>Costo total</th>
+                    <th>Conversión alimenticia teórica</th>
+                    <th>Incremento biomasa acumulada por conversión</th>
                     <th width=15%>Detalles</th>
                     <!-- <th>Eliminar</th> -->
                   </tr>
@@ -88,10 +90,12 @@
                     <td v-text="item.alimento"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
-                    <td v-text="item.cant_tarde == null ? '-' : item.alimento_dia +' kg' "></td>  
+                    <td v-text="item.alimento_dia == null ? '-' : item.alimento_dia +' kg' "></td>  
                     <td v-text="item.costo_kg"></td>
                     <td v-text="item.costo_total_alimento"></td>
-                     <td v-text="item.detalles"></td>
+                    <td v-text="item.conv_alimenticia"></td>
+                    <td v-text="item.incr_bio_acum_conver"></td>
+                    <td v-text="item.detalles"></td>
                     <!-- <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
                         <i class="fas fa-trash"></i>

@@ -59,8 +59,15 @@ class RecursoNecesarioController extends Controller
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
                 $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
                 $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
+                if($recursosNecesarios[$i]->conv_alimenticia > 0){
+                    $recursosNecesarios[$i]->incr_bio_acum_conver = $recursosNecesarios[$i]->alimento_dia / $recursosNecesarios[$i]->conv_alimenticia;
+                    
+                    $recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');
+                    $recursosNecesarios[$i]->conv_alimenticia = number_format($recursosNecesarios[$i]->conv_alimenticia,2,',','');
+                }
             }
         }
+        // print_r($recursosNecesarios);
     
         return ['recursosNecesarios' => $recursosNecesarios];
     }
@@ -105,6 +112,7 @@ class RecursoNecesarioController extends Controller
         $recursoNecesario->cantidad_recurso = $request['cantidad_recurso'];
         $recursoNecesario->cant_manana = $request['cant_manana'];
         $recursoNecesario->cant_tarde = $request['cant_tarde'];
+        $recursoNecesario->conv_alimenticia = $request['conv_alimenticia'];
         $recursoNecesario->detalles = $request['detalles'];
         $recursoNecesario->save();
         

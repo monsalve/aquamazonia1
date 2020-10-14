@@ -2115,6 +2115,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3893,6 +3897,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3901,6 +3910,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Siembra': 'nombre_siembra',
         'Especie': 'especie',
         'Fecha inicio siembra': 'fecha_inicio',
+        'Fecha registro': 'fecha_registro',
         'Cantidad Inicial': 'cantidad_inicial',
         'Peso inicial': 'peso_inicial',
         'Cantidad actual': 'cant_actual',
@@ -3912,6 +3922,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Mortalidad kg': 'mortalidad_kg',
         'Mortalidad %': 'mortalidad_porcentaje',
         'Salida animales': 'salida_animales',
+        'Incremento de biomasa': 'incremento_biomasa',
+        'Gananacia de peso por día': 'ganancia_peso_día',
         'Densidad final (Animales/m2)': 'densidad_final',
         'Carga final (Kg/m2)': 'carga_final'
       },
@@ -4161,6 +4173,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4188,8 +4211,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total recursos': 'costo_total_recurso',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
-        'Conversión alimenticia teórica': '',
-        'Biomasa disponible por conversión': ''
+        'Conversión alimenticia ': 'conversion_alimenticia_siembra',
+        'incremento biomasa acumulada por conversión': 'incr_bio_acum_conver',
+        'Biomasa disponible por conversión': 'bio_dispo_conver'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -6507,9 +6531,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -6533,6 +6554,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         horas_hombre: '',
         cant_manana: '',
         cant_tarde: '',
+        conv_alimenticia: '',
         detalles: ''
       }),
       editandoAlimento: 0,
@@ -6559,7 +6581,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       id_siembra: '',
       id_especie: '',
       fecha_registro: '',
-      conv_alimenticia: '',
       tipo_registro: '',
       peso_ganado: '',
       mortalidad: '',
@@ -6756,8 +6777,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         campos: aux_campos,
         id_siembra: id,
         fecha_registro: this.fecha_registro,
-        tipo_registro: this.tipo_registro,
-        conv_alimenticia: this.conv_alimenticia
+        tipo_registro: this.tipo_registro
       };
       axios.post('api/registros', data).then(function (_ref4) {
         var response = _ref4.response;
@@ -45430,7 +45450,7 @@ var render = function() {
                         _c("td", {
                           domProps: {
                             textContent: _vm._s(
-                              item.cant_tarde == null
+                              item.alimento_dia == null
                                 ? "-"
                                 : item.alimento_dia + " kg"
                             )
@@ -45444,6 +45464,18 @@ var render = function() {
                         _c("td", {
                           domProps: {
                             textContent: _vm._s(item.costo_total_alimento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(item.conv_alimenticia)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(item.incr_bio_acum_conver)
                           }
                         }),
                         _vm._v(" "),
@@ -45895,6 +45927,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("Costo Kg")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversión alimenticia teórica")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")])
       ])
@@ -49010,6 +49046,10 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.fecha_registro) }
+                        }),
+                        _vm._v(" "),
                         le.intervalo_tiempo
                           ? _c("td", [
                               _vm._v(_vm._s(le.intervalo_tiempo) + " días")
@@ -49047,6 +49087,18 @@ var render = function() {
                         le.salida_animales
                           ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
                           : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incremento_biomasa)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.ganancia_peso_dia)
+                          }
+                        }),
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(le.densidad_final) }
@@ -49129,6 +49181,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Fecha último registro")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Tiempo de cultivo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
@@ -49142,6 +49196,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida animales")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Incremento de biomasa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ganancia de peso por día")]),
         _vm._v(" "),
         _c("th", [
           _vm._v("Densidad Final (Animales/m"),
@@ -49346,6 +49404,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: { textContent: _vm._s(le.intervalo_tiempo) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(le.cantidad_inicial) }
                         }),
                         _vm._v(" "),
@@ -49426,7 +49488,43 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.cantidad_total_alimento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(le.costo_tot) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.ganancia_peso_dia)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              le.conversion_alimenticia_siembra
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incremento_biomasa)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incr_bio_acum_conver)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.bio_dispo_conver) }
                         })
                       ])
                     }),
@@ -49492,6 +49590,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Intervalo de tiempo")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Cant Ini")]),
         _vm._v(" "),
         _c("th", [_vm._v("Peso Ini")]),
@@ -49532,7 +49632,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo Alimentos")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo Total")])
+        _c("th", [_vm._v("Total alimento (Kg)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ganancia de peso día estanque")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversion alimenticia siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Incremento biomasa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa disponible por conversión teórica")])
       ])
     ])
   }
@@ -49746,7 +49858,7 @@ var render = function() {
                       _vm._l(_vm.listadoParametros, function(lp, index) {
                         return _c("tr", { key: index }, [
                           _c("th", {
-                            domProps: { textContent: _vm._s(index) }
+                            domProps: { textContent: _vm._s(index + 1) }
                           }),
                           _vm._v(" "),
                           _c("th", {
@@ -53407,6 +53519,43 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "conv_alimenticia" } }, [
+                      _vm._v("Conversión alimenticia teórica")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.conv_alimenticia,
+                          expression: "form.conv_alimenticia"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        step: "any",
+                        id: "conv_alimenticia",
+                        placeholder: "Conversión alimenticia teórica"
+                      },
+                      domProps: { value: _vm.form.conv_alimenticia },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "conv_alimenticia",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
                   ])
                 ]),
                 _vm._v(" "),
@@ -53760,16 +53909,6 @@ var render = function() {
                               _c("td", {
                                 domProps: {
                                   textContent: _vm._s(
-                                    registro.conv_alimenticia == null
-                                      ? "-"
-                                      : registro.conv_alimenticia
-                                  )
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(
                                     registro.peso_ganado == null
                                       ? "-"
                                       : registro.peso_ganado + "gr"
@@ -53916,39 +54055,6 @@ var render = function() {
                               ])
                             ]
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-4" }, [
-                          _c("label", { attrs: { for: "conv_alimenticia" } }, [
-                            _vm._v("Conversión alimenticia teórica")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.conv_alimenticia,
-                                expression: "conv_alimenticia"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              step: "any",
-                              id: "conv_alimenticia",
-                              placeholder: "Conversión alimenticia teórica"
-                            },
-                            domProps: { value: _vm.conv_alimenticia },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.conv_alimenticia = $event.target.value
-                              }
-                            }
-                          })
                         ])
                       ]),
                       _vm._v(" "),
@@ -53974,7 +54080,7 @@ var render = function() {
                               _vm._v(" "),
                               _vm.tipo_registro == 1
                                 ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Biomasa")
+                                    _vm._v("Biomasa (kg)")
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
@@ -54513,13 +54619,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Conversión alimenticia teórica")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Peso ganado (gr)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa")]),
+        _c("th", [_vm._v("Biomasa(kg)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),
