@@ -237,9 +237,9 @@ class ParametroCalidadController extends Controller
         // if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
         if($request['f_inicio_d']!='-1'){$c1="fecha_parametro"; $op1='>='; $c2= $request['f_inicio_d'];}
         if($request['f_inicio_h']!='-1'){$c3="fecha_parametro"; $op2='<='; $c4= $request['f_inicio_h'];}
-        if($request['id_contenedor']!='-1'){$c3="id_contenedor"; $op2='='; $c4= $request['id_contenedor'];}
+        if($request['id_contenedor']!='-1'){$c5="id_contenedor"; $op3='='; $c6= $request['id_contenedor'];}
     
-        $calidad_agua = CalidadAgua::select()
+        $calidad_agua = CalidadAgua::select('calidad_agua.id as id','contenedores.id as id_contenedor','4_am','4_pm','7_am','8_pm','12_am','amonio','contenedor','fecha_parametro','nitrato','nitrito','otros','ph','temperatura')
             ->join('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
             ->where($c1, $op1, $c2)
             ->where($c3, $op2, $c4)

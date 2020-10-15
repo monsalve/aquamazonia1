@@ -25,12 +25,11 @@
                           </select>
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="peso desde">peso desde: </label>
-                          <input type="number" step="any" class="form-control" id="f_peso_d" v-model="f_peso_d">
-                          
+                          <label for="peso desde">peso desde (gr): </label>
+                          <input type="number" step="any" class="form-control" id="f_peso_d" v-model="f_peso_d">                          
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="peso hasta">peso  hasta: </label>
+                          <label for="peso hasta">peso hasta (gr): </label>
                           <input type="number" step="any" class="form-control" id="f_peso_h" v-model="f_peso_h">
                         </div>
                         <div class="form-group col-md-2">
