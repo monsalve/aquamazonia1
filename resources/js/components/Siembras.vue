@@ -898,6 +898,7 @@
             axios.put('api/registros/'+id, data)
             .then(({data})=>{
               me.abrirIngreso(objeto.id_siembra);
+              me.listar();
             })
           }
         });

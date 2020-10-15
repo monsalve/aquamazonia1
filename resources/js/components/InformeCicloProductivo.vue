@@ -25,13 +25,24 @@
                           </select>
                         </div>
                         <div class="form-group col-md-2">
+                          <label for="peso desde">peso desde: </label>
+                          <input type="number" step="any" class="form-control" id="f_peso_d" v-model="f_peso_d">
+                          
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="peso hasta">peso  hasta: </label>
+                          <input type="number" step="any" class="form-control" id="f_peso_h" v-model="f_peso_h">
+                        </div>
+                        <div class="form-group col-md-2">
                           <label for="Fecha desde">Fecha inicio desde: </label>
-                          <input type="date" class="form-control" id="f_inicio_d">
+                          <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
                         </div>
                         <div class="form-group col-md-2">
                           <label for="fecha hasta">Fecha inicio hasta: </label>
-                          <input type="date" class="form-control" id="f_inicio_h">
+                          <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                         </div>
+                        
+                        
                         <div class="form-group col-md-2">
                           <button class="btn btn-primary" @click="filtroCiclo()">
                             Filtrar resultados
@@ -56,8 +67,7 @@
                               <th>#</th>
                               <th>Siembra</th>
                               <th>Especie</th>
-                              <th>Inicio siembra</th>
-                             
+                              <th>Inicio siembra</th>                             
                               <th>Cant Ini</th>
                               <th>Peso Ini</th>
                               <th>Cant Actual</th>
@@ -152,6 +162,8 @@
         f_especie: '', 
         f_inicio_d : '',
         f_inicio_h : '',
+        f_peso_d : 0,
+        f_peso_h : 0,
       }
     },
     components: {
@@ -203,12 +215,16 @@
         if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}
+        if(this.f_peso_d == ''){this.pesod = '-1'}else{this.pesod = this.f_peso_d}
+        if(this.f_peso_h == ''){this.pesoh = '-1'}else{this.pesoh = this.f_peso_h}
         
         const data ={
           'f_siembra' : this.smb,
           'f_especie' : this.esp,
           'f_inicio_d' : this.fecd,
-          'f_inicio_h' : this.fech
+          'f_inicio_h' : this.fech,
+          'f_peso_d' : this.pesod,
+          'f_peso_h' : this.pesoh
         }
         axios.post("api/filtro-ciclos", data)
         .then(response=>{

@@ -3902,6 +3902,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3934,7 +3944,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_siembra: '',
       f_especie: '',
       f_inicio_d: '',
-      f_inicio_h: ''
+      f_inicio_h: '',
+      f_peso_d: 0,
+      f_peso_h: 0
     };
   },
   components: {
@@ -4021,11 +4033,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.fech = this.f_inicio_h;
       }
 
+      if (this.f_peso_d == '') {
+        this.pesod = '-1';
+      } else {
+        this.pesod = this.f_peso_d;
+      }
+
+      if (this.f_peso_h == '') {
+        this.pesoh = '-1';
+      } else {
+        this.pesoh = this.f_peso_h;
+      }
+
       var data = {
         'f_siembra': this.smb,
         'f_especie': this.esp,
         'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
+        'f_inicio_h': this.fech,
+        'f_peso_d': this.pesod,
+        'f_peso_h': this.pesoh
       };
       axios.post("api/filtro-ciclos", data).then(function (response) {
         me.listadoExistencias = response.data.existencias; // console.log(response.data);
@@ -4058,10 +4084,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -4222,8 +4244,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_siembra: '',
       f_especie: '',
       f_inicio_d: '',
-      f_inicio_h: '',
-      f_biomasa_h: 0
+      f_inicio_h: ''
     };
   },
   components: {
@@ -4305,17 +4326,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.fech = this.f_inicio_h;
       }
 
-      if (this.f_biomasa_h == 0) {
-        this.bh = '-1';
-      } else {
-        this.bh = this.f_biomasa_h;
-      }
-
       var data = {
         'f_siembra': this.smb,
         'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech,
-        'f_biomasa_h': this.bh
+        'f_inicio_h': this.fech
       };
       axios.post("api/filtro-existencias-detalle", data).then(function (response) {
         me.listadoExistencias = response.data.existencias; // console.log(response.data);
@@ -6937,6 +6951,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios.put('api/registros/' + id, data).then(function (_ref10) {
             var data = _ref10.data;
             me.abrirIngreso(objeto.id_siembra);
+            me.listar();
           });
         }
       });
@@ -48947,9 +48962,117 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(1),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "peso desde" } }, [
+                  _vm._v("peso desde: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_peso_d,
+                      expression: "f_peso_d"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", step: "any", id: "f_peso_d" },
+                  domProps: { value: _vm.f_peso_d },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_peso_d = $event.target.value
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
-              _vm._m(2),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "peso hasta" } }, [
+                  _vm._v("peso  hasta: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_peso_h,
+                      expression: "f_peso_h"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", step: "any", id: "f_peso_h" },
+                  domProps: { value: _vm.f_peso_h },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_peso_h = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "Fecha desde" } }, [
+                  _vm._v("Fecha inicio desde: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_d,
+                      expression: "f_inicio_d"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_d" },
+                  domProps: { value: _vm.f_inicio_d },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_d = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "fecha hasta" } }, [
+                  _vm._v("Fecha inicio hasta: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.f_inicio_h,
+                      expression: "f_inicio_h"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", id: "f_inicio_h" },
+                  domProps: { value: _vm.f_inicio_h },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.f_inicio_h = $event.target.value
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c(
@@ -49004,7 +49127,7 @@ var render = function() {
                     "table table-striped table-sm table-hover table-responsive"
                 },
                 [
-                  _vm._m(3),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -49127,36 +49250,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row text-left" }, [
       _c("h5", [_vm._v("Filtrar por: ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "Fecha desde" } }, [
-        _vm._v("Fecha inicio desde: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_d" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "fecha hasta" } }, [
-        _vm._v("Fecha inicio hasta: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_h" }
-      })
     ])
   },
   function() {
@@ -49298,34 +49391,6 @@ var render = function() {
                   ],
                   2
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "Biomasa hasta" } }, [
-                  _vm._v("Mínimo de Biomasa disponible(kg): ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.f_biomasa_h,
-                      expression: "f_biomasa_h"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", id: "f_biomasa_h", step: "any" },
-                  domProps: { value: _vm.f_biomasa_h },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.f_biomasa_h = $event.target.value
-                    }
-                  }
-                })
               ]),
               _vm._v(" "),
               _vm._m(1),
