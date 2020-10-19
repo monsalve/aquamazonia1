@@ -535,8 +535,8 @@ class InformeController extends Controller
                             }
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
-                            // $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
-                            $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
+                            $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
+                            // $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
                             $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
                             $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;       
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
@@ -577,7 +577,7 @@ class InformeController extends Controller
                 }
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
-                $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
+                // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
                 $siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
@@ -755,8 +755,8 @@ class InformeController extends Controller
                             }
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
-                            // $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
-                            $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
+                            $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
+                            // $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
                             $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
                             $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;       
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
@@ -797,7 +797,7 @@ class InformeController extends Controller
                 }
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
-                $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
+                // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
                 $siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
@@ -843,7 +843,7 @@ class InformeController extends Controller
                  
                 
             }               
-        } 
+        }   
         
         return ['existencias'=> $aux_regs];
     }
