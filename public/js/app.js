@@ -3911,7 +3911,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4216,7 +4215,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Fecha inicio siembra': 'fecha_inicio',
         'Cantidad Inicial': 'cantidad_inicial',
         'Peso inicial': 'peso_inicial',
-        'Cantidad actual': 'cant_actual',
+        'Animales final': 'cant_actual',
         'Peso actual': 'peso_actual',
         'Intervalo de tiempo': 'intervalo_tiempo',
         'Biomasa disponible': 'biomasa_disponible',
@@ -48964,7 +48963,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "peso desde" } }, [
-                  _vm._v("peso desde: ")
+                  _vm._v("peso desde (gr): ")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -48992,7 +48991,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "peso hasta" } }, [
-                  _vm._v("peso  hasta: ")
+                  _vm._v("peso hasta (gr): ")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -49655,13 +49654,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Intervalo de tiempo")]),
+        _c("th", [_vm._v("Tiempo de cultivo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cant Ini")]),
+        _c("th", [_vm._v("Cant Inicial")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Peso Ini")]),
+        _c("th", [_vm._v("Peso Inicial")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cant Actual")]),
+        _c("th", [_vm._v("Animales final")]),
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),

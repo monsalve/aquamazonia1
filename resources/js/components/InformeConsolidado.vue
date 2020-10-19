@@ -50,10 +50,10 @@
                               <th>#</th>
                               <th>Siembra</th>                             
                               <th>Inicio siembra</th>
-                              <th>Intervalo de tiempo</th>
-                              <th>Cant Ini</th>
-                              <th>Peso Ini</th>
-                              <th>Cant Actual</th>
+                              <th>Tiempo de cultivo</th>
+                              <th>Cant Inicial</th>
+                              <th>Peso Inicial</th>
+                              <th>Animales final</th>
                               <th>Peso Actual</th>                                 
                               <th>Biomasa dispo</th>
                               <th>Salida de biomasa</th>    
@@ -131,7 +131,7 @@
           'Fecha inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
-          'Cantidad actual' : 'cant_actual',
+          'Animales final' : 'cant_actual',
           'Peso actual' : 'peso_actual',
           'Intervalo de tiempo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',

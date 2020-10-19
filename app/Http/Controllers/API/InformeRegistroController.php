@@ -20,8 +20,7 @@ class InformeRegistroController extends Controller
         $registros = Registro::select(
                 'registros.id as id',
                 'id_siembra',
-                'fecha_registro',
-                'conv_alimenticia',
+                'fecha_registro',              
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',
@@ -113,7 +112,6 @@ class InformeRegistroController extends Controller
             'registros.id as id',
             'id_siembra',
             'fecha_registro',
-            'conv_alimenticia',
             'tipo_registro',
             'peso_ganado',
             'mortalidad',
