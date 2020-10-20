@@ -70,7 +70,7 @@
                               <th>Total alimento (Kg)</th>
                               <th>Costo Total</th>
                               <th>Ganancia de peso día estanque</th>
-                              <th>Conversion alimenticia siembra</th>
+                              <th>Conversion alimenticia</th>
                               <th>Incremento biomasa</th>
                               <th>Incremento biomasa acumulada por conversión</th>
                               <th>Biomasa disponible por conversión teórica</th>

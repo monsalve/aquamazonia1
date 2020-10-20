@@ -520,18 +520,19 @@ class InformeController extends Controller
                                     
                                     // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
                                     if($existencias[$j]->id_especie == $registros[$k]->id_especie){
+                                        $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);
+                                    
                                         $existencias[$j]->mortalidad += $registros[$k]->mortalidad;    
-                                        $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_actual)/1000);
-                                        
+                                        // $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_ganado)/1000);
+                                        $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
                                         $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa; 
                                         $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000)/$existencias[$j]->peso_actual);
                                         $existencias[$j]->peso_incremento = $existencias[$j]->peso_actual -  $existencias[$j]->peso_inicial;
                                         $existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual)/1000);
                                         $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento/$existencias[$j]->intervalo_tiempo;
                                         $existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad*100)/$existencias[$j]->cantidad_inicial);
-                                    }                                  
-                                }    
-                                
+                                    }                                    
+                                }   
                             }
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
@@ -577,6 +578,7 @@ class InformeController extends Controller
                 }
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
+                $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;
                 // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
@@ -588,6 +590,7 @@ class InformeController extends Controller
                 $siembras[$i]->ganancia_peso_dia = number_format($siembras[$i]->ganancia_peso_dia,2,',','');
                 $siembras[$i]->peso_inicial = number_format($siembras[$i]->peso_inicial,2,',','');
                 $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
+                $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
                
                 // recursos_necesarios
                 $aux_regs[]=[
@@ -615,7 +618,7 @@ class InformeController extends Controller
                     "mortalidad_porcentaje" => $siembras[$i]->mortalidad_porcentaje ,
                     "nombre_siembra"=>$siembras[$i]->nombre_siembra,                   
                     "peso_inicial" => $siembras[$i]->peso_inicial,
-                    "peso_actual"=>$siembras[$i]->peso_actual,
+                    "peso_actual"=>$siembras[$i]->peso_actual_esp,
                     "salida_animales"=>$siembras[$i]->salida_animales,
                     "salida_biomasa" => $siembras[$i]->salida_biomasa
                     
@@ -740,18 +743,19 @@ class InformeController extends Controller
                                     
                                     // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
                                     if($existencias[$j]->id_especie == $registros[$k]->id_especie){
+                                        $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);
+                                    
                                         $existencias[$j]->mortalidad += $registros[$k]->mortalidad;    
-                                        $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_actual)/1000);
-                                        
+                                        // $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_ganado)/1000);
+                                        $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
                                         $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa; 
                                         $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000)/$existencias[$j]->peso_actual);
                                         $existencias[$j]->peso_incremento = $existencias[$j]->peso_actual -  $existencias[$j]->peso_inicial;
                                         $existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual)/1000);
                                         $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento/$existencias[$j]->intervalo_tiempo;
                                         $existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad*100)/$existencias[$j]->cantidad_inicial);
-                                    }                                  
-                                }    
-                                
+                                    }                                    
+                                }   
                             }
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
@@ -797,6 +801,7 @@ class InformeController extends Controller
                 }
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
+                $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;
                 // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
@@ -808,6 +813,7 @@ class InformeController extends Controller
                 $siembras[$i]->ganancia_peso_dia = number_format($siembras[$i]->ganancia_peso_dia,2,',','');
                 $siembras[$i]->peso_inicial = number_format($siembras[$i]->peso_inicial,2,',','');
                 $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
+                $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
                
                 // recursos_necesarios
                 $aux_regs[]=[
@@ -835,7 +841,7 @@ class InformeController extends Controller
                     "mortalidad_porcentaje" => $siembras[$i]->mortalidad_porcentaje ,
                     "nombre_siembra"=>$siembras[$i]->nombre_siembra,                   
                     "peso_inicial" => $siembras[$i]->peso_inicial,
-                    "peso_actual"=>$siembras[$i]->peso_actual,
+                    "peso_actual"=>$siembras[$i]->peso_actual_esp,
                     "salida_animales"=>$siembras[$i]->salida_animales,
                     "salida_biomasa" => $siembras[$i]->salida_biomasa
                     

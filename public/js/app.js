@@ -49702,7 +49702,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ganancia de peso día estanque")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Conversion alimenticia siembra")]),
+        _c("th", [_vm._v("Conversion alimenticia")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa")]),
         _vm._v(" "),

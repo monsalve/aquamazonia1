@@ -63,19 +63,37 @@ class RegistroController extends Controller
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             
             if($request->tipo_registro == 0){
-                // if(($campo['mortalidad'] > 0) && ($campo['mortalidad'] < $exs->cant_actual) ){
-                    $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
-                // } 
+             
+                $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];         
                 
                 if($campo['peso_ganado'] > $exs->peso_actual){
                     $exs->peso_actual = $campo['peso_ganado'];                                     
                 }
                 $exs->save();
+                
+                if ( $campo['peso_ganado'] == '' && $campo['mortalidad'] != '') {
+                        $registro = Registro::create([
+                            'id_especie' =>$campo['id_especie'],
+                            'id_siembra' => $campo['id_siembra'],
+                            'fecha_registro' => $request['fecha_registro'],                  
+                            'tipo_registro' => $request['tipo_registro'],
+                            'peso_ganado' => $exs['peso_actual'],
+                            'mortalidad' => $campo['mortalidad'],                   
+                        ]);                   
+                }
+                elseif( $campo['peso_ganado'] != '' || $campo['mortalidad']){
+                    $registro = Registro::create([
+                        'id_especie' =>$campo['id_especie'],
+                        'id_siembra' => $campo['id_siembra'],
+                        'fecha_registro' => $request['fecha_registro'],                  
+                        'tipo_registro' => $request['tipo_registro'],
+                        'peso_ganado' => $campo['peso_ganado'],
+                        'mortalidad' => $campo['mortalidad'],                   
+                    ]);                    
+                }
             }
             if( $campo['biomasa'] != ''){
                 if($request->tipo_registro == 1){
-                           
-                   
                     $registro = Registro::create([
                         'id_especie' =>$campo['id_especie'],
                         'id_siembra' => $campo['id_siembra'],
@@ -96,36 +114,18 @@ class RegistroController extends Controller
                     $exs->cant_actual= $exs->cant_actual - $campo['mortalidad'];
                 } 
                 $exs->save();
-            }
-            
-            
-            
-            if($request->tipo_registro == 0){
-                if( $campo['peso_ganado'] != '' || $campo['mortalidad']){
-                    $registro = Registro::create([
-                        'id_especie' =>$campo['id_especie'],
-                        'id_siembra' => $campo['id_siembra'],
-                        'fecha_registro' => $request['fecha_registro'],
-                        // 'conv_alimenticia' => $request['conv_alimenticia'],
-                        'tipo_registro' => $request['tipo_registro'],
-                        'peso_ganado' => $campo['peso_ganado'],
-                        'mortalidad' => $campo['mortalidad'],                   
-                    ]);                    
-                }
-            }
-        
-            if($request->tipo_registro == 2){
                 if($campo['mortalidad']){
                     $registro = Registro::create([
                         'id_especie' =>$campo['id_especie'],
                         'id_siembra' => $campo['id_siembra'],
-                        'fecha_registro' => $request['fecha_registro'],
-                        // 'conv_alimenticia' => $request['conv_alimenticia'],
+                        'fecha_registro' => $request['fecha_registro'],                        
                         'tipo_registro' => $request['tipo_registro'],
                         'mortalidad' => $campo['mortalidad'],
+                        'peso_ganado' => $exs['peso_inicial'],
                     ]);       
                 }
             }
+            
                         
         }
     }
@@ -159,6 +159,16 @@ class RegistroController extends Controller
         if($request['campos']['cantidad'] > 0){
             $exs->cant_actual= $exs->cant_actual + $request['campos']['cantidad'];
         }
+        /*if($request['campos']['peso_ganado'] > 0){
+            if($request['campos']['peso_ganado'] == $exs->peso_actual){
+                // $exs->peso_actual= $exs->cant_actual + $request['campos']['peso_ganado'];
+            }
+            else{
+                $exs->peso_actual= $exs->peso_actual + $request['campos']['peso_ganado'];
+            }
+        
+            
+        }*/
         $exs->save();
        
     }
@@ -189,8 +199,7 @@ class RegistroController extends Controller
         $registros = Registro::select(
                 'registros.id as id',
                 'id_siembra',
-                'fecha_registro',
-              
+                'fecha_registro',              
                 'tipo_registro',
                 'peso_ganado',
                 'mortalidad',
