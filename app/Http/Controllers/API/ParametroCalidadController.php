@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\CalidadAgua;
-use App\CalidadSiembra;
 use App\Siembra;
 use App\Contenedor;
 
@@ -176,14 +175,7 @@ class ParametroCalidadController extends Controller
             $calidad_agua->otros = $request['otros'];
             $calidad_agua->save();
         }
-        
-        // foreach($request->id_contenedor as $contenedor){
-        //     $calidad_siembra = new CalidadSiembra();
-        //     $calidad_siembra->id_calidad_parametros = $calidad_agua->id;
-        //     $calidad_siembra->id_contenedor = $contenedor;
-        //     $calidad_siembra->save();
-        // }
-        
+    
         return ($request);
         
     }
