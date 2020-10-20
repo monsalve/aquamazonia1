@@ -2128,7 +2128,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Tipo actividad': 'actividad',
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
-        'Costo horas hombre': 'total_horas_hombre',
+        'Costo minutos hombre': 'total_minutos_hombre',
         'Alimento': 'alimento',
         'Kg Mañana': 'cant_manana',
         'Kg tarde': 'cant_tarde',
@@ -2143,7 +2143,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id_alimento: '',
         tipo_actividad: '1',
         fecha_ra: '',
-        horas_hombre: '',
+        minutos_hombre: '',
         cant_manana: '',
         cant_tarde: '',
         detalles: ''
@@ -4228,7 +4228,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Densidad final (Animales/m2)': 'densidad_final',
         'Carga final (Kg/m2)': 'carga_final',
         'Horas hombre': 'horas_hombre',
-        'Costo horas Hombre': 'costo_horash',
+        'Costo minutos Hombre': 'costo_minutosh',
         'Costo total recursos': 'costo_total_recurso',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
@@ -5240,9 +5240,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Estado Siembra': 'estado',
         'Tipo de Actividad': 'actividad',
         'Fecha Registro': 'fecha_ra',
-        'Horas hombre': 'horas_hombre',
-        'Costo horas hombre': 'costo_horash',
-        'Costo acumulado horas': 'costo_h_acum',
+        'Minutos hombre': 'minutos_hombre',
+        'Costo minutos hombre': 'costo_minutosh',
+        'Costo acumulado minutos': 'costo_h_acum',
         'Recurso': 'recurso',
         'Costo': 'costo_r',
         'Costo acumulado': 'costo_r_acum',
@@ -5835,8 +5835,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Tipo actividad': 'actividad',
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
-        'Horas hombre': 'horas_hombre',
-        'Costo total horas': 'total_horas_hombre',
+        'Minutos hombre': 'minutos_hombre',
+        'Costo total minutos': 'total_minutos_hombre',
         'Recurso': 'recurso',
         'Cantidad': 'cantidad_recurso',
         'Costo': 'costo',
@@ -5849,7 +5849,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id_alimento: '',
         tipo_actividad: '',
         fecha_ra: '',
-        horas_hombre: '',
+        minutos_hombre: '',
         cantidad_recurso: '',
         detalles: ''
       }),
@@ -6564,7 +6564,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         id_alimento: '',
         tipo_actividad: '1',
         fecha_ra: '',
-        horas_hombre: '',
+        minutos_hombre: '',
         cant_manana: '',
         cant_tarde: '',
         conv_alimenticia: '',
@@ -45428,12 +45428,12 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(item.horas_hombre) }
+                          domProps: { textContent: _vm._s(item.minutos_hombre) }
                         }),
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(item.total_horas_hombre)
+                            textContent: _vm._s(item.total_minutos_hombre)
                           }
                         }),
                         _vm._v(" "),
@@ -45594,7 +45594,7 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-md-4",
-                          attrs: { for: "horas hombre" }
+                          attrs: { for: "minutos hombre" }
                         },
                         [_vm._v("Fecha")]
                       ),
@@ -45613,7 +45613,7 @@ var render = function() {
                           type: "date",
                           id: "fecha_ra",
                           "aria-describedby": "fecha_ra",
-                          placeholder: "Horas hombre"
+                          placeholder: "Minutos hombre"
                         },
                         domProps: { value: _vm.form.fecha_ra },
                         on: {
@@ -45632,9 +45632,9 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-md-4",
-                          attrs: { for: "horas hombre" }
+                          attrs: { for: "minutos hombre" }
                         },
-                        [_vm._v("Horas hombre")]
+                        [_vm._v("Minutos hombre")]
                       ),
                       _vm._v(" "),
                       _c("input", {
@@ -45642,19 +45642,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.horas_hombre,
-                            expression: "form.horas_hombre"
+                            value: _vm.form.minutos_hombre,
+                            expression: "form.minutos_hombre"
                           }
                         ],
                         staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
-                          id: "horas_hombre",
+                          id: "minutos_hombre",
                           step: "any",
-                          "aria-describedby": "horas_hombre",
-                          placeholder: "Horas hombre"
+                          "aria-describedby": "minutos_hombre",
+                          placeholder: "Minutos hombre"
                         },
-                        domProps: { value: _vm.form.horas_hombre },
+                        domProps: { value: _vm.form.minutos_hombre },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
@@ -45662,7 +45662,7 @@ var render = function() {
                             }
                             _vm.$set(
                               _vm.form,
-                              "horas_hombre",
+                              "minutos_hombre",
                               $event.target.value
                             )
                           }
@@ -45926,9 +45926,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Horas hombre")]),
+        _c("th", [_vm._v("Minutos hombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total horas hombre")]),
+        _c("th", [_vm._v("Total minutos hombre")]),
         _vm._v(" "),
         _c("th", [_c("br"), _vm._v("Alimento")]),
         _vm._v(" "),
@@ -49536,7 +49536,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(le.costo_horash) }
+                          domProps: { textContent: _vm._s(le.costo_minutosh) }
                         }),
                         _vm._v(" "),
                         _c("td", {
@@ -49688,7 +49688,7 @@ var staticRenderFns = [
           _vm._v(")")
         ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Hrs Hombre")]),
+        _c("th", [_vm._v("Horas Hombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Horas")]),
         _vm._v(" "),
@@ -51056,13 +51056,13 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(lrn.horas_hombre + "hr")
+                          textContent: _vm._s(lrn.minutos_hombre + "hr")
                         }
                       }),
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(lrn.costo_horash + "hr")
+                          textContent: _vm._s(lrn.costo_minutosh + "hr")
                         }
                       }),
                       _vm._v(" "),
@@ -51130,11 +51130,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Horas "), _c("br"), _vm._v("hombre")]),
+        _c("th", [_vm._v("Minutos "), _c("br"), _vm._v("hombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo horas ")]),
+        _c("th", [_vm._v("Costo minutos ")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo Acumulado Horas")]),
+        _c("th", [_vm._v("Costo Acumulado Minutos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Recursos")]),
         _vm._v(" "),
@@ -51384,7 +51384,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             id: "unidad",
-                            placeholder: "Kg, Kl, Hora, Lt"
+                            placeholder: "Kg, Kl, Minuto, Lt"
                           },
                           domProps: { value: _vm.form.unidad },
                           on: {
@@ -51861,12 +51861,12 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(item.horas_hombre) }
+                        domProps: { textContent: _vm._s(item.minutos_hombre) }
                       }),
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(item.total_horas_hombre)
+                          textContent: _vm._s(item.total_minutos_hombre)
                         }
                       }),
                       _vm._v(" "),
@@ -51999,7 +51999,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "horas hombre" } }, [
+                      _c("label", { attrs: { for: "minutos hombre" } }, [
                         _vm._v("Fecha")
                       ]),
                       _vm._v(" "),
@@ -52017,7 +52017,7 @@ var render = function() {
                           type: "date",
                           id: "fecha_ra",
                           "aria-describedby": "fecha_ra",
-                          placeholder: "Horas hombre"
+                          placeholder: "Minutos hombre"
                         },
                         domProps: { value: _vm.form.fecha_ra },
                         on: {
@@ -52032,8 +52032,8 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "horas hombre" } }, [
-                        _vm._v("Horas hombre")
+                      _c("label", { attrs: { for: "minutos hombre" } }, [
+                        _vm._v("Minutos hombre")
                       ]),
                       _vm._v(" "),
                       _c("input", {
@@ -52041,19 +52041,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.horas_hombre,
-                            expression: "form.horas_hombre"
+                            value: _vm.form.minutos_hombre,
+                            expression: "form.minutos_hombre"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
-                          id: "horas_hombre",
+                          id: "minutos_hombre",
                           step: "any",
-                          "aria-describedby": "horas_hombre",
-                          placeholder: "Horas hombre"
+                          "aria-describedby": "minutos_hombre",
+                          placeholder: "Minutos hombre"
                         },
-                        domProps: { value: _vm.form.horas_hombre },
+                        domProps: { value: _vm.form.minutos_hombre },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
@@ -52061,7 +52061,7 @@ var render = function() {
                             }
                             _vm.$set(
                               _vm.form,
-                              "horas_hombre",
+                              "minutos_hombre",
                               $event.target.value
                             )
                           }
@@ -52313,9 +52313,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Horas hombre")]),
+        _c("th", [_vm._v("Minutos hombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo horas hombre")]),
+        _c("th", [_vm._v("Costo minutos hombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Recurso")]),
         _vm._v(" "),
@@ -53364,7 +53364,7 @@ var render = function() {
               _c("div", { staticClass: "modal-body" }, [
                 _c("form", { staticClass: "row" }, [
                   _c("div", { staticClass: "form-group col-md-3 " }, [
-                    _c("label", { attrs: { for: "horas hombre" } }, [
+                    _c("label", { attrs: { for: "minutos hombre" } }, [
                       _vm._v("Fecha")
                     ]),
                     _vm._v(" "),
@@ -53382,7 +53382,7 @@ var render = function() {
                         type: "date",
                         id: "fecha_ra",
                         "aria-describedby": "fecha_ra",
-                        placeholder: "Horas hombre"
+                        placeholder: "Minutos hombre"
                       },
                       domProps: { value: _vm.form.fecha_ra },
                       on: {
@@ -53482,8 +53482,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "horas hombre" } }, [
-                      _vm._v("Horas hombre")
+                    _c("label", { attrs: { for: "minutos hombre" } }, [
+                      _vm._v("Minutos hombre")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -53491,19 +53491,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.form.horas_hombre,
-                          expression: "form.horas_hombre"
+                          value: _vm.form.minutos_hombre,
+                          expression: "form.minutos_hombre"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: {
                         type: "number",
                         step: "any",
-                        id: "horas_hombre",
-                        "aria-describedby": "horas_hombre",
-                        placeholder: "Horas hombre"
+                        id: "minutos_hombre",
+                        "aria-describedby": "minutos_hombre",
+                        placeholder: "Minutos hombre"
                       },
-                      domProps: { value: _vm.form.horas_hombre },
+                      domProps: { value: _vm.form.minutos_hombre },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -53511,7 +53511,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.form,
-                            "horas_hombre",
+                            "minutos_hombre",
                             $event.target.value
                           )
                         }

@@ -22,7 +22,7 @@ class RecursoNecesarioController extends Controller
     public function index()
     {
         //
-        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+        $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
@@ -35,16 +35,16 @@ class RecursoNecesarioController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){     
                 $recursosNecesarios[$i]->costo_total_recurso = $recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo;
-                $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
             }
         }
-        // print_r('hola'.$horas_hombre);
+        // print_r('hola'.$minutos_hombre);
         return ['recursosNecesarios' => $recursosNecesarios];
     }
     public function  alimentacion()
     {
         //
-        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+        $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
@@ -57,7 +57,7 @@ class RecursoNecesarioController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){        
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
-                $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
                 $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
                 if($recursosNecesarios[$i]->conv_alimenticia > 0){
                     $recursosNecesarios[$i]->incr_bio_acum_conver = $recursosNecesarios[$i]->alimento_dia / $recursosNecesarios[$i]->conv_alimenticia;
@@ -74,7 +74,7 @@ class RecursoNecesarioController extends Controller
     public function siembraxAlimentacion($id)
     {
         //
-        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+        $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
         ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
@@ -86,7 +86,7 @@ class RecursoNecesarioController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){        
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
-                $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
                 $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
             }
         }
@@ -108,7 +108,8 @@ class RecursoNecesarioController extends Controller
         $recursoNecesario->id_alimento =  $request['id_alimento'];
         $recursoNecesario->tipo_actividad = $request['tipo_actividad'];
         $recursoNecesario->fecha_ra = $request['fecha_ra'];
-        $recursoNecesario->horas_hombre = $request['horas_hombre'];
+        $recursoNecesario->minutos_hombre = $request['minutos_hombre'];
+        $recursoNecesario->horas_hombre = ($request['minutos_hombre']/60);
         $recursoNecesario->cantidad_recurso = $request['cantidad_recurso'];
         $recursoNecesario->cant_manana = $request['cant_manana'];
         $recursoNecesario->cant_tarde = $request['cant_tarde'];
@@ -185,7 +186,7 @@ class RecursoNecesarioController extends Controller
     }
     public function searchResults(Request $request){
     
-        $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+        $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
         
         $c1 = "recursos_necesarios.id"; $op1="!="; $c2 = "-1";
         $c3 = "recursos_necesarios.id"; $op2="!=";  $c4="-3";
@@ -221,11 +222,11 @@ class RecursoNecesarioController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){        
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
-                $recursosNecesarios[$i]->total_horas_hombre = $recursosNecesarios[$i]->horas_hombre * $horas_hombre[0]->costo;
+                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
                 $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
             }
         }
-        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'horas_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
+        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra','minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
         ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
         ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
         ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
@@ -241,7 +242,7 @@ class RecursoNecesarioController extends Controller
                 'id_recurso' => $rs['id_recurso'],
                 'id_alimento' => $rs['id_alimento'],
                 'fecha_ra'=>$rs['fecha_ra'],
-                'horas_hombre' => $rs['horas_hombre'],
+                'minutos_hombre' => $rs['minutos_hombre'],
                 'cant_manana' => $rs['cant_manana'],
                 'cant_tarde'=>$rs['cant_tarde'],
                 'detalles' => $rs['detalles'],

@@ -66,7 +66,7 @@
                                 <label for="unidad" class="col-sm-12  col-md-4 col-form-label">Unidad
                                 </label>
                                 <div class="col-sm-12 col-md-8">
-                                  <input type="text" class="form-control" id="unidad"  :class="{ 'is-invalid': form.errors.has('unidad') }" v-model="form.unidad" placeholder="Kg, Kl, Hora, Lt">
+                                  <input type="text" class="form-control" id="unidad"  :class="{ 'is-invalid': form.errors.has('unidad') }" v-model="form.unidad" placeholder="Kg, Kl, Minuto, Lt">
                                    <has-error :form="form" field="unidad"></has-error>
                                 </div>
                             </div>

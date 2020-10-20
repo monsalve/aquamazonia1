@@ -71,8 +71,8 @@
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>                  
-                    <th>Horas hombre</th>
-                    <th>Costo horas hombre</th>
+                    <th>Minutos hombre</th>
+                    <th>Costo minutos hombre</th>
                     <th>Recurso</th>                   
                     <th>Cantidad</th>
                     <th>Costo</th>
@@ -90,8 +90,8 @@
                     <td v-text="item.actividad"></td>
                     <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>
-                    <td v-text="item.horas_hombre"></td>
-                    <td v-text="item.total_horas_hombre"></td>
+                    <td v-text="item.minutos_hombre"></td>
+                    <td v-text="item.total_minutos_hombre"></td>
                     <td v-text="item.recurso"></td>
                     <td v-text="item.cantidad_recurso"></td>
                     <td v-text="item.costo"></td>
@@ -133,12 +133,12 @@
                   </select>
                 </div>
                 <div class="form-group">   
-                  <label for="horas hombre">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                  <label for="minutos hombre">Fecha</label>
+                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
                 </div>                
                 <div class="form-group">   
-                  <label for="horas hombre">Horas hombre</label>
-                  <input type="number" class="form-control" id="horas_hombre" step="any" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                  <label for="minutos hombre">Minutos hombre</label>
+                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre">                      
                 </div>
                 <div class="form-group">
                   <label for="recurso">Recurso</label>
@@ -188,8 +188,8 @@ import downloadexcel from "vue-json-excel"
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',        
-          'Horas hombre' : 'horas_hombre',
-          'Costo total horas' : 'total_horas_hombre',
+          'Minutos hombre' : 'minutos_hombre',
+          'Costo total minutos' : 'total_minutos_hombre',
           'Recurso' : 'recurso',
           'Cantidad' : 'cantidad_recurso',
           'Costo' : 'costo',
@@ -202,7 +202,7 @@ import downloadexcel from "vue-json-excel"
           id_alimento :'',
           tipo_actividad : '',
           fecha_ra : '',
-          horas_hombre : '',
+          minutos_hombre : '',
           cantidad_recurso : '',
           detalles : ''
         }),    

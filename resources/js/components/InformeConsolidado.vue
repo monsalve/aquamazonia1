@@ -63,7 +63,7 @@
                               <th>Salida animales</th>                              
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
-                              <th>Hrs Hombre</th>             
+                              <th>Horas Hombre</th>             
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
@@ -99,7 +99,7 @@
                               <td v-text="le.densidad_final"></td>
                               <td v-text="le.carga_final"></td>
                               <td v-text="le.horas_hombre"></td>
-                              <td v-text="le.costo_horash"></td>
+                              <td v-text="le.costo_minutosh"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
@@ -144,7 +144,7 @@
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
           'Horas hombre':'horas_hombre',
-          'Costo horas Hombre':'costo_horash',
+          'Costo minutos Hombre':'costo_minutosh',
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',

@@ -224,8 +224,8 @@
             <form class="row">
               <!-- <div class="col-md-6"> -->
                 <div class="form-group col-md-3 ">   
-                  <label for="horas hombre" class="">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Horas hombre" v-model="form.fecha_ra">                      
+                  <label for="minutos hombre" class="">Fecha</label>
+                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
                 </div>
                
                 <div class="form-group col-md-3">
@@ -241,8 +241,8 @@
                 </div>     
 
                 <div class="form-group col-md-3">   
-                  <label for="horas hombre" class="">Horas hombre</label>
-                  <input type="number" class="form-control" step="any" id="horas_hombre" aria-describedby="horas_hombre" placeholder="Horas hombre" v-model="form.horas_hombre">                      
+                  <label for="minutos hombre" class="">Minutos hombre</label>
+                  <input type="number" class="form-control" step="any" id="minutos_hombre" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre">                      
                 </div>
           
                 <div class="form-group col-md-3">                    
@@ -499,7 +499,7 @@
           id_alimento :'',
           tipo_actividad : '1',
           fecha_ra : '',
-          horas_hombre : '',
+          minutos_hombre : '',
           cant_manana : '',
           cant_tarde : '',
           conv_alimenticia : '',

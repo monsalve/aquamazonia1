@@ -83,9 +83,9 @@
                               <th>Estado siembras</th>
                               <th>Tipo <br>actividad</th>
                               <th>Fecha</th>
-                              <th>Horas <br>hombre</th>
-                              <th>Costo horas </th>
-                              <th>Costo Acumulado Horas</th>
+                              <th>Minutos <br>hombre</th>
+                              <th>Costo minutos </th>
+                              <th>Costo Acumulado Minutos</th>
                               <th>Recursos</th>
                               <th>Cantidad</th>
                               <th>Costo <br>Acumulado</th>
@@ -102,8 +102,8 @@
                               <td v-text="estados[lrn.estado]"></td>
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
-                              <td v-text="lrn.horas_hombre +'hr'"></td>
-                              <td v-text="lrn.costo_horash +'hr'"></td>
+                              <td v-text="lrn.minutos_hombre +'hr'"></td>
+                              <td v-text="lrn.costo_minutosh +'hr'"></td>
                               <th v-text="lrn.costo_h_acum +'hr'"></th>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.cantidad_recurso"></td>
@@ -134,9 +134,9 @@
             'Estado Siembra' : 'estado',
             'Tipo de Actividad' : 'actividad',
             'Fecha Registro' : 'fecha_ra',
-            'Horas hombre' : 'horas_hombre',
-            'Costo horas hombre' : 'costo_horash',
-            'Costo acumulado horas' : 'costo_h_acum',
+            'Minutos hombre' : 'minutos_hombre',
+            'Costo minutos hombre' : 'costo_minutosh',
+            'Costo acumulado minutos' : 'costo_h_acum',
             'Recurso' : 'recurso',
             'Costo' : 'costo_r',
             'Costo acumulado' : 'costo_r_acum',

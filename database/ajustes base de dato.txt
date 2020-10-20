@@ -14,3 +14,10 @@ Se modificó la columna 'detalles de la tabla 'recursos_necesarios' para que pue
 
 07/09/2020
 Se creó la tabla 'actividades'
+
+16/10/2020
+Se eliminó columna 'conv_alimenticia' de la Tabla 'registros'
+Se añadio columna 'conv_alimenticia' en la Tabla 'recursos_necesarios'
+
+20/10/2020
+Se añadio columna 'minutos_hombre' en la Tabla 'recursos_necesarios'
