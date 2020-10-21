@@ -107,8 +107,9 @@
                               <td v-text="le.ganancia_peso_dia"></td>
                               <td v-text="le.conversion_alimenticia_siembra"></td>
                               <td v-text="le.incremento_biomasa"></td>
-                              <td v-text="le.incr_bio_acum_conver"></td>
+                              <!-- <td v-text="le.incr_bio_acum_conver"></td> -->
                               <td v-text="le.bio_dispo_conver"></td>
+                              <td></td>
                             </tr>
                           </tbody>
                         </table>
@@ -127,7 +128,6 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Especie' : 'especie',
           'Fecha inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
@@ -150,7 +150,7 @@
           'Costo total':'costo_tot',
           'Conversión alimenticia ' : 'conversion_alimenticia_siembra',
           'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          'Biomasa disponible por conversión' : 'bio_dispo_conver'
+          'Biomasa disponible por conversión' : ''
         },       
         listadoExistencias : [],
         listadoEspecies : [],

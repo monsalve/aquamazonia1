@@ -4205,13 +4205,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
         'Siembra': 'nombre_siembra',
-        'Especie': 'especie',
         'Fecha inicio siembra': 'fecha_inicio',
         'Cantidad Inicial': 'cantidad_inicial',
         'Peso inicial': 'peso_inicial',
@@ -4234,7 +4234,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total': 'costo_tot',
         'Conversión alimenticia ': 'conversion_alimenticia_siembra',
         'incremento biomasa acumulada por conversión': 'incr_bio_acum_conver',
-        'Biomasa disponible por conversión': 'bio_dispo_conver'
+        'Biomasa disponible por conversión': ''
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -49582,14 +49582,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: {
-                            textContent: _vm._s(le.incr_bio_acum_conver)
-                          }
+                          domProps: { textContent: _vm._s(le.bio_dispo_conver) }
                         }),
                         _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(le.bio_dispo_conver) }
-                        })
+                        _c("td")
                       ])
                     }),
                     0
