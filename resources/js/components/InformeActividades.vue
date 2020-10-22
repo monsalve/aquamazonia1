@@ -79,7 +79,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(lr,index) in listadoRegistros" :key="index">
-                              <td v-text="index"></td>
+                              <td v-text="index+1"></td>
                               <td v-text="lr.nombre_siembra"></td>
                               <td v-text="lr.fecha_registro"></td>
                               <td v-text="lr.especie"></td>

@@ -4206,6 +4206,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4232,9 +4234,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total recursos': 'costo_total_recurso',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
+        'Total Kg Alimento': 'cantidad_total_alimento',
         'Conversión alimenticia ': 'conversion_alimenticia_siembra',
         'incremento biomasa acumulada por conversión': 'incr_bio_acum_conver',
-        'Biomasa disponible por conversión': ''
+        'Biomasa disponible por conversión': '',
+        'Conversióm alimenticia teórica': ''
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -48752,7 +48756,9 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.listadoRegistros, function(lr, index) {
                       return _c("tr", { key: index }, [
-                        _c("td", { domProps: { textContent: _vm._s(index) } }),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(index + 1) }
+                        }),
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(lr.nombre_siembra) }
@@ -49563,12 +49569,6 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(le.ganancia_peso_dia)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
                             textContent: _vm._s(
                               le.conversion_alimenticia_siembra
                             )
@@ -49584,6 +49584,8 @@ var render = function() {
                         _c("td", {
                           domProps: { textContent: _vm._s(le.bio_dispo_conver) }
                         }),
+                        _vm._v(" "),
+                        _c("td"),
                         _vm._v(" "),
                         _c("td")
                       ])
@@ -49696,15 +49698,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo Total")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ganancia de peso día estanque")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Conversion alimenticia")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible por conversión teórica")])
+        _c("th", [_vm._v("Biomasa disponible por conversión teórica")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversión alimenticia teórica")])
       ])
     ])
   }
@@ -51052,20 +51054,16 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
-                          textContent: _vm._s(lrn.minutos_hombre + "hr")
+                          textContent: _vm._s(lrn.minutos_hombre + "min")
                         }
                       }),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: {
-                          textContent: _vm._s(lrn.costo_minutosh + "hr")
-                        }
+                        domProps: { textContent: _vm._s(lrn.costo_minutosh) }
                       }),
                       _vm._v(" "),
                       _c("th", {
-                        domProps: {
-                          textContent: _vm._s(lrn.costo_h_acum + "hr")
-                        }
+                        domProps: { textContent: _vm._s(lrn.costo_h_acum) }
                       }),
                       _vm._v(" "),
                       _c("td", {
@@ -54034,88 +54032,96 @@ var render = function() {
                 _vm.ver_registros == 0
                   ? _c("div", { attrs: { id: "crearRegistros" } }, [
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "form-group col-md-3" }, [
-                          _c("label", { attrs: { for: "fecha_registro" } }, [
-                            _vm._v("Fecha Registro")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.fecha_registro,
-                                expression: "fecha_registro"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "date",
-                              id: "fecha_registro",
-                              placeholder: "Fecha"
-                            },
-                            domProps: { value: _vm.fecha_registro },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.fecha_registro = $event.target.value
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-3" }, [
-                          _c("label", { attrs: { for: "tipo_registro" } }, [
-                            _vm._v("Tipo")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-sm-6 col-lg-3" },
+                          [
+                            _c("label", { attrs: { for: "fecha_registro" } }, [
+                              _vm._v("Fecha Registro")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
                               directives: [
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.tipo_registro,
-                                  expression: "tipo_registro"
+                                  value: _vm.fecha_registro,
+                                  expression: "fecha_registro"
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { id: "tipo_registro" },
+                              attrs: {
+                                type: "date",
+                                id: "fecha_registro",
+                                placeholder: "Fecha"
+                              },
+                              domProps: { value: _vm.fecha_registro },
                               on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.tipo_registro = $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.fecha_registro = $event.target.value
                                 }
                               }
-                            },
-                            [
-                              _c("option", { attrs: { value: "0" } }, [
-                                _vm._v("Muestreo")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "1" } }, [
-                                _vm._v("Pesca")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "2" } }, [
-                                _vm._v("Mortalidad inicial")
-                              ])
-                            ]
-                          )
-                        ])
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-sm-6 col-lg-3" },
+                          [
+                            _c("label", { attrs: { for: "tipo_registro" } }, [
+                              _vm._v("Tipo")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tipo_registro,
+                                    expression: "tipo_registro"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "tipo_registro" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.tipo_registro = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              [
+                                _c("option", { attrs: { value: "0" } }, [
+                                  _vm._v("Muestreo")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "1" } }, [
+                                  _vm._v("Pesca")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "2" } }, [
+                                  _vm._v("Mortalidad inicial")
+                                ])
+                              ]
+                            )
+                          ]
+                        )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-12 col-lg-8 mx-auto" }, [

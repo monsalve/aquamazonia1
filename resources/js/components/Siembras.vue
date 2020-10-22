@@ -390,11 +390,11 @@
             </div>
             <div id="crearRegistros" v-if="ver_registros == 0">
               <div class="row">
-                 <div class="form-group col-md-3">
+                 <div class="form-group col-sm-6 col-lg-3">
                   <label for="fecha_registro">Fecha Registro</label>
                   <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha" v-model="fecha_registro">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-sm-6 col-lg-3">
                   <label for="tipo_registro">Tipo</label>
                   <select class="form-control" id="tipo_registro" v-model="tipo_registro">                      
                     <option value="0" >Muestreo</option>

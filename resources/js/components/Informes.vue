@@ -102,9 +102,9 @@
                               <td v-text="estados[lrn.estado]"></td>
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
-                              <td v-text="lrn.minutos_hombre +'hr'"></td>
-                              <td v-text="lrn.costo_minutosh +'hr'"></td>
-                              <th v-text="lrn.costo_h_acum +'hr'"></th>
+                              <td v-text="lrn.minutos_hombre +'min'"></td>
+                              <td v-text="lrn.costo_minutosh"></td>
+                              <th v-text="lrn.costo_h_acum"></th>
                               <td v-text="lrn.recurso"></td>
                               <td v-text="lrn.cantidad_recurso"></td>
                               <th v-text="lrn.costo_r_acum"></th>        

@@ -69,11 +69,12 @@
                               <th>Costo Alimentos</th>
                               <th>Total alimento (Kg)</th>
                               <th>Costo Total</th>
-                              <th>Ganancia de peso día estanque</th>
+                              <!-- <th>Ganancia de peso día estanque</th> -->
                               <th>Conversion alimenticia</th>
                               <th>Incremento biomasa</th>
                               <th>Incremento biomasa acumulada por conversión</th>
                               <th>Biomasa disponible por conversión teórica</th>
+                              <th>Conversión alimenticia teórica</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -104,11 +105,12 @@
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
-                              <td v-text="le.ganancia_peso_dia"></td>
+                              <!-- <td v-text="le.ganancia_peso_dia"></td> -->
                               <td v-text="le.conversion_alimenticia_siembra"></td>
                               <td v-text="le.incremento_biomasa"></td>
                               <!-- <td v-text="le.incr_bio_acum_conver"></td> -->
                               <td v-text="le.bio_dispo_conver"></td>
+                              <td></td>
                               <td></td>
                             </tr>
                           </tbody>
@@ -148,9 +150,12 @@
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
+          'Total Kg Alimento' : 'cantidad_total_alimento',
           'Conversión alimenticia ' : 'conversion_alimenticia_siembra',
           'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          'Biomasa disponible por conversión' : ''
+          'Biomasa disponible por conversión' : '',
+          'Conversióm alimenticia teórica' : ''
+          
         },       
         listadoExistencias : [],
         listadoEspecies : [],
