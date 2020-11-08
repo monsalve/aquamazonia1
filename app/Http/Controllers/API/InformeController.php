@@ -579,7 +579,9 @@ class InformeController extends Controller
                  $siembras[$i]->costo_minutos_hombre += ($siembras[$i]->minutos_hombre * $mh->costo );
                  $siembras[$i]->costo_total_siembra = ($siembras[$i]->costo_minutos_hombre + $siembras[$i]->costo_total_alimento + $siembras[$i]->costo_total_recurso);
                  if( $siembras[$i]->incremento_biomasa>0){
-                    $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;}
+                    // $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;
+                    $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->salida_biomasa - $siembras[$i]->biomasa_inicial); 
+                }
                 //alternativa $siembras[$i]->bio_dispo_conver = ($siembras[$i]->incr_bio_acum_conver - $siembras[$i]->salida_biomasa - $siembras[$i]->mortalidad_kg);
                 $siembras[$i]->bio_dispo_conver = ($siembras[$i]->biomasa_inicial + $siembras[$i]->incr_bio_acum_conver) - ($siembras[$i]->biomasa_disponible + $siembras[$i]->mortalidad_kg);
                 if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
@@ -809,9 +811,10 @@ class InformeController extends Controller
                     $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;}
                 //alternativa $siembras[$i]->bio_dispo_conver = ($siembras[$i]->incr_bio_acum_conver - $siembras[$i]->salida_biomasa - $siembras[$i]->mortalidad_kg);
                 $siembras[$i]->bio_dispo_conver = ($siembras[$i]->biomasa_inicial + $siembras[$i]->incr_bio_acum_conver) - ($siembras[$i]->biomasa_disponible + $siembras[$i]->mortalidad_kg);
-                if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
+                /*if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
                     $siembras[$i]->ganancia_peso_dia = ((($siembras[$i]->salida_biomasa*1000)/$siembras[$i]->salida_animales)/$siembras[$i]->intervalo_tiempo);
-                }
+                }*/
+                $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->salida_biomasa - $siembras[$i]->biomasa_inicial); 
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
                 $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;

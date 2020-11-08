@@ -66,7 +66,7 @@
                     <th>Siembras</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
-                    <th>Total minutos hombre</th>
+                    <!-- <th>Total minutos hombre</th> -->
                     <th><br>Alimento</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
@@ -86,7 +86,7 @@
                     <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>                    
                     <td v-text="item.minutos_hombre"></td>
-                    <td v-text="item.total_minutos_hombre"></td>
+                    <!-- <td v-text="item.total_minutos_hombre"></td> -->
                     <td v-text="item.alimento"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
@@ -102,6 +102,18 @@
                       </button>
                     </td> -->
       
+                  </tr>
+                  <tr>
+                    <th colspan="4" class="text-right">TOTAL:</th>
+                    <th v-text="promedios.tmh"></th>
+                    <th></th>
+                    <th v-text="promedios.cman"></th>                                        
+                    <th v-text="promedios.ctar"></th>                    
+                    <th v-text="promedios.alid"></th>
+                    <th v-text="promedios.coskg"></th>
+                    <th v-text="promedios.cta"></th>
+                    <th></th>
+                    <th v-text="promedios.icb"></th>
                   </tr>
                 </tbody>
               </table>
@@ -225,6 +237,7 @@ import downloadexcel from "vue-json-excel"
         busqueda:'',
         addSiembras :[],
         listado : [],
+        promedios:[],
         listadoRS : [],
         listadorxs:[],
         listadoSiembras : [],
@@ -245,7 +258,7 @@ import downloadexcel from "vue-json-excel"
       //  imprimirSiembras
       },
       startDownload(){
-          alert('show loading');
+          alert('Iniciando descarga de archivo');
       },
       finishDownload(){
           alert('hide loading');
@@ -274,6 +287,7 @@ import downloadexcel from "vue-json-excel"
         axios.post("api/searchResults", data)
         .then(response=>{
           me.listado = response.data.recursosNecesarios;
+          me.promedios = response.data.promedioRecursos;
           console.log(response)
         })
         console.log('buscar')
@@ -285,7 +299,7 @@ import downloadexcel from "vue-json-excel"
           me.listado = response.data.recursosNecesarios;         
           me.listadoRS = response.data.recursosSiembra;
           me.listadorxs = response.data.registrosxSiembra;
-          
+          me.promedios = response.data.promedioRecursos;
         })
       },
       listarSiembras(){

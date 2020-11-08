@@ -151,7 +151,7 @@
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Conversión alimenticia ' : 'conversion_alimenticia_siembra',
+          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
           'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
           'Biomasa disponible por conversión' : '',
           'Conversióm alimenticia teórica' : ''
@@ -180,7 +180,7 @@
         return this.listadoExistencias;
       },
       startDownload(){
-          alert('show loading');
+          alert('Iniciando descarga de archivo');
       },
       finishDownload(){
           alert('hide loading');

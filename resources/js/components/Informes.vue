@@ -181,7 +181,7 @@
         return this.imprimirRecursos;
       },
       startDownload(){
-          alert('show loading');
+          alert('Iniciando descarga de archivo');
       },
       finishDownload(){
           alert('hide loading');

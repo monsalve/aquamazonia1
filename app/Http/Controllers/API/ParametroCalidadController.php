@@ -25,25 +25,48 @@ class ParametroCalidadController extends Controller
             ->join('contenedores', 'calidad_agua.id_contenedor', 'contenedores.id')
             ->orderBy('fecha_parametro', 'desc')
             ->get();
-        
+            
+        // Formateo de variables
+        $val4am=0;
+        $val4pm=0;
+        $val7am=0;
+        $val8pm=0;
+        $val12am=0;
+        $valamo=0;
+        $valnit=0;
+        $valnat=0;
+        $valot=0;
+        $valph=0;
+        $valtem=0;
         $parametros_calidad = array();
-        foreach($calidad_agua as $cl){           
+        foreach($calidad_agua as $cl){                       
+            if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,',','');}
+            if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,',','');}
+            if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,',','');}
+            if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,',','');}
+            if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,',','');}
+            if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,',','');}
+            if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,',','');}
+            if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,',','');}
+            if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,',','');}
+            if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,',','');}
+            if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,',','');}
             $parametros_calidad[] = array(
                 'id' =>  $cl['id'],
                 'id_contenedor' => $cl['id_contenedor'],
-                '4_am' => number_format($cl['4_am'], 2,',',''),
-                '4_pm' => number_format($cl['4_pm'], 2,',',''),
-                '7_am' => number_format($cl['7_am'], 2,',',''),
-                '8_pm' => number_format($cl['8_pm'], 2,',',''),
-                '12_am' => number_format($cl['12_am'], 2,',',''),
-                'amonio' => number_format($cl['amonio'], 2,',',''),
+                '4_am' => $val4am,
+                '4_pm' => $val4pm,
+                '7_am' => $val7am,
+                '8_pm' => $val8pm,
+                '12_am' => $val12am,
+                'amonio' => $valamo,
                 'contenedor' => $cl['contenedor'],
                 'fecha_parametro' => $cl['fecha_parametro'],
-                'nitrato' => number_format($cl['nitrato'], 2,',',''),
-                'nitrito' => number_format($cl['nitrito'], 2,',',''),
-                'otros' => number_format($cl['otros'], 2,',',''),
-                'ph' => number_format($cl['ph'], 2,',',' '),
-                'temperatura' => number_format($cl['temperatura'], 2,',','')                
+                'nitrato' => $valnat,
+                'nitrito' => $valnit,
+                'otros' => $valot,
+                'ph' => $valph,
+                'temperatura' => $valtem
             );            
         }
         
@@ -73,17 +96,21 @@ class ParametroCalidadController extends Controller
  
         
             for($i=0;$i<count($calidad_agua);$i++){
-                if( $calidad_agua[$i]['12_am']>0){
+                if( $calidad_agua[$i]['12_am']>0 ||$calidad_agua[$i]['12_am']!=''){
                     $count_12am +=1;                    
                     $prom_12am += $calidad_agua[$i]['12_am'];
                     $promedios['promedio_12_am'] = (round($prom_12am/$count_12am,2));
                     $promedios['promedio_12_am']  = number_format($promedios['promedio_12_am'], 2,',','');
+                }else{
+                    $promedios['promedio_12_am'] = '';
                 }
-                if( $calidad_agua[$i]['4_am']>0){
+                if( $calidad_agua[$i]['4_am']>0 || $calidad_agua[$i]['4_am']!=''){
                     $count_4am +=1;
                     $prom_4am += $calidad_agua[$i]['4_am'];
                     $promedios['promedio_4_am'] = (round($prom_4am/$count_4am,2));
                     $promedios['promedio_4_am']  = number_format($promedios['promedio_4_am'], 2,',','');
+                }else{
+                    $calidad_agua[$i]['4_am'] = '';
                 }
                 if( $calidad_agua[$i]['7_am']>0){
                     $count_7am +=1;
@@ -238,25 +265,49 @@ class ParametroCalidadController extends Controller
             ->where($c5, $op3, $c6)
             ->orderBy('fecha_parametro', 'desc')
             ->get();
-            
+        
+        // Formateo de variables
         $parametros_calidad = array();
-        foreach($calidad_agua as $cl){           
+        $val4am=0;
+        $val4pm=0;
+        $val7am=0;
+        $val8pm=0;
+        $val12am=0;
+        $valamo=0;
+        $valnit=0;
+        $valnat=0;
+        $valot=0;
+        $valph=0;
+        $valtem=0;
+        
+        foreach($calidad_agua as $cl){                       
+            if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,',','');}
+            if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,',','');}
+            if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,',','');}
+            if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,',','');}
+            if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,',','');}
+            if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,',','');}
+            if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,',','');}
+            if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,',','');}
+            if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,',','');}
+            if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,',','');}
+            if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,',','');}
             $parametros_calidad[] = array(
                 'id' =>  $cl['id'],
                 'id_contenedor' => $cl['id_contenedor'],
-                '4_am' => number_format($cl['4_am'], 2,',',''),
-                '4_pm' => number_format($cl['4_pm'], 2,',',''),
-                '7_am' => number_format($cl['7_am'], 2,',',''),
-                '8_pm' => number_format($cl['8_pm'], 2,',',''),
-                '12_am' => number_format($cl['12_am'], 2,',',''),
-                'amonio' => number_format($cl['amonio'], 2,',',''),
+                '4_am' => $val4am,
+                '4_pm' => $val4pm,
+                '7_am' => $val7am,
+                '8_pm' => $val8pm,
+                '12_am' => $val12am,
+                'amonio' => $valamo,
                 'contenedor' => $cl['contenedor'],
                 'fecha_parametro' => $cl['fecha_parametro'],
-                'nitrato' => number_format($cl['nitrato'], 2,',',''),
-                'nitrito' => number_format($cl['nitrito'], 2,',',''),
-                'otros' => number_format($cl['otros'], 2,',',''),
-                'ph' => number_format($cl['ph'], 2,',',' '),
-                'temperatura' => number_format($cl['temperatura'], 2,',','')                
+                'nitrato' => $valnat,
+                'nitrito' => $valnit,
+                'otros' => $valot,
+                'ph' => $valph,
+                'temperatura' => $valtem
             );            
         }
         
@@ -345,6 +396,7 @@ class ParametroCalidadController extends Controller
                 $count_nitrato +=1;
                 $prom_nitrato += $calidad_agua[$i]['nitrato'];
                 $promedios['promedio_nitrato'] = (round($prom_nitrato/ $count_nitrato,2));
+                $promedios['promedio_nitrato']  = number_format($promedios['promedio_nitrato'], 2,',','');
             }
             
             if( $calidad_agua[$i]['otros']>0){

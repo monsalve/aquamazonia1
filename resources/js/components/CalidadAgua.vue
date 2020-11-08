@@ -290,7 +290,6 @@
           'Nitrito' : 'nitrito', 
           'Nitrato' : 'nitrato',
           'Otros' : 'otros'
-          
         },     
         editando : 0,
         mostrar : 0,
@@ -337,7 +336,7 @@
         return this.listadoParametros;
       },
       startDownload(){
-          alert('show loading');
+          alert('Iniciando descarga de archivo');
       },
       finishDownload(){
           alert('hide loading');

@@ -95,15 +95,24 @@
                     <td v-text="item.recurso"></td>
                     <td v-text="item.cantidad_recurso"></td>
                     <td v-text="item.costo"></td>
-                    <td v-text="item.costo_total_recurso"></td>
-                   
+                    <td v-text="item.costo_total_recurso"></td>                   
                     <td v-text="item.detalles"></td>
                     <td>
                       <button class="btn btn-danger" @click="eliminarRegistro(item.id_registro)">
                         <i class="fas fa-trash"></i>
                       </button>
-                    </td>
-      
+                    </td>      
+                  </tr>
+                  <tr>
+                    <th colspan="4" class="text-right">TOTAL:</th>
+                    <th v-text="promedios.tmh"></th>
+                    <th v-text="promedios.ttmh"></th>                    
+                    <th></th>
+                    <th v-text="promedios.tcr"></th>                    
+                    <th v-text="promedios.tc"></th>
+                    <th v-text="promedios.ctr"></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tbody>
               </table>
@@ -215,6 +224,7 @@ import downloadexcel from "vue-json-excel"
         busqueda:'',
         addSiembras :[],
         listado : [],
+        promedios:[],
         listadoRS : [],
         listadorxs:[],
         listadoSiembras : [],
@@ -236,7 +246,7 @@ import downloadexcel from "vue-json-excel"
       //  imprimirSiembras
       },
       startDownload(){
-          alert('show loading');
+          alert('Iniciando descarga de archivo');
       },
       finishDownload(){
           alert('hide loading');
@@ -248,7 +258,7 @@ import downloadexcel from "vue-json-excel"
       buscarResultados(){
         let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
-        if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad}       
+        if(this.t_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.t_actividad}       
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
@@ -266,6 +276,7 @@ import downloadexcel from "vue-json-excel"
         axios.post("api/searchResults", data)
         .then(response=>{
           me.listado = response.data.recursosNecesarios;
+          me.promedios = response.data.promedioRecursos;
         })
         console.log('buscar')
       },
@@ -276,7 +287,7 @@ import downloadexcel from "vue-json-excel"
           me.listado = response.data.recursosNecesarios;         
           me.listadoRS = response.data.recursosSiembra;
           me.listadorxs = response.data.registrosxSiembra;
-          
+          me.promedios = response.data.promedioRecursos;
         })
       },
       listarSiembras(){
