@@ -89,8 +89,7 @@ class RecursoNecesarioController extends Controller
                 $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
                 if($recursosNecesarios[$i]->conv_alimenticia > 0){
                     $recursosNecesarios[$i]->incr_bio_acum_conver = $recursosNecesarios[$i]->alimento_dia / $recursosNecesarios[$i]->conv_alimenticia;                                        
-                    $recursosNecesarios[$i]->conv_alimenticia = number_format($recursosNecesarios[$i]->conv_alimenticia,2,',','');
-                    // $recursosNecesarios[$i]->bio_disponible_conversion = 
+                    $recursosNecesarios[$i]->conv_alimenticia = number_format($recursosNecesarios[$i]->conv_alimenticia,2,',','');                   
                 }
                 $summh += $recursosNecesarios[$i]->minutos_hombre;  
                 $cantm+=$recursosNecesarios[$i]->cant_manana;

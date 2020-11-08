@@ -2209,7 +2209,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -2915,7 +2915,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -3698,7 +3698,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -3994,7 +3994,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -4223,6 +4223,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4252,7 +4253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Total Kg Alimento': 'cantidad_total_alimento',
         'Conversión alimenticia parcial': 'conversion_alimenticia_siembra',
         'incremento biomasa acumulada por conversión': 'incr_bio_acum_conver',
-        'Biomasa disponible por conversión': '',
+        'Biomasa disponible por conversión': 'incr_bio_acum_conver',
         'Conversióm alimenticia teórica': ''
       },
       listadoExistencias: [],
@@ -4296,7 +4297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -4578,7 +4579,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -4915,7 +4916,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -5323,7 +5324,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -5931,7 +5932,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     startDownload: function startDownload() {
-      alert('show loading');
+      alert('Iniciando descarga de archivo');
     },
     finishDownload: function finishDownload() {
       alert('hide loading');
@@ -49645,6 +49646,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
+                            textContent: _vm._s(le.conversion_alimenticia_final)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
                             textContent: _vm._s(le.incremento_biomasa)
                           }
                         }),
@@ -49653,7 +49660,11 @@ var render = function() {
                           domProps: { textContent: _vm._s(le.bio_dispo_conver) }
                         }),
                         _vm._v(" "),
-                        _c("td"),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incr_bio_acum_conver)
+                          }
+                        }),
                         _vm._v(" "),
                         _c("td")
                       ])
@@ -49766,7 +49777,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo Total")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Conversion alimenticia")]),
+        _c("th", [_vm._v("Conversion alimenticia parcial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversion alimenticia final")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa")]),
         _vm._v(" "),

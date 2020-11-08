@@ -70,7 +70,8 @@
                               <th>Total alimento (Kg)</th>
                               <th>Costo Total</th>
                               <!-- <th>Ganancia de peso día estanque</th> -->
-                              <th>Conversion alimenticia</th>
+                              <th>Conversion alimenticia parcial</th>
+                              <th>Conversion alimenticia final</th>
                               <th>Incremento biomasa</th>
                               <th>Incremento biomasa acumulada por conversión</th>
                               <th>Biomasa disponible por conversión teórica</th>
@@ -107,10 +108,10 @@
                               <td v-text="le.costo_tot"></td>
                               <!-- <td v-text="le.ganancia_peso_dia"></td> -->
                               <td v-text="le.conversion_alimenticia_siembra"></td>
-                              <td v-text="le.incremento_biomasa"></td>
-                              <!-- <td v-text="le.incr_bio_acum_conver"></td> -->
+                              <td v-text="le.conversion_alimenticia_final"></td>
+                              <td v-text="le.incremento_biomasa"></td>                              
                               <td v-text="le.bio_dispo_conver"></td>
-                              <td></td>
+                              <td v-text="le.incr_bio_acum_conver"></td>
                               <td></td>
                             </tr>
                           </tbody>
@@ -153,7 +154,7 @@
           'Total Kg Alimento' : 'cantidad_total_alimento',
           'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
           'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          'Biomasa disponible por conversión' : '',
+          'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
           'Conversióm alimenticia teórica' : ''
           
         },       
