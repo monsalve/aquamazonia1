@@ -97,9 +97,8 @@ class RecursoNecesarioController extends Controller
                 $alid+=$recursosNecesarios[$i]->alimento_dia;
                 $coskg+=$recursosNecesarios[$i]->costo_kg;
                 $cta+=$recursosNecesarios[$i]->costo_total_alimento;
-                $icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;
-                $icb = number_format($icb,2,',','');
-                $recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');
+                $icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;               
+                $recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');                
             }
             $promedioRecursos['tmh'] = $summh;                           
             $promedioRecursos['cman'] = $cantm;
@@ -108,6 +107,7 @@ class RecursoNecesarioController extends Controller
             $promedioRecursos['coskg'] = $coskg;
             $promedioRecursos['cta'] = $cta;
             $promedioRecursos['icb'] = $icb;
+            $icb = number_format($icb,2,',','');
         }
         // print_r($recursosNecesarios);
     
@@ -303,9 +303,9 @@ class RecursoNecesarioController extends Controller
                 $alid+=$recursosNecesarios[$i]->alimento_dia;
                 $coskg+=$recursosNecesarios[$i]->costo_kg;
                 $cta+=$recursosNecesarios[$i]->costo_total_alimento;
-                $icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;
-                $icb = number_format($icb,2,',','');
+                $icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;                
                 $recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');
+                
             }
             $promedioRecursos['tmh'] = $summh;   
             $promedioRecursos['ttmh'] = $sumtmh;   
@@ -318,6 +318,7 @@ class RecursoNecesarioController extends Controller
             $promedioRecursos['coskg'] = $coskg;
             $promedioRecursos['cta'] = $cta;
             $promedioRecursos['icb'] = $icb;
+            $icb = number_format($icb,2,',','');
         }
         $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra','minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
         ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')

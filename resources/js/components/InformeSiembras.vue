@@ -314,9 +314,7 @@
         }
         axios.post("api/filtro-siembras", data)
         .then(response=>{
-          console.log(response.data);
-          me.listado = response.data.siembras;
-          // alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
+          me.listado = response.data.siembras;          
         })
         
       },

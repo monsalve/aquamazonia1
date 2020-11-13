@@ -38,6 +38,7 @@ let routes = [
     { path: '/informes-parametros', component: require('./components/InformeParametros.vue').default },
     { path: '/informe-actividades', component: require('./components/InformeActividades.vue').default },
     { path: '/informe-consolidado', component: require('./components/InformeConsolidado.vue').default },
+    { path: '/informes-recursos-necesarios', component: require('./components/InformeRecursosNecesarios.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
 
 ]

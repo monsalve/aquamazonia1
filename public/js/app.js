@@ -4704,6 +4704,213 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/JsonExcel.vue");
+
+
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      json_fields: {
+        'Siembra': 'nombre_siembra',
+        'Tipo actividad': 'actividad',
+        'Minutos hombre': 'minutos_hombre',
+        'Costo total minutos': 'costo_minutos',
+        'Cantidad total recurso': 'cantidad_recurso',
+        'Costo total recurso': 'costo_recurso',
+        'Cantidad total alimento': 'cantidad_alimento',
+        'Costo total alimento': 'costo_alimento'
+      },
+      f_actividad: '',
+      f_siembra: '',
+      listado: [],
+      listadoSiembras: [],
+      listadoActividades: []
+    };
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  methods: (_methods = {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this;
+                _context.next = 3;
+                return _this.listado;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listado);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    startDownload: function startDownload() {
+      alert('Iniciando descarga de archivo');
+    },
+    finishDownload: function finishDownload() {
+      alert('hide loading');
+    },
+    buscarResultados: function buscarResultados() {},
+    listar: function listar() {
+      var me = this;
+      axios.get("api/informes-recursos-necesarios").then(function (response) {
+        me.listado = response.data.recursosNecesarios;
+        me.promedios = response.data.promedioRecursos;
+      });
+    }
+  }, _defineProperty(_methods, "buscarResultados", function buscarResultados() {
+    var me = this;
+
+    if (this.f_siembra == '') {
+      this.f_s = '-1';
+    } else {
+      this.f_s = this.f_siembra;
+    }
+
+    if (this.f_actividad == '') {
+      this.actividad = '-1';
+    } else {
+      this.actividad = this.f_actividad;
+    }
+
+    var data = {
+      'f_siembra': this.f_s,
+      'f_actividad': this.actividad
+    };
+    axios.post("api/filtro-recursos", data).then(function (response) {
+      me.listado = response.data.recursosNecesarios;
+      me.promedios = response.data.promedioRecursos;
+    });
+  }), _defineProperty(_methods, "listarSiembras", function listarSiembras() {
+    var me = this;
+    axios.get("api/siembras").then(function (response) {
+      me.listadoSiembras = response.data.siembra;
+    });
+  }), _defineProperty(_methods, "listarActividades", function listarActividades() {
+    var me = this;
+    axios.get("api/actividades").then(function (response) {
+      me.listadoActividades = response.data;
+    });
+  }), _methods),
+  mounted: function mounted() {
+    this.listar();
+    this.listarSiembras();
+    this.listarActividades();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeSiembras.vue?vue&type=script&lang=js& ***!
@@ -5040,8 +5247,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         'f_inicio_h': this.f_h
       };
       axios.post("api/filtro-siembras", data).then(function (response) {
-        console.log(response.data);
-        me.listado = response.data.siembras; // alert("La lista ya ha sido generada. Hacer clic en 'Generar excel', para exportar los datos");
+        me.listado = response.data.siembras;
       });
     },
     finalizarSiembra: function finalizarSiembra(id) {
@@ -50221,6 +50427,270 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Informes recursos necesarios")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("form", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "Siembra" } }, [
+                    _vm._v("Siembra:")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_siembra,
+                          expression: "f_siembra"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "f_siembra" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_siembra = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1", selected: "" } }, [
+                        _vm._v("Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoSiembras, function(ls, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: ls.id } },
+                          [_vm._v(_vm._s(ls.nombre_siembra))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "f_actividad" } }, [
+                    _vm._v("Tipo de Actividad: ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_actividad,
+                          expression: "f_actividad"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "f_actividad" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_actividad = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1", selected: "" } }, [
+                        _vm._v(" Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoActividades, function(
+                        actividad,
+                        index
+                      ) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: actividad.id } },
+                          [_vm._v(_vm._s(actividad.actividad))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary rounded-circle mt-4",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.buscarResultados()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-search" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-2" },
+                  [
+                    _c(
+                      "downloadexcel",
+                      {
+                        staticClass: "btn btn-success form-control",
+                        attrs: {
+                          fetch: _vm.fetchData,
+                          fields: _vm.json_fields,
+                          name: "informe-recursos-necesarios.xls",
+                          type: "xls"
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-fw fa-download" }),
+                        _vm._v(" Generar Excel \n                        ")
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.listado, function(lrn, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", {
+                        domProps: { textContent: _vm._s(index + 1) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.nombre_siembra) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.actividad) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(lrn.horas_hombre + " Hr")
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.costo_minutos) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.cantidad_recurso) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.costo_recurso) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.cantidad_alimento) }
+                      }),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: { textContent: _vm._s(lrn.costo_alimento) }
+                      })
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo actividad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Horas hombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo horas hombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidad Recurso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Recurso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidad Alimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Alimento")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeSiembras.vue?vue&type=template&id=65f090be& ***!
@@ -73463,6 +73933,9 @@ var routes = [{
   path: '/informe-consolidado',
   component: __webpack_require__(/*! ./components/InformeConsolidado.vue */ "./resources/js/components/InformeConsolidado.vue")["default"]
 }, {
+  path: '/informes-recursos-necesarios',
+  component: __webpack_require__(/*! ./components/InformeRecursosNecesarios.vue */ "./resources/js/components/InformeRecursosNecesarios.vue")["default"]
+}, {
   path: '/example',
   component: __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]
 }];
@@ -74295,6 +74768,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeRecursosNecesarios.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/InformeRecursosNecesarios.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6& */ "./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6&");
+/* harmony import */ var _InformeRecursosNecesarios_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeRecursosNecesarios.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InformeRecursosNecesarios_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InformeRecursosNecesarios.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeRecursosNecesarios_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeRecursosNecesarios.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeRecursosNecesarios_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=template&id=3a6e5ce6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeRecursosNecesarios_vue_vue_type_template_id_3a6e5ce6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
