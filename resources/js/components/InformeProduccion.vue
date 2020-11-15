@@ -35,8 +35,7 @@
                           <downloadexcel
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
-                          :fields = "json_fields"
-                          :before-generate = "startDownload"
+                          :fields = "json_fields"        
                           name    = "informe-ciclo-productivo.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -46,73 +45,30 @@
                       <div>
                         <table class="table table-striped table-sm table-hover table-responsive">
                           <thead>
-                            <tr class="text-justify">                           
+                            <tr class="text-right">                           
                               <th>#</th>
-                              <th>Siembra</th>                             
-                              <th>Inicio siembra</th>
-                              <th>Tiempo de cultivo</th>
-                              <th>Cant Inicial</th>
-                              <th>Biomasa Inicial</th>
-                              <th>Peso Inicial</th>
-                              <th>Animales final</th>
-                              <th>Peso Actual</th>                                 
-                              <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>    
-                              <th>Mortalidad</th>                              
-                              <th>Mort. Kg</th>
-                              <th>% Mortalidad</th>
-                              <th>Salida animales</th>                              
-                              <th>Densidad Final (Animales/m<sup>2</sup>)</th>
-                              <th>Carga Final (Kg/m<sup>2</sup>)</th>
-                              <th>Horas Hombre</th>             
+                              <th>Siembra</th>                                                                                       
+                              <th>Salida de biomasa</th> 
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
                               <th>Total alimento (Kg)</th>
-                              <th>Costo Total</th>                              
-                              <th>Conversion alimenticia parcial</th>
-                              <th>Conversion final</th>
-                              <th>Incremento biomasa</th>
-                              <th>Incremento biomasa acumulada por conversión</th>
-                              <th>Biomasa disponible por conversión teórica</th>
-                              <th>Conversión alimenticia teórica</th>
+                              <th>Costo total de siembra</th>
+                              <th>Costo de producción</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr class="text-right" v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>                             
-                              <td v-text="le.fecha_inicio"></td>
-                              <td v-text="le.intervalo_tiempo"></td>
-                              <td v-text="le.cantidad_inicial"></td>
-                              <td v-text="le.biomasa_inicial"></td>
-                              <td v-text="le.peso_inicial+' gr'"></td>
-                              <td v-text="le.cant_actual"></td>
-                              <td v-text="le.peso_actual+' gr'"></td>                                                               
-                              <td v-text="le.biomasa_disponible+' kg'"></td> 
+                              <td v-text="le.nombre_siembra"></td>
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>
-                              <td v-if="le.mortalidad">{{le.mortalidad}}</td>
-                              <td v-else>0</td>
-                              <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
-                              <td v-if="le.mortalidad_porcentaje">{{le.mortalidad_porcentaje}}</td>
-                              <td v-else>0</td>
-                              <td v-if="le.salida_animales">{{le.salida_animales}}</td>
-                              <td v-else>0</td>
-                              <td v-text="le.densidad_final"></td>
-                              <td v-text="le.carga_final"></td>
-                              <td v-text="le.horas_hombre"></td>
+                              <td v-else>0</td>                              
                               <td v-text="le.costo_minutosh"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
-                              <td v-text="le.conversion_alimenticia_parcial"></td>
-                              <td v-text="le.conversion_final"></td>
-                              <td v-text="le.incremento_biomasa"></td>                              
-                              <td v-text="le.bio_dispo_conver"></td>
-                              <td v-text="le.incr_bio_acum_conver"></td>
-                              <td></td>
+                              <td v-text="le.costo_produccion"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -131,32 +87,14 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Fecha inicio siembra' : 'fecha_inicio',
-          'Cantidad Inicial' : 'cantidad_inicial',
-          'Peso inicial' : 'peso_inicial',
-          'Animales final' : 'cant_actual',
-          'Peso actual' : 'peso_actual',
-          'Intervalo de tiempo' : 'intervalo_tiempo',
-          'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
-          'Biomasa acumulada' : 'biomasa_acumulada',
-          'Mortalidad' : 'mortalidad',
-          'Mortalidad kg' : 'mortalidad_kg',
-          'Mortalidad %' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
-          'Densidad final (Animales/m2)' : 'densidad_final',
-          'Carga final (Kg/m2)' : 'carga_final',
-          'Horas hombre':'horas_hombre',
           'Costo minutos Hombre':'costo_minutosh',
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
-          'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
-          'Conversióm alimenticia teórica' : ''
-          
+          'Costo de producción' : 'costo_produccion'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
@@ -179,19 +117,12 @@
         const response = await this.listadoExistencias
         // console.log(response);
         return this.listadoExistencias;
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
-      
+      },            
       listar(){
         let me = this;      
         this.listarEspecies();
         this.listarSiembras();
-        axios.get("api/traer-existencias-detalle")
+        axios.get("api/informes-biomasa-alimento")
         .then(function (response){
           console.log(response.data)
           me.listadoExistencias = response.data.existencias;
@@ -223,7 +154,7 @@
           'f_inicio_d' : this.fecd,
           'f_inicio_h' : this.fech,
         }
-        axios.post("api/filtro-existencias-detalle", data)
+        axios.post("api/filtro-biomasa-alimento", data)
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
           // console.log(response.data);

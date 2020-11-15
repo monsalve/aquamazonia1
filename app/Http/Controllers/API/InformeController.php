@@ -22,8 +22,7 @@ class InformeController extends Controller
      */
     public function index()
     {
-        //
-        // $horas_hombre = Recursos::select()->where('recurso','Hora hombre')->orWhere('recurso','Horas hombre')->get();
+    
         $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
         
         $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
@@ -49,9 +48,7 @@ class InformeController extends Controller
                 
                 $acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
                 $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
-                // $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
-                // $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
-                
+    
                 $recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_minutosh;
                 $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
@@ -162,6 +159,7 @@ class InformeController extends Controller
         }
         return ['recursosNecesarios' => $recursosNecesarios];
     }
+    
     public function filtroInformes(Request $request){
         $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
     
@@ -289,13 +287,10 @@ class InformeController extends Controller
                             $existencias[$i]->fecha_registro = $int_tiempo[0]->fecha_registro;
                             $existencias[$i]->intervalo_tiempo  = $diff->days;                
                             $existencias[$i]->salida_biomasa += $registros[$j]->biomasa;
-                            
                             $bio_acum += $registros[$j]->biomasa;
                             $existencias[$i]->biomasa_acumulada = number_format($bio_acum, 2, ',','');
                             $existencias[$i]->mortalidad += $registros[$j]->mortalidad;
                             $existencias[$i]->mortalidad_kg += (($registros[$j]->mortalidad *  $registros[$j]->peso_ganado)/1000) ;
-                            
-                            // $existencias[$i]->mortalidad_kg =  (number_format((($existencias[$i]->mortalidad * $existencias[$i]->peso_ganado)/1000),2, ',',''));
                             $existencias[$i]->mortalidad_porcentaje =  (number_format((($existencias[$i]->mortalidad * 100)/$existencias[$i]->cantidad_inicial),2, ',',''));
                             $var2 = ($var1 * $existencias[$i]->peso_actual )/1000;
                             $existencias[$i]->mortalidad_kg_au = (number_format(($var2),2,',',''));
@@ -314,10 +309,8 @@ class InformeController extends Controller
                 $existencias[$i]->incremento_biomasa = number_format($existencias[$i]->incremento_biomasa, 2,',','');
                 $existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,1,',','');
             }               
-        }           
-        
+        }
         return ['existencias'=> $existencias];
-        
     }
 
     public function filtroExistencias(Request $request){
@@ -334,8 +327,6 @@ class InformeController extends Controller
         if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
         if($request['f_peso_d']!='-1'){$c9="peso_actual"; $op5='>='; $c10= $request['f_peso_d'];}
         if($request['f_peso_h']!='-1'){$c11="peso_actual"; $op6='<='; $c12= $request['f_peso_h'];}
-        // var_dump($request);
-        // exit;
         
         $existencias = EspecieSiembra::select(
             'cant_actual',
@@ -436,8 +427,7 @@ class InformeController extends Controller
             'cant_actual',
             'contenedor',
             'capacidad',
-            'especies_siembra.cantidad as cantidad_inicial',            
-            // 'especie',
+            'especies_siembra.cantidad as cantidad_inicial',
             'especies_siembra.id_especie as id_especie',
             'especies_siembra.id_siembra as id_siembra',          
             'fecha_inicio',            
@@ -482,8 +472,6 @@ class InformeController extends Controller
         $bio_acum  = 0;
         $bio_dispo = 0;
         $sum_bio_dispo=0;
-        
-      
         $aux_regs = array();
         $diff = 0 ;
         
@@ -525,13 +513,10 @@ class InformeController extends Controller
                               
                                     $existencias[$j]->intervalo_tiempo  = $diff->days;
                                     $existencias[$j]->salida_biomasa += $registros[$k]->biomasa; 
-                                    
-                                    // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
+                            
                                     if($existencias[$j]->id_especie == $registros[$k]->id_especie){
                                         $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);
-                                    
-                                        $existencias[$j]->mortalidad += $registros[$k]->mortalidad;    
-                                        // $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_ganado)/1000);
+                                        $existencias[$j]->mortalidad += $registros[$k]->mortalidad;
                                         $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
                                         $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa; 
                                         $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000)/$existencias[$j]->peso_actual);
@@ -539,21 +524,17 @@ class InformeController extends Controller
                                         $existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual)/1000);
                                         $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento/$existencias[$j]->intervalo_tiempo;
                                         $existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad*100)/$existencias[$j]->cantidad_inicial);
-                                    }                                    
-                                }   
+                                    }
+                                }
                             }
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
                             $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
-                            // $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
                             $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
                             $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;       
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
                             $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
-                            
-                            // Variables formateadas
-                            // $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
-                        }     
+                        }
                     }
                 }
                  for($l=0;$l<count($recursos_necesarios); $l++){
@@ -572,25 +553,23 @@ class InformeController extends Controller
                             $recursos_necesarios[$l]->conv_alimenticia = number_format($recursos_necesarios[$l]->conv_alimenticia,2,',','');                            
                             $siembras[$i]->incr_bio_acum_conver +=  $recursos_necesarios[$l]->incr_bio_acum_conver;
                         }
-                        
-                  
                     }
                  }
                  $siembras[$i]->costo_minutos_hombre += ($siembras[$i]->minutos_hombre * $mh->costo );
                  $siembras[$i]->costo_total_siembra = ($siembras[$i]->costo_minutos_hombre + $siembras[$i]->costo_total_alimento + $siembras[$i]->costo_total_recurso);
                  if( $siembras[$i]->incremento_biomasa>0){
-                    $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;                     
+                    $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;
                 }
-                $siembras[$i]->conversion_alimenticia_final = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->biomasa_disponible - $siembras[$i]->biomasa_inicial);
-                //alternativa $siembras[$i]->bio_dispo_conver = ($siembras[$i]->incr_bio_acum_conver - $siembras[$i]->salida_biomasa - $siembras[$i]->mortalidad_kg);
+                $siembras[$i]->conversion_alimenticia_parcial = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->biomasa_disponible - $siembras[$i]->biomasa_inicial);
+                $siembras[$i]->conversion_final = (($siembras[$i]->cantidad_total_alimento)/($siembras[$i]->salida_biomasa + $siembras[$i]->mortalidad_kg - $siembras[$i]->biomasa_inicial));
                 $siembras[$i]->bio_dispo_conver = ($siembras[$i]->biomasa_inicial + $siembras[$i]->incr_bio_acum_conver) - ($siembras[$i]->biomasa_disponible + $siembras[$i]->mortalidad_kg);
                 if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
                     $siembras[$i]->ganancia_peso_dia = ((($siembras[$i]->salida_biomasa*1000)/$siembras[$i]->salida_animales)/$siembras[$i]->intervalo_tiempo);
                 }
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
-                $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;
-                // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
+                $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;                
+                
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
                 $siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
@@ -603,8 +582,8 @@ class InformeController extends Controller
                 $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
                 $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
                 $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
-                $siembras[$i]->conversion_alimenticia_final = number_format($siembras[$i]->conversion_alimenticia_final,2,',','');
-               
+                $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
+                $siembras[$i]->conversion_final = number_format($siembras[$i]->conversion_final,2,',','');
                 // recursos_necesarios
                 $aux_regs[]=[
                     "biomasa_inicial" => $siembras[$i]->biomasa_inicial,
@@ -613,13 +592,14 @@ class InformeController extends Controller
                     "carga_final" => $siembras[$i]->carga_final,
                     "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                     "cant_actual" => $siembras[$i]->cant_actual,
+                    'conversion_final' => $siembras[$i]->conversion_final,
                     "costo_minutosh" => $siembras[$i]->costo_minutos_hombre ,
                     "costo_total_recurso" => $siembras[$i]->costo_total_recurso ,
                     'cantidad_total_alimento' => $siembras[$i]->cantidad_total_alimento,
                     "costo_total_alimento" => $siembras[$i]->costo_total_alimento,
                     "costo_tot" => $siembras[$i]->costo_total_siembra,
                     'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
-                    'conversion_alimenticia_final' => $siembras[$i]->conversion_alimenticia_final,
+                    'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
                     "densidad_final" => $siembras[$i]->densidad_final,
                     'ganancia_peso_dia'=>$siembras[$i]->ganancia_peso_dia,
                     "fecha_inicio" => $siembras[$i]->fecha_inicio,    
@@ -757,12 +737,9 @@ class InformeController extends Controller
                                     $existencias[$j]->intervalo_tiempo  = $diff->days;
                                     $existencias[$j]->salida_biomasa += $registros[$k]->biomasa; 
                                     
-                                    // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
                                     if($existencias[$j]->id_especie == $registros[$k]->id_especie){
                                         $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);
-                                    
-                                        $existencias[$j]->mortalidad += $registros[$k]->mortalidad;    
-                                        // $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_ganado)/1000);
+                                        $existencias[$j]->mortalidad += $registros[$k]->mortalidad;
                                         $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
                                         $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa; 
                                         $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000)/$existencias[$j]->peso_actual);
@@ -776,14 +753,10 @@ class InformeController extends Controller
                             $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
                             $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;                            
                             $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad*100)/$siembras[$i]->cantidad_inicial);
-                            // $siembras[$i]->mortalidad_porcentaje += $existencias[$j]->mortalidad_porcentaje;
                             $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
                             $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;       
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
                             $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
-                            
-                            // Variables formateadas
-                            // $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
                         }     
                     }
                 }
@@ -796,15 +769,13 @@ class InformeController extends Controller
                         $recursos_necesarios[$l]->cantidad_total_alimento = $recursos_necesarios[$l]->cant_tarde + $recursos_necesarios[$l]->cant_manana;
                         $siembras[$i]->cantidad_total_alimento +=  $recursos_necesarios[$l]->cantidad_total_alimento;
                         $recursos_necesarios[$l]->costo_total_alimento = ($recursos_necesarios[$l]->cant_tarde + $recursos_necesarios[$l]->cant_manana)*$recursos_necesarios[$l]->costo_alimento;
-                        $siembras[$i]->costo_total_alimento += $recursos_necesarios[$l]->costo_total_alimento;    
+                        $siembras[$i]->costo_total_alimento += $recursos_necesarios[$l]->costo_total_alimento;
                         
                         if($recursos_necesarios[$l]->conv_alimenticia > 0){
                             $recursos_necesarios[$l]->incr_bio_acum_conver = $recursos_necesarios[$l]->cantidad_total_alimento / $recursos_necesarios[$l]->conv_alimenticia;                                                        
-                            $recursos_necesarios[$l]->conv_alimenticia = number_format($recursos_necesarios[$l]->conv_alimenticia,2,',','');                            
+                            $recursos_necesarios[$l]->conv_alimenticia = number_format($recursos_necesarios[$l]->conv_alimenticia,2,',','');
                             $siembras[$i]->incr_bio_acum_conver +=  $recursos_necesarios[$l]->incr_bio_acum_conver;
                         }
-                        
-                  
                     }
                  }
                  $siembras[$i]->costo_minutos_hombre += ($siembras[$i]->minutos_hombre * $mh->costo );
@@ -813,16 +784,12 @@ class InformeController extends Controller
                     $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;
                 }
                 
-                //alternativa $siembras[$i]->bio_dispo_conver = ($siembras[$i]->incr_bio_acum_conver - $siembras[$i]->salida_biomasa - $siembras[$i]->mortalidad_kg);
                 $siembras[$i]->bio_dispo_conver = ($siembras[$i]->biomasa_inicial + $siembras[$i]->incr_bio_acum_conver) - ($siembras[$i]->biomasa_disponible + $siembras[$i]->mortalidad_kg);
-                /*if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
-                    $siembras[$i]->ganancia_peso_dia = ((($siembras[$i]->salida_biomasa*1000)/$siembras[$i]->salida_animales)/$siembras[$i]->intervalo_tiempo);
-                }*/
-                $siembras[$i]->conversion_alimenticia_final = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->biomasa_disponible - $siembras[$i]->biomasa_inicial);
+                $siembras[$i]->conversion_alimenticia_parcial = $siembras[$i]->cantidad_total_alimento / ($siembras[$i]->biomasa_disponible - $siembras[$i]->biomasa_inicial);
+                $siembras[$i]->conversion_final = (($siembras[$i]->cantidad_total_alimento)/($siembras[$i]->salida_biomasa + $siembras[$i]->mortalidad_kg - $siembras[$i]->biomasa_inicial));
                 $siembras[$i]->contador_esp = $contador_esp;
                 $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
                 $siembras[$i]->peso_actual_esp = $siembras[$i]->peso_actual/$siembras[$i]->contador_esp;
-                // $siembras[$i]->mortalidad_porcentaje = ($siembras[$i]->mortalidad_porcentaje/$siembras[$i]->contador_esp);
                 $siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
                 $siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
@@ -835,8 +802,8 @@ class InformeController extends Controller
                 $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
                 $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
                 $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
-                $siembras[$i]->conversion_alimenticia_final = number_format($siembras[$i]->conversion_alimenticia_final,2,',','');
-               
+                $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
+                $siembras[$i]->conversion_final = number_format($siembras[$i]->conversion_final,2,',','');
                 // recursos_necesarios
                 $aux_regs[]=[
                     "biomasa_inicial" => $siembras[$i]->biomasa_inicial,
@@ -845,12 +812,13 @@ class InformeController extends Controller
                     "carga_final" => $siembras[$i]->carga_final,
                     "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                     "cant_actual" => $siembras[$i]->cant_actual,
+                    'conversion_final' => $siembras[$i]->conversion_final,
                     "costo_minutosh" => $siembras[$i]->costo_minutos_hombre ,
                     "costo_total_recurso" => $siembras[$i]->costo_total_recurso,
                     'cantidad_total_alimento' => $siembras[$i]->cantidad_total_alimento,
                     "costo_total_alimento" => $siembras[$i]->costo_total_alimento,
-                    "costo_tot" => $siembras[$i]->costo_total_siembra,
-                    'conversion_alimenticia_final' => $siembras[$i]->conversion_alimenticia_final,
+                    "costo_tot" => $siembras[$i]->costo_total_siembra,                    
+                    'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
                     'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
                     "densidad_final" => $siembras[$i]->densidad_final,
                     'ganancia_peso_dia'=>$siembras[$i]->ganancia_peso_dia,
@@ -868,13 +836,9 @@ class InformeController extends Controller
                     "peso_actual"=>$siembras[$i]->peso_actual_esp,
                     "salida_animales"=>$siembras[$i]->salida_animales,
                     "salida_biomasa" => $siembras[$i]->salida_biomasa
-                    
                 ];
-                 
-                
-            }               
-        }    
-        
+            }
+        }        
         return ['existencias'=> $aux_regs];
     }
 }

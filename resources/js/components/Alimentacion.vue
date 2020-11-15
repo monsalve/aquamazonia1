@@ -70,7 +70,7 @@
                     <th><br>Alimento</th>
                     <th>Cantidad<br>Mañana</th>
                     <th>Cantidad<br>Tarde</th>
-                    <th>Cantidad<br>día</th>
+                    <th>Total<br>día</th>
                     <th>Costo Kg</th>
                     <th>Costo total</th>
                     <th>Conversión alimenticia teórica</th>

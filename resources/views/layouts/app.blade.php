@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}"/>
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -67,6 +69,12 @@
                             </li>
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/alimentacion">Alimentación</router-link>
+                            </li>
+                            <li class="nav-item ">
+                                <router-link class="nav-link" to="/informes-biomasa-alimento">Biomasa por Alimentación</router-link>
+                            </li>
+                            <li class="nav-item ">
+                                <router-link class="nav-link" to="/informes-produccion">Informes Producción</router-link>
                             </li>
                             <li class="nav-item ">
                                 <router-link class="nav-link" to="/calidad-agua">Registrar parametros </br> de calidad  del Agua</router-link>
