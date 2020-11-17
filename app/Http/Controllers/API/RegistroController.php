@@ -58,8 +58,7 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
        
-        foreach($request->campos as $campo){
-            // $mensajes = array();
+        foreach($request->campos as $campo){       
             $exs = EspecieSiembra::where('id_siembra', $campo['id_siembra'])->where('id_especie', $campo['id_especie'])->first();
             
             if($request->tipo_registro == 0){

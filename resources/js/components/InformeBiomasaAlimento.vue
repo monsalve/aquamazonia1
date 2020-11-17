@@ -50,11 +50,8 @@
                               <th>Siembra</th>                                                           
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
-                              <th>Peso Inicial</th>
-                              <th>Animales final</th>
-                              <th>Peso Actual</th>                                 
-                              <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>    
+                              <th>Biomasa disponible</th>
+                              <th>Salida de biomasa</th>                                
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>                             
                               <th>Salida animales</th>                                                            

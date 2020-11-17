@@ -145,6 +145,9 @@ class RecursoNecesarioController extends Controller
     public function store(Request $request)
     {
         //
+        $c_alim = RecursoNecesario::select()->orderBy('id', 'desc')->first();
+        // print_r($c_alim->conv_alimenticia);
+        
         $recursoNecesario = new RecursoNecesario();
         $recursoNecesario->id_recurso = $request['id_recurso'];
         $recursoNecesario->id_alimento =  $request['id_alimento'];
@@ -155,7 +158,11 @@ class RecursoNecesarioController extends Controller
         $recursoNecesario->cantidad_recurso = $request['cantidad_recurso'];
         $recursoNecesario->cant_manana = $request['cant_manana'];
         $recursoNecesario->cant_tarde = $request['cant_tarde'];
-        $recursoNecesario->conv_alimenticia = $request['conv_alimenticia'];
+        if($request['conv_alimenticia'] == ''){
+            $recursoNecesario->conv_alimenticia = $c_alim->conv_alimenticia;
+        }else{
+            $recursoNecesario->conv_alimenticia = $request['conv_alimenticia'];
+        }
         $recursoNecesario->detalles = $request['detalles'];
         $recursoNecesario->save();
         

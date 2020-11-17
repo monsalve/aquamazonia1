@@ -3887,9 +3887,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -49835,13 +49832,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa Inicial")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Peso Inicial")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Animales final")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Peso Actual")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa dispo")]),
+        _c("th", [_vm._v("Biomasa disponible")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida de biomasa")]),
         _vm._v(" "),
