@@ -105,12 +105,6 @@ import downloadexcel from "vue-json-excel"
       const response = await this.listado
       return this.listado;
       },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
       buscarResultados(){        
       },
       listar(){

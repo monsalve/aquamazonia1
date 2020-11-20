@@ -54,8 +54,6 @@
                                 class = "btn btn-success form-control"
                                 :fetch   = "fetchData"
                                 :fields = "json_fields"
-                                :before-generate = "startDownload"
-                                :before-finish = "finishDownload"
                                 name    = "informe-siembras-especies.xls"
                                 type    = "xls">
                                   <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -206,12 +204,6 @@
       const response = await this.listado
       return this.listado;
       //  imprimirSiembras
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
       },
       listarEspecies(){
         let me = this;

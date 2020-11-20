@@ -36,7 +36,6 @@
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
                           :fields = "json_fields"
-                          :before-generate = "startDownload"
                           name    = "informe-ciclo-productivo.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -46,7 +45,7 @@
                       <div>
                         <table class="table table-striped table-sm table-hover table-responsive">
                           <thead>
-                            <tr class="text-justify">                           
+                            <tr>
                               <th>#</th>
                               <th>Siembra</th>                             
                               <th>Inicio siembra</th>
@@ -73,13 +72,13 @@
                               <th>Conversion alimenticia parcial</th>
                               <th>Conversion final</th>
                               <th>Incremento biomasa</th>
-                              <th>Incremento biomasa acumulada por conversión</th>
+                              <!-- <th>Incremento biomasa acumulada por conversión</th>
                               <th>Biomasa disponible por conversión teórica</th>
-                              <th>Conversión alimenticia teórica</th>
+                              <th>Conversión alimenticia teórica</th> -->
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="text-right" v-for="(le, index) in listadoExistencias" :key="index">                              
+                            <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>                             
                               <td v-text="le.fecha_inicio"></td>
@@ -110,9 +109,9 @@
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
                               <td v-text="le.incremento_biomasa"></td>                              
-                              <td v-text="le.bio_dispo_conver"></td>
+                              <!-- <td v-text="le.bio_dispo_conver"></td>
                               <td v-text="le.incr_bio_acum_conver"></td>
-                              <td></td>
+                              <td></td> -->
                             </tr>
                           </tbody>
                         </table>
@@ -153,10 +152,9 @@
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
           'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
-          'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
-          'Conversióm alimenticia teórica' : ''
-          
+          // 'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
+          // 'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
+          // 'Conversióm alimenticia teórica' : ''          
         },       
         listadoExistencias : [],
         listadoEspecies : [],
@@ -180,13 +178,6 @@
         // console.log(response);
         return this.listadoExistencias;
       },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
-      
       listar(){
         let me = this;      
         this.listarEspecies();

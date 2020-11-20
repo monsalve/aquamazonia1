@@ -12,9 +12,7 @@
                   <downloadexcel                                
                     class = "btn btn-success form-control"
                     :fetch   = "fetchData"
-                    :fields = "json_fields"
-                    :before-generate = "startDownload"
-                    :before-finish = "finishDownload"
+                    :fields = "json_fields"                   
                     name    = "informe-alimentos.xls"
                     type    = "xls">
                       <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -58,7 +56,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover table-responsive-sm">
+              <table class="table table-sm table-hover table-responsive">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -256,12 +254,6 @@ import downloadexcel from "vue-json-excel"
       const response = await this.listado
       return this.listado;
       //  imprimirSiembras
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
       },
       abrirCrear(){
         let me = this;

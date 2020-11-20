@@ -36,8 +36,7 @@
                       
                       class = "btn btn-success form-control"
                       :fetch   = "fetchData"
-                      :fields = "json_fields"
-                      :before-generate = "startDownload"
+                      :fields = "json_fields"                    
                       name    = "informe-parametros-calidad-agua.xls"
                       type    = "xls">
                         <i class="fa fa-fw fa-download"></i> Exportar Excel 
@@ -334,12 +333,6 @@
         const response = await this.listadoParametros;
         // console.log(response);
         return this.listadoParametros;
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
       },
       filtrarParametros(){
         let me = this;

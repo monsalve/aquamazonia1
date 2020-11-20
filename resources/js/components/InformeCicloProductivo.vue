@@ -51,8 +51,7 @@
                           <downloadexcel
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
-                          :fields = "json_fields"
-                          :before-generate = "startDownload"
+                          :fields = "json_fields"                       
                           name    = "informe-ciclo-productivo.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -176,13 +175,6 @@
         // console.log(response);
         return this.listadoExistencias;
       },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
-      
       listar(){
         let me = this;      
         this.listarEspecies();

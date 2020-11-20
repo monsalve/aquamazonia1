@@ -45,7 +45,7 @@
                       <div>
                         <table class="table table-striped table-sm table-hover table-responsive">
                           <thead>
-                            <tr>                           
+                            <tr>
                               <th>#</th>
                               <th>Siembra</th>                                                           
                               <th>Cant Inicial</th>
@@ -61,7 +61,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="text-right" v-for="(le, index) in listadoExistencias" :key="index">                              
+                            <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>                                                           
                               <td v-text="le.cantidad_inicial"></td>

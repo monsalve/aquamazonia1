@@ -2129,8 +2129,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2207,12 +2205,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     abrirCrear: function abrirCrear() {
       var me = this;
@@ -2830,7 +2822,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2913,12 +2904,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     filtrarParametros: function filtrarParametros() {
       var me = this;
@@ -3643,6 +3628,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3665,7 +3655,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_especie: '',
       f_actividad: '',
       f_fecha_d: '',
-      f_fecha_h: ''
+      f_fecha_h: '',
+      f_peso_d: 0,
+      f_peso_h: 0
     };
   },
   components: {
@@ -3696,12 +3688,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     listar: function listar() {
       var me = this;
@@ -3748,6 +3734,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.act = this.f_actividad;
       }
 
+      if (this.f_peso_d == '') {
+        this.pesod = '-1';
+      } else {
+        this.pesod = this.f_peso_d;
+      }
+
+      if (this.f_peso_h == '') {
+        this.pesoh = '-1';
+      } else {
+        this.pesoh = this.f_peso_h;
+      }
+
       if (this.f_fecha_d == '') {
         this.fec1 = '-1';
       } else {
@@ -3764,6 +3762,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_siembra': this.smb,
         'f_especie': this.f_e,
         'f_actividad': this.act,
+        'f_peso_d': this.pesod,
+        'f_peso_h': this.pesoh,
         'f_fecha_d': this.fec1,
         'f_fecha_h': this.fec2
       };
@@ -4151,7 +4151,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4218,12 +4217,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     listar: function listar() {
       var me = this;
@@ -4449,7 +4442,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4477,10 +4469,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
         'Total Kg Alimento': 'cantidad_total_alimento',
-        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra',
-        'incremento biomasa acumulada por conversión': 'incr_bio_acum_conver',
-        'Biomasa disponible por conversión': 'incr_bio_acum_conver',
-        'Conversióm alimenticia teórica': ''
+        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra' // 'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
+        // 'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
+        // 'Conversióm alimenticia teórica' : ''          
+
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -4521,12 +4513,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     listar: function listar() {
       var me = this;
@@ -4724,7 +4710,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4803,12 +4788,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     filtrarParametros: function filtrarParametros() {
       var me = this;
@@ -5296,12 +5275,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
-    },
     buscarResultados: function buscarResultados() {},
     listar: function listar() {
       var me = this;
@@ -5497,8 +5470,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
@@ -5563,12 +5534,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     listarEspecies: function listarEspecies() {
       var me = this;
@@ -5898,7 +5863,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5970,12 +5934,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     listar: function listar() {
       var me = this;
@@ -6501,8 +6459,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6578,12 +6534,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    startDownload: function startDownload() {
-      alert('Iniciando descarga de archivo');
-    },
-    finishDownload: function finishDownload() {
-      alert('hide loading');
     },
     abrirCrear: function abrirCrear() {
       var me = this;
@@ -45852,8 +45802,6 @@ var render = function() {
                         attrs: {
                           fetch: _vm.fetchData,
                           fields: _vm.json_fields,
-                          "before-generate": _vm.startDownload,
-                          "before-finish": _vm.finishDownload,
                           name: "informe-alimentos.xls",
                           type: "xls"
                         }
@@ -46081,9 +46029,7 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                {
-                  staticClass: "table table-sm table-hover table-responsive-sm"
-                },
+                { staticClass: "table table-sm table-hover table-responsive" },
                 [
                   _vm._m(0),
                   _vm._v(" "),
@@ -47161,7 +47107,6 @@ var render = function() {
                               attrs: {
                                 fetch: _vm.fetchData,
                                 fields: _vm.json_fields,
-                                "before-generate": _vm.startDownload,
                                 name: "informe-parametros-calidad-agua.xls",
                                 type: "xls"
                               }
@@ -49350,6 +49295,62 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "peso desde" } }, [
+                        _vm._v("peso desde (gr): ")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.f_peso_d,
+                            expression: "f_peso_d"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", step: "any", id: "f_peso_d" },
+                        domProps: { value: _vm.f_peso_d },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.f_peso_d = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "peso hasta" } }, [
+                        _vm._v("peso hasta (gr): ")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.f_peso_h,
+                            expression: "f_peso_h"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", step: "any", id: "f_peso_h" },
+                        domProps: { value: _vm.f_peso_h },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.f_peso_h = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "search" } }, [
                         _vm._v("Desde: ")
                       ]),
@@ -49442,7 +49443,6 @@ var render = function() {
                             attrs: {
                               fetch: _vm.fetchData,
                               fields: _vm.json_fields,
-                              "before-generate": _vm.startDownload,
                               name: "informe-muestreos.xls",
                               type: "xls"
                             }
@@ -49694,79 +49694,67 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.listadoExistencias, function(le, index) {
-                      return _c(
-                        "tr",
-                        { key: index, staticClass: "text-right" },
-                        [
-                          _c("td", {
-                            domProps: { textContent: _vm._s(index + 1) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.nombre_siembra) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.cantidad_inicial)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.biomasa_inicial)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.biomasa_disponible + " kg")
-                            }
-                          }),
-                          _vm._v(" "),
-                          le.salida_biomasa
-                            ? _c("td", [
-                                _vm._v(_vm._s(le.salida_biomasa) + " kg")
-                              ])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          le.mortalidad
-                            ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                le.mortalidad_kg
-                                  ? le.mortalidad_kg + " kg"
-                                  : "0"
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          le.salida_animales
-                            ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.cantidad_total_alimento)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.incr_bio_acum_conver)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.bio_dispo_alimen)
-                            }
-                          })
-                        ]
-                      )
+                      return _c("tr", { key: index }, [
+                        _c("td", {
+                          domProps: { textContent: _vm._s(index + 1) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.nombre_siembra) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.cantidad_inicial) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.biomasa_inicial) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.biomasa_disponible + " kg")
+                          }
+                        }),
+                        _vm._v(" "),
+                        le.salida_biomasa
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.salida_biomasa) + " kg")
+                            ])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        le.mortalidad
+                          ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              le.mortalidad_kg ? le.mortalidad_kg + " kg" : "0"
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        le.salida_animales
+                          ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.cantidad_total_alimento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incr_bio_acum_conver)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.bio_dispo_alimen) }
+                        })
+                      ])
                     }),
                     0
                   )
@@ -50128,7 +50116,6 @@ var render = function() {
                       attrs: {
                         fetch: _vm.fetchData,
                         fields: _vm.json_fields,
-                        "before-generate": _vm.startDownload,
                         name: "informe-ciclo-productivo.xls",
                         type: "xls"
                       }
@@ -50451,7 +50438,6 @@ var render = function() {
                       attrs: {
                         fetch: _vm.fetchData,
                         fields: _vm.json_fields,
-                        "before-generate": _vm.startDownload,
                         name: "informe-ciclo-productivo.xls",
                         type: "xls"
                       }
@@ -50479,165 +50465,135 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.listadoExistencias, function(le, index) {
-                      return _c(
-                        "tr",
-                        { key: index, staticClass: "text-right" },
-                        [
-                          _c("td", {
-                            domProps: { textContent: _vm._s(index + 1) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.nombre_siembra) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.fecha_inicio) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.intervalo_tiempo)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.cantidad_inicial)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.biomasa_inicial)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.peso_inicial + " gr")
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.cant_actual) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.peso_actual + " gr")
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.biomasa_disponible + " kg")
-                            }
-                          }),
-                          _vm._v(" "),
-                          le.salida_biomasa
-                            ? _c("td", [
-                                _vm._v(_vm._s(le.salida_biomasa) + " kg")
-                              ])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          le.mortalidad
-                            ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                le.mortalidad_kg
-                                  ? le.mortalidad_kg + " kg"
-                                  : "0"
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          le.mortalidad_porcentaje
-                            ? _c("td", [
-                                _vm._v(_vm._s(le.mortalidad_porcentaje))
-                              ])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          le.salida_animales
-                            ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.densidad_final) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.carga_final) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.horas_hombre) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.costo_minutosh) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.costo_total_recurso)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.costo_total_alimento)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.cantidad_total_alimento)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.costo_tot) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                le.conversion_alimenticia_parcial
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.conversion_final)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.incremento_biomasa)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.bio_dispo_conver)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.incr_bio_acum_conver)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td")
-                        ]
-                      )
+                      return _c("tr", { key: index }, [
+                        _c("td", {
+                          domProps: { textContent: _vm._s(index + 1) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.nombre_siembra) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.fecha_inicio) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.intervalo_tiempo) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.cantidad_inicial) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.biomasa_inicial) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.peso_inicial + " gr")
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.cant_actual) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.peso_actual + " gr")
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.biomasa_disponible + " kg")
+                          }
+                        }),
+                        _vm._v(" "),
+                        le.salida_biomasa
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.salida_biomasa) + " kg")
+                            ])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        le.mortalidad
+                          ? _c("td", [_vm._v(_vm._s(le.mortalidad))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              le.mortalidad_kg ? le.mortalidad_kg + " kg" : "0"
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        le.mortalidad_porcentaje
+                          ? _c("td", [_vm._v(_vm._s(le.mortalidad_porcentaje))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        le.salida_animales
+                          ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
+                          : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.densidad_final) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.carga_final) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.horas_hombre) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.costo_minutosh) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.costo_total_recurso)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.costo_total_alimento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.cantidad_total_alimento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.costo_tot) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              le.conversion_alimenticia_parcial
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.conversion_final) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.incremento_biomasa)
+                          }
+                        })
+                      ])
                     }),
                     0
                   )
@@ -50694,7 +50650,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", { staticClass: "text-justify" }, [
+      _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Siembra")]),
@@ -50753,13 +50709,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Conversion final")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Incremento biomasa")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible por conversión teórica")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Conversión alimenticia teórica")])
+        _c("th", [_vm._v("Incremento biomasa")])
       ])
     ])
   }
@@ -50940,7 +50890,6 @@ var render = function() {
                           attrs: {
                             fetch: _vm.fetchData,
                             fields: _vm.json_fields,
-                            "before-generate": _vm.startDownload,
                             name: "informe-parametros-calidad-agua.xls",
                             type: "xls"
                           }
@@ -52037,8 +51986,6 @@ var render = function() {
                       attrs: {
                         fetch: _vm.fetchData,
                         fields: _vm.json_fields,
-                        "before-generate": _vm.startDownload,
-                        "before-finish": _vm.finishDownload,
                         name: "informe-siembras-especies.xls",
                         type: "xls"
                       }
@@ -52593,7 +52540,6 @@ var render = function() {
                             attrs: {
                               fetch: _vm.fetchData,
                               fields: _vm.json_fields,
-                              "before-generate": _vm.startDownload,
                               name: "informe-recursos.xls",
                               type: "xls"
                             }
@@ -53403,8 +53349,6 @@ var render = function() {
                           attrs: {
                             fetch: _vm.fetchData,
                             fields: _vm.json_fields,
-                            "before-generate": _vm.startDownload,
-                            "before-finish": _vm.finishDownload,
                             name: "informe-recursos.xls",
                             type: "xls"
                           }

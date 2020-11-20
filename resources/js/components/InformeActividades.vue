@@ -33,7 +33,14 @@
                                 <option value="2">Mortalidad Inicial</option>
                               </select>
                             </div>
-                            
+                            <div class="form-group col-md-2">
+                              <label for="peso desde">peso desde (gr): </label>
+                              <input type="number" step="any" class="form-control" id="f_peso_d" v-model="f_peso_d">                          
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="peso hasta">peso hasta (gr): </label>
+                              <input type="number" step="any" class="form-control" id="f_peso_h" v-model="f_peso_h">
+                            </div>                            
                             <div class="form-group col-md-2">
                               <label for="search">Desde: </label>
                               <input class="form-control" type="date" placeholder="Search" aria-label="f_fecha_d" v-model="f_fecha_d">
@@ -46,13 +53,11 @@
                               <label for="">Buscar</label>
                               <button  class="btn btn-primary form-control" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
                             </div>
-                            <div class="form-group col-md-2">                                      
-                              
+                            <div class="form-group col-md-2">                                                                    
                               <downloadexcel
                               class = "btn btn-success"
                               :fetch   = "fetchData"
                               :fields = "json_fields"
-                              :before-generate = "startDownload"
                               name    = "informe-muestreos.xls"
                               type    = "xls">
                                 <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -126,7 +131,8 @@
         f_actividad : '',
         f_fecha_d : '',
         f_fecha_h : '',
-        
+        f_peso_d : 0,
+        f_peso_h : 0,
       }
     },
     components: {
@@ -134,16 +140,9 @@
     },
     methods:{
       async fetchData(){
-        let me = this;
-       
+        let me = this;       
         const response = await this.listadoRegistros
         return this.listadoRegistros;
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
       },
       listar(){
         let me = this
@@ -178,6 +177,8 @@
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
         if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
         if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad}        
+        if(this.f_peso_d == ''){this.pesod = '-1'}else{this.pesod = this.f_peso_d}
+        if(this.f_peso_h == ''){this.pesoh = '-1'}else{this.pesoh = this.f_peso_h}
         if(this.f_fecha_d == ''){this.fec1 = '-1'}else{this.fec1 = this.f_fecha_d}
         if(this.f_fecha_h == ''){this.fec2 = '-1'}else{this.fec2 = this.f_fecha_h}
         
@@ -185,6 +186,8 @@
           'f_siembra' : this.smb,
           'f_especie' : this.f_e,
           'f_actividad':this.act,
+          'f_peso_d' : this.pesod,
+          'f_peso_h' : this.pesoh,
           'f_fecha_d' : this.fec1,
           'f_fecha_h' : this.fec2
         }

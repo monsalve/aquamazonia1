@@ -106,8 +106,9 @@ class RecursoNecesarioController extends Controller
             $promedioRecursos['alid'] = $alid;
             $promedioRecursos['coskg'] = $coskg;
             $promedioRecursos['cta'] = $cta;
-            $promedioRecursos['icb'] = $icb;
             $icb = number_format($icb,2,',','');
+            $promedioRecursos['icb'] = $icb;
+            
         }
         // print_r($recursosNecesarios);
     

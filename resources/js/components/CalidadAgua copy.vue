@@ -28,8 +28,7 @@
                       
                       class = "btn btn-success form-control"
                       :fetch   = "fetchData"
-                      :fields = "json_fields"
-                      :before-generate = "startDownload"
+                      :fields = "json_fields"                      
                       name    = "informe-parametros-calidad-agua.xls"
                       type    = "xls">
                         <i class="fa fa-fw fa-download"></i> Exportar Excel 
@@ -295,12 +294,8 @@
         // console.log(response);
         return this.listadoParametros;
       },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
-      },
+      
+      
       filtrarParametros(){
         let me = this;
         if(this.f_inicio_d == ''){this.f_d = '-1'}else{this.f_d = this.f_inicio_d}
@@ -315,8 +310,7 @@
           console.log(response.data);
           me.listadoParametros = response.data.calidad_agua;
           me.promedios = response.data.promedios
-        })
-        
+        })        
       },
       listar(){
         let me = this;      

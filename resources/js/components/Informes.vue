@@ -63,8 +63,7 @@
                               <downloadexcel
                               class = "btn btn-success"
                               :fetch   = "fetchData"
-                              :fields = "json_fields"
-                              :before-generate = "startDownload"
+                              :fields = "json_fields"                             
                               name    = "informe-recursos.xls"
                               type    = "xls">
                                 <i class="fa fa-fw fa-download"></i> Generar Excel 
@@ -179,12 +178,6 @@
         const response = await this.imprimirRecursos
         // console.log(response);
         return this.imprimirRecursos;
-      },
-      startDownload(){
-          alert('Iniciando descarga de archivo');
-      },
-      finishDownload(){
-          alert('hide loading');
       },
       listar(){
         let me = this;        
