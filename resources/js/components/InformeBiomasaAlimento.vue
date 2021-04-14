@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes especies existentes</div>
+                    <div class="card-header">Informes biomasa por alimento</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">   
                       <div class="row text-left">
@@ -20,11 +20,11 @@
                       
                         <div class="form-group col-md-2">
                           <label for="Fecha desde">Fecha inicio desde: </label>
-                          <input type="date" class="form-control" id="f_inicio_d">
+                          <input type="date" class="form-control" id="f_inicio_d" v-model="f_inicio_d">
                         </div>
                         <div class="form-group col-md-2">
                           <label for="fecha hasta">Fecha inicio hasta: </label>
-                          <input type="date" class="form-control" id="f_inicio_h">
+                          <input type="date" class="form-control" id="f_inicio_h" v-model="f_inicio_h">
                         </div>
                         <div class="form-group col-md-2">
                           <button class="btn btn-primary" @click="filtroSiembra()">
@@ -47,36 +47,37 @@
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Siembra</th>                                                           
+                              <th>Siembra</th>
+                              <th>Area m<sup>3</sup> </th>
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
-                              <th>Biomasa disponible</th>
-                              <th>Salida de biomasa</th>                                
-                              <th>Mortalidad</th>                              
-                              <th>Mort. Kg</th>                             
-                              <th>Salida animales</th>                                                            
+                              <th>Biomasa disponible muestreo</th>
+                              <th>Salida de biomasa</th>
+                              <th>Mort. Kg</th>
+                              <th>Salida animales</th>
                               <th>Total alimento (Kg)</th>
-                              <th>Biomasa disponible por conversión teórica</th>
+                              <th>Incremento de biomasa por alimento</th>
                               <th>Biomasa disponible por alimento</th>
+                              <th>Supervivencia final</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(le, index) in listadoExistencias" :key="index">                              
+                            <tr v-for="(le, index) in listadoExistencias" :key="index"> 
                               <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>                                                           
+                              <td v-text="le.nombre_siembra"></td>
+                              <td v-text="le.capacidad"></td>
                               <td v-text="le.cantidad_inicial"></td>
-                              <td v-text="le.biomasa_inicial"></td>                              
+                              <td v-text="le.biomasa_inicial"></td> 
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
                               <td v-else>0</td>
-                              <td v-if="le.mortalidad">{{le.mortalidad}}</td>
-                              <td v-else>0</td>
-                              <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>                              
+                              <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td> 
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
                               <td v-else>0</td>
                               <td v-text="le.cantidad_total_alimento"></td>    
                               <td v-text="le.incr_bio_acum_conver"></td>
                               <td v-text="le.bio_dispo_alimen"></td>
+                              <td v-text="le.porc_supervivencia_final"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -123,9 +124,7 @@
     methods:{
       async fetchData(){
         let me = this;
-        // const response = await axios.get('api/informe-recursos');
-        const response = await this.listadoExistencias
-        // console.log(response);
+        const response = await this.listadoExistencias;
         return this.listadoExistencias;
       },            
       listar(){

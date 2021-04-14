@@ -87,7 +87,7 @@
                                    Informes<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <router-link class="dropdown-item" to="/informe-consolidado">Informe consolidado </router-link>                            
+                                    <router-link class="dropdown-item" to="/informe-consolidado">Informe consolidado variables de producción </router-link>                            
                                     <router-link class="dropdown-item" to="/informes">Informe recursos </router-link>          
                                     <router-link class="dropdown-item" to="/informes-recursos-necesarios">Informe consolidado recursos necesarios</router-link>
                                     <router-link class="dropdown-item" to="/informes-parametros">Informe Párametros de calidad del agua </router-link>                            

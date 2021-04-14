@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes especies existentes</div>
+                    <div class="card-header">Informes de producción</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">   
                       <div class="row text-left">
@@ -14,7 +14,7 @@
                           <label for="siembra">Siembras</label>
                           <select class="form-control" id="siembra" v-model="f_siembra">
                             <option value="-1">Seleccionar</option>
-                            <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
+                            <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                           </select>
                         </div>
                       
@@ -45,10 +45,9 @@
                       <div>
                         <table class="table table-striped table-sm table-hover table-responsive">
                           <thead>
-                            <tr class="text-right">                           
+                            <tr class="text-right">
                               <th>#</th>
-                              <th>Siembra</th>                                                                                       
-                              <th>Salida de biomasa</th> 
+                              <th>Siembra</th>
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
@@ -58,11 +57,9 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="text-right" v-for="(le, index) in listadoExistencias" :key="index">                              
+                            <tr class="text-right" v-for="(le, index) in listadoExistencias" :key="index">
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>
-                              <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>                              
                               <td v-text="le.costo_minutosh"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>

@@ -24,7 +24,7 @@
                               <tbody>
                                 <tr v-for="(especie, index) in listado" :key="especie.id">
                                   <th scope="row" v-text="index"></th>
-                                  <td v-text="especie.especie">Tilapia</td>
+                                  <td v-text="especie.especie"></td>
                                   <td v-text="especie.descripcion"></td>
                                   <td>
                                     <button @click="cargaEditar(especie)" class="btn btn-success" type="button">

@@ -49,6 +49,7 @@
                               <th>Costo Recurso</th>
                               <th>Cantidad Alimento</th>
                               <th>Costo Alimento</th>
+                              <th>Costo total actividad</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -62,6 +63,7 @@
                               <td v-text="lrn.costo_recurso"></td>
                               <td v-text="lrn.cantidad_alimento"></td>
                               <td v-text="lrn.costo_alimento"></td>
+                              <td>x</td>
                             </tr>
                           </tbody>
                         </table>

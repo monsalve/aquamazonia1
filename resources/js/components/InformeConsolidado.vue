@@ -1,9 +1,9 @@
 <template>   
-    <div class="container">
+    <div class="container-sm">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes especies existentes</div>
+                    <div class="card-header">Informes consolidado variables de producción</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">   
                       <div class="row text-left">
@@ -11,21 +11,24 @@
                       </div>
                       <div class="row">
                         <div class="form-group col-md-2">
-                          <label for="siembra">Siembras</label>
-                          <select class="form-control" id="siembra" v-model="f_siembra">
-                            <option value="-1">Seleccionar</option>
-                            <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
-                          </select>
+                          <label for="siembra">Siembras:
+                            <select class="custom-select" id="siembra" v-model="f_siembra">
+                              <option value="-1">Seleccionar</option>
+                              <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
+                            </select>
+                          </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="f_estado">
+                            Estado:
+                            <select class="custom-select" name="estado" id="estado" v-model="f_estado">
+                              <option value="-1" disabled>--Seleccionar--</option>                              
+                              <option value="0">Inactiva</option>
+                              <option value="1">Activa</option>
+                            </select>
+                          </label>
                         </div>
                       
-                        <div class="form-group col-md-2">
-                          <label for="Fecha desde">Fecha inicio desde: </label>
-                          <input type="date" class="form-control" id="f_inicio_d">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="fecha hasta">Fecha inicio hasta: </label>
-                          <input type="date" class="form-control" id="f_inicio_h">
-                        </div>
                         <div class="form-group col-md-2">
                           <button class="btn btn-primary" @click="filtroSiembra()">
                             Filtrar resultados
@@ -47,7 +50,8 @@
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Siembra</th>                             
+                              <th>Siembra</th>  
+                              <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
                               <th>Cant Inicial</th>
@@ -56,8 +60,7 @@
                               <th>Animales final</th>
                               <th>Peso Actual</th>                                 
                               <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>    
-                              <th>Mortalidad</th>                              
+                              <th>Salida de biomasa</th>
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
                               <th>Salida animales</th>                              
@@ -68,19 +71,17 @@
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
                               <th>Total alimento (Kg)</th>
-                              <th>Costo Total</th>                              
+                              <th>Costo Total</th>
+                              <th>Costo produccion final</th>
                               <th>Conversion alimenticia parcial</th>
                               <th>Conversion final</th>
-                              <th>Incremento biomasa</th>
-                              <!-- <th>Incremento biomasa acumulada por conversión</th>
-                              <th>Biomasa disponible por conversión teórica</th>
-                              <th>Conversión alimenticia teórica</th> -->
                             </tr>
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>                             
+                              <td v-text="le.nombre_siembra"></td>   
+                              <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>
                               <td v-text="le.cantidad_inicial"></td>
@@ -90,9 +91,7 @@
                               <td v-text="le.peso_actual+' gr'"></td>                                                               
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>
-                              <td v-if="le.mortalidad">{{le.mortalidad}}</td>
-                              <td v-else>0</td>
+                              <td v-else>0</td>                             
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
                               <td v-if="le.mortalidad_porcentaje">{{le.mortalidad_porcentaje}}</td>
                               <td v-else>0</td>
@@ -106,12 +105,9 @@
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
+                              <td></td>
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
-                              <td v-text="le.incremento_biomasa"></td>                              
-                              <!-- <td v-text="le.bio_dispo_conver"></td>
-                              <td v-text="le.incr_bio_acum_conver"></td>
-                              <td></td> -->
                             </tr>
                           </tbody>
                         </table>
@@ -161,7 +157,7 @@
         listadoSiembras: [], 
         imprimirRecursos:[],
         f_siembra : '',
-        f_especie: '', 
+        f_estado: '', 
         f_inicio_d : '',
         f_inicio_h : '',
   
@@ -206,11 +202,12 @@
         let me = this;
         
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
-        // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
+        if(this.f_estado == ''){this.est = '-1'}else{this.est = this.f_estado}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}        
         const data ={
           'f_siembra' : this.smb,
+          'f_estado' : this.est,
           'f_inicio_d' : this.fecd,
           'f_inicio_h' : this.fech,
         }
