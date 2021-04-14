@@ -18,6 +18,25 @@
                               </select>
                             </div>
                             <div class="form-group col-md-2">
+                              <label for="f_estado">
+                                Estado siembra:
+                                <select class="custom-select" name="estado" id="estado" v-model="f_estado">
+                                  <option value="-1" disabled>--Seleccionar--</option>                              
+                                  <option value="0">Inactiva</option>
+                                  <option value="1">Activa</option>
+                                </select>
+                              </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="actividad">Lote: </label>
+                              <select class="form-control" id="actividad" v-model="f_actividad" name="tipo_actividad">
+                                <option selected> Seleccionar</option>
+                                <option value="0">Muestreo</option>
+                                <option value="1">Pesca</option>
+                                <option value="2">Mortalidad Inicial</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
                               <label for="Especie">Especie</label>
                               <select class="form-control" id="f_especie" v-model="f_especie">
                                 <option value="-1" selected>Seleccionar</option>                             
@@ -78,7 +97,7 @@
                               <th>Tipo <br>actividad</th>
                               <th>Peso actual</th>
                               <th>Mortalidad</th>
-                              <th>Biomasa</th>
+                              <th>Biomasa muestreo</th>
                               <th>Cantidad</th>
                             </tr>
                           </thead>
@@ -127,6 +146,7 @@
         listadoEspecies:[],
         // filtros
         f_siembra:'',
+        f_estado : '',
         f_especie:'',
         f_actividad : '',
         f_fecha_d : '',

@@ -3633,6 +3633,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3652,6 +3671,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       // filtros
       f_siembra: '',
+      f_estado: '',
       f_especie: '',
       f_actividad: '',
       f_fecha_d: '',
@@ -4436,6 +4456,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4463,10 +4485,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
         'Total Kg Alimento': 'cantidad_total_alimento',
-        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra' // 'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-        // 'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
-        // 'Conversióm alimenticia teórica' : ''          
-
+        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -4491,8 +4510,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                me = _this; // const response = await axios.get('api/informe-recursos');
-
+                me = _this;
                 _context.next = 3;
                 return _this.listadoExistencias;
 
@@ -4563,7 +4581,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.fech
       };
       axios.post("api/filtro-existencias-detalle", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias; // console.log(response.data);
+        me.listadoExistencias = response.data.existencias;
       });
       console.log('buscar');
     }
@@ -49336,6 +49354,113 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "f_estado" } }, [
+                        _vm._v(
+                          "\n                            Estado siembra:\n                            "
+                        ),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.f_estado,
+                                expression: "f_estado"
+                              }
+                            ],
+                            staticClass: "custom-select",
+                            attrs: { name: "estado", id: "estado" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.f_estado = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "-1", disabled: "" } },
+                              [_vm._v("--Seleccionar--")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "0" } }, [
+                              _vm._v("Inactiva")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Activa")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "actividad" } }, [
+                        _vm._v("Lote: ")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.f_actividad,
+                              expression: "f_actividad"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "actividad", name: "tipo_actividad" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.f_actividad = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { selected: "" } }, [
+                            _vm._v(" Seleccionar")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("Muestreo")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("Pesca")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("Mortalidad Inicial")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "Especie" } }, [
                         _vm._v("Especie")
                       ]),
@@ -49693,7 +49818,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa")]),
+        _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")])
       ])
@@ -50805,6 +50930,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
+                            textContent: _vm._s(le.costo_produccion_final)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
                             textContent: _vm._s(
                               le.conversion_alimenticia_parcial
                             )
@@ -50895,6 +51026,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Total alimento (Kg)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo produccion final")]),
         _vm._v(" "),
         _c("th", [_vm._v("Conversion alimenticia parcial")]),
         _vm._v(" "),

@@ -105,7 +105,7 @@
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
-                              <td></td>
+                              <td v-text="le.costo_produccion_final"></td>
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
                             </tr>
@@ -147,17 +147,14 @@
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
-          // 'incremento biomasa acumulada por conversión' : 'incr_bio_acum_conver',
-          // 'Biomasa disponible por conversión' : 'incr_bio_acum_conver',
-          // 'Conversióm alimenticia teórica' : ''          
+          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
         listadoSiembras: [], 
         imprimirRecursos:[],
         f_siembra : '',
-        f_estado: '', 
+        f_estado : '', 
         f_inicio_d : '',
         f_inicio_h : '',
   
@@ -169,9 +166,7 @@
     methods:{
       async fetchData(){
         let me = this;
-        // const response = await axios.get('api/informe-recursos');
-        const response = await this.listadoExistencias
-        // console.log(response);
+        const response = await this.listadoExistencias;
         return this.listadoExistencias;
       },
       listar(){
@@ -214,7 +209,6 @@
         axios.post("api/filtro-existencias-detalle", data)
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
-          // console.log(response.data);
         });
         console.log('buscar')
       },
