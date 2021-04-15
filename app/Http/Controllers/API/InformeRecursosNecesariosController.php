@@ -22,7 +22,7 @@ class InformeRecursosNecesariosController extends Controller
      */
     public function index()
     {
-        //
+      //
       $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
       
       /*$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
@@ -53,7 +53,7 @@ class InformeRecursosNecesariosController extends Controller
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
-      ->get();
+      ->paginate(10);
   
       for($i=0;$i<count($recursosNecesarios); $i++){
         $costo_recursos = RecursoNecesario::select()
@@ -70,10 +70,14 @@ class InformeRecursosNecesariosController extends Controller
             $recursosNecesarios[$i]->costo_recurso +=  ($costo_recursos[$j]->cantidad_recurso * $costo_recursos[$j]->costo);
             $recursosNecesarios[$i]->cantidad_alimento += ($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana);
             $recursosNecesarios[$i]->costo_alimento +=  (($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana) * $costo_recursos[$j]->costo_kg);
+            $recursosNecesarios[$i]->costo_minutos = (floatval($recursosNecesarios[$i]->minutos_hombre)) * $minutos_hombre->costo;
+            $recursosNecesarios[$i]->costo_total_actividad = $recursosNecesarios[$i]->costo_recurso + $recursosNecesarios[$i]->costo_minutos;
           }
-        }        
+        }
+       
         $recursosNecesarios[$i]->horas_hombre = number_format($recursosNecesarios[$i]->horas_hombre,2,',','');
-        $recursosNecesarios[$i]->costo_minutos = (floatval($recursosNecesarios[$i]->minutos_hombre)) * $minutos_hombre->costo;
+        $recursosNecesarios[$i]->costo_recurso = number_format($recursosNecesarios[$i]->costo_recurso,2,',','');
+        $recursosNecesarios[$i]->costo_total_actividad = number_format($recursosNecesarios[$i]->costo_total_actividad,2,',','');
       }  
       return ['recursosNecesarios' => $recursosNecesarios];
     }
@@ -127,10 +131,13 @@ class InformeRecursosNecesariosController extends Controller
             $recursosNecesarios[$i]->costo_recurso +=  ($costo_recursos[$j]->cantidad_recurso * $costo_recursos[$j]->costo);
             $recursosNecesarios[$i]->cantidad_alimento += ($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana);
             $recursosNecesarios[$i]->costo_alimento +=  (($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana) * $costo_recursos[$j]->costo_kg);
+            $recursosNecesarios[$i]->costo_minutos = (floatval($recursosNecesarios[$i]->minutos_hombre)) * $minutos_hombre->costo;
+            $recursosNecesarios[$i]->costo_total_actividad = $recursosNecesarios[$i]->costo_recurso + $recursosNecesarios[$i]->costo_minutos;
           }
         }        
         $recursosNecesarios[$i]->horas_hombre = number_format($recursosNecesarios[$i]->horas_hombre,2,',','');
-        $recursosNecesarios[$i]->costo_minutos = (floatval($recursosNecesarios[$i]->minutos_hombre)) * $minutos_hombre->costo;
+        $recursosNecesarios[$i]->costo_recurso = number_format($recursosNecesarios[$i]->costo_recurso,2,',','');
+        $recursosNecesarios[$i]->costo_total_actividad = number_format($recursosNecesarios[$i]->costo_total_actividad,2,',','');
       }  
       return ['recursosNecesarios' => $recursosNecesarios];
     }

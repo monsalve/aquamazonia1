@@ -5260,7 +5260,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_siembra: '',
       listado: [],
       listadoSiembras: [],
-      listadoActividades: []
+      listadoActividades: [],
+      tipoActividad: ''
     };
   },
   components: {
@@ -5296,7 +5297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listar: function listar() {
       var me = this;
       axios.get("api/informes-recursos-necesarios").then(function (response) {
-        me.listado = response.data.recursosNecesarios;
+        me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
       });
     }
@@ -51852,7 +51853,15 @@ var render = function() {
                       ) {
                         return _c(
                           "option",
-                          { key: index, domProps: { value: actividad.id } },
+                          {
+                            key: index,
+                            domProps: { value: actividad.id },
+                            on: {
+                              click: function($event) {
+                                _vm.tipoActividad = actividad.actividad
+                              }
+                            }
+                          },
                           [_vm._v(_vm._s(actividad.actividad))]
                         )
                       })
@@ -51905,7 +51914,37 @@ var render = function() {
             _vm._v(" "),
             _c("div", [
               _c("table", { staticClass: "table" }, [
-                _vm._m(0),
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("#")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Siembra")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Tipo actividad")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Horas hombre")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Costo horas hombre")]),
+                    _vm._v(" "),
+                    _vm.tipoActividad != "Alimentación"
+                      ? _c("th", [_vm._v("Cantidad Recurso")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.tipoActividad != "Alimentación"
+                      ? _c("th", [_vm._v("Costo Recurso")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.tipoActividad == "Alimentación"
+                      ? _c("th", [_vm._v("Cantidad Alimento")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.tipoActividad == "Alimentación"
+                      ? _c("th", [_vm._v("Costo Alimento")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Costo total actividad")])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -51933,23 +51972,41 @@ var render = function() {
                         domProps: { textContent: _vm._s(lrn.costo_minutos) }
                       }),
                       _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(lrn.cantidad_recurso) }
-                      }),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lrn.cantidad_recurso)
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c("td", {
+                            domProps: { textContent: _vm._s(lrn.costo_recurso) }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lrn.cantidad_alimento)
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lrn.costo_alimento)
+                            }
+                          })
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(lrn.costo_recurso) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(lrn.cantidad_alimento) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(lrn.costo_alimento) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("x")])
+                        domProps: {
+                          textContent: _vm._s(lrn.costo_total_actividad)
+                        }
+                      })
                     ])
                   }),
                   0
@@ -51962,36 +52019,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tipo actividad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Horas hombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo horas hombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Recurso")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Recurso")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Alimento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Alimento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo total actividad")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -18,7 +18,7 @@
                            <label for="f_actividad">Tipo de Actividad: </label>
                             <select class="form-control" id="f_actividad" v-model="f_actividad">
                               <option  value="-1" selected> Seleccionar</option>   
-                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>                 
+                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>                 
                             </select>
                           </div>                          
                           <div class="form-group col-md-2">                                      
@@ -45,10 +45,10 @@
                               <th>Tipo actividad</th>
                               <th>Horas hombre</th>
                               <th>Costo horas hombre</th>
-                              <th>Cantidad Recurso</th>
-                              <th>Costo Recurso</th>
-                              <th>Cantidad Alimento</th>
-                              <th>Costo Alimento</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Cantidad Recurso</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
                               <th>Costo total actividad</th>
                             </tr>
                           </thead>
@@ -59,11 +59,11 @@
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.horas_hombre+' Hr'"></td>
                               <td v-text="lrn.costo_minutos"></td>
-                              <td v-text="lrn.cantidad_recurso"></td>
-                              <td v-text="lrn.costo_recurso"></td>
-                              <td v-text="lrn.cantidad_alimento"></td>
-                              <td v-text="lrn.costo_alimento"></td>
-                              <td>x</td>
+                              <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td v-text="lrn.cantidad_alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td v-text="lrn.costo_total_actividad"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -92,10 +92,11 @@ import downloadexcel from "vue-json-excel"
           'Costo total alimento' : 'costo_alimento'
         }, 
         f_actividad:'',
-        f_siembra:'',        
+        f_siembra:'',
         listado : [],        
         listadoSiembras : [],        
-        listadoActividades : [],        
+        listadoActividades : [],
+        tipoActividad : ''
       }
     },
      components: {
@@ -113,7 +114,7 @@ import downloadexcel from "vue-json-excel"
         let me = this;
         axios.get("api/informes-recursos-necesarios")
         .then(function (response){
-          me.listado = response.data.recursosNecesarios;         
+          me.listado = response.data.recursosNecesarios.data;         
           me.promedios = response.data.promedioRecursos;
         })
       },
