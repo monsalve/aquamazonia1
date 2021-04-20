@@ -48186,90 +48186,110 @@ var render = function() {
                         _vm._l(_vm.listadoContenedores, function(lc, index) {
                           return _c(
                             "div",
-                            { key: index, staticClass: "col-md-3" },
-                            [
-                              _c(
-                                "div",
-                                _vm._l(lc, function(cont) {
-                                  return _c("div", { key: cont.id }, [
-                                    _vm.editando == 0
-                                      ? _c("div", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.form.id_contenedor,
-                                                expression: "form.id_contenedor"
-                                              }
-                                            ],
-                                            attrs: { type: "checkbox" },
-                                            domProps: {
-                                              value: cont.id,
-                                              checked: Array.isArray(
-                                                _vm.form.id_contenedor
-                                              )
-                                                ? _vm._i(
-                                                    _vm.form.id_contenedor,
-                                                    cont.id
-                                                  ) > -1
-                                                : _vm.form.id_contenedor
-                                            },
-                                            on: {
-                                              change: function($event) {
-                                                var $$a =
-                                                    _vm.form.id_contenedor,
-                                                  $$el = $event.target,
-                                                  $$c = $$el.checked
-                                                    ? true
-                                                    : false
-                                                if (Array.isArray($$a)) {
-                                                  var $$v = cont.id,
-                                                    $$i = _vm._i($$a, $$v)
-                                                  if ($$el.checked) {
-                                                    $$i < 0 &&
-                                                      _vm.$set(
-                                                        _vm.form,
-                                                        "id_contenedor",
-                                                        $$a.concat([$$v])
-                                                      )
-                                                  } else {
-                                                    $$i > -1 &&
-                                                      _vm.$set(
-                                                        _vm.form,
-                                                        "id_contenedor",
-                                                        $$a
-                                                          .slice(0, $$i)
-                                                          .concat(
-                                                            $$a.slice($$i + 1)
-                                                          )
-                                                      )
-                                                  }
+                            {
+                              key: index,
+                              staticClass: "col-lg-3 col-md-4 col-sm-6"
+                            },
+                            _vm._l(lc, function(cont) {
+                              return _c("div", { key: cont.id }, [
+                                _vm.editando == 0
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "form-check form-check-inline mb-2"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.form.id_contenedor,
+                                              expression: "form.id_contenedor"
+                                            }
+                                          ],
+                                          staticClass: "form-check-input",
+                                          attrs: {
+                                            type: "checkbox",
+                                            id: "contenedor-" + cont.id
+                                          },
+                                          domProps: {
+                                            value: cont.id,
+                                            checked: Array.isArray(
+                                              _vm.form.id_contenedor
+                                            )
+                                              ? _vm._i(
+                                                  _vm.form.id_contenedor,
+                                                  cont.id
+                                                ) > -1
+                                              : _vm.form.id_contenedor
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              var $$a = _vm.form.id_contenedor,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = cont.id,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "id_contenedor",
+                                                      $$a.concat([$$v])
+                                                    )
                                                 } else {
-                                                  _vm.$set(
-                                                    _vm.form,
-                                                    "id_contenedor",
-                                                    $$c
-                                                  )
+                                                  $$i > -1 &&
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "id_contenedor",
+                                                      $$a
+                                                        .slice(0, $$i)
+                                                        .concat(
+                                                          $$a.slice($$i + 1)
+                                                        )
+                                                    )
                                                 }
+                                              } else {
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "id_contenedor",
+                                                  $$c
+                                                )
                                               }
                                             }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "label",
-                                            { attrs: { for: "contenedor" } },
-                                            [_vm._v(_vm._s(cont.contenedor))]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("br")
-                                        ])
-                                      : _vm._e()
-                                  ])
-                                }),
-                                0
-                              )
-                            ]
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "form-check-label",
+                                            attrs: {
+                                              for: "contenedor-" + cont.id
+                                            }
+                                          },
+                                          [
+                                            _c("span"),
+                                            _vm._v(
+                                              "\n                      " +
+                                                _vm._s(cont.contenedor) +
+                                                "\n                    "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("br")
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
+                            }),
+                            0
                           )
                         })
                       ],
@@ -48319,9 +48339,7 @@ var staticRenderFns = [
           _vm._v("#")
         ]),
         _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2" } }, [
-          _vm._v("ID registro párametros")
-        ]),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("ID registro")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("Fecha")

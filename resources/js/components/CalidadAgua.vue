@@ -56,7 +56,7 @@
                   <thead class="">
                     <tr>                    
                       <th rowspan="2" data-field="id">#</th>                    
-                      <th rowspan="2">ID registro párametros</th>
+                      <th rowspan="2">ID registro</th>
                       <th rowspan="2" data-field="id">Fecha</th>      
                       <th colspan="5" class="text-center">% Saturación de oxígeno</th>
                       <th rowspan="2" data-field="id">Temperatura</th>
@@ -250,19 +250,19 @@
                
               <div class="row">
                 <h4 class="col-12 text-center text-primary my-4"> Listado de contenedores</h4>
-                <div v-for="(lc, index) in listadoContenedores" :key="index" class="col-md-3">
-                <div>
-                  
+                <div v-for="(lc, index) in listadoContenedores" :key="index" class="col-lg-3 col-md-4 col-sm-6">
                   <div v-for="cont in lc" :key="cont.id">
-                    <div v-if="editando == 0">
-                      <input type="checkbox" v-bind:value="cont.id" v-model="form.id_contenedor">
-                      <label for="contenedor">{{cont.contenedor}}</label>
+                    <div v-if="editando == 0" class="form-check form-check-inline mb-2">
+                      <input type="checkbox" class="form-check-input" :id="'contenedor-'+cont.id" v-bind:value="cont.id" v-model="form.id_contenedor">
+                      <label :for="'contenedor-'+cont.id" class="form-check-label"> 
+                        <span></span>
+                        {{cont.contenedor}}
+                      </label>
                       <br>
                     </div>
                   </div>
-                </div>                
-              </div>
-             </div>              
+                </div>
+              </div>              
               <div class="form-group row">
                   <div class="col-sm-12 text-right">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
