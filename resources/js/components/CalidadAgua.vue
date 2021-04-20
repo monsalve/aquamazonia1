@@ -163,97 +163,106 @@
             </button>
           </div>
           <div class="modal-body">          
-            <form class="row container"  @submit.prevent="editando == 0 ? guardar() : editar()">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label for="Fecha" class="col-sm-6 col-form-label"><i class="far fa-calendar-alt"></i>  Fecha registro: </label>
-                  <div class="col-sm-6">
-                    <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha de registro" step="any" v-model="form.fecha_parametro" required>
+            <form class="container"  @submit.prevent="editando == 0 ? guardar() : editar()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label for="Fecha" class="col-sm-6 col-form-label"><i class="far fa-calendar-alt"></i>  Fecha registro: </label>
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="fecha_registro" placeholder="Fecha de registro" step="any" v-model="form.fecha_parametro" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 text-center">
+                  <h5>% Saturación oxígeno</h5>
+                  </div>
+                  <div class="border rounded p-3 mb-3">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  12:00 am: </label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " step="any" v-model="form['12_am']">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00 am: </label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" step="any" v-model="form['4_am']">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  7:00 am: </label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" step="any" v-model="form['7_am']">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00pm: </label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" step="any" v-model="form['4_pm']">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="8pm" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  8:00pm: </label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" step="any" v-model="form['8_pm']">
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-12 text-center">
-                <h5>% Saturación oxígeno</h5>
-                </div>
-                <div class="border rounded p-3 mb-3">
+                <div class="col-md-6">
                   <div class="form-group row">
-                    <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  12:00 am: </label>
+                    <label for="Temperatura" class="col-sm-6 col-form-label">Temperatura: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="12am" placeholder="Párametros 12am " step="any" v-model="form['12_am']">
+                      <input type="number" class="form-control" id="temperatura" placeholder="Temperatura" step="any" v-model="form.temperatura">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00 am: </label>
+                    <label for="ph" class="col-sm-6 col-form-label">PH: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4am" placeholder="Párametros 4am" step="any" v-model="form['4_am']">
+                      <input type="number" class="form-control" id="ph" placeholder="ph" step="any" v-model="form.ph">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  7:00 am: </label>
+                    <label for="Amonio" class="col-sm-6 col-form-label">Amonio: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="7am" placeholder="Párametros 7am" step="any" v-model="form['7_am']">
+                      <input type="number" class="form-control" id="amonio" placeholder="Amonio" step="any" v-model="form.amonio">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  4:00pm: </label>
+                    <label for="Nitrito" class="col-sm-6 col-form-label">Nitrito: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="4pm" placeholder="Párametros 4pm" step="any" v-model="form['4_pm']">
+                      <input type="number" class="form-control" id="nitrito" placeholder="Nitrito" step="any" v-model="form.nitrito">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="8pm" class="col-sm-6 col-form-label"><i class="far fa-clock"></i>  8:00pm: </label>
+                    <label for="Nitrato" class="col-sm-6 col-form-label">Nitrato: </label>
                     <div class="col-sm-6">
-                      <input type="number" class="form-control" id="8pm" placeholder="Párametros 8pm" step="any" v-model="form['8_pm']">
+                      <input type="number" class="form-control" id="nitrato" placeholder="Nitrato" step="any" v-model="form.nitrato">
                     </div>
                   </div>
-                </div>
-            
-                <div class="form-group row">
-                  <label for="Temperatura" class="col-sm-6 col-form-label">Temperatura: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="temperatura" placeholder="Temperatura" step="any" v-model="form.temperatura">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="ph" class="col-sm-6 col-form-label">PH: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="ph" placeholder="ph" step="any" v-model="form.ph">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="Amonio" class="col-sm-6 col-form-label">Amonio: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="amonio" placeholder="Amonio" step="any" v-model="form.amonio">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="Nitrito" class="col-sm-6 col-form-label">Nitrito: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="nitrito" placeholder="Nitrito" step="any" v-model="form.nitrito">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="Nitrato" class="col-sm-6 col-form-label">Nitrato: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="nitrato" placeholder="Nitrato" step="any" v-model="form.nitrato">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="" class="col-sm-6 col-form-label">Otros: </label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" id="otros" placeholder="Otros" step="any" v-model="form.otros">
+                  <div class="form-group row">
+                    <label for="" class="col-sm-6 col-form-label">Otros: </label>
+                    <div class="col-sm-6">
+                      <input type="number" class="form-control" id="otros" placeholder="Otros" step="any" v-model="form.otros">
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
                
-                <div v-for="(lc, index) in listadoContenedores" :key="index">                                 
-                  <div v-if="editando == 0">
-                    <input type="checkbox" v-bind:value="lc.id" v-model="form.id_contenedor">
-                    <label for="contenedor">{{lc.contenedor}}</label>
-                    <br>
+              <div class="row">
+                <h4 class="col-12 text-center text-primary my-4"> Listado de contenedores</h4>
+                <div v-for="(lc, index) in listadoContenedores" :key="index" class="col-md-3">
+                <div>
+                  
+                  <div v-for="cont in lc" :key="cont.id">
+                    <div v-if="editando == 0">
+                      <input type="checkbox" v-bind:value="cont.id" v-model="form.id_contenedor">
+                      <label for="contenedor">{{cont.contenedor}}</label>
+                      <br>
+                    </div>
                   </div>
-                </div>
+                </div>                
               </div>
+             </div>              
               <div class="form-group row">
                   <div class="col-sm-12 text-right">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -368,7 +377,6 @@
           me.promedios = response.data.promedios
         })
       },
-
       listarSiembras(){
         let me = this;
         axios.get("api/siembras")
@@ -385,9 +393,10 @@
       },
       listarContenedores(){
         let me = this;
-        axios.get("api/contenedores")
+        axios.get("api/listadoContenedores")
         .then(function (response) {
             me.listadoContenedores = response.data
+            console.log(response);
         });
       },
       mostrarParametros(objeto){

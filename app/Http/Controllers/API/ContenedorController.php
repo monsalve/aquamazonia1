@@ -20,6 +20,12 @@ class ContenedorController extends Controller
         //
     }
 
+    public function listadoContenedores()
+    {
+     	return Contenedor::all()->chunk(18);
+		
+    }
+
     /**
      * Store a newly created resource in storage.
      *

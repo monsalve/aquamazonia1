@@ -1,3 +1,10 @@
 //Colors
 
 // Medias
+
+@media (min-width: 992px) {  
+ main > .container{
+  min-width: 90% !important;
+  max-width: 90% !important;
+}
+}

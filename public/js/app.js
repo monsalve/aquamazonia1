@@ -2822,6 +2822,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2959,8 +2968,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     listarContenedores: function listarContenedores() {
       var me = this;
-      axios.get("api/contenedores").then(function (response) {
+      axios.get("api/listadoContenedores").then(function (response) {
         me.listadoContenedores = response.data;
+        console.log(response);
       });
     },
     mostrarParametros: function mostrarParametros(objeto) {
@@ -47659,7 +47669,7 @@ var render = function() {
                 _c(
                   "form",
                   {
-                    staticClass: "row container",
+                    staticClass: "container",
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
@@ -47668,50 +47678,10 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group row" }, [
-                        _vm._m(3),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.fecha_parametro,
-                                expression: "form.fecha_parametro"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "date",
-                              id: "fecha_registro",
-                              placeholder: "Fecha de registro",
-                              step: "any",
-                              required: ""
-                            },
-                            domProps: { value: _vm.form.fecha_parametro },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "fecha_parametro",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "border rounded p-3 mb-3" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(5),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -47719,18 +47689,19 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form["12_am"],
-                                  expression: "form['12_am']"
+                                  value: _vm.form.fecha_parametro,
+                                  expression: "form.fecha_parametro"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                type: "number",
-                                id: "12am",
-                                placeholder: "Párametros 12am ",
-                                step: "any"
+                                type: "date",
+                                id: "fecha_registro",
+                                placeholder: "Fecha de registro",
+                                step: "any",
+                                required: ""
                               },
-                              domProps: { value: _vm.form["12_am"] },
+                              domProps: { value: _vm.form.fecha_parametro },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -47738,7 +47709,242 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.form,
-                                    "12_am",
+                                    "fecha_parametro",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "border rounded p-3 mb-3" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(5),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form["12_am"],
+                                    expression: "form['12_am']"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "12am",
+                                  placeholder: "Párametros 12am ",
+                                  step: "any"
+                                },
+                                domProps: { value: _vm.form["12_am"] },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "12_am",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(6),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form["4_am"],
+                                    expression: "form['4_am']"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "4am",
+                                  placeholder: "Párametros 4am",
+                                  step: "any"
+                                },
+                                domProps: { value: _vm.form["4_am"] },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "4_am",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(7),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form["7_am"],
+                                    expression: "form['7_am']"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "7am",
+                                  placeholder: "Párametros 7am",
+                                  step: "any"
+                                },
+                                domProps: { value: _vm.form["7_am"] },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "7_am",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(8),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form["4_pm"],
+                                    expression: "form['4_pm']"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "4pm",
+                                  placeholder: "Párametros 4pm",
+                                  step: "any"
+                                },
+                                domProps: { value: _vm.form["4_pm"] },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "4_pm",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(9),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-6" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form["8_pm"],
+                                    expression: "form['8_pm']"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "8pm",
+                                  placeholder: "Párametros 8pm",
+                                  step: "any"
+                                },
+                                domProps: { value: _vm.form["8_pm"] },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "8_pm",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Temperatura" }
+                            },
+                            [_vm._v("Temperatura: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.temperatura,
+                                  expression: "form.temperatura"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "temperatura",
+                                placeholder: "Temperatura",
+                                step: "any"
+                              },
+                              domProps: { value: _vm.form.temperatura },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "temperatura",
                                     $event.target.value
                                   )
                                 }
@@ -47748,7 +47954,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(6),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "ph" }
+                            },
+                            [_vm._v("PH: ")]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -47756,18 +47969,58 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form["4_am"],
-                                  expression: "form['4_am']"
+                                  value: _vm.form.ph,
+                                  expression: "form.ph"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
-                                id: "4am",
-                                placeholder: "Párametros 4am",
+                                id: "ph",
+                                placeholder: "ph",
                                 step: "any"
                               },
-                              domProps: { value: _vm.form["4_am"] },
+                              domProps: { value: _vm.form.ph },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(_vm.form, "ph", $event.target.value)
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Amonio" }
+                            },
+                            [_vm._v("Amonio: ")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.amonio,
+                                  expression: "form.amonio"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                id: "amonio",
+                                placeholder: "Amonio",
+                                step: "any"
+                              },
+                              domProps: { value: _vm.form.amonio },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -47775,7 +48028,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.form,
-                                    "4_am",
+                                    "amonio",
                                     $event.target.value
                                   )
                                 }
@@ -47785,7 +48038,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(7),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Nitrito" }
+                            },
+                            [_vm._v("Nitrito: ")]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -47793,18 +48053,18 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form["7_am"],
-                                  expression: "form['7_am']"
+                                  value: _vm.form.nitrito,
+                                  expression: "form.nitrito"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
-                                id: "7am",
-                                placeholder: "Párametros 7am",
+                                id: "nitrito",
+                                placeholder: "Nitrito",
                                 step: "any"
                               },
-                              domProps: { value: _vm.form["7_am"] },
+                              domProps: { value: _vm.form.nitrito },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -47812,7 +48072,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.form,
-                                    "7_am",
+                                    "nitrito",
                                     $event.target.value
                                   )
                                 }
@@ -47822,7 +48082,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(8),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "Nitrato" }
+                            },
+                            [_vm._v("Nitrato: ")]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -47830,18 +48097,18 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form["4_pm"],
-                                  expression: "form['4_pm']"
+                                  value: _vm.form.nitrato,
+                                  expression: "form.nitrato"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
-                                id: "4pm",
-                                placeholder: "Párametros 4pm",
+                                id: "nitrato",
+                                placeholder: "Nitrato",
                                 step: "any"
                               },
-                              domProps: { value: _vm.form["4_pm"] },
+                              domProps: { value: _vm.form.nitrato },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -47849,7 +48116,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.form,
-                                    "4_pm",
+                                    "nitrato",
                                     $event.target.value
                                   )
                                 }
@@ -47859,7 +48126,14 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
-                          _vm._m(9),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-6 col-form-label",
+                              attrs: { for: "" }
+                            },
+                            [_vm._v("Otros: ")]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
                             _c("input", {
@@ -47867,18 +48141,18 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form["8_pm"],
-                                  expression: "form['8_pm']"
+                                  value: _vm.form.otros,
+                                  expression: "form.otros"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
-                                id: "8pm",
-                                placeholder: "Párametros 8pm",
+                                id: "otros",
+                                placeholder: "Otros",
                                 step: "any"
                               },
-                              domProps: { value: _vm.form["8_pm"] },
+                              domProps: { value: _vm.form.otros },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -47886,341 +48160,120 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.form,
-                                    "8_pm",
+                                    "otros",
                                     $event.target.value
                                   )
                                 }
                               }
                             })
                           ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "Temperatura" }
-                          },
-                          [_vm._v("Temperatura: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.temperatura,
-                                expression: "form.temperatura"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "temperatura",
-                              placeholder: "Temperatura",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.temperatura },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "temperatura",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "ph" }
-                          },
-                          [_vm._v("PH: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.ph,
-                                expression: "form.ph"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "ph",
-                              placeholder: "ph",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.ph },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "ph", $event.target.value)
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "Amonio" }
-                          },
-                          [_vm._v("Amonio: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.amonio,
-                                expression: "form.amonio"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "amonio",
-                              placeholder: "Amonio",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.amonio },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "amonio",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "Nitrito" }
-                          },
-                          [_vm._v("Nitrito: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.nitrito,
-                                expression: "form.nitrito"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "nitrito",
-                              placeholder: "Nitrito",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.nitrito },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "nitrito",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "Nitrato" }
-                          },
-                          [_vm._v("Nitrato: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.nitrato,
-                                expression: "form.nitrato"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "nitrato",
-                              placeholder: "Nitrato",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.nitrato },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "nitrato",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-sm-6 col-form-label",
-                            attrs: { for: "" }
-                          },
-                          [_vm._v("Otros: ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-6" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.otros,
-                                expression: "form.otros"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              id: "otros",
-                              placeholder: "Otros",
-                              step: "any"
-                            },
-                            domProps: { value: _vm.form.otros },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "otros", $event.target.value)
-                              }
-                            }
-                          })
                         ])
                       ])
                     ]),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-md-6" },
-                      _vm._l(_vm.listadoContenedores, function(lc, index) {
-                        return _c("div", { key: index }, [
-                          _vm.editando == 0
-                            ? _c("div", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.id_contenedor,
-                                      expression: "form.id_contenedor"
-                                    }
-                                  ],
-                                  attrs: { type: "checkbox" },
-                                  domProps: {
-                                    value: lc.id,
-                                    checked: Array.isArray(
-                                      _vm.form.id_contenedor
-                                    )
-                                      ? _vm._i(_vm.form.id_contenedor, lc.id) >
-                                        -1
-                                      : _vm.form.id_contenedor
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      var $$a = _vm.form.id_contenedor,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = lc.id,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "id_contenedor",
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "id_contenedor",
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
-                                        }
-                                      } else {
-                                        _vm.$set(_vm.form, "id_contenedor", $$c)
-                                      }
-                                    }
-                                  }
+                      { staticClass: "row" },
+                      [
+                        _c(
+                          "h4",
+                          {
+                            staticClass: "col-12 text-center text-primary my-4"
+                          },
+                          [_vm._v(" Listado de contenedores")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.listadoContenedores, function(lc, index) {
+                          return _c(
+                            "div",
+                            { key: index, staticClass: "col-md-3" },
+                            [
+                              _c(
+                                "div",
+                                _vm._l(lc, function(cont) {
+                                  return _c("div", { key: cont.id }, [
+                                    _vm.editando == 0
+                                      ? _c("div", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.form.id_contenedor,
+                                                expression: "form.id_contenedor"
+                                              }
+                                            ],
+                                            attrs: { type: "checkbox" },
+                                            domProps: {
+                                              value: cont.id,
+                                              checked: Array.isArray(
+                                                _vm.form.id_contenedor
+                                              )
+                                                ? _vm._i(
+                                                    _vm.form.id_contenedor,
+                                                    cont.id
+                                                  ) > -1
+                                                : _vm.form.id_contenedor
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$a =
+                                                    _vm.form.id_contenedor,
+                                                  $$el = $event.target,
+                                                  $$c = $$el.checked
+                                                    ? true
+                                                    : false
+                                                if (Array.isArray($$a)) {
+                                                  var $$v = cont.id,
+                                                    $$i = _vm._i($$a, $$v)
+                                                  if ($$el.checked) {
+                                                    $$i < 0 &&
+                                                      _vm.$set(
+                                                        _vm.form,
+                                                        "id_contenedor",
+                                                        $$a.concat([$$v])
+                                                      )
+                                                  } else {
+                                                    $$i > -1 &&
+                                                      _vm.$set(
+                                                        _vm.form,
+                                                        "id_contenedor",
+                                                        $$a
+                                                          .slice(0, $$i)
+                                                          .concat(
+                                                            $$a.slice($$i + 1)
+                                                          )
+                                                      )
+                                                  }
+                                                } else {
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "id_contenedor",
+                                                    $$c
+                                                  )
+                                                }
+                                              }
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "label",
+                                            { attrs: { for: "contenedor" } },
+                                            [_vm._v(_vm._s(cont.contenedor))]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("br")
+                                        ])
+                                      : _vm._e()
+                                  ])
                                 }),
-                                _vm._v(" "),
-                                _c("label", { attrs: { for: "contenedor" } }, [
-                                  _vm._v(_vm._s(lc.contenedor))
-                                ]),
-                                _vm._v(" "),
-                                _c("br")
-                              ])
-                            : _vm._e()
-                        ])
-                      }),
-                      0
+                                0
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [

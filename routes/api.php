@@ -57,6 +57,7 @@ Route::namespace('API')->group(function () {
     Route::post('filtro-recursos', 'InformeRecursosNecesariosController@filtroRecursos');
     Route::post('filtro-biomasa-alimento', 'InfomeBiomasaAlimentoController@filtroBiomasaAlimento');
     
+    Route::get('listadoContenedores', 'ContenedorController@listadoContenedores');
     Route::get('especies-siembra-edita/{id}', 'SiembraController@getEspeciesSiembra');    
     Route::get('lista-alimentacion', 'RecursoNecesarioController@alimentacion');
     Route::get('traer-siembras', 'SiembraController@traerSiembras');
