@@ -63,7 +63,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover table-responsive">
+              <table class="table table-sm table-hover table-bordered table-sm-responsive" id="tabla-alimentacion">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -102,7 +102,10 @@
                     <td v-text="item.detalles"></td>
               
                   </tr>
-                  <tr>
+                 
+                </tbody>
+                <tfoot>
+                   <tr>
                     <th colspan="4" class="text-right">TOTAL:</th>
                     <th v-text="promedios.tmh"></th>
                     <th></th>
@@ -114,7 +117,8 @@
                     <th></th>
                     <th v-text="promedios.icb"></th>
                   </tr>
-                </tbody>
+   
+                </tfoot>
               </table>
               <nav v-show="showPagination">
                 <ul class="pagination">
