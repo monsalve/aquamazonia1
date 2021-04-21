@@ -11190,7 +11190,6 @@ table#tabla-alimentacion {
 
 table#tabla-alimentacion thead {
   color: #08537c;
-  text-transform: uppercase;
   position: -webkit-sticky;
   position: sticky;
   top: 0;

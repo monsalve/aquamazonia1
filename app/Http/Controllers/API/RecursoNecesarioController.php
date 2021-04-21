@@ -343,33 +343,10 @@ class RecursoNecesarioController extends Controller
             $promedioRecursos['alid'] = $alid;
             $promedioRecursos['coskg'] = $coskg;
             $promedioRecursos['cta'] = $cta;
-            $promedioRecursos['icb'] = $icb;
             $icb = number_format($icb,2,',','');
+            $promedioRecursos['icb'] = $icb;
         }
-        $recursosSiembra = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra','minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso')
-        ->join('recursos_necesarios', 'recursos_siembras.id_registro', 'recursos_necesarios.id')
-        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')        
-        ->get();
         
-        $registrosxSiembra=array();
-        
-        foreach($recursosSiembra as $rs){
-            $registrosxSiembra[$rs['id_registro']][$rs['id']] = array(
-                'id_registro' => $rs['id_registro'],
-                'id_siembra' => $rs['id_siembra'],
-                'id_recurso' => $rs['id_recurso'],
-                'id_alimento' => $rs['id_alimento'],
-                'fecha_ra'=>$rs['fecha_ra'],
-                'minutos_hombre' => $rs['minutos_hombre'],
-                'cant_manana' => $rs['cant_manana'],
-                'cant_tarde'=>$rs['cant_tarde'],
-                'detalles' => $rs['detalles'],
-                'tipo_actividad'=> $rs['tipo_actividad'],
-                'idrn' => $rs['idrn']
-            );
-        }
 
         if($request['see_all']){
             return [
