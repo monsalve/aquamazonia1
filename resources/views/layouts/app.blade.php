@@ -27,7 +27,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light border-dark bg-light shadow-sm border-bottom-0">
+        <nav class="navbar navbar-expand-md navbar-light border-bottom shadow-sm border" style="background-color: #e3f2fd;">
             <div class="container">
                 <img id="logo-app" src="{{ asset('img/logo-aquamazonia.jpg') }}" alt="Logo-aquamazonia" style="width:70px">
                 
@@ -117,7 +117,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+																						document.getElementById('logout-form').submit();">
                                         {{ __('Salir') }}
                                     </a>
 

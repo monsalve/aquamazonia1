@@ -125,7 +125,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title" id="exampleModalLabel">Recursos por siembra</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -158,17 +158,21 @@
                   <label for="cantidad_recurso">Cantidad</label>
                   <input type="number" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
                 </div>
-              </div>
-              <div class="col-md-6"> 
+              
                              
                 <div class="form-group">   
                   <label for="detalles">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>
+              </div>
+              <div class="col-md-6"> 
                 <h5> Seleccionar siembras</h5>
                 <div v-for="(item, index) in listadoSiembras" :key="index">                                 
-                  <input type="checkbox" v-bind:value="item.id" v-model="form.id_siembra">
-                  <label for="siembra">{{item.nombre_siembra}}</label>
+                  <input type="checkbox" class="form-check-input" v-bind:value="item.id" v-model="form.id_siembra" :id="'siembra-'+item.id">
+                  <label :for="'siembra-'+item.id" class="form-check-label">
+                    <span></span>
+                    {{item.nombre_siembra}}
+                  </label>
                   <br>
                 </div>
               </div>
@@ -176,7 +180,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
           </div>
         </div>

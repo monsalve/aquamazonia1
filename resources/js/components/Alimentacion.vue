@@ -47,8 +47,15 @@
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
+                  <div class="form-group col-md-2">
+                    <input type="checkbox" class="form-check-input" value="1" v-model="see_all" id="see_all">
+                    <label for="see_all" class="form-check-label">
+                      <span></span>
+                      Ver todos los registros
+                    </label>
+                  </div>
                   <div class="form-group col-md-2">                                      
-                    <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
+                    <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
               </div>
@@ -84,7 +91,6 @@
                     <td v-text="item.nombre_siembra"></td>
                     <td v-text="item.fecha_ra"></td>                    
                     <td v-text="item.minutos_hombre"></td>
-                    <!-- <td v-text="item.total_minutos_hombre"></td> -->
                     <td v-text="item.alimento"></td>
                     <td v-text="item.cant_manana == null ? '-' : item.cant_manana +' kg' "></td>
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                   
@@ -94,12 +100,7 @@
                     <td v-text="item.conv_alimenticia"></td>
                     <td v-text="item.incr_bio_acum_conver"></td>
                     <td v-text="item.detalles"></td>
-                    <!-- <td>
-                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td> -->
-      
+              
                   </tr>
                   <tr>
                     <th colspan="4" class="text-right">TOTAL:</th>
@@ -115,6 +116,19 @@
                   </tr>
                 </tbody>
               </table>
+              <nav v-show="showPagination">
+                <ul class="pagination">
+                  <li class="page-item" v-if="pagination.current_page > 1">
+                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
+                  </li>
+                  <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                  </li>
+                  <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -225,11 +239,21 @@ import downloadexcel from "vue-json-excel"
           cant_manana : '',
           cant_tarde : '',
           detalles : ''
-        }),    
+        }),
+         pagination : {
+          'total' : 0,
+          'current_page' : 0,
+          'per_page' : 0,
+          'last_page' : 0,
+          'from' : 0,
+          'to' : 0,
+        },
+        offset : 10,
         t_actividad:'',
         fecha_ra1 :'',
         fecha_ra2 :'',
         f_siembra : '',
+        see_all : 0,
         alimento_s :'',
         recurso_s : '',
         busqueda:'',
@@ -242,26 +266,56 @@ import downloadexcel from "vue-json-excel"
         listadoAlimentos:[],
         listadoRecursos:[],
         nombresRecursos:[],
-        nombresAlimentos:[]
+        nombresAlimentos:[],
+        showPagination : 1
       }
     },
     components: {
       downloadexcel,
     },
+    computed:{
+      isActived: function(){
+          return this.pagination.current_page;
+      },
+      //Calcula los elementos de la paginación
+      pagesNumber: function() {
+        if(!this.pagination.to) {
+          return [];
+        }
+        
+        var from = this.pagination.current_page - this.offset; 
+        if(from < 1) {
+          from = 1;
+        }
+
+        var to = from + (this.offset * 2); 
+        if(to >= this.pagination.last_page){
+          to = this.pagination.last_page;
+        }  
+
+        var pagesArray = [];
+        while(from <= to) {
+          pagesArray.push(from);
+          from++;
+        }
+        return pagesArray;
+      }
+    },
     methods:{
-     async fetchData(){
-      let me = this;
-      const response = await this.listado
-      return this.listado;
-      //  imprimirSiembras
+      async fetchData(){
+        let me = this;
+        const response = await this.listado
+        return this.listado;
       },
       abrirCrear(){
         let me = this;
         $('#modalRecursos').modal('show');
       },
+
       buscarResultados(){
         let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
+        if(this.see_all == ''){this.check = 0}else{this.check = this.see_all}
         if(this.t_actividad == ''){ this.actividad = '1'}else{this.actividad  = this.t_actividad} 
         if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
@@ -270,6 +324,7 @@ import downloadexcel from "vue-json-excel"
      
         const data ={
           'f_siembra' : this.f_s,
+          'see_all' : this.check,
           'tipo_actividad' : '1',
           'alimento_s' : this.ali,
           'recurso_s' : this.rec,
@@ -278,20 +333,31 @@ import downloadexcel from "vue-json-excel"
         }
         axios.post("api/searchResults", data)
         .then(response=>{
-          me.listado = response.data.recursosNecesarios;
+          console.log(response.data)
+          
           me.promedios = response.data.promedioRecursos;
-          console.log(response)
+
+          if(response.data.pagination) {
+            this.showPagination = 1;
+            me.listado = response.data.recursosNecesarios.data;
+            me.pagination = response.data.pagination;
+          }
+          else{
+            this.showPagination = 0;
+            me.listado = response.data.recursosNecesarios;
+            me.pagination = []
+          }
+           
         })
-        console.log('buscar')
       },
-      listar(){
+
+      listar(page){
         let me = this;
-        axios.get("api/lista-alimentacion")
+        axios.get("api/lista-alimentacion?page=" + page)
         .then(function (response){
-          me.listado = response.data.recursosNecesarios;         
-          me.listadoRS = response.data.recursosSiembra;
-          me.listadorxs = response.data.registrosxSiembra;
+          me.listado = response.data.recursosNecesarios.data;         
           me.promedios = response.data.promedioRecursos;
+          me.pagination = response.data.pagination;
         })
       },
       listarSiembras(){
@@ -354,10 +420,17 @@ import downloadexcel from "vue-json-excel"
             })
           }
         });        
-      }
+      },
+       cambiarPagina(page){
+            let me = this;
+            //Actualiza la página actual
+            me.pagination.current_page = page;
+            me.listar(page);
+        },
     },
+    
     mounted() {
-      this.listar();
+      this.listar(1);
       this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();

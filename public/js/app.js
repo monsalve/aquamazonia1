@@ -2129,6 +2129,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2158,10 +2172,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cant_tarde: '',
         detalles: ''
       }),
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      offset: 10,
       t_actividad: '',
       fecha_ra1: '',
       fecha_ra2: '',
       f_siembra: '',
+      see_all: 0,
       alimento_s: '',
       recurso_s: '',
       busqueda: '',
@@ -2174,11 +2198,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoAlimentos: [],
       listadoRecursos: [],
       nombresRecursos: [],
-      nombresAlimentos: []
+      nombresAlimentos: [],
+      showPagination: 1
     };
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
   },
   methods: {
     fetchData: function fetchData() {
@@ -2211,12 +2268,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#modalRecursos').modal('show');
     },
     buscarResultados: function buscarResultados() {
+      var _this2 = this;
+
       var me = this;
 
       if (this.f_siembra == '') {
         this.f_s = '-1';
       } else {
         this.f_s = this.f_siembra;
+      }
+
+      if (this.see_all == '') {
+        this.check = 0;
+      } else {
+        this.check = this.see_all;
       }
 
       if (this.t_actividad == '') {
@@ -2251,6 +2316,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var data = {
         'f_siembra': this.f_s,
+        'see_all': this.check,
         'tipo_actividad': '1',
         'alimento_s': this.ali,
         'recurso_s': this.rec,
@@ -2258,19 +2324,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'fecha_ra2': this.fecha2
       };
       axios.post("api/searchResults", data).then(function (response) {
-        me.listado = response.data.recursosNecesarios;
+        console.log(response.data);
         me.promedios = response.data.promedioRecursos;
-        console.log(response);
+
+        if (response.data.pagination) {
+          _this2.showPagination = 1;
+          me.listado = response.data.recursosNecesarios.data;
+          me.pagination = response.data.pagination;
+        } else {
+          _this2.showPagination = 0;
+          me.listado = response.data.recursosNecesarios;
+          me.pagination = [];
+        }
       });
-      console.log('buscar');
     },
-    listar: function listar() {
+    listar: function listar(page) {
       var me = this;
-      axios.get("api/lista-alimentacion").then(function (response) {
-        me.listado = response.data.recursosNecesarios;
-        me.listadoRS = response.data.recursosSiembra;
-        me.listadorxs = response.data.registrosxSiembra;
+      axios.get("api/lista-alimentacion?page=" + page).then(function (response) {
+        me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
+        me.pagination = response.data.pagination;
       });
     },
     listarSiembras: function listarSiembras() {
@@ -2331,10 +2404,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         }
       });
+    },
+    cambiarPagina: function cambiarPagina(page) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page;
+      me.listar(page);
     }
   },
   mounted: function mounted() {
-    this.listar();
+    this.listar(1);
     this.listarSiembras();
     this.listarAlimentos();
     this.listarRecursos();
@@ -6334,6 +6413,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -46225,11 +46308,54 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.see_all,
+                          expression: "see_all"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", value: "1", id: "see_all" },
+                      domProps: {
+                        checked: Array.isArray(_vm.see_all)
+                          ? _vm._i(_vm.see_all, "1") > -1
+                          : _vm.see_all
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.see_all,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "1",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.see_all = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.see_all = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.see_all = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-primary rounded-circle mt-4",
-                        attrs: { type: "submit" },
+                        attrs: { type: "button" },
                         on: {
                           click: function($event) {
                             return _vm.buscarResultados()
@@ -46248,7 +46374,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-sm table-hover table-responsive" },
                 [
-                  _vm._m(0),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -46387,6 +46513,94 @@ var render = function() {
                     2
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "nav",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showPagination,
+                      expression: "showPagination"
+                    }
+                  ]
+                },
+                [
+                  _c(
+                    "ul",
+                    { staticClass: "pagination" },
+                    [
+                      _vm.pagination.current_page > 1
+                        ? _c("li", { staticClass: "page-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "page-link",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.cambiarPagina(
+                                      _vm.pagination.current_page - 1
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Ant")]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.pagesNumber, function(page) {
+                        return _c(
+                          "li",
+                          {
+                            key: page,
+                            staticClass: "page-item",
+                            class: [page == _vm.isActived ? "active" : ""]
+                          },
+                          [
+                            _c("a", {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              domProps: { textContent: _vm._s(page) },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(page)
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.pagination.current_page < _vm.pagination.last_page
+                        ? _c("li", { staticClass: "page-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "page-link",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.cambiarPagina(
+                                      _vm.pagination.current_page + 1
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Sig")]
+                            )
+                          ])
+                        : _vm._e()
+                    ],
+                    2
+                  )
+                ]
               )
             ])
           ])
@@ -46412,7 +46626,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("form", { staticClass: "row" }, [
@@ -46798,6 +47012,21 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "see_all" } },
+      [
+        _c("span"),
+        _vm._v(
+          "\n                    Ver todos los registros\n                  "
+        )
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -54237,6 +54466,38 @@ var render = function() {
                           }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "detalles" } }, [
+                        _vm._v("Detalles")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.detalles,
+                            expression: "form.detalles"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "detalles",
+                          "aria-describedby": "detalles",
+                          placeholder: "Detalles"
+                        },
+                        domProps: { value: _vm.form.detalles },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "detalles", $event.target.value)
+                          }
+                        }
+                      })
                     ])
                   ]),
                   _vm._v(" "),
@@ -54244,42 +54505,6 @@ var render = function() {
                     "div",
                     { staticClass: "col-md-6" },
                     [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "detalles" } }, [
-                          _vm._v("Detalles")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.detalles,
-                              expression: "form.detalles"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            id: "detalles",
-                            "aria-describedby": "detalles",
-                            placeholder: "Detalles"
-                          },
-                          domProps: { value: _vm.form.detalles },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "detalles",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
                       _c("h5", [_vm._v(" Seleccionar siembras")]),
                       _vm._v(" "),
                       _vm._l(_vm.listadoSiembras, function(item, index) {
@@ -54293,7 +54518,11 @@ var render = function() {
                                 expression: "form.id_siembra"
                               }
                             ],
-                            attrs: { type: "checkbox" },
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "checkbox",
+                              id: "siembra-" + item.id
+                            },
                             domProps: {
                               value: item.id,
                               checked: Array.isArray(_vm.form.id_siembra)
@@ -54332,9 +54561,21 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("label", { attrs: { for: "siembra" } }, [
-                            _vm._v(_vm._s(item.nombre_siembra))
-                          ]),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-check-label",
+                              attrs: { for: "siembra-" + item.id }
+                            },
+                            [
+                              _c("span"),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(item.nombre_siembra) +
+                                  "\n                "
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("br")
                         ])
@@ -54352,7 +54593,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Close")]
+                  [_vm._v("Cerrar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -54427,7 +54668,7 @@ var staticRenderFns = [
           attrs: {
             type: "button",
             "data-dismiss": "modal",
-            "aria-label": "Close"
+            "aria-label": "Cerrar"
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]

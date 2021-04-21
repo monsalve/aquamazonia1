@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\RecursoNecesario;
 use App\RecursoSiembra;
-use App\Alimento;
+
 use App\Recursos;
 use App\Siembra;
 use App\Actividad;
 
+use Illuminate\Support\Facades\Auth;
 
 class RecursoNecesarioController extends Controller
 {
@@ -60,7 +61,7 @@ class RecursoNecesarioController extends Controller
         
         return ['recursosNecesarios' => $recursosNecesarios, 'promedioRecursos' => $promedioRecursos];
     }
-    public function  alimentacion()
+    public function  alimentacion(Request $request)
     {
         //
         $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
@@ -71,7 +72,7 @@ class RecursoNecesarioController extends Controller
         ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
         ->where('tipo_actividad', '=', '1')
         ->where('estado',1)
-        ->get();
+        ->paginate(30);
         
         $promedioRecursos = array();        
         $summh = 0;       
@@ -112,7 +113,18 @@ class RecursoNecesarioController extends Controller
         }
         // print_r($recursosNecesarios);
     
-        return ['recursosNecesarios' => $recursosNecesarios,'promedioRecursos'=>$promedioRecursos ];
+        return [
+            'recursosNecesarios' => $recursosNecesarios,
+            'promedioRecursos'=>$promedioRecursos,
+            'pagination' => [
+                'total'        => $recursosNecesarios->total(),
+                'current_page' => $recursosNecesarios->currentPage(),
+                'per_page'     => $recursosNecesarios->perPage(),
+                'last_page'    => $recursosNecesarios->lastPage(),
+                'from'         => $recursosNecesarios->firstItem(),
+                'to'           => $recursosNecesarios->lastItem(),
+            ],   
+        ];
     }
     public function siembraxAlimentacion($id)
     {
@@ -272,8 +284,14 @@ class RecursoNecesarioController extends Controller
         ->where($c7, $op4, $c8)
         ->where($c9, $op5, $c10)
         ->where($c11, $op6, $c12)
-        ->where($c13, $op7, $c14)
-        ->get();
+        ->where($c13, $op7, $c14);
+        
+        
+        if($request['see_all']){
+            $recursosNecesarios = $recursosNecesarios->get();
+        }else{
+            $recursosNecesarios = $recursosNecesarios->paginate(20);
+        }
         
         $promedioRecursos = array();        
         $summh = 0;
@@ -352,8 +370,29 @@ class RecursoNecesarioController extends Controller
                 'idrn' => $rs['idrn']
             );
         }
+
+        if($request['see_all']){
+            return [
+                'recursosNecesarios' => $recursosNecesarios,
+                'promedioRecursos'=>$promedioRecursos
+                
+            ];
+        }else{
+            return [
+                'recursosNecesarios' => $recursosNecesarios,
+                'promedioRecursos'=>$promedioRecursos,
+                'pagination' => [
+                    'total'        => $recursosNecesarios->total(),
+                    'current_page' => $recursosNecesarios->currentPage(),
+                    'per_page'     => $recursosNecesarios->perPage(),
+                    'last_page'    => $recursosNecesarios->lastPage(),
+                    'from'         => $recursosNecesarios->firstItem(),
+                    'to'           => $recursosNecesarios->lastItem(),
+                ],   
+            ];
+        }
         
-        return ['recursosNecesarios' => $recursosNecesarios, 'promedioRecursos'=>$promedioRecursos];
+        
    
     }
 }
