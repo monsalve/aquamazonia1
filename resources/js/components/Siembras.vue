@@ -480,483 +480,483 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import { Form, HasError, AlertError } from 'vform'
-    
-  Vue.component(HasError.name, HasError)
-  Vue.component(AlertError.name, AlertError)
-    
-  export default {
-    data(){
-      return {        
-        form: new Form({
-          id : '',
-          fecha_inicio:'',
-          nombre_siembra:'',
-          id_contenedor:'',
-          id_siembra: '',
-          id_recurso : 0,
-          id_registro:'',
-          id_alimento :'',
-          tipo_actividad : '1',
-          fecha_ra : '',
-          minutos_hombre : '',
-          cant_manana : '',
-          cant_tarde : '',
-          conv_alimenticia : '',
-          detalles : ''          
-        }),
-        editandoAlimento : 0,
-        fechaActual: [],
-        ver_registros : 1,
-        id_edita : '',
-        itemRegistro : [],
-        newLote:'',
-        newEspecie: '',
-        newCantidad: '',
-        newPeso:'',
-        listadoEspecies:[],
-        listadoContenedores: [],
-        listado : [],
-        listadoItems : [],
-        listadoSiembras : [],
-        listadoRegistros: [],
-        nombresEspecies : [],
-        listadoAlimentos:[],
-        listadoRN :[],
-        pecesxSiembra: [],
-        lotes :[],
-        // Registros
-        id_siembra:'',
-        id_especie : '',        
-        fecha_registro:'',
-        
-        tipo_registro:'',
-        peso_ganado:'',
-        mortalidad:'',
-        biomasa:'',
-        cantidad:'',
-        
-        aux_lote:'',
-        aux_cantidad:'',
-        aux_peso_inicial:'',
-        id_edit_item:'',
-        
-        id_siembra:'',
-        mortalidad_inicial : '',
-        idSiembraRegistro:'',
-        idSiembraR: '',
-        // Finalización de siembra
-        ini_descanso:'',
-        fin_descanso:'',
-        id_finalizar: '',
-        estados: [],
-        tipoRegistro : [],
+import Vue from 'vue'
+import { Form, HasError, AlertError } from 'vform'
+  
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+  
+export default {
+  data(){
+    return {        
+      form: new Form({
+        id : '',
+        fecha_inicio:'',
+        nombre_siembra:'',
+        id_contenedor:'',
+        id_siembra: '',
+        id_recurso : 0,
+        id_registro:'',
+        id_alimento :'',
+        tipo_actividad : '1',
+        fecha_ra : '',
+        minutos_hombre : '',
+        cant_manana : '',
+        cant_tarde : '',
+        conv_alimenticia : '',
+        detalles : ''          
+      }),
+      editandoAlimento : 0,
+      fechaActual: [],
+      ver_registros : 1,
+      id_edita : '',
+      itemRegistro : [],
+      newLote:'',
+      newEspecie: '',
+      newCantidad: '',
+      newPeso:'',
+      listadoEspecies:[],
+      listadoContenedores: [],
+      listado : [],
+      listadoItems : [],
+      listadoSiembras : [],
+      listadoRegistros: [],
+      nombresEspecies : [],
+      listadoAlimentos:[],
+      listadoRN :[],
+      pecesxSiembra: [],
+      lotes :[],
+      // Registros
+      id_siembra:'',
+      id_especie : '',        
+      fecha_registro:'',
+      
+      tipo_registro:'',
+      peso_ganado:'',
+      mortalidad:'',
+      biomasa:'',
+      cantidad:'',
+      
+      aux_lote:'',
+      aux_cantidad:'',
+      aux_peso_inicial:'',
+      id_edit_item:'',
+      
+      id_siembra:'',
+      mortalidad_inicial : '',
+      idSiembraRegistro:'',
+      idSiembraR: '',
+      // Finalización de siembra
+      ini_descanso:'',
+      fin_descanso:'',
+      id_finalizar: '',
+      estados: [],
+      tipoRegistro : [],
 
-        campos: {
-          camps_s: []
-        },
-        // Filtros ingresos
-        f_siembra : '',
-        f_actividad : '',
-        f_fecha_d : '',
-        f_fecha_h : ''
+      campos: {
+        camps_s: []
+      },
+      // Filtros ingresos
+      f_siembra : '',
+      f_actividad : '',
+      f_fecha_d : '',
+      f_fecha_h : ''
+      
+    }
+  },
+
+  methods:{
+    editItem(especie){
+      this.id_edit_item = especie.id_especie
+      this.aux_lote = especie.lote
+      this.aux_cantidad = especie.cantidad
+      this.aux_peso_inicial = especie.peso_inicial        
+    },
+    guardaEditItem(id){
+      let me =  this;
+      const data = {
+        'especie': this.id_edit_item,          
+        'lote': this.aux_lote,
+        'cantidad':this.aux_cantidad,
+        'cant_actual':this.aux_cantidad,
+        'peso_inicial':this.aux_peso_inicial
+      
+      }
+      axios.put('api/siembras/'+id,data)
+      .then(({data})=>{
+        this.id_edit_item = '',
+        this.aux_lote = '',
+        this.aux_cantidad = '',
+        this.aux_peso_inicial = ''
+        // console.log(response)
+      })
+    },      
+    listarEspecies(){
+      let me = this;
+      axios.get("api/especies")
+      .then(function (response){
+        me.listadoEspecies = response.data
+      })
+    },
+    listarContenedores(){
+      let me = this;
+      axios.get("api/contenedores")
+      .then(function (response){
+        me.listadoContenedores = response.data
+      })
+    },
+    
+    listarAlimentos(){
+      let me = this;
+      axios.get("api/alimentos")
+      .then(function (response){
+        me.listadoAlimentos = response.data; 
+        var auxAlimento = response.data;
+      
+      })
+    },
+    anadirItem(){
+      let me = this;
+      $('#modalSiembra').modal('show');
+      this.listarEspecies();
+      this.listarContenedores();
+      this.id_edita = '';
+      this.listadoItems = [];
+      // console.log('añadir item') 
+    },
+    editarSiembra(siembra) {
+      let me = this;
+      $('#modalSiembra').modal('show');
+      me.listarContenedores();
+      me.form.nombre_siembra = siembra.nombre_siembra;
+      me.form.id_contenedor = siembra.id_contenedor;
+      me.form.fecha_inicio = siembra.fecha_inicio;
+      me.form.id_siembra = siembra.id;
+      me.idSiembraR= siembra.id;
+      me.id_edita = siembra.id;
+      axios.get("api/especies-siembra-edita/"+siembra.id)
+      .then(function (response){
+        me.listadoEspecies = response.data.especies;      
+        me.listadoItems =  response.data.espxsiembra;      
+      })
+    },
+    editarAlimento(objeto){
+      console.log(objeto)
+      let me = this;
+      // let objeto = []
+      this.editandoAlimento = 1
+      this.form.fill(objeto);
+      
+          // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
+    },  
+    guardarEdita(objeto){
+      console.log(objeto)
+      let me =  this;
+      
+      const data = {
+        siembra: this.form, 
+        especies : this.listadoItems
+      }
+      axios.post('api/anadir-especie-siembra',data)
+      .then(({response})=>{
+        this.form.nombre_siembra = '';
+        this.form.id_contenedor = '';
+        this.form.fecha_inicio = '';
+        this.newEspecie = '';
+        this.newLote = '';
+        this.newCantidad = '';
+        this.newPeso = '';
+        this.listadoItems = [];              
+        this.listar();
+          $('#modalSiembra').modal('hide');
+      });
+    },
+    abrirCrear(id){
+      let me = this;
+      $('#modalRecursos').modal('show');
+      this.form.id_siembra = id;
+      this.idSiembraR= id;
+      
+      axios.post("api/siembras-alimentacion/"+id)
+      .then(function (response){
+        me.listadoRN = response.data.recursosNecesarios;               
+      })
+      console.log(id);
+    },
+    anadirEspecie(){
+      let me = this;
+      if(this.newEspecie != '' && this.newCantidad != '' && this.newPeso != ''){
+          me.listadoItems.push(
+          {
+            'id_especie' : this.newEspecie,
+            'lote' : this.newLote,
+            'cantidad' : this.newCantidad,
+            'peso_inicial' : this.newPeso
+          });
+        
+        const idEspecie = (element) => element.id == this.newEspecie;
+        var index = this.listadoEspecies.findIndex(idEspecie);
+        this.listadoEspecies.splice(index,1);
+        this.newEspecie = '';
+        this.newLote = '',
+        this.newCantidad = '';
+        this.newPeso = ''
+      }else{
+        alert ('Debe diligenciar todos los campos');
+      }
+    },
+    removeItem(index) {
+      console.log(index)
+      let me =  this;
+      me.listadoItems.pop(index,1)   
+      this.listadoEspecies.push({
+        'id':index,
+        'especie' : this.nombresEspecies[index]
+      });
+    },
+    nombreEspecie(){
+      let me = this;
+      axios.get("api/especies")
+      .then(function (response){
+        var auxEspecie = response.data;
+        auxEspecie.forEach(element => me.nombresEspecies[element.id] = element.especie);
+      })
+    },
+    
+    listar(){
+      let me = this;
+      this.listarEspecies();
+      this.listarAlimentos();
+      axios.get("api/siembras")
+      .then(function (response){
+        me.listadoSiembras = response.data.siembra;
+        me.pecesxSiembra = response.data.pecesSiembra;
+        me.campos = response.data.campos; 
+        me.lotes = response.data.lotes; 
+        me.fechaActual = response.data.fecha_actual
+        
+      })
+    },
+    abrirIngreso(id){
+      this.idSiembraRegistro = id;
+      let me = this;
+      this.ver_registros = 1;
+      $("#modalIngreso").modal('show');
+      
+      this.tipo_registro = 0;
+      axios.post("api/registros-siembra/"+id)
+      .then(function (response){
+        me.listadoRegistros = response.data
+      })
+    },      
+    
+    crearRegistro(id){        
+      let me = this;
+      this.ver_registros = 0;
+      // this.idSiembraRegistro = id;
+      let aux_campos = me.campos[id];
+      // console.log(me.campos);
+              
+      const data = {
+        campos : aux_campos,
+        id_siembra : id,        
+        fecha_registro : this.fecha_registro,
+        tipo_registro : this.tipo_registro,
         
       }
+      axios.post('api/registros', data)
+      .then(({response})=>{     
+        console.log(response)
+        me.aux_campos = [];          
+        me.ver_registros = 1;
+        me.abrirIngreso(id);
+        me.listar();
+      });
+    },
+    filtrarIngresos(){
+      let me = this;
+      
+      // if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+      if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad} 
+      if(this.f_fecha_d == ''){this.f_d = '-1'}else{this.f_d = this.f_fecha_d}
+      if(this.f_fecha_h == ''){this.f_h = '-1'}else{this.f_h = this.f_fecha_h}
+      
+      const data = {
+        'f_siembra' : this.idSiembraRegistro,
+        'f_actividad' : this.act,
+        'f_fecha_d' : this.f_d,
+        'f_fecha_h' : this.f_h
+      }
+      axios.post("api/filtro-registros", data)
+      .then(response=>{
+        me.listadoRegistros = response.data
+      })
     },
   
-    methods:{
-      editItem(especie){
-        this.id_edit_item = especie.id_especie
-        this.aux_lote = especie.lote
-        this.aux_cantidad = especie.cantidad
-        this.aux_peso_inicial = especie.peso_inicial        
-      },
-      guardaEditItem(id){
-        let me =  this;
-        const data = {
-          'especie': this.id_edit_item,          
-          'lote': this.aux_lote,
-          'cantidad':this.aux_cantidad,
-          'cant_actual':this.aux_cantidad,
-          'peso_inicial':this.aux_peso_inicial
-        
-        }
-        axios.put('api/siembras/'+id,data)
-        .then(({data})=>{
-          this.id_edit_item = '',
-          this.aux_lote = '',
-          this.aux_cantidad = '',
-          this.aux_peso_inicial = ''
-          // console.log(response)
-        })
-      },      
-      listarEspecies(){
-        let me = this;
-        axios.get("api/especies")
-        .then(function (response){
-          me.listadoEspecies = response.data
-        })
-      },
-      listarContenedores(){
-        let me = this;
-        axios.get("api/contenedores")
-        .then(function (response){
-          me.listadoContenedores = response.data
-        })
-      },
-      
-      listarAlimentos(){
-        let me = this;
-        axios.get("api/alimentos")
-        .then(function (response){
-          me.listadoAlimentos = response.data; 
-          var auxAlimento = response.data;
-       
-        })
-      },
-      anadirItem(){
-        let me = this;
-        $('#modalSiembra').modal('show');
-        this.listarEspecies();
-        this.listarContenedores();
-        this.id_edita = '';
-        this.listadoItems = [];
-        // console.log('añadir item') 
-      },
-      editarSiembra(siembra) {
-        let me = this;
-        $('#modalSiembra').modal('show');
-        me.listarContenedores();
-        me.form.nombre_siembra = siembra.nombre_siembra;
-        me.form.id_contenedor = siembra.id_contenedor;
-        me.form.fecha_inicio = siembra.fecha_inicio;
-        me.form.id_siembra = siembra.id;
-        me.idSiembraR= siembra.id;
-        me.id_edita = siembra.id;
-        axios.get("api/especies-siembra-edita/"+siembra.id)
-        .then(function (response){
-          me.listadoEspecies = response.data.especies;      
-          me.listadoItems =  response.data.espxsiembra;      
-        })
-      },
-      editarAlimento(objeto){
-        console.log(objeto)
-        let me = this;
-        // let objeto = []
-        this.editandoAlimento = 1
-        this.form.fill(objeto);
-        
-            // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
-      },  
-      guardarEdita(objeto){
-        console.log(objeto)
-        let me =  this;
-       
-        const data = {
-          siembra: this.form, 
-          especies : this.listadoItems
-        }
-        axios.post('api/anadir-especie-siembra',data)
-        .then(({response})=>{
-          this.form.nombre_siembra = '';
-          this.form.id_contenedor = '';
-          this.form.fecha_inicio = '';
-          this.newEspecie = '';
-          this.newLote = '';
-          this.newCantidad = '';
-          this.newPeso = '';
-          this.listadoItems = [];              
-          this.listar();
-           $('#modalSiembra').modal('hide');
-        });
-      },
-      abrirCrear(id){
-        let me = this;
-        $('#modalRecursos').modal('show');
-        this.form.id_siembra = id;
-        this.idSiembraR= id;
-        
-        axios.post("api/siembras-alimentacion/"+id)
-        .then(function (response){
-          me.listadoRN = response.data.recursosNecesarios;               
-        })
-        console.log(id);
-      },
-      anadirEspecie(){
-        let me = this;
-        if(this.newEspecie != '' && this.newCantidad != '' && this.newPeso != ''){
-            me.listadoItems.push(
-            {
-              'id_especie' : this.newEspecie,
-              'lote' : this.newLote,
-              'cantidad' : this.newCantidad,
-              'peso_inicial' : this.newPeso
-            });
-         
-          const idEspecie = (element) => element.id == this.newEspecie;
-          var index = this.listadoEspecies.findIndex(idEspecie);
-          this.listadoEspecies.splice(index,1);
-          this.newEspecie = '';
-          this.newLote = '',
-          this.newCantidad = '';
-          this.newPeso = ''
+    finalizarSiembra(id){
+      $("#modalFinalizar").modal('show');
+      this.id_finalizar = id;
+    },
+    fechaDescanso(id){
+      let me = this;
+      if (this.ini_descanso != ''){
+        if(this.fin_descanso != ''){
+          const data = {
+            'id' : this.id_finalizar,
+            'ini_descanso' : this.ini_descanso,
+            'fin_descanso' : this.fin_descanso          
+          }         
+          axios.post('api/actualizarEstado/'+this.id_finalizar, data)
+          .then(({response})=>{
+            console.log(response);   
+            this.id_finalizar = '';
+            this.ini_descanso = '';
+            this.fin_descanso = '';
+            $('#modalFinalizar').modal('hide');
+            this.listar();
+          }); 
         }else{
-          alert ('Debe diligenciar todos los campos');
-        }
-      },
-      removeItem(index) {
-        console.log(index)
-        let me =  this;
-        me.listadoItems.pop(index,1)   
-        this.listadoEspecies.push({
-          'id':index,
-          'especie' : this.nombresEspecies[index]
-        });
-      },
-      nombreEspecie(){
-        let me = this;
-        axios.get("api/especies")
-        .then(function (response){
-          var auxEspecie = response.data;
-          auxEspecie.forEach(element => me.nombresEspecies[element.id] = element.especie);
-        })
-      },
-      
-      listar(){
-        let me = this;
-        this.listarEspecies();
-        this.listarAlimentos();
-        axios.get("api/siembras")
-        .then(function (response){
-          me.listadoSiembras = response.data.siembra;
-          me.pecesxSiembra = response.data.pecesSiembra;
-          me.campos = response.data.campos; 
-          me.lotes = response.data.lotes; 
-          me.fechaActual = response.data.fecha_actual
-          
-        })
-      },
-      abrirIngreso(id){
-        this.idSiembraRegistro = id;
-        let me = this;
-        this.ver_registros = 1;
-        $("#modalIngreso").modal('show');
-        
-        this.tipo_registro = 0;
-        axios.post("api/registros-siembra/"+id)
-        .then(function (response){
-          me.listadoRegistros = response.data
-        })
-      },      
-      
-      crearRegistro(id){        
-        let me = this;
-        this.ver_registros = 0;
-        // this.idSiembraRegistro = id;
-        let aux_campos = me.campos[id];
-        // console.log(me.campos);
-                
-        const data = {
-          campos : aux_campos,
-          id_siembra : id,        
-          fecha_registro : this.fecha_registro,
-          tipo_registro : this.tipo_registro,
-         
-        }
-        axios.post('api/registros', data)
-        .then(({response})=>{     
-          console.log(response)
-          me.aux_campos = [];          
-          me.ver_registros = 1;
-          me.abrirIngreso(id);
-          me.listar();
-        });
-      },
-      filtrarIngresos(){
-        let me = this;
-        
-        // if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
-        if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad} 
-        if(this.f_fecha_d == ''){this.f_d = '-1'}else{this.f_d = this.f_fecha_d}
-        if(this.f_fecha_h == ''){this.f_h = '-1'}else{this.f_h = this.f_fecha_h}
-        
-        const data = {
-          'f_siembra' : this.idSiembraRegistro,
-          'f_actividad' : this.act,
-          'f_fecha_d' : this.f_d,
-          'f_fecha_h' : this.f_h
-        }
-        axios.post("api/filtro-registros", data)
-        .then(response=>{
-          me.listadoRegistros = response.data
-        })
-      },
-   
-      finalizarSiembra(id){
-        $("#modalFinalizar").modal('show');
-        this.id_finalizar = id;
-      },
-      fechaDescanso(id){
-        let me = this;
-        if (this.ini_descanso != ''){
-          if(this.fin_descanso != ''){
-            const data = {
-              'id' : this.id_finalizar,
-              'ini_descanso' : this.ini_descanso,
-              'fin_descanso' : this.fin_descanso          
-            }         
-            axios.post('api/actualizarEstado/'+this.id_finalizar, data)
-            .then(({response})=>{
-              console.log(response);   
-              this.id_finalizar = '';
-              this.ini_descanso = '';
-              this.fin_descanso = '';
-              $('#modalFinalizar').modal('hide');
-              this.listar();
-            }); 
-          }else{
-            const data = {
-              'id' : this.id_finalizar,
-              'ini_descanso' : this.ini_descanso,             
-            }
-         
-            axios.post('api/actualizarEstado/'+this.id_finalizar, data)
-            .then(({response})=>{
-              console.log(response);   
-              this.id_finalizar = '';
-              this.ini_descanso = '';              
-              $('#modalFinalizar').modal('hide');
-              this.listar();
-            }); 
+          const data = {
+            'id' : this.id_finalizar,
+            'ini_descanso' : this.ini_descanso,             
           }
-        }else{
-         swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
+        
+          axios.post('api/actualizarEstado/'+this.id_finalizar, data)
+          .then(({response})=>{
+            console.log(response);   
+            this.id_finalizar = '';
+            this.ini_descanso = '';              
+            $('#modalFinalizar').modal('hide');
+            this.listar();
+          }); 
         }
-        console.log('finalizar'+this.id_finalizar);
-      
-      },
-      guardar(){
-        let me = this;
-        if(this.form.id_contenedor != '' && this.form.nombre_siembra != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0){
-            const data = {
-              siembra: this.form, 
-              especies : this.listadoItems
-            }
-            axios.post('api/siembras',data)
-            .then(({response})=>{
-              this.form.nombre_siembra = '';
-              this.form.id_contenedor = '';
-              this.form.fecha_inicio = '';
-              this.newEspecie = '';
-              this.newLote = '';
-              this.newCantidad = '';
-              this.newPeso = '';
-              this.listadoItems = [];              
-              this.listar();
-               $('#modalSiembra').modal('hide');
-            });
-          
-        }else{
-          alert('Debe diligenciar todos los campos');
-        }
-        console.log('guardar') ;
-      },
-      guardarRecursos(){
-        let me = this;      
-        if(this.editandoAlimento == 0){
-        axios.post("api/recursos-necesarios", this.form)
+      }else{
+        swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
+      }
+      console.log('finalizar'+this.id_finalizar);
+    
+    },
+    guardar(){
+      let me = this;
+      if(this.form.id_contenedor != '' && this.form.nombre_siembra != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0){
+          const data = {
+            siembra: this.form, 
+            especies : this.listadoItems
+          }
+          axios.post('api/siembras',data)
+          .then(({response})=>{
+            this.form.nombre_siembra = '';
+            this.form.id_contenedor = '';
+            this.form.fecha_inicio = '';
+            this.newEspecie = '';
+            this.newLote = '';
+            this.newCantidad = '';
+            this.newPeso = '';
+            this.listadoItems = [];              
+            this.listar();
+              $('#modalSiembra').modal('hide');
+          });
+        
+      }else{
+        alert('Debe diligenciar todos los campos');
+      }
+      console.log('guardar') ;
+    },
+    guardarRecursos(){
+      let me = this;      
+      if(this.editandoAlimento == 0){
+      axios.post("api/recursos-necesarios", this.form)
+      .then(({data})=>{
+        console.log('guardado');
+        me.listar();
+        me.abrirCrear(this.form.id_siembra);
+        swal("Excelente!", "Los datos se guardaron correctamente!", "success");
+      })}else{
+        this.form.put('api/recursos-necesarios/'+this.form.id_registro)
         .then(({data})=>{
-          console.log('guardado');
-          me.listar();
-          me.abrirCrear(this.form.id_siembra);
-          swal("Excelente!", "Los datos se guardaron correctamente!", "success");
-        })}else{
-          this.form.put('api/recursos-necesarios/'+this.form.id_registro)
+          this.form.reset()
+          this.editandoAlimento = 0
+          me.abrirCrear(this.form.id_siembra)            
+        })
+      }
+    },
+    eliminarRegistro(id, objeto){
+    
+      let me = this;
+      swal({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+        
+          const data = {
+            campos :  objeto 
+          }
+          axios.put('api/registros/'+id, data)
           .then(({data})=>{
-            this.form.reset()
-            this.editandoAlimento = 0
-            me.abrirCrear(this.form.id_siembra)            
+            me.abrirIngreso(objeto.id_siembra);
+            me.listar();
           })
         }
-      },
-      eliminarRegistro(id, objeto){
-      
-        let me = this;
-        swal({
-          title: "Estás seguro?",
-          text: "Una vez eliminado, no se puede recuperar este registro",
-          icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-          
-            const data = {
-              campos :  objeto 
-            }
-            axios.put('api/registros/'+id, data)
-            .then(({data})=>{
-              me.abrirIngreso(objeto.id_siembra);
-              me.listar();
-            })
-          }
-        });
-      },
-          
-      eliminarAlimento(objeto){
-        let me = this;
-        swal({
-          title: "Estás seguro?",
-          text: "Una vez eliminado, no se puede recuperar este registro",
-          icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            axios.delete('api/recursos-necesarios/'+objeto)
-            .then(({data})=>{
-              console.log('eliminar'+objeto);
-              me.abrirCrear(this.idSiembraR);
-              me.listar();
-              
-            })
-          }
-        });        
-      },
-     
-      eliminarSiembra(index){
-        let me = this;
-        swal({
-          title: "Estás seguro?",
-          text: "Una vez eliminado, no se puede recuperar este registro",
-          icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            axios.delete('api/siembras/'+index)
-            .then(({data})=>{
-              me.listar();              
-            })
-          }
-        });
-      }
-      
+      });
     },
-    mounted() {
-      this.listar();
-      this.nombreEspecie();
-      this.estados[0] = 'Inactivo';
-      this.estados[1] = 'Activo';
-      this.estados[2] = 'Ocupado';
-      this.estados[3] = 'Descanso';
-      this.tipoRegistro[0] = 'Muestreo';
-      this.tipoRegistro[1] = 'Pesca';
-      this.tipoRegistro[2] = 'Mortalidad Inicial'
+        
+    eliminarAlimento(objeto){
+      let me = this;
+      swal({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          axios.delete('api/recursos-necesarios/'+objeto)
+          .then(({data})=>{
+            console.log('eliminar'+objeto);
+            me.abrirCrear(this.idSiembraR);
+            me.listar();
+            
+          })
+        }
+      });        
+    },
+    
+    eliminarSiembra(index){
+      let me = this;
+      swal({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          axios.delete('api/siembras/'+index)
+          .then(({data})=>{
+            me.listar();              
+          })
+        }
+      });
     }
+    
+  },
+  mounted() {
+    this.listar();
+    this.nombreEspecie();
+    this.estados[0] = 'Inactivo';
+    this.estados[1] = 'Activo';
+    this.estados[2] = 'Ocupado';
+    this.estados[3] = 'Descanso';
+    this.tipoRegistro[0] = 'Muestreo';
+    this.tipoRegistro[1] = 'Pesca';
+    this.tipoRegistro[2] = 'Mortalidad Inicial'
   }
+}
 </script>

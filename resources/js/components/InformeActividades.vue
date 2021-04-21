@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes Actividades(Muestreo y Pesca)</div>
+                    <div class="card-header">Informes Actividades (Muestreo y Pesca)</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">
                       <div class="row mb-1">
@@ -15,7 +15,7 @@
                               <select class="form-control" id="f_siembra" v-model="f_siembra">
                                 <option value="-1" selected>Seleccionar</option>                             
                                 <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
-                              </select>
+                              </select> 
                             </div>
                             <div class="form-group col-md-2">
                               <label for="f_estado">
@@ -27,13 +27,11 @@
                                 </select>
                               </label>
                             </div>
-                            <div class="form-group col-md-2">
-                              <label for="actividad">Lote: </label>
-                              <select class="form-control" id="actividad" v-model="f_actividad" name="tipo_actividad">
-                                <option selected> Seleccionar</option>
-                                <option value="0">Muestreo</option>
-                                <option value="1">Pesca</option>
-                                <option value="2">Mortalidad Inicial</option>
+                             <div class="form-group col-md-2">
+                              <label for="lote">Lotes:</label>
+                              <select class="custom-select" id="lote" v-model="f_lote">
+                                <option value="-1">Seleccionar</option>
+                                <option :value="lote.lote" v-for="(lote, index) in listadoLotes" :key="index">{{lote.lote}}</option>                        
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -92,6 +90,7 @@
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
+                              <th>Lote</th>
                               <th>Fecha de registro</th>
                               <th>Especie</th>                              
                               <th>Tipo <br>actividad</th>
@@ -105,6 +104,7 @@
                             <tr v-for="(lr,index) in listadoRegistros" :key="index">
                               <td v-text="index+1"></td>
                               <td v-text="lr.nombre_siembra"></td>
+                              <td v-text="lr.lote"></td>
                               <td v-text="lr.fecha_registro"></td>
                               <td v-text="lr.especie"></td>
                               <td v-text="lr.nombre_registro"></td>
@@ -124,101 +124,113 @@
 </template>
 
 <script>
-  import downloadexcel from "vue-json-excel";
-  export default {
-    data(){
-    
-      return {
-        json_fields: {
-          'siembra' : 'nombre_siembra',
-          'Fecha de registro' : 'fecha_registro',
-          'Especie' : 'especie',
-          'Tipo registro' : 'nombre_registro',
-         ' Peso ganado' : 'peso_ganado',
-         ' Mortalidad' : 'mortalidad',
-          'Biomasa' : 'bioamasa',
-         ' Cantidad' : 'cantidad',
-          
-        }, 
+import downloadexcel from "vue-json-excel";
+export default {
+  data(){
+  
+    return {
+      json_fields: {
+        'siembra' : 'nombre_siembra',
+        'Fecha de registro' : 'fecha_registro',
+        'Especie' : 'especie',
+        'Tipo registro' : 'nombre_registro',
+        ' Peso ganado' : 'peso_ganado',
+        ' Mortalidad' : 'mortalidad',
+        'Biomasa' : 'bioamasa',
+        ' Cantidad' : 'cantidad',
         
-        listadoSiembras : [],
-        listadoRegistros : [],
-        listadoEspecies:[],
-        // filtros
-        f_siembra:'',
-        f_estado : '',
-        f_especie:'',
-        f_actividad : '',
-        f_fecha_d : '',
-        f_fecha_h : '',
-        f_peso_d : 0,
-        f_peso_h : 0,
-      }
+      }, 
+      
+      listadoSiembras : [],
+      listadoRegistros : [],
+      listadoEspecies:[],
+      listadoLotes : [],
+      // filtros
+      f_siembra:'',
+      f_lote : '',
+      f_estado : '',
+      f_especie:'',
+      f_actividad : '',
+      f_fecha_d : '',
+      f_fecha_h : '',
+      f_peso_d : 0,
+      f_peso_h : 0,
+    }
+  },
+  components: {
+    downloadexcel,
+  },
+  methods:{
+    async fetchData(){
+      let me = this;       
+      const response = await this.listadoRegistros
+      return this.listadoRegistros;
     },
-    components: {
-      downloadexcel,
+    listar(){
+      let me = this
+      me.listarSiembras();
+      me.listarRegistros();
+      me.listarEspecies();
+      me.listarLotes();
     },
-    methods:{
-      async fetchData(){
-        let me = this;       
-        const response = await this.listadoRegistros
-        return this.listadoRegistros;
-      },
-      listar(){
-        let me = this
-        me.listarSiembras();
-        me.listarRegistros();
-        me.listarEspecies()
-      },
-      listarSiembras(){
-        let me = this;
-        axios.get("api/siembras")
+    listarSiembras(){
+      let me = this;
+      axios.get("api/siembras")
         .then(function (response){
           me.listadoSiembras = response.data.listado_siembras;
         })
-      },
-      listarRegistros(){
-        let me = this;
-        axios.get("api/informes-registros")
-        .then(function (response){
-          me.listadoRegistros = response.data;
-        })
-      },
-      listarEspecies(){
-        let me = this;
-        axios.get("api/especies")
-        .then(function (response){
-          me.listadoEspecies = response.data
-        })
-      },
-      filtroResultados(){
-        let me = this
-      
-        if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
-        if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
-        if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad}        
-        if(this.f_peso_d == ''){this.pesod = '-1'}else{this.pesod = this.f_peso_d}
-        if(this.f_peso_h == ''){this.pesoh = '-1'}else{this.pesoh = this.f_peso_h}
-        if(this.f_fecha_d == ''){this.fec1 = '-1'}else{this.fec1 = this.f_fecha_d}
-        if(this.f_fecha_h == ''){this.fec2 = '-1'}else{this.fec2 = this.f_fecha_h}
-        
-        const data ={
-          'f_siembra' : this.smb,
-          'f_especie' : this.f_e,
-          'f_actividad':this.act,
-          'f_peso_d' : this.pesod,
-          'f_peso_h' : this.pesoh,
-          'f_fecha_d' : this.fec1,
-          'f_fecha_h' : this.fec2
-        }
-        axios.post("api/filtro-registros-siembras", data)
-        .then(response=>{
-          me.listadoRegistros = response.data;
-        });
-      },
     },
-    mounted() {
-      this.listar();
-    }
+    listarRegistros(){
+      let me = this;
+      axios.get("api/informes-registros")
+      .then(function (response){
+        me.listadoRegistros = response.data;
+      })
+    },
+    listarEspecies(){
+      let me = this;
+      axios.get("api/especies")
+      .then(function (response){
+        me.listadoEspecies = response.data
+      })
+    },
+    listarLotes(){
+      let me = this;
+      axios.get("api/listadoLotes")
+      .then(function (response){
+        me.listadoLotes = response.data;
+      })
+    },
+    filtroResultados(){
+      let me = this
+    
+      if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+      if(this.f_lote == ''){this.lot = '-1'}else{this.lot = this.f_lote}
+      if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
+      if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad}        
+      if(this.f_peso_d == ''){this.pesod = '-1'}else{this.pesod = this.f_peso_d}
+      if(this.f_peso_h == ''){this.pesoh = '-1'}else{this.pesoh = this.f_peso_h}
+      if(this.f_fecha_d == ''){this.fec1 = '-1'}else{this.fec1 = this.f_fecha_d}
+      if(this.f_fecha_h == ''){this.fec2 = '-1'}else{this.fec2 = this.f_fecha_h}
+      
+      const data ={
+        'f_siembra' : this.smb,
+        'f_lote' : this.lot,
+        'f_especie' : this.f_e,
+        'f_actividad':this.act,
+        'f_peso_d' : this.pesod,
+        'f_peso_h' : this.pesoh,
+        'f_fecha_d' : this.fec1,
+        'f_fecha_h' : this.fec2
+      }
+      axios.post("api/filtro-registros-siembras", data)
+      .then(response=>{
+        me.listadoRegistros = response.data;
+      });
+    },
+  },
+  mounted() {
+    this.listar();
   }
+}
 </script>

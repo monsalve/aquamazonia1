@@ -187,7 +187,7 @@
         let me = this;      
         this.listarEspecies();
         this.listarSiembras();
-        this.listarLotes()
+        this.listarLotes();
         axios.get("api/traer-existencias")
         .then(function (response){
           me.listadoExistencias = response.data.existencias;

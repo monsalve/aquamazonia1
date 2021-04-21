@@ -3679,8 +3679,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoSiembras: [],
       listadoRegistros: [],
       listadoEspecies: [],
+      listadoLotes: [],
       // filtros
       f_siembra: '',
+      f_lote: '',
       f_estado: '',
       f_especie: '',
       f_actividad: '',
@@ -3724,6 +3726,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       me.listarSiembras();
       me.listarRegistros();
       me.listarEspecies();
+      me.listarLotes();
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -3743,6 +3746,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoEspecies = response.data;
       });
     },
+    listarLotes: function listarLotes() {
+      var me = this;
+      axios.get("api/listadoLotes").then(function (response) {
+        me.listadoLotes = response.data;
+      });
+    },
     filtroResultados: function filtroResultados() {
       var me = this;
 
@@ -3750,6 +3759,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.smb = '-1';
       } else {
         this.smb = this.f_siembra;
+      }
+
+      if (this.f_lote == '') {
+        this.lot = '-1';
+      } else {
+        this.lot = this.f_lote;
       }
 
       if (this.f_especie == '') {
@@ -3790,6 +3805,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var data = {
         'f_siembra': this.smb,
+        'f_lote': this.lot,
         'f_especie': this.f_e,
         'f_actividad': this.act,
         'f_peso_d': this.pesod,
@@ -49372,7 +49388,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Informes Actividades(Muestreo y Pesca)")
+            _vm._v("Informes Actividades (Muestreo y Pesca)")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -49498,8 +49514,8 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-2" }, [
-                      _c("label", { attrs: { for: "actividad" } }, [
-                        _vm._v("Lote: ")
+                      _c("label", { attrs: { for: "lote" } }, [
+                        _vm._v("Lotes:")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -49509,12 +49525,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.f_actividad,
-                              expression: "f_actividad"
+                              value: _vm.f_lote,
+                              expression: "f_lote"
                             }
                           ],
-                          staticClass: "form-control",
-                          attrs: { id: "actividad", name: "tipo_actividad" },
+                          staticClass: "custom-select",
+                          attrs: { id: "lote" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -49525,29 +49541,26 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.f_actividad = $event.target.multiple
+                              _vm.f_lote = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
-                            _vm._v(" Seleccionar")
+                          _c("option", { attrs: { value: "-1" } }, [
+                            _vm._v("Seleccionar")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "0" } }, [
-                            _vm._v("Muestreo")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "1" } }, [
-                            _vm._v("Pesca")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("Mortalidad Inicial")
-                          ])
-                        ]
+                          _vm._l(_vm.listadoLotes, function(lote, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: lote.lote } },
+                              [_vm._v(_vm._s(lote.lote))]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]),
                     _vm._v(" "),
@@ -49849,6 +49862,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: { textContent: _vm._s(lr.lote) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(lr.fecha_registro) }
                         }),
                         _vm._v(" "),
@@ -49898,6 +49915,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Lote")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de registro")]),
         _vm._v(" "),
