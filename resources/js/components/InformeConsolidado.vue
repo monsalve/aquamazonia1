@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes consolidado variables de producción</div>
+                    <div class="card-header">Informe consolidado variables de producción</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">   
                       <div class="row text-left">
@@ -11,12 +11,11 @@
                       </div>
                       <div class="row">
                         <div class="form-group col-md-2">
-                          <label for="siembra">Siembras:
-                            <select class="custom-select" id="siembra" v-model="f_siembra">
-                              <option value="-1">Seleccionar</option>
-                              <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
-                            </select>
-                          </label>
+                          <label for="siembra">Siembras:</label>
+                          <select class="custom-select" id="siembra" v-model="f_siembra">
+                            <option value="-1">Seleccionar</option>
+                            <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
+                          </select>
                         </div>
                         <div class="form-group col-md-2">
                           <label for="f_estado">
@@ -151,7 +150,7 @@
         },       
         listadoExistencias : [],
         listadoEspecies : [],
-        listadoSiembras: [], 
+        listadoSiembras: [],
         imprimirRecursos:[],
         f_siembra : '',
         f_estado : '', 
@@ -175,7 +174,6 @@
         this.listarSiembras();
         axios.get("api/traer-existencias-detalle")
         .then(function (response){
-          console.log(response.data)
           me.listadoExistencias = response.data.existencias;
         })                 
       },
@@ -193,6 +191,7 @@
           me.listadoSiembras = response.data.siembra;
         })
       },
+      
       filtroSiembra(){
         let me = this;
         
@@ -210,7 +209,6 @@
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
         });
-        console.log('buscar')
       },
     },
     mounted() {

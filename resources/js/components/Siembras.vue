@@ -29,7 +29,6 @@
                               </th>
                               <th scope="col">Inicio siembra</th>
                               <th scope="col">Inicio - fin de <br> descanso estanque</th>
-                              <!-- <th scope="col">Estado</th> -->
                               <th scope="col">Fecha <br>Alimentación</th>
                               <th scope="col">Ingreso</th>
                               <th scope="col">Finalizar</th>
@@ -55,8 +54,10 @@
                               <td v-text="siembra.fecha_inicio"></td>
                               <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
                               <!-- <td v-text="estados[siembra.estado]"></td> -->
-                              <td v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'bg-warning']">
-                                {{siembra.fecha_alimento}}
+                              <td>
+                                <span v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'badge badge-warning']">
+                                  {{siembra.fecha_alimento}}
+                                </span>
                                 
                                 <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
                               </td>

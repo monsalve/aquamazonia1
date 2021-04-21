@@ -234,7 +234,8 @@ class InformeController extends Controller
             'especies_siembra.cantidad as cantidad_inicial',            
             'especie',
             'especies_siembra.id_especie as id_especie',
-            'especies_siembra.id_siembra as id_siembra',          
+            'especies_siembra.id_siembra as id_siembra',
+						'especies_siembra.lote as lote',
             'fecha_inicio',            
             'nombre_siembra',            
             'peso_inicial',
@@ -250,10 +251,6 @@ class InformeController extends Controller
              
         $var1 = 0;
         $var2 = 0;
-        $var3 = 0;
-        $var4 = 0;
-        $sal_bio = 0;
-        $sal_ani = 0;
         $bio_acum  = 0;
         $diff = 0 ;
         
@@ -317,29 +314,32 @@ class InformeController extends Controller
         $c3 = "siembras.id"; $op2 = '!='; $c4 = '-1';
         $c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
         $c7 = "siembras.id"; $op4 = '!='; $c8 = '-1';
-        $c9 = "especies_siembra.peso_actual"; $op5 = '>='; $c10 = '0';
-        $c11 = "especies_siembra.peso_actual"; $op6 = '>='; $c12 = '0';
+       	$op5 = '>='; $c10 = '0';
+        $op6 = '>='; $c12 = '0';
+				$op7 = '!='; $c14 = '-1';
         
         if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
         if($request['f_especie']!='-1'){$c3="especies.id"; $op2='='; $c4= $request['f_especie'];}
         if($request['f_inicio_d']!='-1'){$c5="fecha_inicio"; $op3='>='; $c6= $request['f_inicio_d'];}
         if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
-        if($request['f_peso_d']!='-1'){$c9="peso_actual"; $op5='>='; $c10= $request['f_peso_d'];}
-        if($request['f_peso_h']!='-1'){$c11="peso_actual"; $op6='<='; $c12= $request['f_peso_h'];}
+        if($request['f_peso_d']!='-1'){$op5='>='; $c10= $request['f_peso_d'];}
+        if($request['f_peso_h']!='-1'){$op6='<='; $c12= $request['f_peso_h'];}
+				if($request['f_lote']!='-1'){$op7='='; $c14= $request['f_lote'];}
         
         $existencias = EspecieSiembra::select(
-            'cant_actual',
-            'contenedor',
-            'capacidad',
-            'especies_siembra.cantidad as cantidad_inicial',            
-            'especie',
-            'especies_siembra.id_especie as id_especie',
-            'especies_siembra.id_siembra as id_siembra',          
-            'fecha_inicio',            
-            'nombre_siembra',            
-            'peso_inicial',
-            'peso_actual',
-            )
+					'cant_actual',
+					'contenedor',
+					'capacidad',
+					'especies_siembra.cantidad as cantidad_inicial',            
+					'especie',
+					'especies_siembra.id_especie as id_especie',
+					'especies_siembra.id_siembra as id_siembra',
+					'especies_siembra.lote as lote',
+					'fecha_inicio',            
+					'nombre_siembra',            
+					'peso_inicial',
+					'peso_actual',
+				)
         ->orderBy('especies_siembra.id_siembra')
         ->orderBy('especies_siembra.id_especie')
         ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
@@ -352,12 +352,11 @@ class InformeController extends Controller
         ->where($c7, $op4, $c8)
         ->where('peso_actual', $op5, $c10)
         ->where('peso_actual', $op6, $c12)
+				->where('lote', $op7, $c14)
         ->get();
         
         $var1 = 0;
         $var2 = 0;
-        $var3 = 0;
-        $sal_bio = 0;
         $bio_acum  = 0;
         $int_tiempo = 0;
         $registros = Registro::select()
@@ -433,17 +432,18 @@ class InformeController extends Controller
         ->get();
         
         $existencias = EspecieSiembra::select(
-            'cant_actual',
-            'contenedor',
-            'capacidad',
-            'especies_siembra.cantidad as cantidad_inicial',
-            'especies_siembra.id_especie as id_especie',
-            'especies_siembra.id_siembra as id_siembra',          
-            'fecha_inicio',            
-            'nombre_siembra',            
-            'peso_inicial',
-            'peso_actual',
-            )
+					'cant_actual',
+					'contenedor',
+					'capacidad',
+					'especies_siembra.cantidad as cantidad_inicial',
+					'especies_siembra.id_especie as id_especie',
+					'especies_siembra.lote as lote',
+					'especies_siembra.id_siembra as id_siembra',
+					'fecha_inicio',
+					'nombre_siembra',
+					'peso_inicial',
+					'peso_actual',
+				)
         ->orderBy('especies_siembra.id_siembra')
         ->orderBy('especies_siembra.id_especie')
         ->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
@@ -476,11 +476,6 @@ class InformeController extends Controller
             ->get();
             
         $mh = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
-            
-        $sal_bio = 0;
-        $bio_acum  = 0;
-        $bio_dispo = 0;
-        $sum_bio_dispo=0;
         $aux_regs = array();
         $diff = 0 ;
         

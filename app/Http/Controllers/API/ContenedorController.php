@@ -34,18 +34,18 @@ class ContenedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $val = $request->validate([
-            'contenedor' => 'required',            
-            'capacidad' => 'required',
-            'estado' => 'required'
-            
-        ]);
-        $contenedor = Contenedor::create([
-            'contenedor' => $request['contenedor'],            
-            'capacidad' => $request['capacidad'],
-            'estado' => $request['estado']
-        ]);
+			//
+			$val = $request->validate([
+					'contenedor' => 'required',            
+					'capacidad' => 'required',
+					'estado' => 'required'
+					
+			]);
+			$contenedor = Contenedor::create([
+					'contenedor' => $request['contenedor'],            
+					'capacidad' => $request['capacidad'],
+					'estado' => $request['estado']
+			]);
     }
 
     /**
