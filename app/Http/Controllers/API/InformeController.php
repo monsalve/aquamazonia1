@@ -538,7 +538,9 @@ class InformeController extends Controller
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
                             $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
                             $siembras[$i]->porc_supervivencia_final = (( $siembras[$i]->salida_animales * 100) / $siembras[$i]->cantidad_inicial);
+														$siembras[$i]->densidad_inicial =($siembras[$i]->cantidad_inicial/$siembras[$i]->capacidad);
                             $siembras[$i]->densidad_final =($siembras[$i]->salida_animales/$siembras[$i]->capacidad);
+														$siembras[$i]->carga_inicial = ($siembras[$i]->biomasa_inicial/$existencias[$j]->capacidad);
                             $siembras[$i]->carga_final = ($siembras[$i]->salida_biomasa/$existencias[$j]->capacidad);
                             
                         }
@@ -605,6 +607,7 @@ class InformeController extends Controller
                 $siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
                 $siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
                 $siembras[$i]->salida_animales = number_format($siembras[$i]->salida_animales,2,',','');
+								$siembras[$i]->densidad_inicial = (number_format(( $siembras[$i]->densidad_inicial),2, ',',''));
                 $siembras[$i]->densidad_final = (number_format(( $siembras[$i]->densidad_final),2, ',',''));
                 $siembras[$i]->incremento_biomasa = number_format($siembras[$i]->incremento_biomasa,2,',','');
                 $siembras[$i]->bio_dispo_conver = number_format($siembras[$i]->bio_dispo_conver,2,',','');
@@ -617,6 +620,7 @@ class InformeController extends Controller
                 $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
                 $siembras[$i]->conversion_final = number_format($siembras[$i]->conversion_final,2,',','');
                 $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final,2,',','');
+								$siembras[$i]->carga_inicial = number_format($siembras[$i]->carga_inicial,2,',','');
                 $siembras[$i]->carga_final = number_format($siembras[$i]->carga_final,2,',','');
                 $siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso,2,',','');
                 $siembras[$i]->costo_produccion_final = number_format($siembras[$i]->costo_produccion_final,2,',','');
@@ -625,6 +629,7 @@ class InformeController extends Controller
                     "biomasa_inicial" => $siembras[$i]->biomasa_inicial,
                     "biomasa_disponible" => $siembras[$i]->biomasa_disponible,
                     'bio_dispo_conver' =>$siembras[$i]->bio_dispo_conver,
+										"carga_inicial" => $siembras[$i]->carga_inicial,
                     "carga_final" => $siembras[$i]->carga_final,
                     "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                     "cant_actual" => $siembras[$i]->cant_actual,
@@ -638,6 +643,7 @@ class InformeController extends Controller
                     "costo_produccion_final" => $siembras[$i]->costo_produccion_final,
                     'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
                     'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
+										"densidad_inicial" => $siembras[$i]->densidad_inicial,
                     "densidad_final" => $siembras[$i]->densidad_final,
                     'ganancia_peso_dia'=>$siembras[$i]->ganancia_peso_dia,
                     "fecha_inicio" => $siembras[$i]->fecha_inicio,    
@@ -801,7 +807,9 @@ class InformeController extends Controller
                             $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
                             $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
                             $siembras[$i]->porc_supervivencia_final = (( $siembras[$i]->salida_animales * 100) / $siembras[$i]->cantidad_inicial);
+														$siembras[$i]->densidad_inicial =($siembras[$i]->cantidad_inicial/$siembras[$i]->capacidad);
                             $siembras[$i]->densidad_final =($siembras[$i]->salida_animales/$siembras[$i]->capacidad);
+														$siembras[$i]->carga_inicial = ($siembras[$i]->biomasa_inicial/$existencias[$j]->capacidad);
                             $siembras[$i]->carga_final = ($siembras[$i]->salida_biomasa/$existencias[$j]->capacidad);
                         }     
                     }
@@ -877,7 +885,9 @@ class InformeController extends Controller
                 $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
                 $siembras[$i]->conversion_final = number_format($siembras[$i]->conversion_final,2,',','');
                 $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final,2,',','');
+								$siembras[$i]->densidad_inicial = number_format($siembras[$i]->densidad_inicial,2,',','');
                 $siembras[$i]->densidad_final = number_format($siembras[$i]->densidad_final,2,',','');
+								$siembras[$i]->carga_inicial = number_format($siembras[$i]->carga_inicial,2,',','');
                 $siembras[$i]->carga_final = number_format($siembras[$i]->carga_final,2,',','');
                 $siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso,2,',','');
                 $siembras[$i]->costo_produccion_final = number_format($siembras[$i]->costo_produccion_final,2,',','');
@@ -887,6 +897,7 @@ class InformeController extends Controller
                     "biomasa_inicial" => $siembras[$i]->biomasa_inicial,
                     "biomasa_disponible" => $siembras[$i]->biomasa_disponible,
                     'bio_dispo_conver' =>$siembras[$i]->bio_dispo_conver,
+										"carga_inicial" => $siembras[$i]->carga_inicial,
                     "carga_final" => $siembras[$i]->carga_final,
                     "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                     "cant_actual" => $siembras[$i]->cant_actual,
@@ -900,6 +911,7 @@ class InformeController extends Controller
                     "costo_produccion_final" => $siembras[$i]->costo_produccion_final,
                     'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
                     'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
+										"densidad_inicial" => $siembras[$i]->densidad_inicial,
                     "densidad_final" => $siembras[$i]->densidad_final,
                     'ganancia_peso_dia'=>$siembras[$i]->ganancia_peso_dia,
                     "fecha_inicio" => $siembras[$i]->fecha_inicio,    

@@ -205,6 +205,7 @@ export default {
       let me = this
     
       if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+      if(this.f_estado == ''){this.est = '-1'}else{this.est = this.f_estado}
       if(this.f_lote == ''){this.lot = '-1'}else{this.lot = this.f_lote}
       if(this.f_especie == ''){this.f_e = '-1'}else{this.f_e = this.f_especie}
       if(this.f_actividad == ''){this.act = '-1'}else{this.act = this.f_actividad}        
@@ -215,6 +216,7 @@ export default {
       
       const data ={
         'f_siembra' : this.smb,
+        'f_estado' : this.est,
         'f_lote' : this.lot,
         'f_especie' : this.f_e,
         'f_actividad':this.act,

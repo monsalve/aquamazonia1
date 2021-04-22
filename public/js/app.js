@@ -3844,6 +3844,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.smb = this.f_siembra;
       }
 
+      if (this.f_estado == '') {
+        this.est = '-1';
+      } else {
+        this.est = this.f_estado;
+      }
+
       if (this.f_lote == '') {
         this.lot = '-1';
       } else {
@@ -3888,6 +3894,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var data = {
         'f_siembra': this.smb,
+        'f_estado': this.est,
         'f_lote': this.lot,
         'f_especie': this.f_e,
         'f_actividad': this.act,
@@ -4587,6 +4594,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5151,20 +5164,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
         'Siembra': 'nombre_siembra',
-        'Salida de biomasa': 'salida_biomasa',
-        'Salida animales': 'salida_animales',
         'Costo minutos Hombre': 'costo_minutosh',
         'Costo total recursos': 'costo_total_recurso',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
         'Total Kg Alimento': 'cantidad_total_alimento',
-        'Costo de producción': 'costo_produccion'
+        'Costo de producción parcial': 'costo_produccion_parcial'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -51226,7 +51239,7 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-striped table-sm table-hover table-sm-responsive bg-light",
+                    "table table-striped table-sm table-hover table-sm-responsive bg-light table-bordered",
                   attrs: { id: "tabla-informe-consolidado" }
                 },
                 [
@@ -51272,6 +51285,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: { textContent: _vm._s(le.carga_inicial) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(le.cant_actual) }
                         }),
                         _vm._v(" "),
@@ -51308,6 +51325,10 @@ var render = function() {
                         le.salida_animales
                           ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
                           : _c("td", [_vm._v("0")]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(le.densidad_inicial) }
+                        }),
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(le.densidad_final) }
@@ -51363,6 +51384,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(le.conversion_final) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.ganancia_peso_dia)
+                          }
                         })
                       ])
                     }),
@@ -51408,6 +51435,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso Inicial")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Carga inicial")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Animales final")]),
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
@@ -51421,6 +51450,12 @@ var staticRenderFns = [
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida animales")]),
+        _vm._v(" "),
+        _c("th", [
+          _vm._v("Densidad Inicial (Animales/m"),
+          _c("sup", [_vm._v("2")]),
+          _vm._v(")")
+        ]),
         _vm._v(" "),
         _c("th", [
           _vm._v("Densidad Final (Animales/m"),
@@ -51450,7 +51485,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Conversion alimenticia parcial")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Conversion final")])
+        _c("th", [_vm._v("Conversion final")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ganancia peso día")])
       ])
     ])
   }
@@ -52062,7 +52099,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(le.costo_produccion)
+                              textContent: _vm._s(le.costo_produccion_parcial)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(le.bio_dispo_alimen)
                             }
                           })
                         ]
@@ -52138,7 +52181,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo total de siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo de producción")])
+        _c("th", [_vm._v("Costo de producción parcial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa disponible por alimento")])
       ])
     ])
   }

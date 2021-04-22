@@ -53,7 +53,8 @@
                               <th>Costo Alimentos</th>
                               <th>Total alimento (Kg)</th>
                               <th>Costo total de siembra</th>
-                              <th>Costo de producción</th>
+                              <th>Costo de producción parcial</th>
+                              <th>Biomasa disponible por alimento</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -65,7 +66,8 @@
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
-                              <td v-text="le.costo_produccion"></td>
+                              <td v-text="le.costo_produccion_parcial"></td>
+                              <td v-text="le.bio_dispo_alimen"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -84,14 +86,12 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Salida de biomasa' : 'salida_biomasa',
-          'Salida animales' : 'salida_animales',
           'Costo minutos Hombre':'costo_minutosh',
           'Costo total recursos':'costo_total_recurso',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Costo de producción' : 'costo_produccion'
+          'Costo de producción parcial' : 'costo_produccion_parcial'
         },       
         listadoExistencias : [],
         listadoEspecies : [],

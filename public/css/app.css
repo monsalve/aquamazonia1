@@ -11248,6 +11248,7 @@ table#tabla-informe-consolidado .fixed-column {
   position: sticky;
   left: 0;
   background-color: #DBE5FA;
+  z-index: 10;
 }
 
 table#tabla-informe-consolidado thead {

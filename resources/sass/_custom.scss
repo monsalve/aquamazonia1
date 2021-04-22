@@ -96,6 +96,7 @@ table#tabla-informe-consolidado {
     position: sticky;
     left: 0;
     background-color: $light-gray;
+    z-index: 10;
   }
 
   thead {

@@ -107,6 +107,9 @@ class InformeRegistroController extends Controller
         $c11 = "registros.peso_ganado"; $op6 = '>='; $c12 = '0';
         $c13 = "registros.peso_ganado"; $op7 = '>='; $c14 = '0';
 				$c15 = 'lote'; $op8 = '!='; $c16 = '-1';
+
+        $estado_siembra = '-1';
+        $filtro_estado_siembra = '-1';
         
         if($request['f_siembra']!='-1'){$c1="registros.id_siembra"; $op1='='; $c2= $request['f_siembra'];}
         if($request['f_actividad']!='-1'){$c3="tipo_registro"; $op2='='; $c4= $request['f_actividad'];}
@@ -116,6 +119,7 @@ class InformeRegistroController extends Controller
         if($request['f_peso_d']!='-1'){$c11="peso_ganado"; $op6='>='; $c12= $request['f_peso_d'];}
         if($request['f_peso_h']!='-1'){$c13="peso_ganado"; $op7='<='; $c14= $request['f_peso_h'];}
 				if($request['f_lote']!='-1'){$c15="lote"; $op8='='; $c16= $request['f_lote'];}
+        if($request['f_estado']!='-1'){$filtro_estado_siembra = '=';$estado_siembra= $request['f_estado'];}
         
         $registros = Registro::select(
 					'registros.id as id',
@@ -129,7 +133,8 @@ class InformeRegistroController extends Controller
 					'especies.especie as especie',
 					'especies.id as id_especie',
 					'nombre_siembra', 
-					'lote'
+					'lote',
+          'siembras.estado as estado'
         )
         ->join('especies',
         'registros.id_especie', 'especies.id')
@@ -145,6 +150,7 @@ class InformeRegistroController extends Controller
         ->where('peso_ganado', $op6, $c12)
         ->where('peso_ganado', $op7, $c14)
 				->where($c15, $op8, $c16)
+        ->where('siembras.estado', $filtro_estado_siembra, $estado_siembra )
         ->orderBy('fecha_registro', 'desc')        
         ->get();
                     

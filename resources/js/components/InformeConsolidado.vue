@@ -45,7 +45,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-striped table-sm table-hover table-sm-responsive bg-light" id="tabla-informe-consolidado">
+                        <table class="table table-striped table-sm table-hover table-sm-responsive bg-light table-bordered" id="tabla-informe-consolidado">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -56,6 +56,7 @@
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
                               <th>Peso Inicial</th>
+                              <th>Carga inicial</th>
                               <th>Animales final</th>
                               <th>Peso Actual</th>                                 
                               <th>Biomasa dispo</th>
@@ -63,6 +64,7 @@
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
                               <th>Salida animales</th>                              
+                              <th>Densidad Inicial (Animales/m<sup>2</sup>)</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
                               <th>Horas Hombre</th>             
@@ -74,6 +76,7 @@
                               <th>Costo produccion final</th>
                               <th>Conversion alimenticia parcial</th>
                               <th>Conversion final</th>
+                              <th>Ganancia peso día</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -86,6 +89,7 @@
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td>
                               <td v-text="le.peso_inicial+' gr'"></td>
+                              <td v-text="le.carga_inicial"></td>
                               <td v-text="le.cant_actual"></td>
                               <td v-text="le.peso_actual+' gr'"></td>                                                               
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
@@ -96,6 +100,7 @@
                               <td v-else>0</td>
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
                               <td v-else>0</td>
+                              <td v-text="le.densidad_inicial"></td>
                               <td v-text="le.densidad_final"></td>
                               <td v-text="le.carga_final"></td>
                               <td v-text="le.horas_hombre"></td>
@@ -107,6 +112,7 @@
                               <td v-text="le.costo_produccion_final"></td>
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
+                              <td v-text="le.ganancia_peso_dia"></td>
                             </tr>
                           </tbody>
                         </table>
