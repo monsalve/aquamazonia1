@@ -11160,6 +11160,19 @@ a.text-dark:focus {
   }
 }
 
+#title-app {
+  color: transparent !important;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #19191c;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+#title-app-shadow {
+  text-shadow: 0.03em 0.03em 0 #08537c;
+  text-transform: uppercase;
+}
+
 input[type=checkbox] {
   display: none;
 }
@@ -11180,6 +11193,24 @@ input[type=checkbox]:checked + label span {
 
 .form-check-label {
   font-size: 1rem;
+}
+
+@media (min-width: 992px) {
+  ul#main-navigation li.col-nav-item {
+    width: 25%;
+    float: left;
+  }
+}
+
+@media (min-width: 1040px) {
+  ul#main-navigation li.col-nav-item {
+    width: 20%;
+    float: left;
+  }
+}
+
+ul#main-navigation li.col-nav-item a.nav-link {
+  color: #08537c;
 }
 
 table#tabla-alimentacion {
