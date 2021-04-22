@@ -59,6 +59,13 @@ table#tabla-informe-consolidado {
   position: relative;
   border-collapse: collapse; 
 
+  .fixed-column {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background-color: $light-gray;
+  }
+
   thead {
     color: $primary;
     position: sticky;

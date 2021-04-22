@@ -11212,6 +11212,13 @@ table#tabla-informe-consolidado {
   border-collapse: collapse;
 }
 
+table#tabla-informe-consolidado .fixed-column {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  background-color: #DBE5FA;
+}
+
 table#tabla-informe-consolidado thead {
   color: #08537c;
   position: -webkit-sticky;

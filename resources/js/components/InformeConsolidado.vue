@@ -1,5 +1,5 @@
 <template>   
-    <div class="container-sm">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -49,7 +49,7 @@
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Siembra</th>  
+                              <th class="fixed-column">Siembra</th>  
                               <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
@@ -79,7 +79,7 @@
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>   
+                              <td class="fixed-column" v-text="le.nombre_siembra"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>
