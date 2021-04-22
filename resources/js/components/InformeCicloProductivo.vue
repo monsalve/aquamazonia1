@@ -66,7 +66,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-striped table-sm table-hover table-responsive">
+                        <table class="table table-striped table-sm table-hover table-responsive table-bordered">
                           <thead>
                             <tr>                           
                               <th>#</th>

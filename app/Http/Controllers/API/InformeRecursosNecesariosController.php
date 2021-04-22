@@ -24,22 +24,14 @@ class InformeRecursosNecesariosController extends Controller
     {
       //
       $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
-      
-      /*$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-      ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-      ->leftJoin('recursos', 'recursos_necesarios.id_recurso','recursos.id')
-      ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-      ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
-      ->where('tipo_actividad', '!=', '1')
-      ->where('estado',1)
-      ->get();*/
-      
+    
       $recursosNecesarios = RecursoNecesario::
         select(
         'actividad',
         'id_siembra',
         'tipo_actividad', 
         'nombre_siembra',
+        'siembras.estado as estado',
         DB::raw('SUM(cantidad_recurso) as cantidad_recurso'),
         DB::raw('SUM(cant_manana) as c_manana'),
         DB::raw('SUM(cant_tarde) as c_tarde'),
@@ -50,6 +42,7 @@ class InformeRecursosNecesariosController extends Controller
       ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')     
       ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
       ->groupBy('siembras.nombre_siembra')
+      ->groupBy('siembras.estado')
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
@@ -89,9 +82,11 @@ class InformeRecursosNecesariosController extends Controller
       
       $c1 = 'tipo_actividad'; $op1 = '!='; $c2 = '-1';
       $c3 = 'tipo_actividad'; $op2 = '!='; $c4 = '-1';
+      $c5 = 'estado'; $op3 = '!='; $c6 = '-1';
       
       if($request['f_siembra']!='-1'){$c1="id_siembra"; $op1='='; $c2= $request['f_siembra'];}
       if($request['f_actividad']!='-1'){$c3="tipo_actividad"; $op2='='; $c4= $request['f_actividad'];}
+      if($request['f_estado']!='-1'){$c3="estado"; $op2='='; $c4= $request['f_estado'];}
       
       $recursosNecesarios = RecursoNecesario::
         select(
@@ -99,6 +94,7 @@ class InformeRecursosNecesariosController extends Controller
         'id_siembra',
         'tipo_actividad', 
         'nombre_siembra',
+        'siembras.estado as estado',
         DB::raw('SUM(cantidad_recurso) as cantidad_recurso'),
         DB::raw('SUM(cant_manana) as c_manana'),
         DB::raw('SUM(cant_tarde) as c_tarde'),
@@ -109,11 +105,13 @@ class InformeRecursosNecesariosController extends Controller
       ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')     
       ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
       ->groupBy('siembras.nombre_siembra')
+      ->groupBy('siembras.estado')
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
       ->where($c1, $op1, $c2)
       ->where($c3, $op2, $c4)
+      ->where($c5, $op3, $c6)
       ->get();
   
       for($i=0;$i<count($recursosNecesarios); $i++){

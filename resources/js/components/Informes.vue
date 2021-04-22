@@ -29,7 +29,7 @@
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
                                 <option selected> Seleccionar</option>   
-                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
+                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -74,7 +74,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm table-responsive">
+                        <table class="table table-sm table-responsive table-bordered">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -85,13 +85,12 @@
                               <th>Minutos <br>hombre</th>
                               <th>Costo minutos </th>
                               <th>Costo Acumulado Minutos</th>
-                              <th>Recursos</th>
-                              <th>Cantidad</th>
-                              <th>Costo <br>Acumulado</th>
-                              <th>Fecha</th>
-                              <th>Alimentos</th>
-                              <th>Costo</th>
-                              <th>Costo <br>Acumulado</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Costo <br>Acumulado</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Costo</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -104,13 +103,12 @@
                               <td v-text="lrn.minutos_hombre +'min'"></td>
                               <td v-text="lrn.costo_minutosh"></td>
                               <th v-text="lrn.costo_h_acum"></th>
-                              <td v-text="lrn.recurso"></td>
-                              <td v-text="lrn.cantidad_recurso"></td>
-                              <th v-text="lrn.costo_r_acum"></th>        
-                              <td v-text="lrn.fecha_ra"></td>     
-                              <td v-text="lrn.alimento"></td>
-                              <td v-text="lrn.costo_total_alimento"></td>
-                              <th v-text="lrn.costo_a_acum"></th>
+                              <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th>
+                              <td v-text="lrn.alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
                             </tr>
                           </tbody>
                         </table>
@@ -165,6 +163,7 @@
         fecha_ra1 : '',
         fecha_ra2: '', 
         costo_acum : 0, 
+        tipoActividad : ''
         
       }
     },

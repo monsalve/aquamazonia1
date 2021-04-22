@@ -15,6 +15,16 @@
                             </select>
                           </div>
                           <div class="form-group col-md-2">
+                            <label for="f_estado">
+                              Estado:
+                              <select class="custom-select" name="estado" id="estado" v-model="f_estado">
+                                <option value="-1" disabled>--Seleccionar--</option>                              
+                                <option value="0">Inactiva</option>
+                                <option value="1">Activa</option>
+                              </select>
+                            </label>
+                          </div>
+                          <div class="form-group col-md-2">
                            <label for="f_actividad">Tipo de Actividad: </label>
                             <select class="form-control" id="f_actividad" v-model="f_actividad">
                               <option  value="-1" selected> Seleccionar</option>   
@@ -37,11 +47,12 @@
                         </form>
                       </div>
                       <div>
-                        <table class="table">
+                        <table class="table table-bordered">
                           <thead>
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
+                              <th>Estado</th>
                               <th>Tipo actividad</th>
                               <th>Horas hombre</th>
                               <th>Costo horas hombre</th>
@@ -56,6 +67,8 @@
                             <tr v-for="(lrn, index) in listado" :key="index">
                               <td v-text="index+1"></td>
                               <td v-text="lrn.nombre_siembra"></td>
+                              <td v-if="lrn.estado == 1">Activa</td>
+                              <td v-else>Inactiva</td>
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.horas_hombre+' Hr'"></td>
                               <td v-text="lrn.costo_minutos"></td>
@@ -93,6 +106,7 @@ import downloadexcel from "vue-json-excel"
         }, 
         f_actividad:'',
         f_siembra:'',
+        f_estado : '',
         listado : [],        
         listadoSiembras : [],        
         listadoActividades : [],
@@ -121,10 +135,12 @@ import downloadexcel from "vue-json-excel"
       buscarResultados(){
         let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
+        if(this.f_estado == ''){this.f_e = '-1'}else{this.f_e = this.f_estado}
         if(this.f_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.f_actividad}               
      
         const data ={
           'f_siembra' : this.f_s,
+          'f_estado' : this.f_e,
           'f_actividad' : this.actividad          
         }
         axios.post("api/filtro-recursos", data)
