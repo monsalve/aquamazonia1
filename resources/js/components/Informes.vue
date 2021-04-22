@@ -79,7 +79,7 @@
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
-                              <th>Estado siembras</th>
+                              <th>Estado siembrasw</th>
                               <th>Tipo <br>actividad</th>
                               <th>Fecha</th>
                               <th>Minutos <br>hombre</th>
@@ -135,6 +135,7 @@
             'Costo minutos hombre' : 'costo_minutosh',
             'Costo acumulado minutos' : 'costo_h_acum',
             'Recurso' : 'recurso',
+            'Cantidad Recurso' : 'cantidad_recurso',
             'Costo' : 'costo_r',
             'Costo acumulado' : 'costo_r_acum',
             'Alimento' : 'alimento',

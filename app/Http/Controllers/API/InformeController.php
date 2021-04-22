@@ -509,11 +509,19 @@ class InformeController extends Controller
                                         ->where('id_especie', $existencias[$j]->id_especie)
                                         ->first();
 
-                                    $date1 = new \DateTime($existencias[$j]->fecha_inicio);
-                                    $date2 = new \DateTime($int_tiempo['fecha_registro']);
-                                    $diff = $date1->diff($date2);
-                              
-                                    $existencias[$j]->intervalo_tiempo  = $diff->days;
+                                    if(isset($int_tiempo['fecha_registro'])){
+                                        $date1 = new \DateTime($existencias[$j]->fecha_inicio);
+                                        $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                                        $diff = $date1->diff($date2);
+
+                                        $existencias[$j]->intervalo_tiempo  = $diff->days;
+                                    }else{
+                                        $existencias[$j]->intervalo_tiempo  = 1;
+                                    }
+                                    
+
+
+                                   
                                     $existencias[$j]->salida_biomasa += $registros[$k]->biomasa; 
                             
                                     if($existencias[$j]->id_especie == $registros[$k]->id_especie){
