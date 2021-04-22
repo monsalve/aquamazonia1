@@ -30,7 +30,31 @@ input[type="checkbox"]:checked + label span {
   font-size: 1rem;
 }
 
-table#tabla-alimentacion {
+table#tabla-alimentacion { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-informe-consolidado {
+  
   text-align: left;
   position: relative;
   border-collapse: collapse; 
@@ -50,5 +74,9 @@ table#tabla-alimentacion {
       }
     }
   }
-  
+  tbody {
+    max-height: 80vh;
+    height: 80vh;
+  }
+
 }

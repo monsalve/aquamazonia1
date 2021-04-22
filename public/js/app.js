@@ -46526,12 +46526,13 @@ var render = function() {
                       value: _vm.showPagination,
                       expression: "showPagination"
                     }
-                  ]
+                  ],
+                  staticClass: "mt-5 navigation "
                 },
                 [
                   _c(
                     "ul",
-                    { staticClass: "pagination" },
+                    { staticClass: "pagination justify-content-center" },
                     [
                       _vm.pagination.current_page > 1
                         ? _c("li", { staticClass: "page-item" }, [
@@ -51205,7 +51206,8 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-striped table-sm table-hover table-responsive"
+                    "table table-striped table-sm table-hover table-sm-responsive bg-light",
+                  attrs: { id: "tabla-informe-consolidado" }
                 },
                 [
                   _vm._m(1),

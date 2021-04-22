@@ -120,8 +120,8 @@
    
                 </tfoot>
               </table>
-              <nav v-show="showPagination">
-                <ul class="pagination">
+              <nav v-show="showPagination" class="mt-5 navigation ">
+                <ul class="pagination justify-content-center">
                   <li class="page-item" v-if="pagination.current_page > 1">
                     <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
                   </li>
