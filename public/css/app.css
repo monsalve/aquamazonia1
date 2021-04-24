@@ -11195,6 +11195,17 @@ input[type=checkbox]:checked + label span {
   font-size: 1rem;
 }
 
+ul#main-navigation li.col-nav-item::before {
+  content: "";
+}
+
+@media (min-width: 768px) {
+  ul#main-navigation li.col-nav-item {
+    width: 33.3%;
+    float: left;
+  }
+}
+
 @media (min-width: 992px) {
   ul#main-navigation li.col-nav-item {
     width: 25%;

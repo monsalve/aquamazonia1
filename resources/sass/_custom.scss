@@ -45,6 +45,14 @@ input[type="checkbox"]:checked + label span {
 
 ul#main-navigation {
   li.col-nav-item {
+    &::before {
+      content: '';
+    }
+
+    @media (min-width: 768px) {  
+      width: 33.3%;
+      float: left;
+    }
 
     @media (min-width: 992px) {  
       width: 25%;

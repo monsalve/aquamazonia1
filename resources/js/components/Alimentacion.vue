@@ -337,8 +337,7 @@ import downloadexcel from "vue-json-excel"
         }
         axios.post("api/searchResults", data)
         .then(response=>{
-          console.log(response.data)
-          
+
           me.promedios = response.data.promedioRecursos;
 
           if(response.data.pagination) {
@@ -400,7 +399,6 @@ import downloadexcel from "vue-json-excel"
         let me = this;        
         this.form.post("api/recursos-necesarios")
         .then(({data})=>{
-          console.log('guardado');
           me.listar();
          $('#modalRecursos').modal('hide');
         })
@@ -418,7 +416,6 @@ import downloadexcel from "vue-json-excel"
           if (willDelete) {
             axios.delete('api/recursos-necesarios/'+objeto)
             .then(({data})=>{
-              console.log('eliminar'+objeto);
               me.listar();
               
             })
@@ -438,7 +435,6 @@ import downloadexcel from "vue-json-excel"
       this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();
-      console.log('Component mounted.')
     }
   }
 </script>

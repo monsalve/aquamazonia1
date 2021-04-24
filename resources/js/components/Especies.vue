@@ -109,7 +109,6 @@
                 this.form.post('api/especies')
                     .then(({data})=>{
                       editando: 0,
-                      console.log(data);                        
                       me.listar();
                       $('#modalEspecies').modal('hide');
                       me.form.especie = '';
@@ -139,13 +138,11 @@
                 let me = this;
                 this.form.put('api/especies/'+this.form.id)
                     .then(({data})=>{
-                        console.log(data);   
                     
                         $('#modalEspecies').modal('hide');
                         me.listar();
                     })
           
-                console.log('editando')
             },
             eliminar(index){
                 let me = this;
@@ -161,7 +158,6 @@
                         me.form.delete('api/especies/'+index)
                         .then(({data})=>{
                             me.listar();
-                            console.log('eliminar'+index)
                         })
                     }
                 });
@@ -169,8 +165,7 @@
             }
         },
         mounted() {
-            this.listar();
-            //console.log('Component mounted.')
+          this.listar();
         }
     }
 </script>

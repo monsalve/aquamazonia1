@@ -45,7 +45,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-striped table-sm table-hover table-sm-responsive bg-light table-bordered" id="tabla-informe-consolidado">
+                        <table class="table table-striped table-sm table-hover table-sm-responsive table-bordered" id="tabla-informe-consolidado">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -77,6 +77,7 @@
                               <th>Conversion alimenticia parcial</th>
                               <th>Conversion final</th>
                               <th>Ganancia peso día</th>
+                              <th><b>%</b> Supervivencia final </th>
                             </tr>
                           </thead>
                           <tbody>
@@ -113,6 +114,7 @@
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
                               <td v-text="le.ganancia_peso_dia"></td>
+                              <td v-text="le.porc_supervivencia_final"></td>
                             </tr>
                           </tbody>
                         </table>

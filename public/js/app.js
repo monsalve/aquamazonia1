@@ -2328,7 +2328,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'fecha_ra2': this.fecha2
       };
       axios.post("api/searchResults", data).then(function (response) {
-        console.log(response.data);
         me.promedios = response.data.promedioRecursos;
 
         if (response.data.pagination) {
@@ -2386,7 +2385,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.form.post("api/recursos-necesarios").then(function (_ref) {
         var data = _ref.data;
-        console.log('guardado');
         me.listar();
         $('#modalRecursos').modal('hide');
       });
@@ -2403,7 +2401,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (willDelete) {
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref2) {
             var data = _ref2.data;
-            console.log('eliminar' + objeto);
             me.listar();
           });
         }
@@ -2421,7 +2418,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listarSiembras();
     this.listarAlimentos();
     this.listarRecursos();
-    console.log('Component mounted.');
   }
 });
 
@@ -2553,9 +2549,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.post('api/alimentos').then(function (_ref) {
         var data = _ref.data;
 
-        editando: 0, console.log(data);
+        editando: 0, me.listar();
 
-        me.listar();
         $('#modalAlimentos').modal('hide');
         me.form.alimento = '';
         me.form.costo_kg = '';
@@ -2577,17 +2572,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.fill(objeto);
       this.editando = 1;
       $('#modalAlimentos').modal('show');
-      console.log('editandosssss');
     },
     editar: function editar() {
       var me = this;
       this.form.put('api/alimentos/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
         $('#modalAlimentos').modal('hide');
         me.listar();
       });
-      console.log('editando');
     },
     eliminar: function eliminar(index) {
       var me = this;
@@ -2602,14 +2594,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           me.form["delete"]('api/alimentos/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
-            console.log('eliminar' + index);
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar(); //console.log('Component mounted.')
+    this.listar();
   }
 });
 
@@ -3018,7 +3009,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.f_h
       };
       axios.post("api/filtro-parametros", data).then(function (response) {
-        console.log(response.data);
         me.listadoParametros = response.data.calidad_agua;
         me.promedios = response.data.promedios;
       });
@@ -3053,7 +3043,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       axios.get("api/listadoContenedores").then(function (response) {
         me.listadoContenedores = response.data;
-        console.log(response);
       });
     },
     mostrarParametros: function mostrarParametros(objeto) {
@@ -3088,18 +3077,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.form.id_contenedor = this.idContenedor;
       }
 
-      console.log(this.form.id_contenedor);
       this.form.post("api/parametros-calidad").then(function (_ref) {
         var data = _ref.data;
 
         editando: 0;
 
-        console.log('guardado');
         me.filtrarParametros();
         $('#modalParametros').modal('hide');
       });
     },
     editarParametros: function editarParametros(objeto) {
+      console.log(objeto);
       var me = this; // this.form.id = idContenedor;
 
       this.form.fill(objeto);
@@ -3114,11 +3102,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var data = _ref2.data;
         $('#modalParametros').modal('hide');
         me.listar();
-        console.log(data);
 
         _this3.form.reset();
       });
-      console.log('editando' + this.form.id);
     },
     eliminarParametros: function eliminarParametros(objeto) {
       var me = this;
@@ -3132,7 +3118,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (willDelete) {
           axios["delete"]('api/parametros-calidad/' + objeto).then(function (_ref3) {
             var data = _ref3.data;
-            console.log('eliminar' + objeto);
             me.listar();
           });
         }
@@ -3287,9 +3272,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.post('api/contenedores').then(function (_ref) {
         var data = _ref.data;
 
-        editando: 0, console.log(data);
+        editando: 0, me.listar();
 
-        me.listar();
         $('#modalContenedor').modal('hide');
         me.form.contenedor = '';
         me.form.capacidad = '';
@@ -3312,17 +3296,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.fill(objeto);
       this.editando = 1;
       $('#modalContenedor').modal('show');
-      console.log('editandosssss');
     },
     editar: function editar() {
       var me = this;
       this.form.put('api/contenedores/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
         $('#modalContenedor').modal('hide');
         me.listar();
       });
-      console.log('editando');
     },
     eliminar: function eliminar(index) {
       var me = this;
@@ -3337,7 +3318,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           me.form["delete"]('api/contenedores/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
-            console.log('eliminar' + index);
           });
         }
       });
@@ -3381,8 +3361,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {//console.log('Component mounted.')
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3508,9 +3487,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.post('api/especies').then(function (_ref) {
         var data = _ref.data;
 
-        editando: 0, console.log(data);
+        editando: 0, me.listar();
 
-        me.listar();
         $('#modalEspecies').modal('hide');
         me.form.especie = '';
         me.form.descripcion = '';
@@ -3537,11 +3515,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.form.put('api/especies/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
         $('#modalEspecies').modal('hide');
         me.listar();
       });
-      console.log('editando');
     },
     eliminar: function eliminar(index) {
       var me = this;
@@ -3556,14 +3532,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           me.form["delete"]('api/especies/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
-            console.log('eliminar' + index);
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar(); //console.log('Component mounted.')
+    this.listar();
   }
 });
 
@@ -3595,9 +3570,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -4085,7 +4058,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.listarEspecies();
       this.listarSiembras();
       axios.get("api/informes-biomasa-alimento").then(function (response) {
-        console.log(response.data);
         me.listadoExistencias = response.data.existencias;
       });
     },
@@ -4129,9 +4101,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.fech
       };
       axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias; // console.log(response.data);
+        me.listadoExistencias = response.data.existencias;
       });
-      console.log('buscar');
     }
   },
   mounted: function mounted() {
@@ -4474,6 +4445,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -4974,7 +4947,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.f_h
       };
       axios.post("api/filtro-parametros", data).then(function (response) {
-        console.log(response.data);
         me.listadoParametros = response.data.calidad_agua;
         me.promedios = response.data.promedios;
       });
@@ -5016,7 +4988,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         editando: 0;
 
-        console.log('guardado');
         me.listar();
         $('#modalParametros').modal('hide');
       });
@@ -5033,13 +5004,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
         $('#modalParametros').modal('hide');
         me.listar();
 
         _this2.form.reset();
       });
-      console.log('editando' + this.form.id);
     },
     eliminarParametros: function eliminarParametros(objeto) {
       var me = this;
@@ -5053,7 +5022,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (willDelete) {
           axios["delete"]('api/parametros-calidad/' + objeto).then(function (_ref3) {
             var data = _ref3.data;
-            console.log('eliminar' + objeto);
             me.listar();
           });
         }
@@ -5224,7 +5192,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.listarEspecies();
       this.listarSiembras();
       axios.get("api/informes-biomasa-alimento").then(function (response) {
-        console.log(response.data);
         me.listadoExistencias = response.data.existencias;
       });
     },
@@ -5268,9 +5235,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.fech
       };
       axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias; // console.log(response.data);
+        me.listadoExistencias = response.data.existencias;
       });
-      console.log('buscar');
     }
   },
   mounted: function mounted() {
@@ -5781,7 +5747,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.ver_registros = 1;
       $("#modalIngreso").modal('show');
-      console.log(id);
       this.idSiembraRegistro = id;
       this.tipo_registro = 0;
     },
@@ -5854,7 +5819,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           };
           axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref2) {
             var response = _ref2.response;
-            console.log(response);
             _this2.id_finalizar = '';
             _this2.ini_descanso = '';
             _this2.fin_descanso = '';
@@ -5869,7 +5833,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
           };
           axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref3) {
             var response = _ref3.response;
-            console.log(response);
             _this2.id_finalizar = '';
             _this2.ini_descanso = '';
             $('#modalFinalizar').modal('hide');
@@ -5880,8 +5843,6 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       } else {
         swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
       }
-
-      console.log('finalizar' + this.id_finalizar);
     }
   },
   mounted: function mounted() {
@@ -6121,14 +6082,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadorn = response.data.recursosNecesarios;
       });
       axios.get("api/traer-recursos").then(function (response) {
-        console.log(response.data.recursosNecesarios);
         me.imprimirRecursos = response.data.recursosNecesarios;
       });
     },
     incrementar: function incrementar(incremento) {
       this.costo_acum += parseFloat(incremento);
       var aux_acum = parseFloat(this.costo_acum);
-      console.log('aux_acum=' + aux_acum);
       return aux_acum;
     },
     listarActividades: function listarActividades() {
@@ -6213,17 +6172,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/filtroInformes", data).then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
-        me.listadors = response.data.recursosSiembras; // console.log(response.data);
+        me.listadors = response.data.recursosSiembras;
       });
       axios.post("api/informe-recursos", data).then(function (response) {
-        console.log(response.data.recursosNecesarios);
         me.imprimirRecursos = response.data.recursosNecesarios;
       });
-      console.log('buscar');
     }
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
     this.listar();
     this.listarSiembras();
     this.listarAlimentos();
@@ -6369,9 +6325,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.form.post('api/recursos').then(function (_ref) {
         var data = _ref.data;
 
-        editando: 0, console.log(data);
+        editando: 0, me.listar();
 
-        me.listar();
         $('#modalRecursos').modal('hide');
         me.form.recurso = '';
         me.form.unidad = '';
@@ -6399,11 +6354,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.form.put('api/recursos/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
         $('#modalRecursos').modal('hide');
         me.listar();
       });
-      console.log('editando');
     },
     eliminar: function eliminar(index) {
       var me = this;
@@ -6418,14 +6371,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           me.form["delete"]('api/recursos/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
-            console.log('eliminar' + index);
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar(); //console.log('Component mounted.')
+    this.listar();
   }
 });
 
@@ -6451,8 +6403,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -6680,7 +6630,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listado: [],
       promedios: [],
       listadoRS: [],
-      listadorxs: [],
       listadoSiembras: [],
       listadoAlimentos: [],
       listadoActividades: [],
@@ -6770,17 +6719,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'fecha_ra2': this.fecha2
       };
       axios.post("api/searchResults", data).then(function (response) {
-        me.listado = response.data.recursosNecesarios;
-        me.promedios = response.data.promedioRecursos;
+        if (response.data.pagination) {
+          me.listado = response.data.recursosNecesarios.data;
+        } else {
+          me.listado = response.data.recursosNecesarios;
+          me.promedios = response.data.promedioRecursos;
+        }
       });
-      console.log('buscar');
     },
     listar: function listar() {
       var me = this;
       axios.get("api/recursos-necesarios").then(function (response) {
         me.listado = response.data.recursosNecesarios;
         me.listadoRS = response.data.recursosSiembra;
-        me.listadorxs = response.data.registrosxSiembra;
         me.promedios = response.data.promedioRecursos;
       });
     },
@@ -6826,7 +6777,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.form.post("api/recursos-necesarios").then(function (_ref) {
         var data = _ref.data;
-        console.log('guardado');
         me.listar();
         $('#modalRecursos').modal('hide');
       });
@@ -6843,7 +6793,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (willDelete) {
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref2) {
             var data = _ref2.data;
-            console.log('eliminar' + objeto);
             me.listar();
           });
         }
@@ -6856,7 +6805,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listarAlimentos();
     this.listarRecursos();
     this.listarActividades();
-    console.log('Component mounted.');
   }
 });
 
@@ -7441,7 +7389,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       };
       axios.put('api/siembras/' + id, data).then(function (_ref2) {
         var data = _ref2.data;
-        _this.id_edit_item = '', _this.aux_lote = '', _this.aux_cantidad = '', _this.aux_peso_inicial = ''; // console.log(response)
+        _this.id_edit_item = '', _this.aux_lote = '', _this.aux_cantidad = '', _this.aux_peso_inicial = '';
       });
     },
     listarEspecies: function listarEspecies() {
@@ -7469,7 +7417,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.listarEspecies();
       this.listarContenedores();
       this.id_edita = '';
-      this.listadoItems = []; // console.log('añadir item') 
+      this.listadoItems = [];
     },
     editarSiembra: function editarSiembra(siembra) {
       var me = this;
@@ -7487,7 +7435,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       });
     },
     editarAlimento: function editarAlimento(objeto) {
-      console.log(objeto);
       var me = this; // let objeto = []
 
       this.editandoAlimento = 1;
@@ -7496,7 +7443,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     guardarEdita: function guardarEdita(objeto) {
       var _this2 = this;
 
-      console.log(objeto);
       var me = this;
       var data = {
         siembra: this.form,
@@ -7526,7 +7472,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       axios.post("api/siembras-alimentacion/" + id).then(function (response) {
         me.listadoRN = response.data.recursosNecesarios;
       });
-      console.log(id);
     },
     anadirEspecie: function anadirEspecie() {
       var _this3 = this;
@@ -7555,7 +7500,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       }
     },
     removeItem: function removeItem(index) {
-      console.log(index);
       var me = this;
       me.listadoItems.pop(index, 1);
       this.listadoEspecies.push({
@@ -7598,8 +7542,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.ver_registros = 0; // this.idSiembraRegistro = id;
 
-      var aux_campos = me.campos[id]; // console.log(me.campos);
-
+      var aux_campos = me.campos[id];
       var data = {
         campos: aux_campos,
         id_siembra: id,
@@ -7608,7 +7551,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       };
       axios.post('api/registros', data).then(function (_ref4) {
         var response = _ref4.response;
-        console.log(response);
         me.aux_campos = [];
         me.ver_registros = 1;
         me.abrirIngreso(id);
@@ -7664,7 +7606,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           };
           axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref5) {
             var response = _ref5.response;
-            console.log(response);
             _this4.id_finalizar = '';
             _this4.ini_descanso = '';
             _this4.fin_descanso = '';
@@ -7679,7 +7620,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           };
           axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref6) {
             var response = _ref6.response;
-            console.log(response);
             _this4.id_finalizar = '';
             _this4.ini_descanso = '';
             $('#modalFinalizar').modal('hide');
@@ -7690,8 +7630,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       } else {
         swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
       }
-
-      console.log('finalizar' + this.id_finalizar);
     },
     guardar: function guardar() {
       var _this5 = this;
@@ -7721,8 +7659,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       } else {
         alert('Debe diligenciar todos los campos');
       }
-
-      console.log('guardar');
     },
     guardarRecursos: function guardarRecursos() {
       var _this6 = this;
@@ -7732,7 +7668,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       if (this.editandoAlimento == 0) {
         axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
           var data = _ref8.data;
-          console.log('guardado');
           me.listar();
           me.abrirCrear(_this6.form.id_siembra);
           swal("Excelente!", "Los datos se guardaron correctamente!", "success");
@@ -7783,7 +7718,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         if (willDelete) {
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref11) {
             var data = _ref11.data;
-            console.log('eliminar' + objeto);
             me.abrirCrear(_this7.idSiembraR);
             me.listar();
           });
@@ -7971,9 +7905,7 @@ __webpack_require__.r(__webpack_exports__);
       if (confirm('Esta seguro de inactivar este usuario?')) {
         axios["delete"]("api/usuarios/" + id_elim).then(function (response) {
           me.listar();
-        })["catch"](function (error) {
-          console.log(error);
-        });
+        })["catch"](function (error) {});
       }
     },
     guardar: function guardar() {
@@ -7990,9 +7922,7 @@ __webpack_require__.r(__webpack_exports__);
               me.form.password = '';
               $('#agregar').modal('hide');
               me.listar();
-            })["catch"](function (error) {
-              console.log(error);
-            });
+            })["catch"](function (error) {});
           }
         } else {
           axios.put("api/usuarios/" + this.id_edita, this.form.all()).then(function (response) {
@@ -8001,19 +7931,13 @@ __webpack_require__.r(__webpack_exports__);
             me.form.password = '';
             $('#agregar').modal('hide');
             me.listar();
-          })["catch"](function (error) {
-            console.log(error);
-          });
+          })["catch"](function (error) {});
         }
-      } else {
-        console.log('errors: ', this.form.errors().all());
-      }
+      } else {}
     },
     listar: function listar() {
       var me = this;
       axios.get("api/usuarios").then(function (response) {
-        //console.log("llega");
-        //console.log(response.data);
         me.listado = response.data;
       });
     },
@@ -8026,7 +7950,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.listar(); //console.log('Component mounted.')
+    this.listar();
   }
 });
 
@@ -51240,7 +51164,7 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-striped table-sm table-hover table-sm-responsive bg-light table-bordered",
+                    "table table-striped table-sm table-hover table-sm-responsive table-bordered",
                   attrs: { id: "tabla-informe-consolidado" }
                 },
                 [
@@ -51391,6 +51315,12 @@ var render = function() {
                           domProps: {
                             textContent: _vm._s(le.ganancia_peso_dia)
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(le.porc_supervivencia_final)
+                          }
                         })
                       ])
                     }),
@@ -51488,7 +51418,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Conversion final")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ganancia peso día")])
+        _c("th", [_vm._v("Ganancia peso día")]),
+        _vm._v(" "),
+        _c("th", [_c("b", [_vm._v("%")]), _vm._v(" Supervivencia final ")])
       ])
     ])
   }
@@ -52052,7 +51984,7 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-striped table-sm table-hover table-responsive"
+                    "table table-striped table-sm table-hover table-bordered table-responsive"
                 },
                 [
                   _vm._m(3),
@@ -52428,7 +52360,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
-              _c("table", { staticClass: "table table-bordered" }, [
+              _c("table", { staticClass: "table table-bordered table-sm" }, [
                 _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v("#")]),
@@ -52459,7 +52391,9 @@ var render = function() {
                       ? _c("th", [_vm._v("Costo Alimento")])
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Costo total actividad")])
+                    _vm.tipoActividad != "Alimentación"
+                      ? _c("th", [_vm._v("Costo total actividad")])
+                      : _vm._e()
                   ])
                 ]),
                 _vm._v(" "),
@@ -52523,11 +52457,13 @@ var render = function() {
                           })
                         : _vm._e(),
                       _vm._v(" "),
-                      _c("td", {
-                        domProps: {
-                          textContent: _vm._s(lrn.costo_total_actividad)
-                        }
-                      })
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lrn.costo_total_actividad)
+                            }
+                          })
+                        : _vm._e()
                     ])
                   }),
                   0
@@ -54246,7 +54182,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-primary rounded-circle mt-4",
-                        attrs: { type: "submit" },
+                        attrs: { type: "button" },
                         on: {
                           click: function($event) {
                             return _vm.buscarResultados()

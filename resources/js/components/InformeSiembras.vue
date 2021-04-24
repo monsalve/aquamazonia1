@@ -282,7 +282,6 @@
         let me = this;
         this.ver_registros = 1;
         $("#modalIngreso").modal('show');
-        console.log(id);
         this.idSiembraRegistro = id;
         this.tipo_registro = 0;
       },      
@@ -326,7 +325,6 @@
             }         
             axios.post('api/actualizarEstado/'+this.id_finalizar, data)
             .then(({response})=>{
-              console.log(response);   
               this.id_finalizar = '';
               this.ini_descanso = '';
               this.fin_descanso = '';
@@ -341,7 +339,6 @@
          
             axios.post('api/actualizarEstado/'+this.id_finalizar, data)
             .then(({response})=>{
-              console.log(response);   
               this.id_finalizar = '';
               this.ini_descanso = '';              
               $('#modalFinalizar').modal('hide');
@@ -351,7 +348,6 @@
         }else{
          swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
         }
-        console.log('finalizar'+this.id_finalizar);
       
       },
     },

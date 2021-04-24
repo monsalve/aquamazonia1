@@ -112,17 +112,16 @@
         },
         methods: {
             guardar(){
-                let me = this;
-                this.form.post('api/alimentos')
-                    .then(({data})=>{
-                        editando: 0,
-                        console.log(data);                        
-                        me.listar();
-                        $('#modalAlimentos').modal('hide');
-                        me.form.alimento = '';
-                        me.form.costo_kg = '';
-                    })
-            },
+							let me = this;
+							this.form.post('api/alimentos')
+								.then(({data})=>{
+									editando: 0,                  
+									me.listar();
+									$('#modalAlimentos').modal('hide');
+									me.form.alimento = '';
+									me.form.costo_kg = '';
+								})
+					},
             abrirCrear(){
                 this.editando = 0;
                 this.form.reset(); 
@@ -137,22 +136,18 @@
                 });
             },
             cargaEditar(objeto){
-                let me = this;
-                this.form.fill(objeto);
-                this.editando = 1;
-                  $('#modalAlimentos').modal('show');
-                   console.log('editandosssss')
+							let me = this;
+							this.form.fill(objeto);
+							this.editando = 1;
+							$('#modalAlimentos').modal('show');
             },
             editar(){
-                let me = this;
-                this.form.put('api/alimentos/'+this.form.id)
-                    .then(({data})=>{
-                        console.log(data);   
-                        $('#modalAlimentos').modal('hide');
-                        me.listar();
-                    })
-          
-                console.log('editando')
+							let me = this;
+							this.form.put('api/alimentos/'+this.form.id)
+								.then(({data})=>{
+									$('#modalAlimentos').modal('hide');
+									me.listar();
+								})
             },
             eliminar(index){
                 let me = this;
@@ -168,7 +163,6 @@
                         me.form.delete('api/alimentos/'+index)
                         .then(({data})=>{
                             me.listar();
-                            console.log('eliminar'+index)
                         })
                     }
                 });
@@ -177,7 +171,6 @@
         },
         mounted() {
             this.listar();
-            //console.log('Component mounted.')
         }
     }
 </script>

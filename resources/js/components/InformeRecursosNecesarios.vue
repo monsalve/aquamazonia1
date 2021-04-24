@@ -47,7 +47,7 @@
                         </form>
                       </div>
                       <div>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-sm">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -60,7 +60,7 @@
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
-                              <th>Costo total actividad</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Costo total actividad</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -76,7 +76,7 @@
                               <td v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td v-text="lrn.costo_total_actividad"></td>
+                              <td v-text="lrn.costo_total_actividad" v-if="tipoActividad != 'Alimentación'"></td>
                             </tr>
                           </tbody>
                         </table>

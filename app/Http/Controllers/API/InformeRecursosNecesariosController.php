@@ -46,9 +46,11 @@ class InformeRecursosNecesariosController extends Controller
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
-      ->paginate(10);
-  
+      ->paginate(20);
+
+
       for($i=0;$i<count($recursosNecesarios); $i++){
+       
         $costo_recursos = RecursoNecesario::select()
         ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
         ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
@@ -64,7 +66,7 @@ class InformeRecursosNecesariosController extends Controller
             $recursosNecesarios[$i]->cantidad_alimento += ($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana);
             $recursosNecesarios[$i]->costo_alimento +=  (($costo_recursos[$j]->cant_tarde + $costo_recursos[$j]->cant_manana) * $costo_recursos[$j]->costo_kg);
             $recursosNecesarios[$i]->costo_minutos = (floatval($recursosNecesarios[$i]->minutos_hombre)) * $minutos_hombre->costo;
-            $recursosNecesarios[$i]->costo_total_actividad = $recursosNecesarios[$i]->costo_recurso + $recursosNecesarios[$i]->costo_minutos;
+            $recursosNecesarios[$i]->costo_total_actividad = $recursosNecesarios[$i]->costo_recurso + $recursosNecesarios[$i]->costo_minutos + $recursosNecesarios[$i]->costo_alimento;
           }
         }
        

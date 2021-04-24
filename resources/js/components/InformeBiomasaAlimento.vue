@@ -133,7 +133,6 @@
         this.listarSiembras();
         axios.get("api/informes-biomasa-alimento")
         .then(function (response){
-          console.log(response.data)
           me.listadoExistencias = response.data.existencias;
         })                 
       },
@@ -166,9 +165,7 @@
         axios.post("api/filtro-biomasa-alimento", data)
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
-          // console.log(response.data);
         });
-        console.log('buscar')
       },
     },
     mounted() {

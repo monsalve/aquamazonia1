@@ -175,8 +175,7 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-recursos');
-        const response = await this.imprimirRecursos
-        // console.log(response);
+        const response = await this.imprimirRecursos;
         return this.imprimirRecursos;
       },
       listar(){
@@ -188,14 +187,12 @@
         })         
         axios.get("api/traer-recursos")
         .then(response=>{
-          console.log(response.data.recursosNecesarios);
           me.imprimirRecursos = response.data.recursosNecesarios;
         })
       },
       incrementar(incremento){
         this.costo_acum += parseFloat(incremento);
         var aux_acum = parseFloat(this.costo_acum);
-        console.log('aux_acum=' + aux_acum);
         return aux_acum;
       },
       listarActividades(){
@@ -253,18 +250,14 @@
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
           me.listadors = response.data.recursosSiembras;
-          // console.log(response.data);
         });
         axios.post("api/informe-recursos", data)
         .then(response=>{
-          console.log(response.data.recursosNecesarios);
           me.imprimirRecursos = response.data.recursosNecesarios;
         })
-        console.log('buscar')
       },
     },
     mounted() {
-      console.log('Component mounted.');
       this.listar();
       this.listarSiembras();
       this.listarAlimentos();

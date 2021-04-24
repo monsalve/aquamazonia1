@@ -588,7 +588,7 @@ export default {
         this.aux_lote = '',
         this.aux_cantidad = '',
         this.aux_peso_inicial = ''
-        // console.log(response)
+
       })
     },      
     listarEspecies(){
@@ -622,7 +622,7 @@ export default {
       this.listarContenedores();
       this.id_edita = '';
       this.listadoItems = [];
-      // console.log('añadir item') 
+
     },
     editarSiembra(siembra) {
       let me = this;
@@ -641,7 +641,7 @@ export default {
       })
     },
     editarAlimento(objeto){
-      console.log(objeto)
+
       let me = this;
       // let objeto = []
       this.editandoAlimento = 1
@@ -650,7 +650,7 @@ export default {
           // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
     },  
     guardarEdita(objeto){
-      console.log(objeto)
+
       let me =  this;
       
       const data = {
@@ -681,7 +681,7 @@ export default {
       .then(function (response){
         me.listadoRN = response.data.recursosNecesarios;               
       })
-      console.log(id);
+
     },
     anadirEspecie(){
       let me = this;
@@ -706,7 +706,7 @@ export default {
       }
     },
     removeItem(index) {
-      console.log(index)
+
       let me =  this;
       me.listadoItems.pop(index,1)   
       this.listadoEspecies.push({
@@ -755,7 +755,7 @@ export default {
       this.ver_registros = 0;
       // this.idSiembraRegistro = id;
       let aux_campos = me.campos[id];
-      // console.log(me.campos);
+
               
       const data = {
         campos : aux_campos,
@@ -766,7 +766,7 @@ export default {
       }
       axios.post('api/registros', data)
       .then(({response})=>{     
-        console.log(response)
+
         me.aux_campos = [];          
         me.ver_registros = 1;
         me.abrirIngreso(id);
@@ -808,7 +808,7 @@ export default {
           }         
           axios.post('api/actualizarEstado/'+this.id_finalizar, data)
           .then(({response})=>{
-            console.log(response);   
+
             this.id_finalizar = '';
             this.ini_descanso = '';
             this.fin_descanso = '';
@@ -823,7 +823,7 @@ export default {
         
           axios.post('api/actualizarEstado/'+this.id_finalizar, data)
           .then(({response})=>{
-            console.log(response);   
+
             this.id_finalizar = '';
             this.ini_descanso = '';              
             $('#modalFinalizar').modal('hide');
@@ -833,7 +833,7 @@ export default {
       }else{
         swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
       }
-      console.log('finalizar'+this.id_finalizar);
+
     
     },
     guardar(){
@@ -860,14 +860,14 @@ export default {
       }else{
         alert('Debe diligenciar todos los campos');
       }
-      console.log('guardar') ;
+
     },
     guardarRecursos(){
       let me = this;      
       if(this.editandoAlimento == 0){
       axios.post("api/recursos-necesarios", this.form)
       .then(({data})=>{
-        console.log('guardado');
+
         me.listar();
         me.abrirCrear(this.form.id_siembra);
         swal("Excelente!", "Los datos se guardaron correctamente!", "success");
@@ -918,7 +918,7 @@ export default {
         if (willDelete) {
           axios.delete('api/recursos-necesarios/'+objeto)
           .then(({data})=>{
-            console.log('eliminar'+objeto);
+
             me.abrirCrear(this.idSiembraR);
             me.listar();
             
