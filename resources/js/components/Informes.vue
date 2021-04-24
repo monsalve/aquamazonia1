@@ -87,10 +87,12 @@
                               <th>Costo Acumulado Minutos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo <br>Acumulado</th>
                               <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
+                              <th>Costo actividad</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -105,10 +107,12 @@
                               <th v-text="lrn.costo_h_acum"></th>
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th>
                               <td v-text="lrn.alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
+                              <td v-text="lrn.costo_total_actividad"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -136,18 +140,16 @@
             'Costo acumulado minutos' : 'costo_h_acum',
             'Recurso' : 'recurso',
             'Cantidad Recurso' : 'cantidad_recurso',
-            'Costo' : 'costo_r',
-            'Costo acumulado' : 'costo_r_acum',
+            'Costo Recurso' : 'costo_total_recurso',
+            'Costo acumulado Recurso' : 'costo_r_acum',
             'Alimento' : 'alimento',
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
-            'Costo Alimento' : 'costo_a',
-            'Costo Total' : 'costo_total_alimento',
+            'Costo Alimento' : 'costo_total_alimento',
             'Costo acumulado Alimento' : 'costo_a_acum', 
             
         },       
         listados: [],
-        listadors:[],
         listadorn:[],
         listadoe:[],
         listadoActividades:[],
@@ -182,7 +184,6 @@
         let me = this;        
         axios.get("api/informes")
         .then(function (response){
-          me.listadors = response.data.recursosSiembras;
           me.listadorn = response.data.recursosNecesarios;
         })         
         axios.get("api/traer-recursos")
@@ -190,11 +191,7 @@
           me.imprimirRecursos = response.data.recursosNecesarios;
         })
       },
-      incrementar(incremento){
-        this.costo_acum += parseFloat(incremento);
-        var aux_acum = parseFloat(this.costo_acum);
-        return aux_acum;
-      },
+
       listarActividades(){
         let me = this;
         axios.get("api/actividades")
@@ -249,7 +246,6 @@
         axios.post("api/filtroInformes", data)
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
-          me.listadors = response.data.recursosSiembras;
         });
         axios.post("api/informe-recursos", data)
         .then(response=>{

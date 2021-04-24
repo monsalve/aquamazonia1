@@ -41,17 +41,21 @@ class InformeController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
                 
+								$recursosNecesarios[$i]->costo_total_recurso = ($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
                 $acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
-                $recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
                 
                 $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
-                
                 $acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
-                $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
     
                 $recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
                 $acumula3+=$recursosNecesarios[$i]->costo_minutosh;
-                $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
+                
+
+								$recursosNecesarios[$i]->costo_total_actividad = ($acumula + 	$acumula2 + 	$acumula3);
+
+								$recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
+								$recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
+								$recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
         }
         $recursosSiembras = RecursoSiembra::select('recursos_siembras.id as id', 'id_registro', 'id_siembra', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recursos_necesarios.id as idrn', 'nombre_siembra', 'alimento', 'recurso', 'estado','cantidad_recurso')
@@ -107,18 +111,21 @@ class InformeController extends Controller
         
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
-                
-                $acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
-                $recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
-                
-                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
-                
-                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
-                $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
-                
-                $recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
-                $acumula3+=$recursosNecesarios[$i]->costo_minutosh;
-                $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
+							$recursosNecesarios[$i]->costo_total_recurso = ($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							$acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							
+							$recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+							$acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
+	
+							$recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
+							$acumula3+=$recursosNecesarios[$i]->costo_minutosh;
+							
+
+							$recursosNecesarios[$i]->costo_total_actividad = ($acumula + 	$acumula2 + 	$acumula3);
+
+							$recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
+							$recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
+							$recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
         }
        
@@ -143,18 +150,22 @@ class InformeController extends Controller
         
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
-                
-                $acumula+=$recursosNecesarios[$i]->costo_r;
-                $recursosNecesarios[$i]->costo_r_acum = $acumula;
-                
-                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
-                
-                $acumula2+=$recursosNecesarios[$i]->costo_total_alimento;
-                $recursosNecesarios[$i]->costo_a_acum = $acumula2;
-                
-                $recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
-                $acumula3+=$recursosNecesarios[$i]->costo_minutosh;
-                $recursosNecesarios[$i]->costo_h_acum = $acumula3;
+
+							$recursosNecesarios[$i]->costo_total_recurso = ($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							$acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							
+							$recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+							$acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
+	
+							$recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
+							$acumula3+=$recursosNecesarios[$i]->costo_minutosh;
+							
+
+							$recursosNecesarios[$i]->costo_total_actividad = ($acumula + 	$acumula2 + 	$acumula3);
+
+							$recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
+							$recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
+							$recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
         }
         return ['recursosNecesarios' => $recursosNecesarios];
@@ -202,17 +213,21 @@ class InformeController extends Controller
         if(count($recursosNecesarios)>0){
             for($i=0;$i<count($recursosNecesarios); $i++){
                 
-                $acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
-                $recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
-                
-                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
-                
-                $acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
-                $recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
-                        
-                $recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
-                $acumula3+=$recursosNecesarios[$i]->costo_minutosh;
-                $recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
+							$recursosNecesarios[$i]->costo_total_recurso = ($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							$acumula+=($recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo_r);
+							
+							$recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a; 
+							$acumula2+=(($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_a);
+	
+							$recursosNecesarios[$i]->costo_minutosh = $recursosNecesarios[$i]->minutos_hombre*$minutos_hombre->costo;
+							$acumula3+=$recursosNecesarios[$i]->costo_minutosh;
+							
+
+							$recursosNecesarios[$i]->costo_total_actividad = ($acumula + 	$acumula2 + 	$acumula3);
+
+							$recursosNecesarios[$i]->costo_r_acum = number_format($acumula, 2, ',', '');
+							$recursosNecesarios[$i]->costo_a_acum = number_format($acumula2, 2, ',', '');
+							$recursosNecesarios[$i]->costo_h_acum = number_format($acumula3, 2, ',', '');
             }
         }
         
