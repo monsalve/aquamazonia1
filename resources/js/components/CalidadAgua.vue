@@ -121,7 +121,7 @@
               </div>
             </div>
             <div class="row" v-if="mostrar==0">
-              <table class="table table-striped table-responsive-sm">
+              <table class="table table-striped table-sm table-bordered table-responsive-sm">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

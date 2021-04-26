@@ -176,15 +176,15 @@
                     <td v-text="nombresEspecies[item.id_especie]"></td>
                     <td>
                       <span v-if="id_edit_item == ''" v-text="item.lote"></span>
-                      <input v-if="id_edit_item == item.id_especie" type="text" name="aux_lote" id="aux_lote" v-model="aux_lote">
+                      <input v-if="id_edit_item == item.id_especie" type="text" class="form-control" name="aux_lote" id="aux_lote" v-model="aux_lote">
                     </td>
                     <td >
                       <span v-if="id_edit_item == ''" v-text="item.cantidad"></span>
-                      <input type="text" v-if="id_edit_item == item.id_especie" name="aux_cantidad" id="aux_cantidad" v-model="aux_cantidad">
+                      <input type="number" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_cantidad" id="aux_cantidad" v-model="aux_cantidad">
                     </td>
                     <td >
                       <span v-if="id_edit_item == ''" v-text="item.peso_inicial"></span>
-                      <input type="text" v-if="id_edit_item == item.id_especie" name="aux_peso_inicial" id="aux_peso_inicial" v-model="aux_peso_inicial">                    
+                      <input type="number" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_peso_inicial" id="aux_peso_inicial" v-model="aux_peso_inicial">                    
                     </td>
                     <td>
                       <button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-danger">X</button>
@@ -222,7 +222,7 @@
             </button>
           </div>
           <div class="modal-body">          
-            <form class="row">
+            <form class="row" id="editarAlimentacion">
               <!-- <div class="col-md-6"> -->
                 <div class="form-group col-md-3 ">   
                   <label for="minutos hombre" class="">Fecha</label>
@@ -230,8 +230,8 @@
                 </div>
                
                 <div class="form-group col-md-3">
-                  <label for="Alimento" class="">Alimento</label>
-                  <select class="form-control" id="alimento" v-model="form.id_alimento" >
+                  <label for="alimento" class="">Alimento</label>
+                  <select class="form-control custom-select" id="alimento" v-model="form.id_alimento" >
                     <option>--Seleccionar--</option>
                     <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>                  
                   </select>
@@ -266,12 +266,11 @@
               </button>
             </div>
             <div class="container">              
-              <table class="table table-sm table-hover table-responsive">
+              <table class="table table-sm table-hover table-responsive table-bordered">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Tipo de <br> Actividad</th>
-                    <!-- <th>Siembras</th> -->
                     <th>Fecha</th>
                     <th><br>Alimento</th>                  
                     <th>Cantidad<br>Mañana</th>
@@ -291,14 +290,14 @@
                     <td v-text="item.cant_tarde == null ? '-' : item.cant_tarde +' kg' "></td>                     
                     <td v-text="item.detalles"></td>
                     <td>
-                      <button class="btn btn-success" @click="editarAlimento(item)">
+                      <a href="#editarAlimentacion" class="btn btn-success" @click="editarAlimento(item)">
                         <i class="fas fa-edit"></i>
-                      </button>
+                      </a>
                     </td>
                     <td>
-                      <button class="btn btn-danger" @click="eliminarAlimento(item.id_registro)">
+                      <a class="btn btn-danger" @click="eliminarAlimento(item.id_registro)">
                         <i class="fas fa-trash"></i>
-                      </button>
+                      </a>
                     </td>
       
                   </tr>
@@ -309,7 +308,7 @@
           </div>
           
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
           </div>
         </div>

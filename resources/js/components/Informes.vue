@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes Aquamazonia</div>
+                    <div class="card-header">Informes recursos y actividades Aquamazonia</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">
                       <div class="row mb-1">

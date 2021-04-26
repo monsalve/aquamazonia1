@@ -3878,6 +3878,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/filtro-registros-siembras", data).then(function (response) {
         me.listadoRegistros = response.data;
+        console.log(response);
       });
     }
   },
@@ -4130,6 +4131,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -6001,6 +6004,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6015,17 +6022,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo acumulado minutos': 'costo_h_acum',
         'Recurso': 'recurso',
         'Cantidad Recurso': 'cantidad_recurso',
-        'Costo': 'costo_r',
-        'Costo acumulado': 'costo_r_acum',
+        'Costo Recurso': 'costo_total_recurso',
+        'Costo acumulado Recurso': 'costo_r_acum',
         'Alimento': 'alimento',
         'Cantidad KG mañana': 'cant_manana',
         'Cantidad KG tarde': 'cant_tarde',
-        'Costo Alimento': 'costo_a',
-        'Costo Total': 'costo_total_alimento',
+        'Costo Alimento': 'costo_total_alimento',
         'Costo acumulado Alimento': 'costo_a_acum'
       },
       listados: [],
-      listadors: [],
       listadorn: [],
       listadoe: [],
       listadoActividades: [],
@@ -6078,17 +6083,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listar: function listar() {
       var me = this;
       axios.get("api/informes").then(function (response) {
-        me.listadors = response.data.recursosSiembras;
         me.listadorn = response.data.recursosNecesarios;
       });
       axios.get("api/traer-recursos").then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
       });
-    },
-    incrementar: function incrementar(incremento) {
-      this.costo_acum += parseFloat(incremento);
-      var aux_acum = parseFloat(this.costo_acum);
-      return aux_acum;
     },
     listarActividades: function listarActividades() {
       var me = this;
@@ -6172,7 +6171,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/filtroInformes", data).then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
-        me.listadors = response.data.recursosSiembras;
       });
       axios.post("api/informe-recursos", data).then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
@@ -6825,7 +6823,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -47798,7 +47795,10 @@ var render = function() {
               ? _c("div", { staticClass: "row" }, [
                   _c(
                     "table",
-                    { staticClass: "table table-striped table-responsive-sm" },
+                    {
+                      staticClass:
+                        "table table-striped table-sm table-bordered table-responsive-sm"
+                    },
                     [
                       _vm._m(1),
                       _vm._v(" "),
@@ -49236,60 +49236,64 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("table", { staticClass: "table table-striped" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.listado, function(especie, index) {
-                    return _c("tr", { key: especie.id }, [
-                      _c("th", {
-                        attrs: { scope: "row" },
-                        domProps: { textContent: _vm._s(index) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(especie.especie) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(especie.descripcion) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cargaEditar(especie)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-edit" })]
-                        ),
+              _c(
+                "table",
+                { staticClass: "table table-striped table-sm table-bordered" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listado, function(especie, index) {
+                      return _c("tr", { key: especie.id }, [
+                        _c("th", {
+                          attrs: { scope: "row" },
+                          domProps: { textContent: _vm._s(index) }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.eliminar(especie.id)
+                        _c("td", {
+                          domProps: { textContent: _vm._s(especie.especie) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(especie.descripcion) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.cargaEditar(especie)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash" })]
-                        )
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminar(especie.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash" })]
+                          )
+                        ])
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ])
+                    }),
+                    0
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -50034,7 +50038,10 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                { staticClass: "table table-sm table-responsive table-hover" },
+                {
+                  staticClass:
+                    "table table-sm table-responsive table-hover table-bordered"
+                },
                 [
                   _vm._m(0),
                   _vm._v(" "),
@@ -50811,6 +50818,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: { textContent: _vm._s(le.capacidad) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: { textContent: _vm._s(le.especie) }
                         }),
                         _vm._v(" "),
@@ -50932,6 +50943,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Lote")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Area")]),
         _vm._v(" "),
         _c("th", [_vm._v("Especie")]),
         _vm._v(" "),
@@ -52967,7 +52980,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Informes Aquamazonia")
+            _vm._v("Informes recursos y actividades Aquamazonia")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -53404,6 +53417,10 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
+                        ? _c("th", [_vm._v("Costo Recurso")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
                         ? _c("th", [
                             _vm._v("Costo "),
                             _c("br"),
@@ -53425,7 +53442,9 @@ var render = function() {
                             _c("br"),
                             _vm._v("Acumulado")
                           ])
-                        : _vm._e()
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Costo actividad")])
                     ])
                   ]),
                   _vm._v(" "),
@@ -53484,6 +53503,14 @@ var render = function() {
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
+                          ? _c("td", {
+                              domProps: {
+                                textContent: _vm._s(lrn.costo_total_recurso)
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.tipoActividad != "Alimentación"
                           ? _c("th", {
                               domProps: {
                                 textContent: _vm._s(lrn.costo_r_acum)
@@ -53511,7 +53538,13 @@ var render = function() {
                                 textContent: _vm._s(lrn.costo_a_acum)
                               }
                             })
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(lrn.costo_total_actividad)
+                          }
+                        })
                       ])
                     }),
                     0
@@ -55574,6 +55607,7 @@ var render = function() {
                                         expression: "aux_lote"
                                       }
                                     ],
+                                    staticClass: "form-control",
                                     attrs: {
                                       type: "text",
                                       name: "aux_lote",
@@ -55611,8 +55645,9 @@ var render = function() {
                                         expression: "aux_cantidad"
                                       }
                                     ],
+                                    staticClass: "form-control",
                                     attrs: {
-                                      type: "text",
+                                      type: "number",
                                       name: "aux_cantidad",
                                       id: "aux_cantidad"
                                     },
@@ -55648,8 +55683,9 @@ var render = function() {
                                         expression: "aux_peso_inicial"
                                       }
                                     ],
+                                    staticClass: "form-control",
                                     attrs: {
-                                      type: "text",
+                                      type: "number",
                                       name: "aux_peso_inicial",
                                       id: "aux_peso_inicial"
                                     },
@@ -55799,266 +55835,281 @@ var render = function() {
               _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("form", { staticClass: "row" }, [
-                  _c("div", { staticClass: "form-group col-md-3 " }, [
-                    _c("label", { attrs: { for: "minutos hombre" } }, [
-                      _vm._v("Fecha")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.fecha_ra,
-                          expression: "form.fecha_ra"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "date",
-                        id: "fecha_ra",
-                        "aria-describedby": "fecha_ra",
-                        placeholder: "Minutos hombre"
-                      },
-                      domProps: { value: _vm.form.fecha_ra },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "fecha_ra", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "Alimento" } }, [
-                      _vm._v("Alimento")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
+                _c(
+                  "form",
+                  { staticClass: "row", attrs: { id: "editarAlimentacion" } },
+                  [
+                    _c("div", { staticClass: "form-group col-md-3 " }, [
+                      _c("label", { attrs: { for: "minutos hombre" } }, [
+                        _vm._v("Fecha")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.id_alimento,
-                            expression: "form.id_alimento"
+                            value: _vm.form.fecha_ra,
+                            expression: "form.fecha_ra"
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { id: "alimento" },
+                        attrs: {
+                          type: "date",
+                          id: "fecha_ra",
+                          "aria-describedby": "fecha_ra",
+                          placeholder: "Minutos hombre"
+                        },
+                        domProps: { value: _vm.form.fecha_ra },
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "fecha_ra", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-3" }, [
+                      _c("label", { attrs: { for: "alimento" } }, [
+                        _vm._v("Alimento")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.id_alimento,
+                              expression: "form.id_alimento"
+                            }
+                          ],
+                          staticClass: "form-control custom-select",
+                          attrs: { id: "alimento" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "id_alimento",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", [_vm._v("--Seleccionar--")]),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoAlimentos, function(
+                            alimento,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: alimento.id } },
+                              [_vm._v(_vm._s(alimento.alimento))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _c("label", { attrs: { for: "detalles" } }, [
+                        _vm._v("Detalles")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.detalles,
+                            expression: "form.detalles"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "detalles",
+                          "aria-describedby": "detalles",
+                          placeholder: "Detalles"
+                        },
+                        domProps: { value: _vm.form.detalles },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "detalles", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-3" }, [
+                      _c("label", { attrs: { for: "minutos hombre" } }, [
+                        _vm._v("Minutos hombre")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.minutos_hombre,
+                            expression: "form.minutos_hombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          step: "any",
+                          id: "minutos_hombre",
+                          "aria-describedby": "minutos_hombre",
+                          placeholder: "Minutos hombre"
+                        },
+                        domProps: { value: _vm.form.minutos_hombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
                             _vm.$set(
                               _vm.form,
-                              "id_alimento",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
+                              "minutos_hombre",
+                              $event.target.value
                             )
                           }
                         }
-                      },
-                      [
-                        _c("option", [_vm._v("--Seleccionar--")]),
-                        _vm._v(" "),
-                        _vm._l(_vm.listadoAlimentos, function(alimento, index) {
-                          return _c(
-                            "option",
-                            { key: index, domProps: { value: alimento.id } },
-                            [_vm._v(_vm._s(alimento.alimento))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-6" }, [
-                    _c("label", { attrs: { for: "detalles" } }, [
-                      _vm._v("Detalles")
+                      })
                     ]),
                     _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.detalles,
-                          expression: "form.detalles"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "detalles",
-                        "aria-describedby": "detalles",
-                        placeholder: "Detalles"
-                      },
-                      domProps: { value: _vm.form.detalles },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-group col-md-3" }, [
+                      _c("label", { attrs: { for: "cant_manana" } }, [
+                        _vm._v("Kg Mañana")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.cant_manana,
+                            expression: "form.cant_manana"
                           }
-                          _vm.$set(_vm.form, "detalles", $event.target.value)
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          id: "kg_manana",
+                          "aria-describedby": "cant_manana",
+                          placeholder: "Kg Mañana"
+                        },
+                        domProps: { value: _vm.form.cant_manana },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "cant_manana",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "minutos hombre" } }, [
-                      _vm._v("Minutos hombre")
+                      })
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.minutos_hombre,
-                          expression: "form.minutos_hombre"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        step: "any",
-                        id: "minutos_hombre",
-                        "aria-describedby": "minutos_hombre",
-                        placeholder: "Minutos hombre"
-                      },
-                      domProps: { value: _vm.form.minutos_hombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-group col-md-3" }, [
+                      _c("label", { attrs: { for: "cant_tarde" } }, [
+                        _vm._v("Kg tarde")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.cant_tarde,
+                            expression: "form.cant_tarde"
                           }
-                          _vm.$set(
-                            _vm.form,
-                            "minutos_hombre",
-                            $event.target.value
-                          )
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          id: "cant_tarde",
+                          "aria-describedby": "cant_tarde",
+                          placeholder: "Kg tarde"
+                        },
+                        domProps: { value: _vm.form.cant_tarde },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "cant_tarde",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "cant_manana" } }, [
-                      _vm._v("Kg Mañana")
+                      })
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.cant_manana,
-                          expression: "form.cant_manana"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        id: "kg_manana",
-                        "aria-describedby": "cant_manana",
-                        placeholder: "Kg Mañana"
-                      },
-                      domProps: { value: _vm.form.cant_manana },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c("label", { attrs: { for: "conv_alimenticia" } }, [
+                        _vm._v("Conversión alimenticia teórica")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.conv_alimenticia,
+                            expression: "form.conv_alimenticia"
                           }
-                          _vm.$set(_vm.form, "cant_manana", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-3" }, [
-                    _c("label", { attrs: { for: "cant_tarde" } }, [
-                      _vm._v("Kg tarde")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.cant_tarde,
-                          expression: "form.cant_tarde"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        id: "cant_tarde",
-                        "aria-describedby": "cant_tarde",
-                        placeholder: "Kg tarde"
-                      },
-                      domProps: { value: _vm.form.cant_tarde },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          step: "any",
+                          id: "conv_alimenticia",
+                          placeholder: "Conversión alimenticia teórica"
+                        },
+                        domProps: { value: _vm.form.conv_alimenticia },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "conv_alimenticia",
+                              $event.target.value
+                            )
                           }
-                          _vm.$set(_vm.form, "cant_tarde", $event.target.value)
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "conv_alimenticia" } }, [
-                      _vm._v("Conversión alimenticia teórica")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.conv_alimenticia,
-                          expression: "form.conv_alimenticia"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        step: "any",
-                        id: "conv_alimenticia",
-                        placeholder: "Conversión alimenticia teórica"
-                      },
-                      domProps: { value: _vm.form.conv_alimenticia },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "conv_alimenticia",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
+                      })
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
@@ -56088,7 +56139,8 @@ var render = function() {
                   _c(
                     "table",
                     {
-                      staticClass: "table table-sm table-hover table-responsive"
+                      staticClass:
+                        "table table-sm table-hover table-responsive table-bordered"
                     },
                     [
                       _vm._m(4),
@@ -56137,9 +56189,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _c(
-                                "button",
+                                "a",
                                 {
                                   staticClass: "btn btn-success",
+                                  attrs: { href: "#editarAlimentacion" },
                                   on: {
                                     click: function($event) {
                                       return _vm.editarAlimento(item)
@@ -56152,7 +56205,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _c(
-                                "button",
+                                "a",
                                 {
                                   staticClass: "btn btn-danger",
                                   on: {
@@ -57093,7 +57146,7 @@ var staticRenderFns = [
           staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Close")]
+        [_vm._v("Cerrar")]
       )
     ])
   },
