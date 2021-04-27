@@ -2951,6 +2951,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       listadoSiembras: [],
       listadoParametros: [],
+      listadoParametrosExcel: [],
       listadoParametrosContenedores: [],
       listadoContenedores: [],
       promedios: [],
@@ -2974,11 +2975,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 me = _this; // const response = await axios.get('api/informe-Parametros');
 
                 _context.next = 3;
-                return _this.listadoParametros;
+                return _this.listadoParametrosExcel;
 
               case 3:
                 response = _context.sent;
-                return _context.abrupt("return", _this.listadoParametros);
+                return _context.abrupt("return", _this.listadoParametrosExcel);
 
               case 5:
               case "end":
@@ -3012,20 +3013,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoParametros = response.data.calidad_agua;
         me.promedios = response.data.promedios;
       });
+      axios.post("api/filtro-parametros-excel", data).then(function (response) {
+        me.listadoParametrosExcel = response.data.calidad_agua; // me.promedios = response.data.promedios
+      });
     },
     listar: function listar() {
-      var me = this; // this.listarParametros();
-
+      var me = this;
       this.listarSiembras();
       this.listarParametrosContenedores();
       this.listarContenedores();
-    },
-    listarParametros: function listarParametros() {
-      var me = this;
-      axios.get("api/parametros-calidad").then(function (response) {
-        me.listadoParametros = response.data.calidad_agua;
-        me.promedios = response.data.promedios;
-      });
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -3057,6 +3053,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.mostrar = 1;
         _this2.listadoParametros = response.data.calidad_agua;
         _this2.promedios = response.data.promedios;
+      });
+      axios.post('api/parametro-x-contenedor-excel/' + objeto).then(function (response) {
+        _this2.mostrar = 1;
+        _this2.listadoParametrosExcel = response.data.calidad_agua; // this.promedios = response.data.promedios
       });
     },
     ocultarParametros: function ocultarParametros() {
@@ -3101,6 +3101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
         $('#modalParametros').modal('hide');
+        me.mostrarParametros(_this3.idContenedor);
         me.listar();
 
         _this3.form.reset();
@@ -6401,6 +6402,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46944,7 +46954,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Close")]
+                  [_vm._v("Cancelar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -54486,6 +54496,8 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "minutos hombre" } }, [
                         _vm._v("Minutos hombre")
@@ -54821,6 +54833,36 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-6" }, [
+        _c("label", { attrs: { for: "hora_inicio" } }, [
+          _vm._v("Hora de inicio:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control timepicker",
+          attrs: {
+            type: "datetime-local",
+            name: "hora_inicio",
+            id: "hora_inicio"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-6" }, [
+        _c("label", { attrs: { for: "hora_fin" } }, [_vm._v("Hora de fin:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control timepicker",
+          attrs: { type: "datetime-local", name: "hora_fin", id: "hora_fin" }
+        })
+      ])
     ])
   }
 ]

@@ -140,7 +140,18 @@
                 <div class="form-group">   
                   <label for="minutos hombre">Fecha</label>
                   <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
-                </div>                
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label for="hora_inicio">Hora de inicio:</label>
+                    <input class="form-control timepicker" type="datetime-local" name="hora_inicio" id="hora_inicio">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="hora_fin">Hora de fin:</label>
+                    <input class="form-control timepicker" type="datetime-local" name="hora_fin" id="hora_fin">
+                  </div>
+
+                </div>
                 <div class="form-group">   
                   <label for="minutos hombre">Minutos hombre</label>
                   <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre">                      
@@ -155,9 +166,7 @@
                 <div class="form-group">                    
                   <label for="cantidad_recurso">Cantidad</label>
                   <input type="number" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
-                </div>
-              
-                             
+                </div>                             
                 <div class="form-group">   
                   <label for="detalles">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
