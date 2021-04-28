@@ -62,7 +62,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover">
+              <table class="table table-sm table-hover table-bordered">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -141,20 +141,31 @@
                   <label for="minutos hombre">Fecha</label>
                   <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
                 </div>
-                <div class="form-row">
+                <div class="form-row my-2" style="background:#f0ffff;" v-show="form.tipo_actividad == 12">
+                  <h5 class="col-12">Calcular tiempo</h5>
+                  <div class="form-group col-6">
+                    <label for="fecha_inicio">Fecha de inicio:</label>
+                    <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio" v-model="fecha_inicio" value="01-01-2021" >
+                  </div>
                   <div class="form-group col-6">
                     <label for="hora_inicio">Hora de inicio:</label>
-                    <input class="form-control timepicker" type="datetime-local" name="hora_inicio" id="hora_inicio">
+                    <input class="form-control" type="time" name="hora_inicio" id="hora_inicio" v-model="hora_inicio" value="12:00">
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="fecha_fin">Fecha de fin:</label>
+                    <input class="form-control" type="date" name="fecha_fin" id="fecha_fin" v-model="fecha_fin">
                   </div>
                   <div class="form-group col-6">
                     <label for="hora_fin">Hora de fin:</label>
-                    <input class="form-control timepicker" type="datetime-local" name="hora_fin" id="hora_fin">
+                    <input class="form-control" type="time" name="hora_fin" id="hora_fin" v-model="hora_fin" value="12:00">
                   </div>
-
+               
+                  <button type="button" class="btn btn-primary" @click="calcularDiferenciaTiempo()">Calcular tiempo</button>
                 </div>
                 <div class="form-group">   
                   <label for="minutos hombre">Minutos hombre</label>
-                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre">                      
+                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
                 </div>
                 <div class="form-group">
                   <label for="recurso">Recurso</label>
@@ -223,7 +234,11 @@ import downloadexcel from "vue-json-excel"
           minutos_hombre : '',
           cantidad_recurso : '',
           detalles : ''
-        }),    
+        }),
+        fecha_inicio : '',
+        hora_inicio :'07:00',
+        fecha_fin : '',
+        hora_fin :'07:00',
         t_actividad:'',
         fecha_ra1 :'',
         fecha_ra2 :'',
@@ -240,7 +255,7 @@ import downloadexcel from "vue-json-excel"
         listadoActividades : [],
         listadoRecursos:[],
         nombresRecursos:[],
-        nombresAlimentos:[]
+        nombresAlimentos:[],
       }
     },
      components: {
@@ -359,9 +374,22 @@ import downloadexcel from "vue-json-excel"
             })
           }
         });        
+      }, 
+      calcularDiferenciaTiempo() {
+        var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio);
+        // el evento cuyo tiempo ha transcurrido aquí:
+        var fin = new Date(this.fecha_fin + ' ' + this.hora_fin);
+        var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
+        var tiempoMinutos = transcurso / 60000;
+        if(transcurso > 0){
+          this.form.minutos_hombre = tiempoMinutos;
+        }
+        //console.log(transcurso / 60000);//minutos
+        //console.log(transcurso / 3600000); //horas
       }
     },
     mounted() {
+     
       this.listar();
       this.listarSiembras();
       this.listarAlimentos();

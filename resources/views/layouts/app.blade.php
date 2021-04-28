@@ -79,7 +79,7 @@
                                 <router-link class="nav-link" to="/informes-produccion">Informes Producción</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
-                                <router-link class="nav-link" to="/calidad-agua">Registrar parametros </br> de calidad  del Agua</router-link>
+                                <router-link class="nav-link" to="/calidad-agua">Registrar parametros de calidad  del Agua</router-link>
                             </li>
                             <!-- <li class="nav-item col-nav-item ">
                                 <router-link class="nav-link" to="/informes">Informes</router-link>

@@ -6600,6 +6600,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6627,6 +6638,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cantidad_recurso: '',
         detalles: ''
       }),
+      fecha_inicio: '',
+      hora_inicio: '07:00',
+      fecha_fin: '',
+      hora_fin: '07:00',
       t_actividad: '',
       fecha_ra1: '',
       fecha_ra2: '',
@@ -6805,6 +6820,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         }
       });
+    },
+    calcularDiferenciaTiempo: function calcularDiferenciaTiempo() {
+      var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio); // el evento cuyo tiempo ha transcurrido aquí:
+
+      var fin = new Date(this.fecha_fin + ' ' + this.hora_fin);
+      var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
+
+      var tiempoMinutos = transcurso / 60000;
+
+      if (transcurso > 0) {
+        this.form.minutos_hombre = tiempoMinutos;
+      } //console.log(transcurso / 60000);//minutos
+      //console.log(transcurso / 3600000); //horas
+
     }
   },
   mounted: function mounted() {
@@ -54264,118 +54293,131 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
-              _c("table", { staticClass: "table table-sm table-hover" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  [
-                    _vm._l(_vm.listado, function(item, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", {
-                          domProps: { textContent: _vm._s(index + 1) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.actividad) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.nombre_siembra) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.fecha_ra) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.minutos_hombre) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(item.total_minutos_hombre)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.recurso) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(item.cantidad_recurso)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.costo) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(item.costo_total_recurso)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(item.detalles) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              on: {
-                                click: function($event) {
-                                  return _vm.eliminarRegistro(item.id_registro)
+              _c(
+                "table",
+                { staticClass: "table table-sm table-hover table-bordered" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm._l(_vm.listado, function(item, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", {
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.actividad) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.nombre_siembra)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.fecha_ra) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.minutos_hombre)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.total_minutos_hombre)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.recurso) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.cantidad_recurso)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.costo) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(item.costo_total_recurso)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(item.detalles) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarRegistro(
+                                      item.id_registro
+                                    )
+                                  }
                                 }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-trash" })]
-                          )
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ])
                         ])
+                      }),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c(
+                          "th",
+                          {
+                            staticClass: "text-right",
+                            attrs: { colspan: "4" }
+                          },
+                          [_vm._v("TOTAL:")]
+                        ),
+                        _vm._v(" "),
+                        _c("th", {
+                          domProps: { textContent: _vm._s(_vm.promedios.tmh) }
+                        }),
+                        _vm._v(" "),
+                        _c("th", {
+                          domProps: { textContent: _vm._s(_vm.promedios.ttmh) }
+                        }),
+                        _vm._v(" "),
+                        _c("th"),
+                        _vm._v(" "),
+                        _c("th", {
+                          domProps: { textContent: _vm._s(_vm.promedios.tcr) }
+                        }),
+                        _vm._v(" "),
+                        _c("th", {
+                          domProps: { textContent: _vm._s(_vm.promedios.tc) }
+                        }),
+                        _vm._v(" "),
+                        _c("th", {
+                          domProps: { textContent: _vm._s(_vm.promedios.ctr) }
+                        }),
+                        _vm._v(" "),
+                        _c("th"),
+                        _vm._v(" "),
+                        _c("th")
                       ])
-                    }),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c(
-                        "th",
-                        { staticClass: "text-right", attrs: { colspan: "4" } },
-                        [_vm._v("TOTAL:")]
-                      ),
-                      _vm._v(" "),
-                      _c("th", {
-                        domProps: { textContent: _vm._s(_vm.promedios.tmh) }
-                      }),
-                      _vm._v(" "),
-                      _c("th", {
-                        domProps: { textContent: _vm._s(_vm.promedios.ttmh) }
-                      }),
-                      _vm._v(" "),
-                      _c("th"),
-                      _vm._v(" "),
-                      _c("th", {
-                        domProps: { textContent: _vm._s(_vm.promedios.tcr) }
-                      }),
-                      _vm._v(" "),
-                      _c("th", {
-                        domProps: { textContent: _vm._s(_vm.promedios.tc) }
-                      }),
-                      _vm._v(" "),
-                      _c("th", {
-                        domProps: { textContent: _vm._s(_vm.promedios.ctr) }
-                      }),
-                      _vm._v(" "),
-                      _c("th"),
-                      _vm._v(" "),
-                      _c("th")
-                    ])
-                  ],
-                  2
-                )
-              ])
+                    ],
+                    2
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -54496,7 +54538,171 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.form.tipo_actividad == 12,
+                            expression: "form.tipo_actividad == 12"
+                          }
+                        ],
+                        staticClass: "form-row my-2",
+                        staticStyle: { background: "#f0ffff" }
+                      },
+                      [
+                        _c("h5", { staticClass: "col-12" }, [
+                          _vm._v("Calcular tiempo")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "fecha_inicio" } }, [
+                            _vm._v("Fecha de inicio:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fecha_inicio,
+                                expression: "fecha_inicio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              name: "fecha_inicio",
+                              id: "fecha_inicio",
+                              value: "01-01-2021"
+                            },
+                            domProps: { value: _vm.fecha_inicio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.fecha_inicio = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "hora_inicio" } }, [
+                            _vm._v("Hora de inicio:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.hora_inicio,
+                                expression: "hora_inicio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "time",
+                              name: "hora_inicio",
+                              id: "hora_inicio",
+                              value: "12:00"
+                            },
+                            domProps: { value: _vm.hora_inicio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.hora_inicio = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "fecha_fin" } }, [
+                            _vm._v("Fecha de fin:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fecha_fin,
+                                expression: "fecha_fin"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              name: "fecha_fin",
+                              id: "fecha_fin"
+                            },
+                            domProps: { value: _vm.fecha_fin },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.fecha_fin = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "hora_fin" } }, [
+                            _vm._v("Hora de fin:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.hora_fin,
+                                expression: "hora_fin"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "time",
+                              name: "hora_fin",
+                              id: "hora_fin",
+                              value: "12:00"
+                            },
+                            domProps: { value: _vm.hora_fin },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.hora_fin = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.calcularDiferenciaTiempo()
+                              }
+                            }
+                          },
+                          [_vm._v("Calcular tiempo")]
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "minutos hombre" } }, [
@@ -54518,7 +54724,9 @@ var render = function() {
                           id: "minutos_hombre",
                           step: "any",
                           "aria-describedby": "minutos_hombre",
-                          placeholder: "Minutos hombre"
+                          placeholder: "Minutos hombre",
+                          min: "0",
+                          value: "0"
                         },
                         domProps: { value: _vm.form.minutos_hombre },
                         on: {
@@ -54833,36 +55041,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-6" }, [
-        _c("label", { attrs: { for: "hora_inicio" } }, [
-          _vm._v("Hora de inicio:")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control timepicker",
-          attrs: {
-            type: "datetime-local",
-            name: "hora_inicio",
-            id: "hora_inicio"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-6" }, [
-        _c("label", { attrs: { for: "hora_fin" } }, [_vm._v("Hora de fin:")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control timepicker",
-          attrs: { type: "datetime-local", name: "hora_fin", id: "hora_fin" }
-        })
-      ])
     ])
   }
 ]

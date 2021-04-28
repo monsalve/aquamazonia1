@@ -11167,6 +11167,13 @@ h4 {
   }
 }
 
+.card .card-header {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #08537c;
+}
+
 #title-app {
   color: transparent !important;
   -webkit-text-stroke-width: 1px;
@@ -11202,33 +11209,12 @@ input[type=checkbox]:checked + label span {
   font-size: 1rem;
 }
 
-ul#main-navigation li.col-nav-item::before {
-  content: "";
-}
-
-@media (min-width: 768px) {
-  ul#main-navigation li.col-nav-item {
-    width: 33.3%;
-    float: left;
-  }
-}
-
-@media (min-width: 992px) {
-  ul#main-navigation li.col-nav-item {
-    width: 25%;
-    float: left;
-  }
-}
-
-@media (min-width: 1040px) {
-  ul#main-navigation li.col-nav-item {
-    width: 20%;
-    float: left;
-  }
-}
-
 ul#main-navigation li.col-nav-item a.nav-link {
   color: #08537c;
+  background-color: #f0ffff;
+  border-radius: 1rem;
+  margin: 5px;
+  border-bottom: 1px solid #5bbcf0;
 }
 
 table#tabla-alimentacion {
