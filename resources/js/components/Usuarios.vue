@@ -135,16 +135,15 @@ import form from 'vuejs-form'
                 this.editando = 0;
             },
             eliminar(id_elim) {
-                let me = this;
-                if(confirm('Esta seguro de inactivar este usuario?')){
-                    axios.delete("api/usuarios/"+id_elim)
-                    .then(function (response) {                    
-                        me.listar();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                }
+							let me = this;
+							if(confirm('Esta seguro de inactivar este usuario?')){
+								axios.delete("api/usuarios/"+id_elim)
+								.then(function (response) {                    
+									me.listar();
+								})
+								.catch(function (error) {
+								});
+							}
             },
             guardar() {
                 let me = this;
@@ -163,51 +162,45 @@ import form from 'vuejs-form'
                                 me.listar();
                             })
                             .catch(function (error) {
-                                console.log(error);
                             });
                         }
                     } else { 
-                         axios.put("api/usuarios/"+this.id_edita,this.form.all())
-                            .then(function (response) {                                
-                                me.form.email='';
-                                me.form.name='';
-                                me.form.password='';
-                                $('#agregar').modal('hide');
-                                me.listar();
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
+											axios.put("api/usuarios/"+this.id_edita,this.form.all())
+												.then(function (response) {                                
+													me.form.email='';
+													me.form.name='';
+													me.form.password='';
+													$('#agregar').modal('hide');
+													me.listar();
+												})
+												.catch(function (error) {
+												});
                         
                     }
                 }
                 else 
                 {
-                    console.log('errors: ', this.form.errors().all());
                 }
             },
             listar(){
-                let me = this;
-                 axios.get("api/usuarios")
-                    .then(function (response) {
-                        //console.log("llega");
-                        //console.log(response.data);
-                        me.listado = response.data;
-                    });
+							let me = this;
+							axios.get("api/usuarios")
+								.then(function (response) {
+									me.listado = response.data;
+								});
                 
             },
 
             editar(objeto){
-                this.id_edita = objeto.id;
-                this.editando = 1;
-                this.form.name = objeto.name;
-                this.form.email = objeto.email;                
-                this.editando = 1;
+							this.id_edita = objeto.id;
+							this.editando = 1;
+							this.form.name = objeto.name;
+							this.form.email = objeto.email;                
+							this.editando = 1;
             }
         },
         mounted() {
-            this.listar();
-            //console.log('Component mounted.')
+					this.listar();
         }
     }
 </script>

@@ -44,7 +44,7 @@
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
                   <div class="form-group col-md-2">                                      
-                    <button  class="btn btn-primary rounded-circle mt-4" type="submit" @click="buscarResultados()"><i class="fas fa-search"></i></button>
+                    <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                   <div class="col-md-2">
                     <downloadexcel                                
@@ -61,8 +61,8 @@
               
             </div>
          
-            <div>
-              <table class="table table-sm table-hover">
+            <div class="table-container" id="table-container2">
+              <table class="table-cebra" id="table-cebra2">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -75,8 +75,6 @@
                     <th>Cantidad</th>
                     <th>Costo</th>
                     <th>Costo Total</th>
-                    <!-- <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th> -->
                     <th width=15%>Detalles</th>
                     <th>Eliminar</th>
                   </tr>
@@ -228,7 +226,6 @@ import downloadexcel from "vue-json-excel"
         listado : [],
         promedios:[],
         listadoRS : [],
-        listadorxs:[],
         listadoSiembras : [],
         listadoAlimentos:[],
         listadoActividades : [],
@@ -245,7 +242,6 @@ import downloadexcel from "vue-json-excel"
       let me = this;
       const response = await this.listado
       return this.listado;
-      //  imprimirSiembras
       },
       abrirCrear(){
         let me = this;
@@ -271,10 +267,14 @@ import downloadexcel from "vue-json-excel"
         }
         axios.post("api/searchResults", data)
         .then(response=>{
-          me.listado = response.data.recursosNecesarios;
-          me.promedios = response.data.promedioRecursos;
+          if(response.data.pagination) {
+            me.listado = response.data.recursosNecesarios.data;
+          }
+          else{
+            me.listado = response.data.recursosNecesarios;
+            me.promedios = response.data.promedioRecursos;
+          }
         })
-        console.log('buscar')
       },
       listar(){
         let me = this;
@@ -282,7 +282,6 @@ import downloadexcel from "vue-json-excel"
         .then(function (response){
           me.listado = response.data.recursosNecesarios;         
           me.listadoRS = response.data.recursosSiembra;
-          me.listadorxs = response.data.registrosxSiembra;
           me.promedios = response.data.promedioRecursos;
         })
       },
@@ -329,7 +328,6 @@ import downloadexcel from "vue-json-excel"
         let me = this;        
         this.form.post("api/recursos-necesarios")
         .then(({data})=>{
-          console.log('guardado');
           me.listar();
          $('#modalRecursos').modal('hide');
         })
@@ -347,7 +345,6 @@ import downloadexcel from "vue-json-excel"
           if (willDelete) {
             axios.delete('api/recursos-necesarios/'+objeto)
             .then(({data})=>{
-              console.log('eliminar'+objeto);
               me.listar();
               
             })
@@ -361,7 +358,6 @@ import downloadexcel from "vue-json-excel"
       this.listarAlimentos();
       this.listarRecursos();
       this.listarActividades();
-      console.log('Component mounted.')
     }
   }
 </script>

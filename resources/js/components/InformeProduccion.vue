@@ -42,8 +42,8 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div>
-                        <table class="table table-striped table-sm table-hover table-responsive">
+                      <div class="table-container">
+                        <table class="table-cebra">
                           <thead>
                             <tr class="text-right">
                               <th>#</th>
@@ -112,7 +112,6 @@
         let me = this;
         // const response = await axios.get('api/informe-recursos');
         const response = await this.listadoExistencias
-        // console.log(response);
         return this.listadoExistencias;
       },            
       listar(){
@@ -121,7 +120,6 @@
         this.listarSiembras();
         axios.get("api/informes-biomasa-alimento")
         .then(function (response){
-          console.log(response.data)
           me.listadoExistencias = response.data.existencias;
         })                 
       },
@@ -154,9 +152,7 @@
         axios.post("api/filtro-biomasa-alimento", data)
         .then(response=>{
           me.listadoExistencias = response.data.existencias;
-          // console.log(response.data);
         });
-        console.log('buscar')
       },
     },
     mounted() {

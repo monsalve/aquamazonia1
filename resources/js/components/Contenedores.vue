@@ -108,32 +108,31 @@
 
     export default {
         data() {
-            return {
-                editando: 0,
-                form: new Form({
-                    id : '',
-                    contenedor : '',
-                    capacidad : '',
-                    estado : '',
-                }),
-               
-                listado: [],
-                estados: []
-            }
+					return {
+						editando: 0,
+						form: new Form({
+							id : '',
+							contenedor : '',
+							capacidad : '',
+							estado : '',
+						}),
+						
+						listado: [],
+						estados: []
+					}
         },
         methods: {
             guardar(){
-                let me = this;
-                this.form.post('api/contenedores')
-                    .then(({data})=>{
-                        editando: 0,
-                        console.log(data);                        
-                        me.listar();
-                        $('#modalContenedor').modal('hide');
-                        me.form.contenedor = '';
-                        me.form.capacidad = '';
-                        me.form.estado = '';
-                    })
+							let me = this;
+							this.form.post('api/contenedores')
+								.then(({data})=>{
+									editando: 0,
+									me.listar();
+									$('#modalContenedor').modal('hide');
+									me.form.contenedor = '';
+									me.form.capacidad = '';
+									me.form.estado = '';
+								})
             },
             abrirCrear(){
                 this.editando = 0;
@@ -142,30 +141,26 @@
             },
          
             listar(){
-                let me = this;
-                axios.get("api/contenedores")
-                .then(function (response) {
-                    me.listado = response.data
-                });
+							let me = this;
+							axios.get("api/contenedores")
+							.then(function (response) {
+								me.listado = response.data
+							});
             },
             cargaEditar(objeto){
-                let me = this;
-                this.form.fill(objeto);
-                this.editando = 1;
-                  $('#modalContenedor').modal('show');
-                   console.log('editandosssss')
+							let me = this;
+							this.form.fill(objeto);
+							this.editando = 1;
+							$('#modalContenedor').modal('show');
             },
             editar(){
-                let me = this;
-                this.form.put('api/contenedores/'+this.form.id)
-                    .then(({data})=>{
-                        console.log(data);   
-                    
-                        $('#modalContenedor').modal('hide');
-                        me.listar();
-                    })
+							let me = this;
+							this.form.put('api/contenedores/'+this.form.id)
+								.then(({data})=>{ 
+									$('#modalContenedor').modal('hide');
+									me.listar();
+								})
           
-                console.log('editando')
             },
             eliminar(index){
                 let me = this;
@@ -181,7 +176,6 @@
                         me.form.delete('api/contenedores/'+index)
                         .then(({data})=>{
                             me.listar();
-                            console.log('eliminar'+index)
                         })
                     }
                 });

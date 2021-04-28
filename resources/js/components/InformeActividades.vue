@@ -85,7 +85,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm table-responsive table-hover">
+                        <table class="table table-sm table-responsive table-hover table-bordered">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -228,6 +228,8 @@ export default {
       axios.post("api/filtro-registros-siembras", data)
       .then(response=>{
         me.listadoRegistros = response.data;
+
+        console.log(response);
       });
     },
   },

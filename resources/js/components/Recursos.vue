@@ -121,7 +121,6 @@
                 this.form.post('api/recursos')
                     .then(({data})=>{
                         editando: 0,
-                        console.log(data);                        
                         me.listar();
                         $('#modalRecursos').modal('hide');
                         me.form.recurso = '';
@@ -152,36 +151,32 @@
                 let me = this;
                 this.form.put('api/recursos/'+this.form.id)
                     .then(({data})=>{
-                        console.log(data);
                         $('#modalRecursos').modal('hide');
                         me.listar();
                     })          
-                console.log('editando')
             },
             eliminar(index){
-                let me = this;
-                swal({
-                  title: "Estás seguro?",
-                  text: "Una vez eliminado, no se puede recuperar este registro",
-                  icon: "warning",
-                  buttons: ["Cancelar", "Aceptar"],
-                  dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        me.form.delete('api/recursos/'+index)
-                        .then(({data})=>{
-                            me.listar();
-                            console.log('eliminar'+index)
-                        })
-                    }
-                });
+							let me = this;
+							swal({
+								title: "Estás seguro?",
+								text: "Una vez eliminado, no se puede recuperar este registro",
+								icon: "warning",
+								buttons: ["Cancelar", "Aceptar"],
+								dangerMode: true,
+							})
+							.then((willDelete) => {
+								if (willDelete) {
+									me.form.delete('api/recursos/'+index)
+									.then(({data})=>{
+										me.listar();
+									})
+								}
+							});
                  
             }
         },
         mounted() {
-            this.listar();
-            //console.log('Component mounted.')
+					this.listar();
         }
     }
 </script>

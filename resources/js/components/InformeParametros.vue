@@ -172,8 +172,7 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-Parametros');
-        const response = await this.listadoParametros
-        // console.log(response);
+        const response = await this.listadoParametros;
         return this.listadoParametros;
       },
       filtrarParametros(){
@@ -189,7 +188,6 @@
         }
         axios.post("api/filtro-parametros", data)
         .then(response=>{
-          console.log(response.data);
           me.listadoParametros = response.data.calidad_agua;
           me.promedios = response.data.promedios
         })
@@ -235,7 +233,6 @@
         this.form.post("api/parametros-calidad")
         .then(({data})=>{
           editando: 0;
-          console.log('guardado');
           me.listar();
          $('#modalParametros').modal('hide');
         })
@@ -250,12 +247,10 @@
         let me = this;
             this.form.put('api/parametros-calidad/'+this.form.id)
             .then(({data})=>{
-              console.log(data);
               $('#modalParametros').modal('hide');
               me.listar();
               this.form.reset();
             })          
-            console.log('editando' + this.form.id)
         
       },
       eliminarParametros(objeto){
@@ -271,7 +266,6 @@
           if (willDelete) {
             axios.delete('api/parametros-calidad/'+objeto)
             .then(({data})=>{
-              console.log('eliminar'+objeto);
               me.listar();
               
             })

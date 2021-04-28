@@ -121,7 +121,7 @@
               </div>
             </div>
             <div class="row" v-if="mostrar==0">
-              <table class="table table-striped table-responsive-sm">
+              <table class="table table-striped table-sm table-bordered table-responsive-sm">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -340,7 +340,6 @@
         let me = this;
         // const response = await axios.get('api/informe-Parametros');
         const response = await this.listadoParametros;
-        // console.log(response);
         return this.listadoParametros;
       },
       filtrarParametros(){
@@ -356,7 +355,6 @@
         }
         axios.post("api/filtro-parametros", data)
         .then(response=>{
-          console.log(response.data);
           me.listadoParametros = response.data.calidad_agua;
           me.promedios = response.data.promedios
         })
@@ -395,8 +393,7 @@
         let me = this;
         axios.get("api/listadoContenedores")
         .then(function (response) {
-            me.listadoContenedores = response.data
-            console.log(response);
+          me.listadoContenedores = response.data
         });
       },
       mostrarParametros(objeto){
@@ -432,16 +429,16 @@
           this.form.id_contenedor = this.idContenedor;
         }
         
-        console.log(this.form.id_contenedor)
         this.form.post("api/parametros-calidad")
         .then(({data})=>{
           editando: 0;
-          console.log('guardado');
           me.filtrarParametros();
          $('#modalParametros').modal('hide');
         })
       },
       editarParametros(objeto){
+
+        console.log(objeto)
         let me = this;
         // this.form.id = idContenedor;
         this.form.fill(objeto);
@@ -454,11 +451,8 @@
         .then(({data})=>{              
           $('#modalParametros').modal('hide');
           me.listar();
-          console.log(data)
           this.form.reset();
-        })          
-        console.log('editando' + this.form.id)
-        
+        })
       },
       eliminarParametros(objeto){
         let me = this;
@@ -473,9 +467,7 @@
           if (willDelete) {
             axios.delete('api/parametros-calidad/'+objeto)
             .then(({data})=>{
-              console.log('eliminar'+objeto);
               me.listar();
-              
             })
           }
         });

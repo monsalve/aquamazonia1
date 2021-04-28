@@ -44,12 +44,12 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div>
-                        <table class="table table-striped table-sm table-hover table-sm-responsive bg-light table-bordered" id="tabla-informe-consolidado">
+                      <div class="table-container" id="table-container2">
+                        <table class="table-cebra" id="table-cebra2">
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th class="fixed-column">Siembra</th>  
+                              <th class="sticky">Siembra</th>  
                               <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
@@ -77,12 +77,13 @@
                               <th>Conversion alimenticia parcial</th>
                               <th>Conversion final</th>
                               <th>Ganancia peso día</th>
+                              <th><b>%</b> Supervivencia final </th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1"></td>
-                              <td class="fixed-column" v-text="le.nombre_siembra"></td>   
+                              <td class="sticky" v-text="le.nombre_siembra"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>
@@ -113,6 +114,7 @@
                               <td v-text="le.conversion_alimenticia_parcial"></td>
                               <td v-text="le.conversion_final"></td>
                               <td v-text="le.ganancia_peso_dia"></td>
+                              <td v-text="le.porc_supervivencia_final"></td>
                             </tr>
                           </tbody>
                         </table>

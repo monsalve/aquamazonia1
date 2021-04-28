@@ -11152,6 +11152,13 @@ a.text-dark:focus {
   }
 }
 
+h1,
+h2,
+h3,
+h4 {
+  color: #08537c;
+}
+
 @media (min-width: 992px) {
   main > .container,
   nav > .container {
@@ -11195,6 +11202,17 @@ input[type=checkbox]:checked + label span {
   font-size: 1rem;
 }
 
+ul#main-navigation li.col-nav-item::before {
+  content: "";
+}
+
+@media (min-width: 768px) {
+  ul#main-navigation li.col-nav-item {
+    width: 33.3%;
+    float: left;
+  }
+}
+
 @media (min-width: 992px) {
   ul#main-navigation li.col-nav-item {
     width: 25%;
@@ -11213,63 +11231,71 @@ ul#main-navigation li.col-nav-item a.nav-link {
   color: #08537c;
 }
 
-table#tabla-alimentacion {
-  text-align: left;
-  position: relative;
-  border-collapse: collapse;
+.table-cebra {
+  border-top: solid 1px #ccc;
+  border-spacing: 0;
 }
 
-table#tabla-alimentacion thead {
-  color: #08537c;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+.table-cebra thead th {
+  background: #08537c;
+  color: white;
 }
 
-table#tabla-alimentacion thead tr {
-  background-color: #ffffff;
-  box-shadow: 0 2px 2px -1px #DBE5FA;
+.table-cebra th,
+.table-cebra td {
+  border-right: 1px solid #ccc;
+  min-width: 150px;
+  padding: 0.5rem;
+  text-aling: left;
 }
 
-table#tabla-alimentacion thead tr th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+.table-cebra th:last-child,
+.table-cebra td:last-child {
+  border-right: 0;
 }
 
-table#tabla-informe-consolidado {
-  text-align: left;
-  position: relative;
-  border-collapse: collapse;
+.table-cebra td {
+  border-bottom: 1px solid #ccc;
 }
 
-table#tabla-informe-consolidado .fixed-column {
+.table-cebra tbody tr {
+  background: white;
+}
+
+.table-cebra tbody tr:nth-child(2n) {
+  background: #f2f2f2;
+}
+
+.table-container {
+  max-width: 100%;
+  overflow-x: scroll;
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+}
+
+#table-container2 {
+  overflow-y: scroll;
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.table-cebra .sticky {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
-  background-color: #DBE5FA;
-  z-index: 10;
 }
 
-table#tabla-informe-consolidado thead {
-  color: #08537c;
+#table-cebra2 #sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
-table#tabla-informe-consolidado thead tr {
-  background-color: #ffffff;
-  box-shadow: 0 2px 2px -1px #DBE5FA;
+.table-cebra tbody tr .sticky {
+  background: white;
 }
 
-table#tabla-informe-consolidado thead tr th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-table#tabla-informe-consolidado tbody {
-  max-height: 80vh;
+.table-cebra tbody tr:nth-child(2n) .sticky {
+  background: #f2f2f2;
 }
 

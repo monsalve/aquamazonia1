@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes Aquamazonia</div>
+                    <div class="card-header">Informes recursos y actividades Aquamazonia</div>
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">
                       <div class="row mb-1">
@@ -73,13 +73,13 @@
                           </form>
                         </div>
                       </div>
-                      <div>
-                        <table class="table table-sm table-responsive table-bordered">
+                      <div class="table-container" id="table-container2">
+                        <table class="table-cebra" id="table-cebra2">
                           <thead>
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
-                              <th>Estado siembras</th>
+                              <th>Estado siembrasw</th>
                               <th>Tipo <br>actividad</th>
                               <th>Fecha</th>
                               <th>Minutos <br>hombre</th>
@@ -87,10 +87,12 @@
                               <th>Costo Acumulado Minutos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
+                              <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo <br>Acumulado</th>
                               <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
+                              <th>Costo actividad</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -105,10 +107,12 @@
                               <th v-text="lrn.costo_h_acum"></th>
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th>
                               <td v-text="lrn.alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
+                              <td v-text="lrn.costo_total_actividad"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -135,18 +139,17 @@
             'Costo minutos hombre' : 'costo_minutosh',
             'Costo acumulado minutos' : 'costo_h_acum',
             'Recurso' : 'recurso',
-            'Costo' : 'costo_r',
-            'Costo acumulado' : 'costo_r_acum',
+            'Cantidad Recurso' : 'cantidad_recurso',
+            'Costo Recurso' : 'costo_total_recurso',
+            'Costo acumulado Recurso' : 'costo_r_acum',
             'Alimento' : 'alimento',
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
-            'Costo Alimento' : 'costo_a',
-            'Costo Total' : 'costo_total_alimento',
+            'Costo Alimento' : 'costo_total_alimento',
             'Costo acumulado Alimento' : 'costo_a_acum', 
             
         },       
         listados: [],
-        listadors:[],
         listadorn:[],
         listadoe:[],
         listadoActividades:[],
@@ -174,29 +177,21 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-recursos');
-        const response = await this.imprimirRecursos
-        // console.log(response);
+        const response = await this.imprimirRecursos;
         return this.imprimirRecursos;
       },
       listar(){
         let me = this;        
         axios.get("api/informes")
         .then(function (response){
-          me.listadors = response.data.recursosSiembras;
           me.listadorn = response.data.recursosNecesarios;
         })         
         axios.get("api/traer-recursos")
         .then(response=>{
-          console.log(response.data.recursosNecesarios);
           me.imprimirRecursos = response.data.recursosNecesarios;
         })
       },
-      incrementar(incremento){
-        this.costo_acum += parseFloat(incremento);
-        var aux_acum = parseFloat(this.costo_acum);
-        console.log('aux_acum=' + aux_acum);
-        return aux_acum;
-      },
+
       listarActividades(){
         let me = this;
         axios.get("api/actividades")
@@ -251,19 +246,14 @@
         axios.post("api/filtroInformes", data)
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
-          me.listadors = response.data.recursosSiembras;
-          // console.log(response.data);
         });
         axios.post("api/informe-recursos", data)
         .then(response=>{
-          console.log(response.data.recursosNecesarios);
           me.imprimirRecursos = response.data.recursosNecesarios;
         })
-        console.log('buscar')
       },
     },
     mounted() {
-      console.log('Component mounted.');
       this.listar();
       this.listarSiembras();
       this.listarAlimentos();

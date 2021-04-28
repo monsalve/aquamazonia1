@@ -72,6 +72,7 @@
                               <th>#</th>
                               <th>Siembra</th>
                               <th>Lote</th>
+                              <th>Area</th>
                               <th>Especie</th>
                               <th>Inicio siembra</th>                             
                               <th>Cant Ini</th>
@@ -98,6 +99,7 @@
                               <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra"></td>
                               <td v-text="le.lote"></td>
+                              <td v-text="le.capacidad"></td>
                               <td v-text="le.especie"></td>
                               <td v-text="le.fecha_inicio"></td>                              
                               <td v-text="le.cantidad_inicial"></td>
