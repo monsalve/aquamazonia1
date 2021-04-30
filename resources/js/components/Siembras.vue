@@ -1,85 +1,85 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Gestión de Siembras</div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">Gestión de Siembras</div>
 
-                <div class="card-body">                        
-                    <div class="row mb-1">
-                        <div class="col-12 text-right ">
-                          <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
-                        </div>
-                    </div>
-                    <div class="row">
-                        <table class="table table-striped table-hover table-sm table-responsive">
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th>Nombre <br> siembra</th>
-                              <th scope="col">Contenedor</th>
-                              <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
-                                <h5> Especie</h5>
-                                <div class="nav">
-                                  <li class="nav-item" style="width:80px">Especie</li>
-                                  <li class="nav-item" style="width:80px">Lote</li>
-                                  <li class="nav-item" style="width:80px">Cantidad</li>
-                                  <li class="nav-item" style="width:60px">Peso gr</li>
-                                </div>
-                              </th>
-                              <th scope="col">Inicio siembra</th>
-                              <th scope="col">Inicio - fin de <br> descanso estanque</th>
-                              <th scope="col">Fecha <br>Alimentación</th>
-                              <th scope="col">Ingreso</th>
-                              <th scope="col">Finalizar</th>
-                              <th scope="col">Editar</th>
-                              <th>Eliminar</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
-                              <th v-text="index+1" scope="row"></th>
-                              <td v-text="siembra.nombre_siembra" scope="row"></td>
-                              <td v-text="siembra.contenedor"></td>
-                              <td class="d-sm-none d-none d-md-block">
-                                <div v-for="pez in pecesxSiembra" :key="pez.id" >
-                                  <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
-                                    <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
-                                    <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
-                                    <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
-                                    <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
-                                  </div>
-                                </div>
-                              </td>
-                              <td v-text="siembra.fecha_inicio"></td>
-                              <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
-                              <!-- <td v-text="estados[siembra.estado]"></td> -->
-                              <td>
-                                <span v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'badge badge-warning']">
-                                  {{siembra.fecha_alimento}}
-                                </span>
-                                
-                                <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
-                              </td>
-                              <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
-                              <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
-                              <td>
-                                <button class="btn btn-success" @click="editarSiembra(siembra)">
-                                  <i class="fas fa-edit"></i>
-                                </button>  
-                              </td>
-                              <td>
-                                <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
-                                  <i class="fas fa-trash"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                     </div>
-                </div>
+          <div class="card-body">                        
+            <div class="row mb-1">
+              <div class="col-12 text-right ">
+                <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
+              </div>
             </div>
+            <div>
+              <table class="table-cebra table-responsive" >
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th>Nombre <br> siembra</th>
+                    <th scope="col">Contenedor</th>
+                    <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
+                      <h5> Especie</h5>
+                      <div class="nav">
+                        <li class="nav-item" style="width:80px">Especie</li>
+                        <li class="nav-item" style="width:80px">Lote</li>
+                        <li class="nav-item" style="width:80px">Cantidad</li>
+                        <li class="nav-item" style="width:60px">Peso gr</li>
+                      </div>
+                    </th>
+                    <th scope="col">Inicio siembra</th>
+                    <th scope="col">Inicio - fin de <br> descanso estanque</th>
+                    <th scope="col">Fecha <br>Alimentación</th>
+                    <th scope="col">Ingreso</th>
+                    <th scope="col">Finalizar</th>
+                    <th scope="col">Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(siembra, index) in listadoSiembras" :key="siembra.id">
+                    <th v-text="index+1" scope="row"></th>
+                    <td v-text="siembra.nombre_siembra" scope="row"></td>
+                    <td v-text="siembra.contenedor"></td>
+                    <td class="d-sm-none d-none d-md-block">
+                      <div v-for="pez in pecesxSiembra" :key="pez.id" >
+                        <div class="nav text-center" v-if="pez.id_siembra == siembra.id">
+                          <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
+                          <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
+                          <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
+                          <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
+                        </div>
+                      </div>
+                    </td>
+                    <td v-text="siembra.fecha_inicio"></td>
+                    <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
+                    <!-- <td v-text="estados[siembra.estado]"></td> -->
+                    <td>
+                      <span v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'badge badge-warning']">
+                        {{siembra.fecha_alimento}}
+                      </span>
+                      
+                      <button type="button" class="btn btn-success btn-sm" @click="abrirCrear(siembra.id)">Añadir Alimentos</button>
+                    </td>
+                    <td><button class="btn btn-primary" @click="abrirIngreso(siembra.id)"><i class="fas fa-list-ul"></i> </button></td>
+                    <td><button class="btn btn-warning" data-toggle="tooltip" title="Finalizar siembra" data-placement="top"  @click="finalizarSiembra(siembra.id)"><i class="fas fa-power-off"></i></button></td>
+                    <td>
+                      <button class="btn btn-success" @click="editarSiembra(siembra)">
+                        <i class="fas fa-edit"></i>
+                      </button>  
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" @click="eliminarSiembra(siembra.id)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <!-- Modal especies x siembras -->
     <div class="modal fade" id="modalSiembra" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalSiembraLabel" aria-hidden="true">
@@ -160,8 +160,8 @@
                         float: right;
                         right: 30px;
                         color: #ccc;
-                        bottom: 30px;"
-                      >Gr</span>
+                        bottom: 30px;">Gr
+                      </span>
                     </td>
                      
                     <td>

@@ -61,8 +61,9 @@
               
             </div>
          
-            <div>
-              <table class="table table-sm table-hover table-bordered">
+            <div class="table-container" id="table-container2">
+              <table class="table-cebra table table-sm table-hover table-bordered" id="table-cebra2">
+
                 <thead>
                   <tr>
                     <th>#</th>
