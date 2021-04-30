@@ -2145,8 +2145,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6630,6 +6628,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6667,21 +6685,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_siembra: '',
       alimento_s: '',
       recurso_s: '',
+      see_all: 0,
       busqueda: '',
       addSiembras: [],
       listado: [],
       promedios: [],
-      listadoRS: [],
       listadoSiembras: [],
       listadoAlimentos: [],
       listadoActividades: [],
       listadoRecursos: [],
       nombresRecursos: [],
-      nombresAlimentos: []
+      nombresAlimentos: [],
+      offset: 10,
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      showPagination: 1
     };
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
   },
   methods: {
     fetchData: function fetchData() {
@@ -6714,6 +6774,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#modalRecursos').modal('show');
     },
     buscarResultados: function buscarResultados() {
+      var _this2 = this;
+
       var me = this;
 
       if (this.f_siembra == '') {
@@ -6726,6 +6788,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.actividad = '-1';
       } else {
         this.actividad = this.t_actividad;
+      }
+
+      if (this.see_all == '') {
+        this.check = 0;
+      } else {
+        this.check = this.see_all;
       }
 
       if (this.recurso_s == '') {
@@ -6758,23 +6826,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'recurso_s': this.rec,
         'alimento_s': this.ali,
         'fecha_ra1': this.fecha1,
-        'fecha_ra2': this.fecha2
+        'fecha_ra2': this.fecha2,
+        'see_all': this.check
       };
       axios.post("api/searchResults", data).then(function (response) {
         if (response.data.pagination) {
+          _this2.showPagination = 1;
           me.listado = response.data.recursosNecesarios.data;
+          me.pagination = response.data.pagination;
         } else {
+          _this2.showPagination = 0;
           me.listado = response.data.recursosNecesarios;
           me.promedios = response.data.promedioRecursos;
+          me.pagination = [];
         }
       });
     },
-    listar: function listar() {
+    listar: function listar(page) {
       var me = this;
-      axios.get("api/recursos-necesarios").then(function (response) {
-        me.listado = response.data.recursosNecesarios;
-        me.listadoRS = response.data.recursosSiembra;
+      axios.get("api/recursos-necesarios?page=" + page).then(function (response) {
+        me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
+        me.pagination = response.data.pagination;
       });
     },
     listarSiembras: function listarSiembras() {
@@ -6853,10 +6926,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } //console.log(transcurso / 60000);//minutos
       //console.log(transcurso / 3600000); //horas
 
+    },
+    cambiarPagina: function cambiarPagina(page) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page;
+      me.listar(page);
     }
   },
   mounted: function mounted() {
-    this.listar();
+    this.listar(1);
     this.listarSiembras();
     this.listarAlimentos();
     this.listarRecursos();
@@ -54369,6 +54448,49 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.see_all,
+                          expression: "see_all"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", value: "1", id: "see_all" },
+                      domProps: {
+                        checked: Array.isArray(_vm.see_all)
+                          ? _vm._i(_vm.see_all, "1") > -1
+                          : _vm.see_all
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.see_all,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "1",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.see_all = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.see_all = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.see_all = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "button",
                       {
@@ -54414,12 +54536,9 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                {
-                  staticClass:
-                    "table-cebra table table-sm table-hover table-bordered"
-                },
+                { staticClass: "table table-sm table-hover table-bordered" },
                 [
-                  _vm._m(0),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -54540,7 +54659,96 @@ var render = function() {
                   )
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "nav",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.showPagination,
+                    expression: "showPagination"
+                  }
+                ],
+                staticClass: "mt-5 navigation "
+              },
+              [
+                _c(
+                  "ul",
+                  { staticClass: "pagination justify-content-center" },
+                  [
+                    _vm.pagination.current_page > 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page - 1
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Ant")]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesNumber, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          key: page,
+                          staticClass: "page-item",
+                          class: [page == _vm.isActived ? "active" : ""]
+                        },
+                        [
+                          _c("a", {
+                            staticClass: "page-link",
+                            attrs: { href: "#" },
+                            domProps: { textContent: _vm._s(page) },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cambiarPagina(page)
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.pagination.current_page < _vm.pagination.last_page
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page + 1
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Sig")]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -54564,7 +54772,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("form", { staticClass: "row" }, [
@@ -55112,6 +55320,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "see_all" } },
+      [
+        _c("span"),
+        _vm._v(
+          "\n                    Ver todos los registros\n                  "
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("#")]),
@@ -55134,7 +55357,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo Total")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")]),
+        _c("th", [_vm._v("Detalles")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
       ])
