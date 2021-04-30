@@ -5266,14 +5266,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
 
 
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5391,7 +5394,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  methods: (_methods = {
+  methods: {
     fetchData: function fetchData() {
       var _this = this;
 
@@ -5417,55 +5420,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    buscarResultados: function buscarResultados() {},
     listar: function listar() {
       var me = this;
       axios.get("api/informes-recursos-necesarios").then(function (response) {
         me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
       });
-    }
-  }, _defineProperty(_methods, "buscarResultados", function buscarResultados() {
-    var me = this;
+    },
+    buscarResultados: function buscarResultados() {
+      var me = this;
 
-    if (this.f_siembra == '') {
-      this.f_s = '-1';
-    } else {
-      this.f_s = this.f_siembra;
-    }
+      if (this.f_siembra == '') {
+        this.f_s = '-1';
+      } else {
+        this.f_s = this.f_siembra;
+      }
 
-    if (this.f_estado == '') {
-      this.f_e = '-1';
-    } else {
-      this.f_e = this.f_estado;
-    }
+      if (this.f_estado == '') {
+        this.f_e = '-1';
+      } else {
+        this.f_e = this.f_estado;
+      }
 
-    if (this.f_actividad == '') {
-      this.actividad = '-1';
-    } else {
-      this.actividad = this.f_actividad;
-    }
+      if (this.f_actividad == '') {
+        this.actividad = '-1';
+      } else {
+        this.actividad = this.f_actividad;
+      }
 
-    var data = {
-      'f_siembra': this.f_s,
-      'f_estado': this.f_e,
-      'f_actividad': this.actividad
-    };
-    axios.post("api/filtro-recursos", data).then(function (response) {
-      me.listado = response.data.recursosNecesarios;
-      me.promedios = response.data.promedioRecursos;
-    });
-  }), _defineProperty(_methods, "listarSiembras", function listarSiembras() {
-    var me = this;
-    axios.get("api/siembras").then(function (response) {
-      me.listadoSiembras = response.data.siembra;
-    });
-  }), _defineProperty(_methods, "listarActividades", function listarActividades() {
-    var me = this;
-    axios.get("api/actividades").then(function (response) {
-      me.listadoActividades = response.data;
-    });
-  }), _methods),
+      var data = {
+        'f_siembra': this.f_s,
+        'f_estado': this.f_e,
+        'f_actividad': this.actividad
+      };
+      axios.post("api/filtro-recursos", data).then(function (response) {
+        me.listado = response.data.recursosNecesarios.data;
+        me.promedios = response.data.promedioRecursos;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    listarActividades: function listarActividades() {
+      var me = this;
+      axios.get("api/actividades").then(function (response) {
+        me.listadoActividades = response.data;
+      });
+    }
+  },
   mounted: function mounted() {
     this.listar();
     this.listarSiembras();
@@ -6009,6 +6014,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6048,7 +6065,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fecha_ra1: '',
       fecha_ra2: '',
       costo_acum: 0,
-      tipoActividad: ''
+      tipoActividad: '',
+      listadoPromedios: []
     };
   },
   components: {
@@ -6085,6 +6103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       axios.get("api/informes").then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
+        me.listadoPromedios = response.data.promedioRecursos;
       });
       axios.get("api/traer-recursos").then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
@@ -52221,8 +52240,8 @@ var render = function() {
                           expression: "f_siembra"
                         }
                       ],
-                      staticClass: "form-control",
-                      attrs: { id: "f_siembra" },
+                      staticClass: "custom-select",
+                      attrs: { id: "Siembra" },
                       on: {
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -52257,54 +52276,55 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("label", { attrs: { for: "f_estado" } }, [
+                  _c("label", { attrs: { for: "estado" } }, [
                     _vm._v(
-                      "\n                          Estado:\n                          "
-                    ),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.f_estado,
-                            expression: "f_estado"
-                          }
-                        ],
-                        staticClass: "custom-select",
-                        attrs: { name: "estado", id: "estado" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.f_estado = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "-1", disabled: "" } }, [
-                          _vm._v("--Seleccionar--")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "0" } }, [
-                          _vm._v("Inactiva")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Activa")
-                        ])
-                      ]
+                      "\n                          Estado:\n                        "
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_estado,
+                          expression: "f_estado"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { name: "estado", id: "estado" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_estado = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1", disabled: "" } }, [
+                        _vm._v("--Seleccionar--")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "0" } }, [
+                        _vm._v("Inactiva")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Activa")
+                      ])
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
@@ -52323,7 +52343,7 @@ var render = function() {
                           expression: "f_actividad"
                         }
                       ],
-                      staticClass: "form-control",
+                      staticClass: "custom-select",
                       attrs: { id: "f_actividad" },
                       on: {
                         change: function($event) {
@@ -52445,7 +52465,9 @@ var render = function() {
                     _vm._v(" "),
                     _vm.tipoActividad != "Alimentación"
                       ? _c("th", [_vm._v("Costo total actividad")])
-                      : _vm._e()
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("% Costo total de producción")])
                   ])
                 ]),
                 _vm._v(" "),
@@ -52476,6 +52498,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
+                        staticClass: "text-right",
                         domProps: { textContent: _vm._s(lrn.costo_minutos) }
                       }),
                       _vm._v(" "),
@@ -52489,6 +52512,7 @@ var render = function() {
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
                         ? _c("td", {
+                            staticClass: "text-right",
                             domProps: { textContent: _vm._s(lrn.costo_recurso) }
                           })
                         : _vm._e(),
@@ -52503,6 +52527,7 @@ var render = function() {
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
                         ? _c("td", {
+                            staticClass: "text-right",
                             domProps: {
                               textContent: _vm._s(lrn.costo_alimento)
                             }
@@ -52511,11 +52536,24 @@ var render = function() {
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
                         ? _c("td", {
+                            staticClass: "text-right",
                             domProps: {
                               textContent: _vm._s(lrn.costo_total_actividad)
                             }
                           })
-                        : _vm._e()
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        lrn.porcentaje_total_produccion
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                              " +
+                                  _vm._s(lrn.porcentaje_total_produccion) +
+                                  " %\n                            "
+                              )
+                            ])
+                          : _vm._e()
+                      ])
                     ])
                   }),
                   0
@@ -53587,7 +53625,63 @@ var render = function() {
                       ])
                     }),
                     0
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("tfoot", [
+                    _c("tr", [
+                      _c(
+                        "th",
+                        { staticClass: "text-right", attrs: { colspan: "5" } },
+                        [_vm._v("PROMEDIOS")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticClass: "text-right", attrs: { colspan: "2" } },
+                        [_vm._v("Costo minutos: ")]
+                      ),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(_vm._s(_vm.listadoPromedios.total_minutos))
+                      ]),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c(
+                            "td",
+                            {
+                              staticClass: "text-right",
+                              attrs: { colspan: "3" }
+                            },
+                            [_vm._v("Costo recursos: ")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c("th", [
+                            _vm._v(_vm._s(_vm.listadoPromedios.total_recurso))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("td", { attrs: { colspan: "2" } }, [
+                            _vm._v("Costo alimentos: ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("th", [
+                            _vm._v(_vm._s(_vm.listadoPromedios.total_alimento))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(
+                          "Costo total actividades: " +
+                            _vm._s(_vm.listadoPromedios.total_actividad)
+                        )
+                      ])
+                    ])
+                  ])
                 ]
               )
             ])

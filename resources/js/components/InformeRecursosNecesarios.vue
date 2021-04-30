@@ -9,24 +9,25 @@
                         <form class="row">
                           <div class="form-group col-md-2">
                             <label for="Siembra">Siembra:</label>
-                            <select class="form-control" id="f_siembra" v-model="f_siembra">
+                            <select class="custom-select" id="Siembra" v-model="f_siembra">
                               <option value="-1" selected>Seleccionar</option>                             
                               <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                             </select>
                           </div>
                           <div class="form-group col-md-2">
-                            <label for="f_estado">
+                            <label for="estado">
                               Estado:
-                              <select class="custom-select" name="estado" id="estado" v-model="f_estado">
-                                <option value="-1" disabled>--Seleccionar--</option>                              
-                                <option value="0">Inactiva</option>
-                                <option value="1">Activa</option>
-                              </select>
                             </label>
+                            <select class="custom-select" name="estado" id="estado" v-model="f_estado">
+                              <option value="-1" disabled>--Seleccionar--</option>                              
+                              <option value="0">Inactiva</option>
+                              <option value="1">Activa</option>
+                            </select>
+                            
                           </div>
                           <div class="form-group col-md-2">
                            <label for="f_actividad">Tipo de Actividad: </label>
-                            <select class="form-control" id="f_actividad" v-model="f_actividad">
+                            <select class="custom-select" id="f_actividad" v-model="f_actividad">
                               <option  value="-1" selected> Seleccionar</option>   
                               <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>                 
                             </select>
@@ -61,6 +62,7 @@
                               <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo total actividad</th>
+                              <th>% Costo total de producción</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -71,12 +73,17 @@
                               <td v-else>Inactiva</td>
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.horas_hombre+' Hr'"></td>
-                              <td v-text="lrn.costo_minutos"></td>
+                              <td class="text-right" v-text="lrn.costo_minutos"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
-                              <td v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td class="text-right" v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td v-text="lrn.costo_total_actividad" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td class="text-right" v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td class="text-right" v-text="lrn.costo_total_actividad" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td class="text-right">
+                                <span v-if="lrn.porcentaje_total_produccion">
+                                  {{lrn.porcentaje_total_produccion}} %
+                                </span>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -122,8 +129,6 @@ import downloadexcel from "vue-json-excel"
       const response = await this.listado
       return this.listado;
       },
-      buscarResultados(){        
-      },
       listar(){
         let me = this;
         axios.get("api/informes-recursos-necesarios")
@@ -145,7 +150,7 @@ import downloadexcel from "vue-json-excel"
         }
         axios.post("api/filtro-recursos", data)
         .then(response=>{
-          me.listado = response.data.recursosNecesarios;
+          me.listado = response.data.recursosNecesarios.data;
           me.promedios = response.data.promedioRecursos;
         })        
       },

@@ -1,6 +1,10 @@
-//Colors
+//Etiquetas generales
 h1, h2, h3, h4 {
   color: $primary;
+}
+
+thead {
+  background-color: $background-light-blue-medium;
 }
 
 // Medias
@@ -56,6 +60,7 @@ input[type="checkbox"]:checked + label span {
 }
 
 ul#main-navigation {
+  flex-direction: row-reverse;
   li.col-nav-item {
     a.nav-link {
       color: $primary;

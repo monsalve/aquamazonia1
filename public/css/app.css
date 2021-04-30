@@ -11159,6 +11159,10 @@ h4 {
   color: #08537c;
 }
 
+thead {
+  background-color: #e3f2fd;
+}
+
 @media (min-width: 992px) {
   main > .container,
   nav > .container {
@@ -11207,6 +11211,10 @@ input[type=checkbox]:checked + label span {
 
 .form-check-label {
   font-size: 1rem;
+}
+
+ul#main-navigation {
+  flex-direction: row-reverse;
 }
 
 ul#main-navigation li.col-nav-item a.nav-link {
