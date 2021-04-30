@@ -72,8 +72,6 @@ class InformeRecursosNecesariosController extends Controller
             $recursoNecesario->costoMinutos = ($recursoNecesario->minutosHombre) * $minutos_hombre->costo;
             $recursoNecesario->costoTotalSiembra = $recursoNecesario->costoRecurso + $recursoNecesario->costoMinutos + $recursoNecesario->costoAlimento;
 
-          
-
             if ($recursoNecesario->tipo_actividad == $costo_recurso->tipo_actividad) {          
               $recursoNecesario->costo_recurso +=  ($costo_recurso->cantidad_recurso * $costo_recurso->costo);
               $recursoNecesario->cantidad_alimento += ($costo_recurso->cant_tarde + $costo_recurso->cant_manana);
@@ -85,7 +83,7 @@ class InformeRecursosNecesariosController extends Controller
           }
         }
        
-        $recursoNecesario->horas_hombre = number_format($recursoNecesario->horas_hombre,2,',','');
+        $recursoNecesario->horas_hombre = number_format($recursoNecesario->minutos_hombre/60,2,',','');
         $recursoNecesario->costo_recurso = number_format($recursoNecesario->costo_recurso,2,',','');
         $recursoNecesario->costo_total_actividad = number_format($recursoNecesario->costo_total_actividad,2,',','');
         $recursoNecesario->porcentaje_total_produccion = number_format($recursoNecesario->porcentaje_total_produccion,2,',','');
@@ -169,7 +167,7 @@ class InformeRecursosNecesariosController extends Controller
           }
         }
        
-        $recursoNecesario->horas_hombre = number_format($recursoNecesario->horas_hombre,2,',','');
+        $recursoNecesario->horas_hombre = number_format($recursoNecesario->minutos_hombre/60,2,',','');
         $recursoNecesario->costo_recurso = number_format($recursoNecesario->costo_recurso,2,',','');
         $recursoNecesario->costo_total_actividad = number_format($recursoNecesario->costo_total_actividad,2,',','');
         $recursoNecesario->porcentaje_total_produccion = number_format($recursoNecesario->porcentaje_total_produccion,2,',','');
