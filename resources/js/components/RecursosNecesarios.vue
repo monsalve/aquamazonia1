@@ -62,7 +62,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover table-bordered">
+              <table class="table-cebra table table-sm table-hover table-bordered">
                 <thead>
                   <tr>
                     <th>#</th>

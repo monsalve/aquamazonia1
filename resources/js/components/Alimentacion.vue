@@ -62,8 +62,8 @@
               
             </div>
          
-            <div>
-              <table class="table table-sm table-hover table-bordered table-sm-responsive" id="tabla-alimentacion">
+            <div class="table-container" id="table-container2">
+              <table class="table-cebra"  id="tabla-alimentacion table-cebra2">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -120,20 +120,20 @@
    
                 </tfoot>
               </table>
-              <nav v-show="showPagination" class="mt-5 navigation ">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item" v-if="pagination.current_page > 1">
-                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
-                  </li>
-                  <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
-                  </li>
-                  <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
-                  </li>
-                </ul>
-              </nav>
             </div>
+              <nav v-show="showPagination" class="mt-5 navigation ">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item" v-if="pagination.current_page > 1">
+                      <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
+                    </li>
+                    <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                      <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                    </li>
+                    <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                      <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
+                    </li>
+                  </ul>
+                </nav>
           </div>
         </div>
       </div>
