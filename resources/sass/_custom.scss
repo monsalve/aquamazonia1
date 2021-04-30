@@ -60,7 +60,12 @@ input[type="checkbox"]:checked + label span {
 }
 
 ul#main-navigation {
-  flex-direction: row-reverse;
+  
+  @media (min-width:768px) {
+    flex-direction: row;
+    justify-content: end;    
+  }
+
   li.col-nav-item {
     a.nav-link {
       color: $primary;
@@ -128,5 +133,4 @@ table#tabla-informe-consolidado {
   tbody {
     max-height: 80vh;
   }
-
 }

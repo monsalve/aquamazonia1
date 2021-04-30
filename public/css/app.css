@@ -11213,8 +11213,11 @@ input[type=checkbox]:checked + label span {
   font-size: 1rem;
 }
 
-ul#main-navigation {
-  flex-direction: row-reverse;
+@media (min-width: 768px) {
+  ul#main-navigation {
+    flex-direction: row;
+    justify-content: end;
+  }
 }
 
 ul#main-navigation li.col-nav-item a.nav-link {
