@@ -45,8 +45,8 @@
               </div>
             </div>
             <div>   
-              <table class="table table-striped table-hover table-sm table-responsive-sm">                
-                <thead class="">
+              <table class="table table-cebra table-bordered table-striped" id="tabla-parametros">                
+                <thead>
                   <tr>                    
                     <th rowspan="2" data-field="id">#</th>                    
                     <th rowspan="2">ID registro</th>

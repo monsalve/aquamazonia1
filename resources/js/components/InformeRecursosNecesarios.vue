@@ -47,7 +47,7 @@
                         </form>
                       </div>
                       <div>
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-recursos">
                           <thead>
                             <tr>
                               <th>#</th>

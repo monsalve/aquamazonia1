@@ -11232,7 +11232,6 @@ ul#main-navigation li.col-nav-item a.nav-link {
 }
 
 .table-cebra {
-  border-top: solid 1px #ccc;
   border-spacing: 0;
 }
 
@@ -11243,59 +11242,310 @@ ul#main-navigation li.col-nav-item a.nav-link {
 
 .table-cebra th,
 .table-cebra td {
-  border-right: 1px solid #ccc;
-  min-width: 150px;
   padding: 0.5rem;
-  text-aling: left;
+  text-align: left;
 }
 
-.table-cebra th:last-child,
-.table-cebra td:last-child {
-  border-right: 0;
-}
+/*
 
-.table-cebra td {
-  border-bottom: 1px solid #ccc;
-}
-
-.table-cebra tbody tr {
-  background: white;
-}
 
 .table-cebra tbody tr:nth-child(2n) {
-  background: #f2f2f2;
+    background: #f2f2f2;
 }
 
 .table-container {
-  max-width: 100%;
-  overflow-x: scroll;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
+    max-width: 100%;
+    overflow-x: scroll;
+    border-left: solid 1px #ccc;
+    border-right: solid 1px #ccc;
 }
 
 #table-container2 {
-  overflow-y: scroll;
-  max-width: 100%;
-  max-height: 400px;
+    overflow-y: scroll;
+    max-width: 100%;
+    max-height: 400px;
 }
 
 .table-cebra .sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
+    position: sticky;
+    left: 0;
 }
 
 #table-cebra2 #sticky {
+    position: sticky;
+    top: 0;
+}
+
+.table-cebra tbody tr .sticky {
+    background: white;
+}
+
+.table-cebra tbody tr:nth-child(2n) .sticky {
+    background: #f2f2f2;
+}
+*/
+
+table#tabla-alimentacion {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-alimentacion thead {
+  color: #08537c;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
-.table-cebra tbody tr .sticky {
-  background: white;
+table#tabla-alimentacion thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
 }
 
-.table-cebra tbody tr:nth-child(2n) .sticky {
-  background: #f2f2f2;
+table#tabla-alimentacion thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-consolidado {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-consolidado thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-consolidado thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-consolidado thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-ciclo {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-ciclo thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-ciclo thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-ciclo thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-produccion {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-produccion thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-produccion thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-produccion thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-siembras {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-siembras thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-siembras thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-siembras thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-siembra {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-siembra thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-siembra thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-siembra thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-parametro {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-parametro thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-parametro thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-parametro thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-parametros {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-parametros thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-parametros thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-parametros thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-recursos {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-recursos thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-recursos thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-recursos thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-recurso {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-recurso thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-recurso thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-recurso thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-biomasa {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+table#tabla-biomasa thead {
+  color: #08537c;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table#tabla-biomasa thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
+}
+
+table#tabla-biomasa thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 

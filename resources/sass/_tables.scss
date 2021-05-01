@@ -1,5 +1,5 @@
 .table-cebra {
-    border-top: solid 1px #ccc;
+    // border-top: solid 1px #ccc;
     border-spacing: 0;
 }
 
@@ -10,24 +10,12 @@
 
 .table-cebra th,
 .table-cebra td {
-    border-right: 1px solid #ccc;
-    min-width: 150px;
+    // border-right: 1px solid #ccc;
     padding: 0.5rem;
-    text-aling: left;
+    text-align: left;
 }
+/*
 
-.table-cebra th:last-child,
-.table-cebra td:last-child {
-    border-right: 0;
-}
-
-.table-cebra td {
-    border-bottom: 1px solid #ccc;
-}
-
-.table-cebra tbody tr {
-    background: white;
-}
 
 .table-cebra tbody tr:nth-child(2n) {
     background: #f2f2f2;
@@ -62,4 +50,257 @@
 
 .table-cebra tbody tr:nth-child(2n) .sticky {
     background: #f2f2f2;
+}
+*/
+table#tabla-alimentacion { 
+ 
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  
+    thead {
+      color: $primary;
+      position: sticky;
+      top: 0;
+    
+      tr {
+        background-color: $white;
+        box-shadow: 0 2px 2px -1px $light-gray;
+  
+        th {
+          position: sticky;
+          top: 0;
+        }
+      }
+    }  
+}
+
+table#tabla-consolidado { 
+ 
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  
+    thead {
+      color: $primary;
+      position: sticky;
+      top: 0;
+    
+      tr {
+        background-color: $white;
+        box-shadow: 0 2px 2px -1px $light-gray;
+  
+        th {
+          position: sticky;
+          top: 0;
+        }
+      }
+    }  
+}
+
+table#tabla-ciclo { 
+ 
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  
+    thead {
+      color: $primary;
+      position: sticky;
+      top: 0;
+    
+      tr {
+        background-color: $white;
+        box-shadow: 0 2px 2px -1px $light-gray;
+  
+        th {
+          position: sticky;
+          top: 0;
+        }
+      }
+    }  
+}
+
+table#tabla-produccion { 
+ 
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  
+    thead {
+      color: $primary;
+      position: sticky;
+      top: 0;
+    
+      tr {
+        background-color: $white;
+        box-shadow: 0 2px 2px -1px $light-gray;
+  
+        th {
+          position: sticky;
+          top: 0;
+        }
+      }
+    }  
+}
+
+table#tabla-siembras { 
+ 
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  
+    thead {
+      color: $primary;
+      position: sticky;
+      top: 0;
+    
+      tr {
+        background-color: $white;
+        box-shadow: 0 2px 2px -1px $light-gray;
+  
+        th {
+          position: sticky;
+          top: 0;
+        }
+      }
+    }  
+}
+
+table#tabla-siembra { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-parametro { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-parametros { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-recursos { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-recurso { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-biomasa { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
 }

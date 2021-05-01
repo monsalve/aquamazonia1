@@ -85,7 +85,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-sm table-responsive table-hover table-bordered">
+                        <table class="table table-cebra table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>#</th>

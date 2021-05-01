@@ -62,8 +62,8 @@
               
             </div>
          
-            <div class="table-container" id="table-container2">
-              <table class="table-cebra"  id="tabla-alimentacion table-cebra2">
+            <div>
+              <table class="table table-cebra table-bordered table-striped" id="tabla-alimentacion">
                 <thead>
                   <tr>
                     <th>#</th>

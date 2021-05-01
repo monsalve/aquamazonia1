@@ -44,12 +44,12 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div class="table-container" id="table-container2">
-                        <table class="table-cebra" id="table-cebra2">
+                      <div>
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-consolidado">
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th class="sticky">Siembra</th>  
+                              <th>Siembra</th>  
                               <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
@@ -82,8 +82,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td v-text="index+1"></td>
-                              <td class="sticky" v-text="le.nombre_siembra"></td>   
+                              <td class="sticky" v-text="index+1"></td>
+                              <td v-text="le.nombre_siembra"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>
