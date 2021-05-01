@@ -161,6 +161,17 @@
                   <label for="minutos hombre">Fecha</label>
                   <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
                 </div>
+                <div class="form-group">   
+                  <label for="minutos hombre">Minutos hombre</label>
+                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
+                </div>
+                <div class="form-group">
+                  <label for="recurso">Recurso</label>
+                  <select class="form-control" id="recurso" v-model="form.id_recurso">
+                    <option selected>--Seleccionar--</option>
+                    <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
+                  </select>
+                </div>
                 <div class="form-row my-2" style="background:#f0ffff;" v-show="form.tipo_actividad == 12">
                   <h5 class="col-12">Calcular tiempo</h5>
                   <div class="form-group col-6">
@@ -182,17 +193,6 @@
                   </div>
                
                   <button type="button" class="btn btn-primary" @click="calcularDiferenciaTiempo()">Calcular tiempo</button>
-                </div>
-                <div class="form-group">   
-                  <label for="minutos hombre">Minutos hombre</label>
-                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
-                </div>
-                <div class="form-group">
-                  <label for="recurso">Recurso</label>
-                  <select class="form-control" id="recurso" v-model="form.id_recurso">
-                    <option selected>--Seleccionar--</option>
-                    <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
-                  </select>
                 </div>
                 <div class="form-group">                    
                   <label for="cantidad_recurso">Cantidad</label>
@@ -446,7 +446,7 @@ import downloadexcel from "vue-json-excel"
         var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
         var tiempoMinutos = transcurso / 60000;
         if(transcurso > 0){
-          this.form.minutos_hombre = tiempoMinutos;
+          this.form.cantidad_recurso = tiempoMinutos;
         }
         //console.log(transcurso / 60000);//minutos
         //console.log(transcurso / 3600000); //horas

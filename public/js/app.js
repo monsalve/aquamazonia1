@@ -6922,7 +6922,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var tiempoMinutos = transcurso / 60000;
 
       if (transcurso > 0) {
-        this.form.minutos_hombre = tiempoMinutos;
+        this.form.cantidad_recurso = tiempoMinutos;
       } //console.log(transcurso / 60000);//minutos
       //console.log(transcurso / 3600000); //horas
 
@@ -54851,6 +54851,101 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "minutos hombre" } }, [
+                        _vm._v("Minutos hombre")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.minutos_hombre,
+                            expression: "form.minutos_hombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          id: "minutos_hombre",
+                          step: "any",
+                          "aria-describedby": "minutos_hombre",
+                          placeholder: "Minutos hombre",
+                          min: "0",
+                          value: "0"
+                        },
+                        domProps: { value: _vm.form.minutos_hombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "minutos_hombre",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "recurso" } }, [
+                        _vm._v("Recurso")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.id_recurso,
+                              expression: "form.id_recurso"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "recurso" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "id_recurso",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { selected: "" } }, [
+                            _vm._v("--Seleccionar--")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoRecursos, function(recurso, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: recurso.id } },
+                              [_vm._v(_vm._s(recurso.recurso))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "div",
                       {
@@ -55016,101 +55111,6 @@ var render = function() {
                         )
                       ]
                     ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "minutos hombre" } }, [
-                        _vm._v("Minutos hombre")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.minutos_hombre,
-                            expression: "form.minutos_hombre"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "minutos_hombre",
-                          step: "any",
-                          "aria-describedby": "minutos_hombre",
-                          placeholder: "Minutos hombre",
-                          min: "0",
-                          value: "0"
-                        },
-                        domProps: { value: _vm.form.minutos_hombre },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.form,
-                              "minutos_hombre",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "recurso" } }, [
-                        _vm._v("Recurso")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.id_recurso,
-                              expression: "form.id_recurso"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { id: "recurso" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "id_recurso",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { selected: "" } }, [
-                            _vm._v("--Seleccionar--")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.listadoRecursos, function(recurso, index) {
-                            return _c(
-                              "option",
-                              { key: index, domProps: { value: recurso.id } },
-                              [_vm._v(_vm._s(recurso.recurso))]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "cantidad_recurso" } }, [
