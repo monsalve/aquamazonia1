@@ -12,7 +12,7 @@
               </div>
             </div>
             <div>
-              <table class="table-cebra table-responsive" >
+              <table class="table-cebra table table-striped table-hover table-sm table-responsive" >
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -532,7 +532,7 @@ export default {
       
       tipo_registro:'',
       peso_ganado:'',
-      mortalidad:'',
+      mortalidad:0,
       biomasa:'',
       cantidad:'',
       

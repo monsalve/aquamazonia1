@@ -61,7 +61,7 @@
             </div>
          
             <div class="table-container" id="table-container2">
-              <table class="table-cebra"  id="tabla-alimentacion table-cebra2">
+              <table class="table table-sm table-bordered table-sm-responsive"  id="tabla-alimentacion">
                 <thead>
                   <tr>
                     <th>#</th>
