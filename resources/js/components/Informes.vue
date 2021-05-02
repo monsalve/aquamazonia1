@@ -73,8 +73,8 @@
                           </form>
                         </div>
                       </div>
-                      <div class="table-container" id="table-container2">
-                        <table class="table-cebra" id="table-cebra2">
+                      <div>
+                        <table class="table table-cebra table-bordered table-striped">
                           <thead>
                             <tr>
                               <th>#</th>

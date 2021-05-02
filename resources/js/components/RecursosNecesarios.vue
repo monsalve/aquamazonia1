@@ -69,7 +69,7 @@
             </div>
          
             <div>
-              <table class="table table-sm table-hover table-bordered">
+              <table class="table table-cebra table-bordered table-striped" id="tabla-recurso">
                 <thead>
                   <tr>
                     <th>#</th>

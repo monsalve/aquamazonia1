@@ -66,7 +66,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-striped table-sm table-hover table-responsive table-bordered">
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-ciclo">
                           <thead>
                             <tr>                           
                               <th>#</th>

@@ -60,8 +60,8 @@
               
             </div>
          
-            <div class="table-container" id="table-container2">
-              <table class="table table-sm table-bordered table-sm-responsive"  id="tabla-alimentacion">
+            <div>
+              <table class="table table-cebra table-bordered table-striped" id="tabla-alimentacion">
                 <thead>
                   <tr>
                     <th>#</th>

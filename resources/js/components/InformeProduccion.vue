@@ -42,8 +42,8 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div class="table-container">
-                        <table class="table-cebra">
+                      <div>
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-produccion">
                           <thead>
                             <tr class="text-right">
                               <th>#</th>
