@@ -291,7 +291,6 @@ class InformeController extends Controller
                 $existencias[$i]->biomasa_inicial = ((($existencias[$i]->peso_inicial)*($existencias[$i]->cantidad_inicial)) / 1000);
                 $existencias[$i]->biomasa_disponible = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
                 
-
                 $bio_dispo = ((($existencias[$i]->peso_actual)*($existencias[$i]->cant_actual)) / 1000);
                 
                 for($j=0;$j<count($registros); $j++){                   

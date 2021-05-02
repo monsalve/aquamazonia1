@@ -81,8 +81,7 @@ class RegistroController extends Controller
 									'tipo_registro' => $request['tipo_registro'],
 									'peso_ganado' => $exs['peso_actual'],
 									'mortalidad' => $campo['mortalidad'],
-									'cantidad' => $exs['cant_actual'],
-									'biomasa' => $biomasa 
+									'cantidad' => $exs['cant_actual']
 								]);                   
 							}
 							elseif( $campo['peso_ganado'] != '' || $campo['mortalidad']){
@@ -93,8 +92,7 @@ class RegistroController extends Controller
 									'tipo_registro' => $request['tipo_registro'],
 									'peso_ganado' => $campo['peso_ganado'],
 									'mortalidad' => $campo['mortalidad'],
-									'cantidad' => $exs['cant_actual'],
-									'biomasa' => $biomasa 
+									'cantidad' => $exs['cant_actual']
 								]);                    
 							}
 					}

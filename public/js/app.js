@@ -3717,6 +3717,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -50223,7 +50227,16 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(lr.cantidad) }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              (lr.biomasa_disponible =
+                                (lr.cantidad * lr.peso_ganado) / 1000)
+                            )
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -50260,9 +50273,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa muestreo")]),
+        _c("th", [_vm._v("Salida biomasa muestreo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad")])
+        _c("th", [_vm._v("Cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa disponible")])
       ])
     ])
   }
