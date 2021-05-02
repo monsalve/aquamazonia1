@@ -11216,7 +11216,7 @@ input[type=checkbox]:checked + label span {
 @media (min-width: 768px) {
   ul#main-navigation {
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }
 

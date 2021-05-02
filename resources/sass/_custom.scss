@@ -63,7 +63,7 @@ ul#main-navigation {
   
   @media (min-width:768px) {
     flex-direction: row;
-    justify-content: end;    
+    justify-content: flex-end;    
   }
 
   li.col-nav-item {
