@@ -48,8 +48,8 @@
                         </form>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped" id="tabla-recursos">
-                          <thead>
+                        <table class="table table-cebra table-bordered table-striped table-sticky">
+                          <thead class="thead-primary">
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>

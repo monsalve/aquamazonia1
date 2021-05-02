@@ -46473,8 +46473,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-alimentacion" }
+                  staticClass:
+                    "table table-sticky table-bordered table-striped table-sm-responsive"
                 },
                 [
                   _vm._m(1),
@@ -47128,11 +47128,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo de "), _c("br"), _vm._v(" Actividad")]),
+        _c("th", [_vm._v("Tipo de Actividad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Siembras")]),
         _vm._v(" "),
@@ -47140,13 +47140,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Minutos hombre")]),
         _vm._v(" "),
-        _c("th", [_c("br"), _vm._v("Alimento")]),
+        _c("th", [_vm._v(" Alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Mañana")]),
+        _c("th", [_vm._v("Cantidad Mañana")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Tarde")]),
+        _c("th", [_vm._v("Cantidad Tarde")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total"), _c("br"), _vm._v("día")]),
+        _c("th", [_vm._v("Total día")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Kg")]),
         _vm._v(" "),
@@ -47156,7 +47156,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")])
+        _c("th", [_vm._v("Detalles")])
       ])
     ])
   },
@@ -47691,7 +47691,8 @@ var render = function() {
                     _c(
                       "table",
                       {
-                        staticClass: "table table-striped table-hover table-sm"
+                        staticClass:
+                          "table table-striped table-bordered table-hover table-sm table-sticky"
                       },
                       [
                         _vm._m(0),
@@ -48698,7 +48699,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", {}, [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("#")
@@ -49619,7 +49620,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -50180,7 +50181,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped"
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -50255,7 +50257,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -50470,8 +50472,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-biomasa" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -50571,7 +50573,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -50946,8 +50948,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-ciclo" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51087,7 +51089,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -51327,8 +51329,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-consolidado" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped  table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51511,7 +51513,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -51784,8 +51786,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-parametros" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -51949,7 +51951,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("#")
@@ -52146,8 +52148,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-produccion" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(3),
@@ -52261,7 +52263,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", { staticClass: "text-right" }, [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -52527,11 +52529,11 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-recursos" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
-                  _c("thead", [
+                  _c("thead", { staticClass: "thead-primary" }, [
                     _c("tr", [
                       _c("th", [_vm._v("#")]),
                       _vm._v(" "),
@@ -52998,8 +53000,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-siembras" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -53105,7 +53106,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -53565,10 +53566,11 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped"
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
-                  _c("thead", [
+                  _c("thead", { staticClass: "thead-primary" }, [
                     _c("tr", [
                       _c("th", [_vm._v("#")]),
                       _vm._v(" "),
@@ -54540,8 +54542,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-recurso" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -55341,7 +55342,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -55445,10 +55446,7 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-siembra" }
-                },
+                { staticClass: "table table-bordered table-striped" },
                 [
                   _vm._m(0),
                   _vm._v(" "),
@@ -57538,20 +57536,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre "), _c("br"), _vm._v(" siembra")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
+        _c("th", [_vm._v("Contenedor")]),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass: "text-center d-sm-none d-none d-md-block",
-            staticStyle: { width: "340px" },
-            attrs: { scope: "col" }
+            staticStyle: { width: "340px" }
           },
           [
             _c("h5", [_vm._v(" Especie")]),
@@ -57584,25 +57581,17 @@ var staticRenderFns = [
           ]
         ),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Inicio siembra")]),
+        _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [
-          _vm._v("Inicio - fin de "),
-          _c("br"),
-          _vm._v(" descanso estanque")
-        ]),
+        _c("th", [_vm._v("Inicio - fin de  descanso estanque")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [
-          _vm._v("Fecha "),
-          _c("br"),
-          _vm._v("Alimentación")
-        ]),
+        _c("th", [_vm._v("Fecha Alimentación")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ingreso")]),
+        _c("th", [_vm._v("Ingreso")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Finalizar")]),
+        _c("th", [_vm._v("Finalizar")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
+        _c("th", [_vm._v("Editar")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
       ])
