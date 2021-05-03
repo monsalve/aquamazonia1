@@ -51339,11 +51339,11 @@ var render = function() {
                     _vm._l(_vm.listadoExistencias, function(le, index) {
                       return _c("tr", { key: index }, [
                         _c("td", {
-                          staticClass: "sticky",
                           domProps: { textContent: _vm._s(index + 1) }
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          staticClass: "fixed-column",
                           domProps: { textContent: _vm._s(le.nombre_siembra) }
                         }),
                         _vm._v(" "),
@@ -51516,7 +51516,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
+        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Area")]),
         _vm._v(" "),
@@ -55445,7 +55445,9 @@ var render = function() {
             _c("div", [
               _c(
                 "table",
-                { staticClass: "table table-bordered table-striped" },
+                {
+                  staticClass: "table table-bordered table-striped table-sticky"
+                },
                 [
                   _vm._m(0),
                   _vm._v(" "),

@@ -49,7 +49,7 @@
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
-                              <th>Siembra</th>  
+                              <th class="fixed-column">Siembra</th>  
                               <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
@@ -82,8 +82,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td class="sticky" v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>   
+                              <td v-text="index+1"></td>
+                              <td v-text="le.nombre_siembra" class="fixed-column"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>
