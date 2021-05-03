@@ -11237,13 +11237,16 @@ ul#main-navigation li.col-nav-item a.nav-link {
   color: #ffffff;
 }
 
+.table-sticky td.fixed-column {
+  background-color: #ffffff;
+  color: #08537c;
+}
+
 .table-sticky .fixed-column {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
   z-index: 2;
-  background-color: #e3f2fd;
-  color: #ffffff;
 }
 
 .table-sticky thead {

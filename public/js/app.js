@@ -6652,6 +6652,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -51329,7 +51330,7 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-cebra table-bordered table-striped  table-sticky"
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -54537,135 +54538,146 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-bordered table-striped table-sticky"
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    [
-                      _vm._l(_vm.listado, function(item, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", {
-                            domProps: { textContent: _vm._s(index + 1) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.actividad) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.nombre_siembra)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.fecha_ra) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.minutos_hombre)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.total_minutos_hombre)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.recurso) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.cantidad_recurso)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.costo) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.costo_total_recurso)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.detalles) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.eliminarRegistro(
-                                      item.id_registro
-                                    )
+            _c(
+              "div",
+              {
+                staticClass: "table-container",
+                attrs: { id: "table-container2" }
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table-cebra table table-sm table-hover table-bordered",
+                    attrs: { id: "table-cebra2" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.listado, function(item, index) {
+                          return _c("tr", { key: index }, [
+                            _c("td", {
+                              domProps: { textContent: _vm._s(index + 1) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.actividad) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.nombre_siembra)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.fecha_ra) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.total_minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.recurso) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.cantidad_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.costo) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.costo_total_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.detalles) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.eliminarRegistro(
+                                        item.id_registro
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-trash" })]
-                            )
+                                },
+                                [_c("i", { staticClass: "fas fa-trash" })]
+                              )
+                            ])
                           ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-right",
+                              attrs: { colspan: "4" }
+                            },
+                            [_vm._v("TOTAL:")]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tmh) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: {
+                              textContent: _vm._s(_vm.promedios.ttmh)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tcr) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tc) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.ctr) }
+                          }),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th")
                         ])
-                      }),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass: "text-right",
-                            attrs: { colspan: "4" }
-                          },
-                          [_vm._v("TOTAL:")]
-                        ),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tmh) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.ttmh) }
-                        }),
-                        _vm._v(" "),
-                        _c("th"),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tcr) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tc) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.ctr) }
-                        }),
-                        _vm._v(" "),
-                        _c("th"),
-                        _vm._v(" "),
-                        _c("th")
-                      ])
-                    ],
-                    2
-                  )
-                ]
-              )
-            ]),
+                      ],
+                      2
+                    )
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
             _c(
               "nav",
@@ -55341,7 +55353,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-primary" }, [
+    return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
