@@ -45,11 +45,11 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped" id="tabla-consolidado">
-                          <thead>
+                        <table class="table table-bordered table-striped table-sticky">
+                          <thead class="thead-primary">
                             <tr>
-                              <th class="sticky">#</th>
-                              <th class="sticky">Siembra</th>  
+                              <th>#</th>
+                              <th class="fixed-column">Siembra</th>  
                               <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
@@ -82,8 +82,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td class="sticky" v-text="index+1"></td>
-                              <td class="sticky"v-text="le.nombre_siembra"></td>   
+                              <td v-text="index+1"></td>
+                              <td v-text="le.nombre_siembra" class="fixed-column"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.intervalo_tiempo"></td>

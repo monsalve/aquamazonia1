@@ -51,9 +51,9 @@
               </div>
               <div> 
               <h2>Registros de párametros de agua {{ listadoParametros[0].contenedor }}</h2>
-                <table class="table table-striped table-hover table-sm">
+                <table class="table table-striped table-bordered table-hover table-sm table-sticky">
                  
-                  <thead class="">
+                  <thead class="thead-primary">
                     <tr>                    
                       <th rowspan="2" data-field="id">#</th>                    
                       <th rowspan="2">ID registro</th>

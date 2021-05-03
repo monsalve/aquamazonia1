@@ -85,8 +85,8 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped" id="tabla-actividades">
-                          <thead>
+                        <table class="table table-cebra table-bordered table-striped table-sticky">
+                          <thead class="table-primary">
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
@@ -96,8 +96,9 @@
                               <th>Tipo <br>actividad</th>
                               <th>Peso actual</th>
                               <th>Mortalidad</th>
-                              <th>Biomasa muestreo</th>
+                              <th>Salida biomasa muestreo</th>
                               <th>Cantidad</th>
+                              <th>Biomasa disponible</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -112,6 +113,9 @@
                               <td v-text="lr.mortalidad"></td>
                               <td v-text="lr.biomasa"></td>
                               <td v-text="lr.cantidad"></td>
+                              <td>{{
+                                lr.biomasa_disponible = (lr.cantidad * lr.peso_ganado)/1000
+                                }}</td>
                             </tr>
                           </tbody>
                         </table>

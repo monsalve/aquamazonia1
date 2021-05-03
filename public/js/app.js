@@ -3717,6 +3717,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6648,6 +6652,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6960,7 +6965,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -46469,8 +46473,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-alimentacion" }
+                  staticClass:
+                    "table table-sticky table-bordered table-striped table-sm-responsive"
                 },
                 [
                   _vm._m(1),
@@ -47124,11 +47128,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo de "), _c("br"), _vm._v(" Actividad")]),
+        _c("th", [_vm._v("Tipo de Actividad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Siembras")]),
         _vm._v(" "),
@@ -47136,13 +47140,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Minutos hombre")]),
         _vm._v(" "),
-        _c("th", [_c("br"), _vm._v("Alimento")]),
+        _c("th", [_vm._v(" Alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Mañana")]),
+        _c("th", [_vm._v("Cantidad Mañana")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad"), _c("br"), _vm._v("Tarde")]),
+        _c("th", [_vm._v("Cantidad Tarde")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total"), _c("br"), _vm._v("día")]),
+        _c("th", [_vm._v("Total día")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Kg")]),
         _vm._v(" "),
@@ -47152,7 +47156,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Incremento biomasa acumulada por conversión")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")])
+        _c("th", [_vm._v("Detalles")])
       ])
     ])
   },
@@ -47687,7 +47691,8 @@ var render = function() {
                     _c(
                       "table",
                       {
-                        staticClass: "table table-striped table-hover table-sm"
+                        staticClass:
+                          "table table-striped table-bordered table-hover table-sm table-sticky"
                       },
                       [
                         _vm._m(0),
@@ -48694,7 +48699,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", {}, [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("#")
@@ -49615,7 +49620,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -50176,8 +50181,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-actividades" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -50224,7 +50229,16 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: { textContent: _vm._s(lr.cantidad) }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              (lr.biomasa_disponible =
+                                (lr.cantidad * lr.peso_ganado) / 1000)
+                            )
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -50243,7 +50257,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -50261,9 +50275,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa muestreo")]),
+        _c("th", [_vm._v("Salida biomasa muestreo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad")])
+        _c("th", [_vm._v("Cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Biomasa disponible")])
       ])
     ])
   }
@@ -50456,8 +50472,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-biomasa" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -50557,7 +50573,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -50932,8 +50948,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-ciclo" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51073,7 +51089,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -51313,8 +51329,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-consolidado" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51324,12 +51339,11 @@ var render = function() {
                     _vm._l(_vm.listadoExistencias, function(le, index) {
                       return _c("tr", { key: index }, [
                         _c("td", {
-                          staticClass: "sticky",
                           domProps: { textContent: _vm._s(index + 1) }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          staticClass: "sticky",
+                          staticClass: "fixed-column",
                           domProps: { textContent: _vm._s(le.nombre_siembra) }
                         }),
                         _vm._v(" "),
@@ -51498,11 +51512,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { staticClass: "sticky" }, [_vm._v("#")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { staticClass: "sticky" }, [_vm._v("Siembra")]),
+        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Area")]),
         _vm._v(" "),
@@ -51771,8 +51785,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-parametros" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -51936,7 +51950,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
           _vm._v("#")
@@ -52133,8 +52147,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-produccion" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(3),
@@ -52248,7 +52262,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", { staticClass: "text-right" }, [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -52514,11 +52528,11 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-recursos" }
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sticky"
                 },
                 [
-                  _c("thead", [
+                  _c("thead", { staticClass: "thead-primary" }, [
                     _c("tr", [
                       _c("th", [_vm._v("#")]),
                       _vm._v(" "),
@@ -52985,8 +52999,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-siembras" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -53092,7 +53105,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -53552,11 +53565,10 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-consolidado" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
-                  _c("thead", [
+                  _c("thead", { staticClass: "thead-primary" }, [
                     _c("tr", [
                       _c("th", [_vm._v("#")]),
                       _vm._v(" "),
@@ -54524,136 +54536,146 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-recursos" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    [
-                      _vm._l(_vm.listado, function(item, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", {
-                            domProps: { textContent: _vm._s(index + 1) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.actividad) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.nombre_siembra)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.fecha_ra) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.minutos_hombre)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.total_minutos_hombre)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.recurso) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.cantidad_recurso)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.costo) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(item.costo_total_recurso)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(item.detalles) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.eliminarRegistro(
-                                      item.id_registro
-                                    )
+            _c(
+              "div",
+              {
+                staticClass: "table-container",
+                attrs: { id: "table-container2" }
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table-cebra table table-sm table-hover table-bordered",
+                    attrs: { id: "table-cebra2" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.listado, function(item, index) {
+                          return _c("tr", { key: index }, [
+                            _c("td", {
+                              domProps: { textContent: _vm._s(index + 1) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.actividad) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.nombre_siembra)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.fecha_ra) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.total_minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.recurso) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.cantidad_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.costo) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.costo_total_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.detalles) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.eliminarRegistro(
+                                        item.id_registro
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-trash" })]
-                            )
+                                },
+                                [_c("i", { staticClass: "fas fa-trash" })]
+                              )
+                            ])
                           ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-right",
+                              attrs: { colspan: "4" }
+                            },
+                            [_vm._v("TOTAL:")]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tmh) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: {
+                              textContent: _vm._s(_vm.promedios.ttmh)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tcr) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.tc) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
+                            domProps: { textContent: _vm._s(_vm.promedios.ctr) }
+                          }),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th")
                         ])
-                      }),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass: "text-right",
-                            attrs: { colspan: "4" }
-                          },
-                          [_vm._v("TOTAL:")]
-                        ),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tmh) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.ttmh) }
-                        }),
-                        _vm._v(" "),
-                        _c("th"),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tcr) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.tc) }
-                        }),
-                        _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(_vm.promedios.ctr) }
-                        }),
-                        _vm._v(" "),
-                        _c("th"),
-                        _vm._v(" "),
-                        _c("th")
-                      ])
-                    ],
-                    2
-                  )
-                ]
-              )
-            ]),
+                      ],
+                      2
+                    )
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
             _c(
               "nav",
@@ -55434,8 +55456,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-siembras" }
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -55463,66 +55484,60 @@ var render = function() {
                         _c(
                           "td",
                           { staticClass: "d-sm-none d-none d-md-block" },
-                          _vm._l(_vm.pecesxSiembra, function(pez) {
-                            return _c("div", { key: pez.id }, [
-                              pez.id_siembra == siembra.id
-                                ? _c(
-                                    "div",
-                                    { staticClass: "nav text-center" },
-                                    [
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.especie)
-                                          }
-                                        },
-                                        [_vm._v("Especie")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.lote)
-                                          }
-                                        },
-                                        [_vm._v("Lote")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.cant_actual)
-                                          }
-                                        },
-                                        [_vm._v("Cantidad")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "60px" },
-                                          domProps: {
-                                            textContent: _vm._s(
-                                              pez.peso_actual + "Gr"
-                                            )
-                                          }
-                                        },
-                                        [_vm._v("Peso")]
+                          _vm._l(siembra.peces, function(pez) {
+                            return _c(
+                              "ul",
+                              { key: pez.id, staticClass: "nav" },
+                              [
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: {
+                                      textContent: _vm._s(pez.especie)
+                                    }
+                                  },
+                                  [_vm._v("Especie")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: { textContent: _vm._s(pez.lote) }
+                                  },
+                                  [_vm._v("Lote")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: {
+                                      textContent: _vm._s(pez.cant_actual)
+                                    }
+                                  },
+                                  [_vm._v("Cantidad")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "60px" },
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        pez.peso_actual + "Gr"
                                       )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
+                                    }
+                                  },
+                                  [_vm._v("Peso")]
+                                )
+                              ]
+                            )
                           }),
                           0
                         ),
@@ -57526,20 +57541,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre "), _c("br"), _vm._v(" siembra")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
+        _c("th", [_vm._v("Contenedor")]),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass: "text-center d-sm-none d-none d-md-block",
-            staticStyle: { width: "340px" },
-            attrs: { scope: "col" }
+            staticStyle: { width: "340px" }
           },
           [
             _c("h5", [_vm._v(" Especie")]),
@@ -57547,50 +57561,42 @@ var staticRenderFns = [
             _c("div", { staticClass: "nav" }, [
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Especie")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Lote")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Cantidad")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "60px" } },
+                { staticStyle: { width: "60px", display: "inline-block" } },
                 [_vm._v("Peso gr")]
               )
             ])
           ]
         ),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Inicio siembra")]),
+        _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [
-          _vm._v("Inicio - fin de "),
-          _c("br"),
-          _vm._v(" descanso estanque")
-        ]),
+        _c("th", [_vm._v("Inicio - fin de  descanso estanque")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [
-          _vm._v("Fecha "),
-          _c("br"),
-          _vm._v("Alimentación")
-        ]),
+        _c("th", [_vm._v("Fecha Alimentación")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ingreso")]),
+        _c("th", [_vm._v("Ingreso")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Finalizar")]),
+        _c("th", [_vm._v("Finalizar")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Editar")]),
+        _c("th", [_vm._v("Editar")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
       ])

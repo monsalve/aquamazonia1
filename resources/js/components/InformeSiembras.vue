@@ -62,8 +62,8 @@
                         </div>
                         
                         <div class="row">
-                            <table class="table table-cebra table-bordered table-striped" id="tabla-siembras">
-                              <thead>
+                            <table class="table table-bordered table-striped table-sticky">
+                              <thead class="thead-primary">
                                 <tr>
                                   <th scope="col">#</th>
                                   <th>Nombre<br>siembra</th>

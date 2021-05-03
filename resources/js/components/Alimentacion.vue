@@ -61,24 +61,24 @@
             </div>
          
             <div>
-              <table class="table table-cebra table-bordered table-striped" id="tabla-alimentacion">
-                <thead>
+              <table class="table table-sticky table-bordered table-striped table-sm-responsive">
+                <thead class="thead-primary">
                   <tr>
                     <th>#</th>
-                    <th>Tipo de <br> Actividad</th>
+                    <th>Tipo de Actividad</th>
                     <th>Siembras</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
                     <!-- <th>Total minutos hombre</th> -->
-                    <th><br>Alimento</th>
-                    <th>Cantidad<br>Mañana</th>
-                    <th>Cantidad<br>Tarde</th>
-                    <th>Total<br>día</th>
+                    <th> Alimento</th>
+                    <th>Cantidad Mañana</th>
+                    <th>Cantidad Tarde</th>
+                    <th>Total día</th>
                     <th>Costo Kg</th>
                     <th>Costo total</th>
                     <th>Conversión alimenticia teórica</th>
                     <th>Incremento biomasa acumulada por conversión</th>
-                    <th width=15%>Detalles</th>
+                    <th>Detalles</th>
                     <!-- <th>Eliminar</th> -->
                   </tr>
                 </thead>
