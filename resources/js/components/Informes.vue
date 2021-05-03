@@ -74,7 +74,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped">
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-consolidado">
                           <thead>
                             <tr>
                               <th>#</th>
@@ -115,6 +115,18 @@
                               <td v-text="lrn.costo_total_actividad"></td>
                             </tr>
                           </tbody>
+                          <tfoot>
+                            <tr>
+                              <th colspan="5" class="text-right">PROMEDIOS</th>
+                              <td colspan="2" class="text-right">Costo minutos: </td>
+                              <th>{{listadoPromedios.total_minutos}}</th>
+                              <td colspan="3" v-if="tipoActividad != 'Alimentación'" class="text-right">Costo recursos: </td>
+                              <th v-if="tipoActividad != 'Alimentación'">{{listadoPromedios.total_recurso}}</th>
+                              <td colspan="2" v-if="tipoActividad == 'Alimentación'">Costo alimentos: </td>
+                              <th v-if="tipoActividad == 'Alimentación'">{{listadoPromedios.total_alimento}}</th>
+                              <th>Costo total actividades: {{listadoPromedios.total_actividad}}</th>
+                            </tr>
+                          </tfoot>
                         </table>
                       </div>
                     </div>
@@ -166,7 +178,8 @@
         fecha_ra1 : '',
         fecha_ra2: '', 
         costo_acum : 0, 
-        tipoActividad : ''
+        tipoActividad : '',
+        listadoPromedios : []
         
       }
     },
@@ -185,6 +198,7 @@
         axios.get("api/informes")
         .then(function (response){
           me.listadorn = response.data.recursosNecesarios;
+          me.listadoPromedios = response.data.promedioRecursos;
         })         
         axios.get("api/traer-recursos")
         .then(response=>{

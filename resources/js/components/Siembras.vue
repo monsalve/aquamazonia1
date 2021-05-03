@@ -12,7 +12,7 @@
               </div>
             </div>
             <div>
-              <table class="table table-cebra table-bordered table-striped" id="tabla-siembra">
+              <table class="table table-cebra table-bordered table-striped" id="tabla-siembras">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -532,7 +532,7 @@ export default {
       
       tipo_registro:'',
       peso_ganado:'',
-      mortalidad:'',
+      mortalidad:0,
       biomasa:'',
       cantidad:'',
       

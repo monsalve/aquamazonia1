@@ -16,9 +16,7 @@
                     name    = "informe-alimentos.xls"
                     type    = "xls">
                       <i class="fa fa-fw fa-download"></i> Generar Excel 
-                  </downloadexcel>      
-                  <!-- Button trigger modal -->
-                  <!-- <button type="button" class="btn btn-success" @click="abrirCrear()">Añadir registro</button> -->
+                  </downloadexcel>    
                 </div>
               </div>
               <div class="col-md-12">
@@ -121,19 +119,19 @@
                 </tfoot>
               </table>
             </div>
-              <nav v-show="showPagination" class="mt-5 navigation ">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item" v-if="pagination.current_page > 1">
-                      <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
-                    </li>
-                    <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                      <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
-                    </li>
-                    <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                      <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
-                    </li>
-                  </ul>
-                </nav>
+            <nav v-show="showPagination" class="mt-5 navigation ">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" v-if="pagination.current_page > 1">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
+                </li>
+                <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                </li>
+                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -205,7 +203,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
           </div>
         </div>
@@ -244,7 +242,7 @@ import downloadexcel from "vue-json-excel"
           cant_tarde : '',
           detalles : ''
         }),
-         pagination : {
+        pagination : {
           'total' : 0,
           'current_page' : 0,
           'per_page' : 0,
@@ -422,12 +420,12 @@ import downloadexcel from "vue-json-excel"
           }
         });        
       },
-       cambiarPagina(page){
-            let me = this;
-            //Actualiza la página actual
-            me.pagination.current_page = page;
-            me.listar(page);
-        },
+      cambiarPagina(page){
+        let me = this;
+        //Actualiza la página actual
+        me.pagination.current_page = page;
+        me.listar(page);
+      },
     },
     
     mounted() {

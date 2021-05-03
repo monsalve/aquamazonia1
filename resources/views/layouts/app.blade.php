@@ -40,13 +40,9 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
+                    
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto row" id="main-navigation">
+                    <ul class="navbar-nav row" id="main-navigation">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item ">
@@ -79,7 +75,7 @@
                                 <router-link class="nav-link" to="/informes-produccion">Informes Producción</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
-                                <router-link class="nav-link" to="/calidad-agua">Registrar parametros </br> de calidad  del Agua</router-link>
+                                <router-link class="nav-link" to="/calidad-agua">Registrar parametros de calidad  del Agua</router-link>
                             </li>
                             <!-- <li class="nav-item col-nav-item ">
                                 <router-link class="nav-link" to="/informes">Informes</router-link>

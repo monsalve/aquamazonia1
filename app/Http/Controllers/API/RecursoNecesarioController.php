@@ -32,7 +32,7 @@ class RecursoNecesarioController extends Controller
         ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
         ->where('tipo_actividad', '!=', '1')
         ->where('estado',1)
-        ->get();
+        ->paginate(20);
         
         $promedioRecursos = array();        
         $summh = 0;
@@ -42,93 +42,104 @@ class RecursoNecesarioController extends Controller
         $sumctr=0;
         
         if(count($recursosNecesarios)>0) {
-            for($i=0;$i<count($recursosNecesarios); $i++) {     
-                $recursosNecesarios[$i]->costo_total_recurso = $recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo;
-                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
-                $summh += $recursosNecesarios[$i]->minutos_hombre;  
-                $sumtmh += $recursosNecesarios[$i]->total_minutos_hombre;  
-                $sumcr += $recursosNecesarios[$i]->cantidad_recurso;
-                $sumc += $recursosNecesarios[$i]->costo;
-                $sumctr += $recursosNecesarios[$i]->costo_total_recurso;
+					for($i=0;$i<count($recursosNecesarios); $i++) {     
+						$recursosNecesarios[$i]->costo_total_recurso = $recursosNecesarios[$i]->cantidad_recurso * $recursosNecesarios[$i]->costo;
+						$recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
+						$summh += $recursosNecesarios[$i]->minutos_hombre;  
+						$sumtmh += $recursosNecesarios[$i]->total_minutos_hombre;  
+						$sumcr += $recursosNecesarios[$i]->cantidad_recurso;
+						$sumc += $recursosNecesarios[$i]->costo;
+						$sumctr += $recursosNecesarios[$i]->costo_total_recurso;
 
-								$recursosNecesarios[$i]->costo_total_recurso = number_format($recursosNecesarios[$i]->costo_total_recurso,2,',','');
-            }
-            $promedioRecursos['tmh'] = $summh;   
-            $promedioRecursos['ttmh'] = $sumtmh;   
-            $promedioRecursos['tcr'] = $sumcr;
-            $promedioRecursos['tc'] = $sumc;
-            $promedioRecursos['ctr'] = $sumctr;
+						$recursosNecesarios[$i]->costo_total_recurso = number_format($recursosNecesarios[$i]->costo_total_recurso,2,',','');
+					}
+					$promedioRecursos['tmh'] = $summh;   
+					$promedioRecursos['ttmh'] = $sumtmh;   
+					$promedioRecursos['tcr'] = $sumcr;
+					$promedioRecursos['tc'] = $sumc;
+					$promedioRecursos['ctr'] = $sumctr;
 
-            $promedioRecursos['tc'] = number_format($promedioRecursos['tc'],2,',','');
-            $promedioRecursos['ctr'] = number_format($promedioRecursos['ctr'],2,',','');
+					$promedioRecursos['tc'] = number_format($promedioRecursos['tc'],2,',','');
+					$promedioRecursos['ctr'] = number_format($promedioRecursos['ctr'],2,',','');
         }
         
-        return ['recursosNecesarios' => $recursosNecesarios, 'promedioRecursos' => $promedioRecursos];
+        return [
+					'recursosNecesarios' => $recursosNecesarios,
+					'promedioRecursos' => $promedioRecursos,
+					'pagination' => [
+						'total'        => $recursosNecesarios->total(),
+						'current_page' => $recursosNecesarios->currentPage(),
+						'per_page'     => $recursosNecesarios->perPage(),
+						'last_page'    => $recursosNecesarios->lastPage(),
+						'from'         => $recursosNecesarios->firstItem(),
+						'to'           => $recursosNecesarios->lastItem(),
+					]
+				];
     }
     public function  alimentacion(Request $request)
     {
         //
-        $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
-        $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
-        ->where('tipo_actividad', '=', '1')
-        ->where('estado',1)
-        ->paginate(30);
-        
-        $promedioRecursos = array();        
-        $summh = 0;       
-        $cantm=0;
-        $cantt=0;
-        $alid=0;
-        $coskg=0;
-        $cta=0;
-        $icb=0;
-        
-        if(count($recursosNecesarios)>0) {
-            for($i=0;$i<count($recursosNecesarios); $i++) {        
-                $recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
-                $recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
-                $recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
-                if($recursosNecesarios[$i]->conv_alimenticia > 0) {
-                    $recursosNecesarios[$i]->incr_bio_acum_conver = $recursosNecesarios[$i]->alimento_dia / $recursosNecesarios[$i]->conv_alimenticia;                                        
-                    $recursosNecesarios[$i]->conv_alimenticia = number_format($recursosNecesarios[$i]->conv_alimenticia,2,',','');                   
-                }
-                $summh += $recursosNecesarios[$i]->minutos_hombre;  
-                $cantm+=$recursosNecesarios[$i]->cant_manana;
-                $cantt+=$recursosNecesarios[$i]->cant_tarde;
-                $alid+=$recursosNecesarios[$i]->alimento_dia;
-                $coskg+=$recursosNecesarios[$i]->costo_kg;
-                $cta+=$recursosNecesarios[$i]->costo_total_alimento;
-                $icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;               
-                $recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');                
-            }
-            $promedioRecursos['tmh'] = $summh;                           
-            $promedioRecursos['cman'] = $cantm;
-            $promedioRecursos['ctar'] = $cantt;
-            $promedioRecursos['alid'] = $alid;
-            $promedioRecursos['coskg'] = $coskg;
-            $promedioRecursos['cta'] = $cta;
-            $icb = number_format($icb,2,',','');
-            $promedioRecursos['icb'] = $icb;
-            
-        }
-        // print_r($recursosNecesarios);
-    
-        return [
-            'recursosNecesarios' => $recursosNecesarios,
-            'promedioRecursos'=>$promedioRecursos,
-            'pagination' => [
-                'total'        => $recursosNecesarios->total(),
-                'current_page' => $recursosNecesarios->currentPage(),
-                'per_page'     => $recursosNecesarios->perPage(),
-                'last_page'    => $recursosNecesarios->lastPage(),
-                'from'         => $recursosNecesarios->firstItem(),
-                'to'           => $recursosNecesarios->lastItem(),
-            ],   
-        ];
+			$minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
+			$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+			->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+			->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+			->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+			->where('tipo_actividad', '=', '1')
+			->where('estado',1)
+			->paginate(20);
+			
+			$promedioRecursos = array();        
+			$summh = 0;       
+			$cantm=0;
+			$cantt=0;
+			$alid=0;
+			$coskg=0;
+			$cta=0;
+			$icb=0;
+			
+			if(count($recursosNecesarios)>0) {
+					for($i=0;$i<count($recursosNecesarios); $i++) {        
+							$recursosNecesarios[$i]->costo_total_alimento = ($recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana) * $recursosNecesarios[$i]->costo_kg;
+							$recursosNecesarios[$i]->total_minutos_hombre = $recursosNecesarios[$i]->minutos_hombre * $minutos_hombre->costo;
+							$recursosNecesarios[$i]->alimento_dia = $recursosNecesarios[$i]->cant_tarde + $recursosNecesarios[$i]->cant_manana;
+							if($recursosNecesarios[$i]->conv_alimenticia > 0) {
+									$recursosNecesarios[$i]->incr_bio_acum_conver = $recursosNecesarios[$i]->alimento_dia / $recursosNecesarios[$i]->conv_alimenticia;                                        
+									$recursosNecesarios[$i]->conv_alimenticia = number_format($recursosNecesarios[$i]->conv_alimenticia,2,',','');                   
+							}
+							$summh += $recursosNecesarios[$i]->minutos_hombre;  
+							$cantm+=$recursosNecesarios[$i]->cant_manana;
+							$cantt+=$recursosNecesarios[$i]->cant_tarde;
+							$alid+=$recursosNecesarios[$i]->alimento_dia;
+							$coskg+=$recursosNecesarios[$i]->costo_kg;
+							$cta+=$recursosNecesarios[$i]->costo_total_alimento;
+							$icb+=$recursosNecesarios[$i]->incr_bio_acum_conver;               
+							$recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver,2,',','');                
+					}
+					$promedioRecursos['tmh'] = $summh;                           
+					$promedioRecursos['cman'] = $cantm;
+					$promedioRecursos['ctar'] = $cantt;
+					$promedioRecursos['alid'] = $alid;
+					$promedioRecursos['coskg'] = $coskg;
+					$promedioRecursos['cta'] = $cta;
+					$icb = number_format($icb,2,',','');
+					$promedioRecursos['icb'] = $icb;
+					
+			}
+			// print_r($recursosNecesarios);
+	
+			return [
+					'recursosNecesarios' => $recursosNecesarios,
+					'promedioRecursos'=>$promedioRecursos,
+					'pagination' => [
+						'total'        => $recursosNecesarios->total(),
+						'current_page' => $recursosNecesarios->currentPage(),
+						'per_page'     => $recursosNecesarios->perPage(),
+						'last_page'    => $recursosNecesarios->lastPage(),
+						'from'         => $recursosNecesarios->firstItem(),
+						'to'           => $recursosNecesarios->lastItem(),
+					],   
+			];
     }
     public function siembraxAlimentacion($id)
     {

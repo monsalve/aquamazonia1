@@ -141,7 +141,7 @@
                     <td v-text="estados[contenedor.estado]"></td>
                     <td>                     
                       <button class="btn btn-primary" @click="mostrarParametros(contenedor.id)">
-                          <i class="far fa-eye"></i>
+                        <i class="far fa-eye"></i>
                       </button>
                     </td>
                   </tr>
@@ -325,6 +325,7 @@
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
+        listadoParametrosExcel : [],
         listadoParametrosContenedores : [],
         listadoContenedores : [],
         promedios : [],
@@ -339,8 +340,8 @@
       async fetchData(){
         let me = this;
         // const response = await axios.get('api/informe-Parametros');
-        const response = await this.listadoParametros;
-        return this.listadoParametros;
+        const response = await this.listadoParametrosExcel;
+        return this.listadoParametrosExcel;
       },
       filtrarParametros(){
         let me = this;
@@ -358,22 +359,18 @@
           me.listadoParametros = response.data.calidad_agua;
           me.promedios = response.data.promedios
         })
+         axios.post("api/filtro-parametros-excel", data)
+        .then(response=>{
+          me.listadoParametrosExcel = response.data.calidad_agua;
+          // me.promedios = response.data.promedios
+        })
         
       },
       listar(){
         let me = this;      
-        // this.listarParametros();
         this.listarSiembras(); 
         this.listarParametrosContenedores();
         this.listarContenedores();
-      },
-      listarParametros(){
-        let me = this;
-        axios.get("api/parametros-calidad")
-        .then(function (response){
-          me.listadoParametros = response.data.calidad_agua;
-          me.promedios = response.data.promedios
-        })
       },
       listarSiembras(){
         let me = this;
@@ -408,6 +405,12 @@
           this.mostrar = 1
           this.listadoParametros = response.data.calidad_agua;
           this.promedios = response.data.promedios
+        })
+        axios.post('api/parametro-x-contenedor-excel/'+objeto)
+        .then(response=>{
+          this.mostrar = 1
+          this.listadoParametrosExcel = response.data.calidad_agua;
+          // this.promedios = response.data.promedios
         })
        
       },
@@ -450,6 +453,7 @@
         this.form.put('api/parametros-calidad/'+this.form.id)
         .then(({data})=>{              
           $('#modalParametros').modal('hide');
+          me.mostrarParametros(this.idContenedor);
           me.listar();
           this.form.reset();
         })

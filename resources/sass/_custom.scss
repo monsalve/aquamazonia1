@@ -1,6 +1,10 @@
-//Colors
+//Etiquetas generales
 h1, h2, h3, h4 {
   color: $primary;
+}
+
+thead {
+  background-color: $background-light-blue-medium;
 }
 
 // Medias
@@ -10,6 +14,15 @@ h1, h2, h3, h4 {
 	nav > .container {
     min-width: 90% !important;
     max-width: 90% !important;
+  }
+}
+
+.card {
+  .card-header {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: $font-header-medium;
+    color: $primary;
   }
 }
 
@@ -47,28 +60,78 @@ input[type="checkbox"]:checked + label span {
 }
 
 ul#main-navigation {
+  
+  @media (min-width:768px) {
+    flex-direction: row;
+    justify-content: end;    
+  }
+
   li.col-nav-item {
-    &::before {
-      content: '';
-    }
-
-    @media (min-width: 768px) {  
-      width: 33.3%;
-      float: left;
-    }
-
-    @media (min-width: 992px) {  
-      width: 25%;
-      float: left;
-    }
-
-    @media (min-width: 1040px) {  
-      width: 20%;
-      float: left;
-    }
-
     a.nav-link {
       color: $primary;
+      background-color: $background-light-blue;
+      border-radius: 1rem;
+      margin: 5px;
+      border-bottom: 1px solid #5bbcf0;
     }
+  }
+}
+
+
+table#tabla-alimentacion { 
+ 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }  
+}
+
+table#tabla-informe-consolidado {
+  
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+
+  .fixed-column {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background-color: $light-gray;
+    z-index: 2;
+  }
+
+  thead {
+    color: $primary;
+    position: sticky;
+    top: 0;
+  
+    tr {
+      background-color: $white;
+      box-shadow: 0 2px 2px -1px $light-gray;
+
+      th {
+        background-color: $white;
+        position: sticky;
+        top: 0;
+      }
+    }
+  }
+  tbody {
+    max-height: 80vh;
   }
 }

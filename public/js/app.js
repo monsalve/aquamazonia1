@@ -2145,8 +2145,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2951,6 +2949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       listadoSiembras: [],
       listadoParametros: [],
+      listadoParametrosExcel: [],
       listadoParametrosContenedores: [],
       listadoContenedores: [],
       promedios: [],
@@ -2974,11 +2973,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 me = _this; // const response = await axios.get('api/informe-Parametros');
 
                 _context.next = 3;
-                return _this.listadoParametros;
+                return _this.listadoParametrosExcel;
 
               case 3:
                 response = _context.sent;
-                return _context.abrupt("return", _this.listadoParametros);
+                return _context.abrupt("return", _this.listadoParametrosExcel);
 
               case 5:
               case "end":
@@ -3012,20 +3011,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoParametros = response.data.calidad_agua;
         me.promedios = response.data.promedios;
       });
+      axios.post("api/filtro-parametros-excel", data).then(function (response) {
+        me.listadoParametrosExcel = response.data.calidad_agua; // me.promedios = response.data.promedios
+      });
     },
     listar: function listar() {
-      var me = this; // this.listarParametros();
-
+      var me = this;
       this.listarSiembras();
       this.listarParametrosContenedores();
       this.listarContenedores();
-    },
-    listarParametros: function listarParametros() {
-      var me = this;
-      axios.get("api/parametros-calidad").then(function (response) {
-        me.listadoParametros = response.data.calidad_agua;
-        me.promedios = response.data.promedios;
-      });
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -3057,6 +3051,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.mostrar = 1;
         _this2.listadoParametros = response.data.calidad_agua;
         _this2.promedios = response.data.promedios;
+      });
+      axios.post('api/parametro-x-contenedor-excel/' + objeto).then(function (response) {
+        _this2.mostrar = 1;
+        _this2.listadoParametrosExcel = response.data.calidad_agua; // this.promedios = response.data.promedios
       });
     },
     ocultarParametros: function ocultarParametros() {
@@ -3101,6 +3099,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
         $('#modalParametros').modal('hide');
+        me.mostrarParametros(_this3.idContenedor);
         me.listar();
 
         _this3.form.reset();
@@ -5265,14 +5264,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
 
 
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5390,7 +5392,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  methods: (_methods = {
+  methods: {
     fetchData: function fetchData() {
       var _this = this;
 
@@ -5416,55 +5418,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    buscarResultados: function buscarResultados() {},
     listar: function listar() {
       var me = this;
       axios.get("api/informes-recursos-necesarios").then(function (response) {
         me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
       });
-    }
-  }, _defineProperty(_methods, "buscarResultados", function buscarResultados() {
-    var me = this;
+    },
+    buscarResultados: function buscarResultados() {
+      var me = this;
 
-    if (this.f_siembra == '') {
-      this.f_s = '-1';
-    } else {
-      this.f_s = this.f_siembra;
-    }
+      if (this.f_siembra == '') {
+        this.f_s = '-1';
+      } else {
+        this.f_s = this.f_siembra;
+      }
 
-    if (this.f_estado == '') {
-      this.f_e = '-1';
-    } else {
-      this.f_e = this.f_estado;
-    }
+      if (this.f_estado == '') {
+        this.f_e = '-1';
+      } else {
+        this.f_e = this.f_estado;
+      }
 
-    if (this.f_actividad == '') {
-      this.actividad = '-1';
-    } else {
-      this.actividad = this.f_actividad;
-    }
+      if (this.f_actividad == '') {
+        this.actividad = '-1';
+      } else {
+        this.actividad = this.f_actividad;
+      }
 
-    var data = {
-      'f_siembra': this.f_s,
-      'f_estado': this.f_e,
-      'f_actividad': this.actividad
-    };
-    axios.post("api/filtro-recursos", data).then(function (response) {
-      me.listado = response.data.recursosNecesarios;
-      me.promedios = response.data.promedioRecursos;
-    });
-  }), _defineProperty(_methods, "listarSiembras", function listarSiembras() {
-    var me = this;
-    axios.get("api/siembras").then(function (response) {
-      me.listadoSiembras = response.data.siembra;
-    });
-  }), _defineProperty(_methods, "listarActividades", function listarActividades() {
-    var me = this;
-    axios.get("api/actividades").then(function (response) {
-      me.listadoActividades = response.data;
-    });
-  }), _methods),
+      var data = {
+        'f_siembra': this.f_s,
+        'f_estado': this.f_e,
+        'f_actividad': this.actividad
+      };
+      axios.post("api/filtro-recursos", data).then(function (response) {
+        me.listado = response.data.recursosNecesarios.data;
+        me.promedios = response.data.promedioRecursos;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    listarActividades: function listarActividades() {
+      var me = this;
+      axios.get("api/actividades").then(function (response) {
+        me.listadoActividades = response.data;
+      });
+    }
+  },
   mounted: function mounted() {
     this.listar();
     this.listarSiembras();
@@ -6008,6 +6012,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6047,7 +6063,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fecha_ra1: '',
       fecha_ra2: '',
       costo_acum: 0,
-      tipoActividad: ''
+      tipoActividad: '',
+      listadoPromedios: []
     };
   },
   components: {
@@ -6084,6 +6101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       axios.get("api/informes").then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
+        me.listadoPromedios = response.data.promedioRecursos;
       });
       axios.get("api/traer-recursos").then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
@@ -6590,6 +6608,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6617,27 +6675,73 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cantidad_recurso: '',
         detalles: ''
       }),
+      fecha_inicio: '',
+      hora_inicio: '07:00',
+      fecha_fin: '',
+      hora_fin: '07:00',
       t_actividad: '',
       fecha_ra1: '',
       fecha_ra2: '',
       f_siembra: '',
       alimento_s: '',
       recurso_s: '',
+      see_all: 0,
       busqueda: '',
       addSiembras: [],
       listado: [],
       promedios: [],
-      listadoRS: [],
       listadoSiembras: [],
       listadoAlimentos: [],
       listadoActividades: [],
       listadoRecursos: [],
       nombresRecursos: [],
-      nombresAlimentos: []
+      nombresAlimentos: [],
+      offset: 10,
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      showPagination: 1
     };
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
   },
   methods: {
     fetchData: function fetchData() {
@@ -6670,6 +6774,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#modalRecursos').modal('show');
     },
     buscarResultados: function buscarResultados() {
+      var _this2 = this;
+
       var me = this;
 
       if (this.f_siembra == '') {
@@ -6682,6 +6788,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.actividad = '-1';
       } else {
         this.actividad = this.t_actividad;
+      }
+
+      if (this.see_all == '') {
+        this.check = 0;
+      } else {
+        this.check = this.see_all;
       }
 
       if (this.recurso_s == '') {
@@ -6714,23 +6826,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'recurso_s': this.rec,
         'alimento_s': this.ali,
         'fecha_ra1': this.fecha1,
-        'fecha_ra2': this.fecha2
+        'fecha_ra2': this.fecha2,
+        'see_all': this.check
       };
       axios.post("api/searchResults", data).then(function (response) {
         if (response.data.pagination) {
+          _this2.showPagination = 1;
           me.listado = response.data.recursosNecesarios.data;
+          me.pagination = response.data.pagination;
         } else {
+          _this2.showPagination = 0;
           me.listado = response.data.recursosNecesarios;
           me.promedios = response.data.promedioRecursos;
+          me.pagination = [];
         }
       });
     },
-    listar: function listar() {
+    listar: function listar(page) {
       var me = this;
-      axios.get("api/recursos-necesarios").then(function (response) {
-        me.listado = response.data.recursosNecesarios;
-        me.listadoRS = response.data.recursosSiembra;
+      axios.get("api/recursos-necesarios?page=" + page).then(function (response) {
+        me.listado = response.data.recursosNecesarios.data;
         me.promedios = response.data.promedioRecursos;
+        me.pagination = response.data.pagination;
       });
     },
     listarSiembras: function listarSiembras() {
@@ -6795,10 +6912,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         }
       });
+    },
+    calcularDiferenciaTiempo: function calcularDiferenciaTiempo() {
+      var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio); // el evento cuyo tiempo ha transcurrido aquí:
+
+      var fin = new Date(this.fecha_fin + ' ' + this.hora_fin);
+      var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
+
+      var tiempoMinutos = transcurso / 60000;
+
+      if (transcurso > 0) {
+        this.form.cantidad_recurso = tiempoMinutos;
+      } //console.log(transcurso / 60000);//minutos
+      //console.log(transcurso / 3600000); //horas
+
+    },
+    cambiarPagina: function cambiarPagina(page) {
+      var me = this; //Actualiza la página actual
+
+      me.pagination.current_page = page;
+      me.listar(page);
     }
   },
   mounted: function mounted() {
-    this.listar();
+    this.listar(1);
     this.listarSiembras();
     this.listarAlimentos();
     this.listarRecursos();
@@ -7355,7 +7492,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       fecha_registro: '',
       tipo_registro: '',
       peso_ganado: '',
-      mortalidad: '',
+      mortalidad: 0,
       biomasa: '',
       cantidad: '',
       aux_lote: '',
@@ -46943,7 +47080,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Close")]
+                  [_vm._v("Cancelar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -50039,7 +50176,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped"
+                  staticClass: "table table-cebra table-bordered table-striped",
+                  attrs: { id: "tabla-actividades" }
                 },
                 [
                   _vm._m(0),
@@ -51191,6 +51329,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          staticClass: "sticky",
                           domProps: { textContent: _vm._s(le.nombre_siembra) }
                         }),
                         _vm._v(" "),
@@ -51361,9 +51500,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("#")]),
+        _c("th", { staticClass: "sticky" }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
+        _c("th", { staticClass: "sticky" }, [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Area")]),
         _vm._v(" "),
@@ -52180,8 +52319,8 @@ var render = function() {
                           expression: "f_siembra"
                         }
                       ],
-                      staticClass: "form-control",
-                      attrs: { id: "f_siembra" },
+                      staticClass: "custom-select",
+                      attrs: { id: "Siembra" },
                       on: {
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -52216,54 +52355,55 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("label", { attrs: { for: "f_estado" } }, [
+                  _c("label", { attrs: { for: "estado" } }, [
                     _vm._v(
-                      "\n                          Estado:\n                          "
-                    ),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.f_estado,
-                            expression: "f_estado"
-                          }
-                        ],
-                        staticClass: "custom-select",
-                        attrs: { name: "estado", id: "estado" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.f_estado = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "-1", disabled: "" } }, [
-                          _vm._v("--Seleccionar--")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "0" } }, [
-                          _vm._v("Inactiva")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Activa")
-                        ])
-                      ]
+                      "\n                          Estado:\n                        "
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_estado,
+                          expression: "f_estado"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { name: "estado", id: "estado" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_estado = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1", disabled: "" } }, [
+                        _vm._v("--Seleccionar--")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "0" } }, [
+                        _vm._v("Inactiva")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Activa")
+                      ])
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
@@ -52282,7 +52422,7 @@ var render = function() {
                           expression: "f_actividad"
                         }
                       ],
-                      staticClass: "form-control",
+                      staticClass: "custom-select",
                       attrs: { id: "f_actividad" },
                       on: {
                         change: function($event) {
@@ -52410,7 +52550,9 @@ var render = function() {
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
                         ? _c("th", [_vm._v("Costo total actividad")])
-                        : _vm._e()
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("% Costo total de producción")])
                     ])
                   ]),
                   _vm._v(" "),
@@ -52441,6 +52583,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          staticClass: "text-right",
                           domProps: { textContent: _vm._s(lrn.costo_minutos) }
                         }),
                         _vm._v(" "),
@@ -52454,6 +52597,7 @@ var render = function() {
                         _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
                           ? _c("td", {
+                              staticClass: "text-right",
                               domProps: {
                                 textContent: _vm._s(lrn.costo_recurso)
                               }
@@ -52470,6 +52614,7 @@ var render = function() {
                         _vm._v(" "),
                         _vm.tipoActividad == "Alimentación"
                           ? _c("td", {
+                              staticClass: "text-right",
                               domProps: {
                                 textContent: _vm._s(lrn.costo_alimento)
                               }
@@ -52478,11 +52623,24 @@ var render = function() {
                         _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
                           ? _c("td", {
+                              staticClass: "text-right",
                               domProps: {
                                 textContent: _vm._s(lrn.costo_total_actividad)
                               }
                             })
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          lrn.porcentaje_total_produccion
+                            ? _c("span", [
+                                _vm._v(
+                                  "\n                              " +
+                                    _vm._s(lrn.porcentaje_total_produccion) +
+                                    " %\n                            "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
                       ])
                     }),
                     0
@@ -53394,7 +53552,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped"
+                  staticClass: "table table-cebra table-bordered table-striped",
+                  attrs: { id: "tabla-consolidado" }
                 },
                 [
                   _c("thead", [
@@ -53555,7 +53714,63 @@ var render = function() {
                       ])
                     }),
                     0
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("tfoot", [
+                    _c("tr", [
+                      _c(
+                        "th",
+                        { staticClass: "text-right", attrs: { colspan: "5" } },
+                        [_vm._v("PROMEDIOS")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticClass: "text-right", attrs: { colspan: "2" } },
+                        [_vm._v("Costo minutos: ")]
+                      ),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(_vm._s(_vm.listadoPromedios.total_minutos))
+                      ]),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c(
+                            "td",
+                            {
+                              staticClass: "text-right",
+                              attrs: { colspan: "3" }
+                            },
+                            [_vm._v("Costo recursos: ")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad != "Alimentación"
+                        ? _c("th", [
+                            _vm._v(_vm._s(_vm.listadoPromedios.total_recurso))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("td", { attrs: { colspan: "2" } }, [
+                            _vm._v("Costo alimentos: ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("th", [
+                            _vm._v(_vm._s(_vm.listadoPromedios.total_alimento))
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(
+                          "Costo total actividades: " +
+                            _vm._s(_vm.listadoPromedios.total_actividad)
+                        )
+                      ])
+                    ])
+                  ])
                 ]
               )
             ])
@@ -54224,6 +54439,49 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.see_all,
+                          expression: "see_all"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", value: "1", id: "see_all" },
+                      domProps: {
+                        checked: Array.isArray(_vm.see_all)
+                          ? _vm._i(_vm.see_all, "1") > -1
+                          : _vm.see_all
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.see_all,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "1",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.see_all = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.see_all = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.see_all = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-2" }, [
                     _c(
                       "button",
                       {
@@ -54271,10 +54529,10 @@ var render = function() {
                 "table",
                 {
                   staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-recurso" }
+                  attrs: { id: "tabla-recursos" }
                 },
                 [
-                  _vm._m(0),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -54395,7 +54653,96 @@ var render = function() {
                   )
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "nav",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.showPagination,
+                    expression: "showPagination"
+                  }
+                ],
+                staticClass: "mt-5 navigation "
+              },
+              [
+                _c(
+                  "ul",
+                  { staticClass: "pagination justify-content-center" },
+                  [
+                    _vm.pagination.current_page > 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page - 1
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Ant")]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesNumber, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          key: page,
+                          staticClass: "page-item",
+                          class: [page == _vm.isActived ? "active" : ""]
+                        },
+                        [
+                          _c("a", {
+                            staticClass: "page-link",
+                            attrs: { href: "#" },
+                            domProps: { textContent: _vm._s(page) },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cambiarPagina(page)
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.pagination.current_page < _vm.pagination.last_page
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarPagina(
+                                    _vm.pagination.current_page + 1
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Sig")]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -54419,7 +54766,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("form", { staticClass: "row" }, [
@@ -54535,7 +54882,9 @@ var render = function() {
                           id: "minutos_hombre",
                           step: "any",
                           "aria-describedby": "minutos_hombre",
-                          placeholder: "Minutos hombre"
+                          placeholder: "Minutos hombre",
+                          min: "0",
+                          value: "0"
                         },
                         domProps: { value: _vm.form.minutos_hombre },
                         on: {
@@ -54607,6 +54956,172 @@ var render = function() {
                         2
                       )
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.form.tipo_actividad == 12,
+                            expression: "form.tipo_actividad == 12"
+                          }
+                        ],
+                        staticClass: "form-row my-2",
+                        staticStyle: { background: "#f0ffff" }
+                      },
+                      [
+                        _c("h5", { staticClass: "col-12" }, [
+                          _vm._v("Calcular tiempo")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "fecha_inicio" } }, [
+                            _vm._v("Fecha de inicio:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fecha_inicio,
+                                expression: "fecha_inicio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              name: "fecha_inicio",
+                              id: "fecha_inicio",
+                              value: "01-01-2021"
+                            },
+                            domProps: { value: _vm.fecha_inicio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.fecha_inicio = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "hora_inicio" } }, [
+                            _vm._v("Hora de inicio:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.hora_inicio,
+                                expression: "hora_inicio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "time",
+                              name: "hora_inicio",
+                              id: "hora_inicio",
+                              value: "12:00"
+                            },
+                            domProps: { value: _vm.hora_inicio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.hora_inicio = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "fecha_fin" } }, [
+                            _vm._v("Fecha de fin:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fecha_fin,
+                                expression: "fecha_fin"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              name: "fecha_fin",
+                              id: "fecha_fin"
+                            },
+                            domProps: { value: _vm.fecha_fin },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.fecha_fin = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-6" }, [
+                          _c("label", { attrs: { for: "hora_fin" } }, [
+                            _vm._v("Hora de fin:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.hora_fin,
+                                expression: "hora_fin"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "time",
+                              name: "hora_fin",
+                              id: "hora_fin",
+                              value: "12:00"
+                            },
+                            domProps: { value: _vm.hora_fin },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.hora_fin = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.calcularDiferenciaTiempo()
+                              }
+                            }
+                          },
+                          [_vm._v("Calcular tiempo")]
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "cantidad_recurso" } }, [
@@ -54799,6 +55314,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "see_all" } },
+      [
+        _c("span"),
+        _vm._v(
+          "\n                    Ver todos los registros\n                  "
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("#")]),
@@ -54821,7 +55351,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Costo Total")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Detalles")]),
+        _c("th", [_vm._v("Detalles")]),
         _vm._v(" "),
         _c("th", [_vm._v("Eliminar")])
       ])
@@ -54905,7 +55435,7 @@ var render = function() {
                 "table",
                 {
                   staticClass: "table table-cebra table-bordered table-striped",
-                  attrs: { id: "tabla-siembra" }
+                  attrs: { id: "tabla-siembras" }
                 },
                 [
                   _vm._m(0),
@@ -75943,6 +76473,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('downloadExcel', vue_json_excel__WEBPACK_IMPORTED_MODULE_4__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var routes = [{
+  path: '/',
+  component: __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue")["default"]
+}, {
   path: '/dashboard',
   component: __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue")["default"]
 }, {

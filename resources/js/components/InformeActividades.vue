@@ -85,7 +85,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped">
+                        <table class="table table-cebra table-bordered table-striped" id="tabla-actividades">
                           <thead>
                             <tr>
                               <th>#</th>
