@@ -12,13 +12,13 @@
               </div>
             </div>
             <div>
-              <table class="table-cebra table-responsive" >
-                <thead>
+              <table class="table table-bordered table-striped table-sticky">
+                <thead class="thead-primary">
                   <tr>
-                    <th scope="col">#</th>
+                    <th>#</th>
                     <th>Nombre <br> siembra</th>
-                    <th scope="col">Contenedor</th>
-                    <th scope="col" class="text-center d-sm-none d-none d-md-block" style="width:340px">
+                    <th>Contenedor</th>
+                    <th class="text-center d-sm-none d-none d-md-block" style="width:340px">
                       <h5> Especie</h5>
                       <div class="nav">
                         <li class="nav-item" style="width:80px">Especie</li>
@@ -27,12 +27,12 @@
                         <li class="nav-item" style="width:60px">Peso gr</li>
                       </div>
                     </th>
-                    <th scope="col">Inicio siembra</th>
-                    <th scope="col">Inicio - fin de <br> descanso estanque</th>
-                    <th scope="col">Fecha <br>Alimentación</th>
-                    <th scope="col">Ingreso</th>
-                    <th scope="col">Finalizar</th>
-                    <th scope="col">Editar</th>
+                    <th>Inicio siembra</th>
+                    <th>Inicio - fin de  descanso estanque</th>
+                    <th>Fecha Alimentación</th>
+                    <th>Ingreso</th>
+                    <th>Finalizar</th>
+                    <th>Editar</th>
                     <th>Eliminar</th>
                   </tr>
                 </thead>
@@ -532,7 +532,7 @@ export default {
       
       tipo_registro:'',
       peso_ganado:'',
-      mortalidad:'',
+      mortalidad:0,
       biomasa:'',
       cantidad:'',
       

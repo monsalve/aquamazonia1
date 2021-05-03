@@ -62,11 +62,11 @@
                         </div>
                         
                         <div class="row">
-                            <table class="table table-striped table-hover table-sm table-responsive-sm">
-                              <thead>
+                            <table class="table table-bordered table-striped table-sticky">
+                              <thead class="thead-primary">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th>Nombre <br> siembra</th>
+                                  <th>Nombre<br>siembra</th>
                                   <th scope="col">Inicio siembra</th>                                  
                                   <th scope="col">Estado</th>   
                                   <th scope="col">Contenedor</th>

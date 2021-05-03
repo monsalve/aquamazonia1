@@ -66,8 +66,8 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-striped table-sm table-hover table-responsive table-bordered">
-                          <thead>
+                        <table class="table table-cebra table-bordered table-striped table-sticky">
+                          <thead class="thead-primary">
                             <tr>                           
                               <th>#</th>
                               <th>Siembra</th>

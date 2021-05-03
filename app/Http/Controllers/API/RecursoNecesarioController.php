@@ -32,7 +32,7 @@ class RecursoNecesarioController extends Controller
         ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
         ->where('tipo_actividad', '!=', '1')
         ->where('estado',1)
-        ->get();
+        ->paginate(20);
         
         $promedioRecursos = array();        
         $summh = 0;
@@ -63,7 +63,18 @@ class RecursoNecesarioController extends Controller
 					$promedioRecursos['ctr'] = number_format($promedioRecursos['ctr'],2,',','');
         }
         
-        return ['recursosNecesarios' => $recursosNecesarios, 'promedioRecursos' => $promedioRecursos];
+        return [
+					'recursosNecesarios' => $recursosNecesarios,
+					'promedioRecursos' => $promedioRecursos,
+					'pagination' => [
+						'total'        => $recursosNecesarios->total(),
+						'current_page' => $recursosNecesarios->currentPage(),
+						'per_page'     => $recursosNecesarios->perPage(),
+						'last_page'    => $recursosNecesarios->lastPage(),
+						'from'         => $recursosNecesarios->firstItem(),
+						'to'           => $recursosNecesarios->lastItem(),
+					]
+				];
     }
     public function  alimentacion(Request $request)
     {
@@ -76,7 +87,7 @@ class RecursoNecesarioController extends Controller
 			->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
 			->where('tipo_actividad', '=', '1')
 			->where('estado',1)
-			->paginate(30);
+			->paginate(20);
 			
 			$promedioRecursos = array();        
 			$summh = 0;       
@@ -121,12 +132,12 @@ class RecursoNecesarioController extends Controller
 					'recursosNecesarios' => $recursosNecesarios,
 					'promedioRecursos'=>$promedioRecursos,
 					'pagination' => [
-							'total'        => $recursosNecesarios->total(),
-							'current_page' => $recursosNecesarios->currentPage(),
-							'per_page'     => $recursosNecesarios->perPage(),
-							'last_page'    => $recursosNecesarios->lastPage(),
-							'from'         => $recursosNecesarios->firstItem(),
-							'to'           => $recursosNecesarios->lastItem(),
+						'total'        => $recursosNecesarios->total(),
+						'current_page' => $recursosNecesarios->currentPage(),
+						'per_page'     => $recursosNecesarios->perPage(),
+						'last_page'    => $recursosNecesarios->lastPage(),
+						'from'         => $recursosNecesarios->firstItem(),
+						'to'           => $recursosNecesarios->lastItem(),
 					],   
 			];
     }

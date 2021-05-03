@@ -22,6 +22,7 @@ Vue.component('downloadExcel', JsonExcel)
 Vue.use(VueRouter)
 
 let routes = [
+    { path: '/', component: require('./components/Dashboard.vue').default },
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/contenedores', component: require('./components/Contenedores.vue').default },
     { path: '/especies', component: require('./components/Especies.vue').default },

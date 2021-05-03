@@ -11216,7 +11216,7 @@ input[type=checkbox]:checked + label span {
 @media (min-width: 768px) {
   ul#main-navigation {
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }
 
@@ -11228,71 +11228,38 @@ ul#main-navigation li.col-nav-item a.nav-link {
   border-bottom: 1px solid #5bbcf0;
 }
 
-.table-cebra {
-  border-top: solid 1px #ccc;
+.table {
   border-spacing: 0;
 }
 
-.table-cebra thead th {
+.thead-primary th {
   background: #08537c;
-  color: white;
+  color: #ffffff;
 }
 
-.table-cebra th,
-.table-cebra td {
-  border-right: 1px solid #ccc;
-  min-width: 150px;
-  padding: 0.5rem;
-  text-aling: left;
-}
-
-.table-cebra th:last-child,
-.table-cebra td:last-child {
-  border-right: 0;
-}
-
-.table-cebra td {
-  border-bottom: 1px solid #ccc;
-}
-
-.table-cebra tbody tr {
-  background: white;
-}
-
-.table-cebra tbody tr:nth-child(2n) {
-  background: #f2f2f2;
-}
-
-.table-container {
-  max-width: 100%;
-  overflow-x: scroll;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
-}
-
-#table-container2 {
-  overflow-y: scroll;
-  max-width: 100%;
-  max-height: 400px;
-}
-
-.table-cebra .sticky {
+.table-sticky .fixed-column {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
+  background-color: #DBE5FA;
+  z-index: 2;
 }
 
-#table-cebra2 #sticky {
+.table-sticky thead {
+  color: #08537c;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
-.table-cebra tbody tr .sticky {
-  background: white;
+.table-sticky thead tr {
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px -1px #DBE5FA;
 }
 
-.table-cebra tbody tr:nth-child(2n) .sticky {
-  background: #f2f2f2;
+.table-sticky thead tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 

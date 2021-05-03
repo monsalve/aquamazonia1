@@ -12,7 +12,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-striped table-sm">
+                            <table class="table table-cebra table-bordered table-striped">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>

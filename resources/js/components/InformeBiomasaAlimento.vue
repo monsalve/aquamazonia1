@@ -42,9 +42,9 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div class="table-container">
-                        <table class="table-cebra">
-                          <thead>
+                      <div>
+                        <table class="table table-cebra table-bordered table-striped table-sticky">
+                          <thead class="thead-primary">
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>

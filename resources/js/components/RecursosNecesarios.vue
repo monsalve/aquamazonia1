@@ -43,6 +43,13 @@
                     <label for="search">Hasta: </label>
                     <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
                   </div>
+                  <div class="form-group col-md-2">
+                    <input type="checkbox" class="form-check-input" value="1" v-model="see_all" id="see_all">
+                    <label for="see_all" class="form-check-label">
+                      <span></span>
+                      Ver todos los registros
+                    </label>
+                  </div>
                   <div class="form-group col-md-2">                                      
                     <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
@@ -76,7 +83,7 @@
                     <th>Cantidad</th>
                     <th>Costo</th>
                     <th>Costo Total</th>
-                    <th width=15%>Detalles</th>
+                    <th>Detalles</th>
                     <th>Eliminar</th>
                   </tr>
                 </thead>
@@ -114,6 +121,19 @@
                 </tbody>
               </table>
             </div>
+            <nav v-show="showPagination" class="mt-5 navigation ">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" v-if="pagination.current_page > 1">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
+                </li>
+                <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
+                </li>
+                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                  <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -142,6 +162,17 @@
                   <label for="minutos hombre">Fecha</label>
                   <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
                 </div>
+                <div class="form-group">   
+                  <label for="minutos hombre">Minutos hombre</label>
+                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
+                </div>
+                <div class="form-group">
+                  <label for="recurso">Recurso</label>
+                  <select class="form-control" id="recurso" v-model="form.id_recurso">
+                    <option selected>--Seleccionar--</option>
+                    <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
+                  </select>
+                </div>
                 <div class="form-row my-2" style="background:#f0ffff;" v-show="form.tipo_actividad == 12">
                   <h5 class="col-12">Calcular tiempo</h5>
                   <div class="form-group col-6">
@@ -163,17 +194,6 @@
                   </div>
                
                   <button type="button" class="btn btn-primary" @click="calcularDiferenciaTiempo()">Calcular tiempo</button>
-                </div>
-                <div class="form-group">   
-                  <label for="minutos hombre">Minutos hombre</label>
-                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
-                </div>
-                <div class="form-group">
-                  <label for="recurso">Recurso</label>
-                  <select class="form-control" id="recurso" v-model="form.id_recurso">
-                    <option selected>--Seleccionar--</option>
-                    <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
-                  </select>
                 </div>
                 <div class="form-group">                    
                   <label for="cantidad_recurso">Cantidad</label>
@@ -246,21 +266,59 @@ import downloadexcel from "vue-json-excel"
         f_siembra:'',
         alimento_s :'',
         recurso_s : '',
+        see_all : 0,
         busqueda:'',
         addSiembras :[],
         listado : [],
         promedios:[],
-        listadoRS : [],
         listadoSiembras : [],
         listadoAlimentos:[],
         listadoActividades : [],
         listadoRecursos:[],
         nombresRecursos:[],
         nombresAlimentos:[],
+        offset : 10,
+        pagination : {
+          'total' : 0,
+          'current_page' : 0,
+          'per_page' : 0,
+          'last_page' : 0,
+          'from' : 0,
+          'to' : 0,
+        },
+        showPagination : 1
       }
     },
      components: {
       downloadexcel,
+    },
+    computed:{
+      isActived: function(){
+          return this.pagination.current_page;
+      },
+      //Calcula los elementos de la paginación
+      pagesNumber: function() {
+        if(!this.pagination.to) {
+          return [];
+        }
+        
+        var from = this.pagination.current_page - this.offset; 
+        if(from < 1) {
+          from = 1;
+        }
+
+        var to = from + (this.offset * 2); 
+        if(to >= this.pagination.last_page){
+          to = this.pagination.last_page;
+        }  
+
+        var pagesArray = [];
+        while(from <= to) {
+          pagesArray.push(from);
+          from++;
+        }
+        return pagesArray;
+      }
     },
     methods:{
       async fetchData(){
@@ -275,7 +333,8 @@ import downloadexcel from "vue-json-excel"
       buscarResultados(){
         let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
-        if(this.t_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.t_actividad}       
+        if(this.t_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.t_actividad}
+        if(this.see_all == ''){this.check = 0}else{this.check = this.see_all}
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
@@ -288,26 +347,31 @@ import downloadexcel from "vue-json-excel"
           'alimento_s' : this.ali,
           'fecha_ra1' :this.fecha1,
           'fecha_ra2' : this.fecha2,
+          'see_all' : this.check,
           
         }
         axios.post("api/searchResults", data)
         .then(response=>{
           if(response.data.pagination) {
+            this.showPagination = 1;
             me.listado = response.data.recursosNecesarios.data;
+            me.pagination = response.data.pagination;
           }
           else{
+            this.showPagination = 0;
             me.listado = response.data.recursosNecesarios;
             me.promedios = response.data.promedioRecursos;
+            me.pagination = []
           }
         })
       },
-      listar(){
+      listar(page){
         let me = this;
-        axios.get("api/recursos-necesarios")
+        axios.get("api/recursos-necesarios?page=" + page)
         .then(function (response){
-          me.listado = response.data.recursosNecesarios;         
-          me.listadoRS = response.data.recursosSiembra;
+          me.listado = response.data.recursosNecesarios.data;
           me.promedios = response.data.promedioRecursos;
+          me.pagination = response.data.pagination;
         })
       },
       listarSiembras(){
@@ -383,15 +447,21 @@ import downloadexcel from "vue-json-excel"
         var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
         var tiempoMinutos = transcurso / 60000;
         if(transcurso > 0){
-          this.form.minutos_hombre = tiempoMinutos;
+          this.form.cantidad_recurso = tiempoMinutos;
         }
         //console.log(transcurso / 60000);//minutos
         //console.log(transcurso / 3600000); //horas
-      }
+      },
+      cambiarPagina(page){
+        let me = this;
+        //Actualiza la página actual
+        me.pagination.current_page = page;
+        me.listar(page);
+      },
     },
     mounted() {
      
-      this.listar();
+      this.listar(1);
       this.listarSiembras();
       this.listarAlimentos();
       this.listarRecursos();

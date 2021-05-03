@@ -3,6 +3,7 @@
 
 @section('content')
 <router-view></router-view>
+
 <!--
 <div class="container">
     <div class="row justify-content-center">
