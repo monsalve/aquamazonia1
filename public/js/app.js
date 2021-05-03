@@ -7443,7 +7443,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -55473,66 +55472,60 @@ var render = function() {
                         _c(
                           "td",
                           { staticClass: "d-sm-none d-none d-md-block" },
-                          _vm._l(_vm.pecesxSiembra, function(pez) {
-                            return _c("div", { key: pez.id }, [
-                              pez.id_siembra == siembra.id
-                                ? _c(
-                                    "div",
-                                    { staticClass: "nav text-center" },
-                                    [
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.especie)
-                                          }
-                                        },
-                                        [_vm._v("Especie")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.lote)
-                                          }
-                                        },
-                                        [_vm._v("Lote")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "80px" },
-                                          domProps: {
-                                            textContent: _vm._s(pez.cant_actual)
-                                          }
-                                        },
-                                        [_vm._v("Cantidad")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "li",
-                                        {
-                                          staticClass: "nav-item border-bottom",
-                                          staticStyle: { width: "60px" },
-                                          domProps: {
-                                            textContent: _vm._s(
-                                              pez.peso_actual + "Gr"
-                                            )
-                                          }
-                                        },
-                                        [_vm._v("Peso")]
+                          _vm._l(siembra.peces, function(pez) {
+                            return _c(
+                              "ul",
+                              { key: pez.id, staticClass: "nav" },
+                              [
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: {
+                                      textContent: _vm._s(pez.especie)
+                                    }
+                                  },
+                                  [_vm._v("Especie")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: { textContent: _vm._s(pez.lote) }
+                                  },
+                                  [_vm._v("Lote")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "80px" },
+                                    domProps: {
+                                      textContent: _vm._s(pez.cant_actual)
+                                    }
+                                  },
+                                  [_vm._v("Cantidad")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass: "nav-item border-bottom",
+                                    staticStyle: { width: "60px" },
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        pez.peso_actual + "Gr"
                                       )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
+                                    }
+                                  },
+                                  [_vm._v("Peso")]
+                                )
+                              ]
+                            )
                           }),
                           0
                         ),
@@ -57556,25 +57549,25 @@ var staticRenderFns = [
             _c("div", { staticClass: "nav" }, [
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Especie")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Lote")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "80px" } },
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [_vm._v("Cantidad")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item", staticStyle: { width: "60px" } },
+                { staticStyle: { width: "60px", display: "inline-block" } },
                 [_vm._v("Peso gr")]
               )
             ])

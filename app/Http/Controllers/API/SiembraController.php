@@ -19,15 +19,56 @@ class SiembraController extends Controller
      */
     public function index()
     {
-        //
-        $siembra = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
+        //listado general de siembras
+				$listado_siembras = Siembra::select('siembras.id as id', 'nombre_siembra','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
+        ->orderBy('siembras.id', 'desc')
+        ->get(); 
+
+				//Otros datos
+        $siembras = Siembra::select('siembras.id as id', 'nombre_siembra', 'id_contenedor','contenedor','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
 					->join('contenedores','siembras.id_contenedor','contenedores.id')
 					->where('siembras.estado','=',1)
 					->orderBy('siembras.id', 'desc')
 					->get();
-        $listado_siembras = Siembra::select('siembras.id as id', 'nombre_siembra','fecha_inicio', 'ini_descanso', 'fin_descanso','siembras.estado as estado', 'fecha_alimento')
-        ->orderBy('siembras.id', 'desc')
-        ->get();           
+
+				$detalles_siembra = array();
+				foreach($siembras as $siembra) {
+
+					$peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','lote','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
+					->leftJoin('especies','especies_siembra.id_especie','especies.id')
+					->where('especies_siembra.id_siembra', $siembra->id)
+					->orderBy('especie', 'asc')
+					->get();
+
+					$detalles_siembra[$siembra['id']] = array(
+						'id' => $siembra['id'],
+						'nombre_siembra' => $siembra['nombre_siembra'], 
+						'contenedor' => $siembra['contenedor'],
+						'fecha_alimento' => $siembra['fecha_alimento'], 
+						'ini_descanso' => $siembra['ini_descanso'],
+						'estado' => $siembra['estado'],
+						'fecha_inicio' => $siembra['fecha_inicio'],
+						'fin_descanso' => $siembra['fin_descanso'],
+						'id_contenedor' => $siembra['id_contenedor'],
+					);
+
+					foreach($peces as $pez) {
+						$detalles_siembra[$siembra['id']]['peces'][$pez['id']] = [
+							'especie' => $pez['especie'],
+							'lote' => $pez['lote'],
+							'cant_actual' => $pez['cant_actual'],
+							'peso_actual' => $pez['peso_actual'],
+							
+						];
+
+					}
+
+
+				}
+				// echo '<pre>';
+				// 		print_r ($detalles_siembra);
+				// 		echo '</pre>';
+                  
         $fecha_actual = date('Y-m-d');
                     
         $peces = EspecieSiembra::select('especies_siembra.id as id','id_siembra','id_especie','lote','cantidad','peso_inicial','cant_actual',  'peso_actual', 'especies.especie as especie',)
@@ -42,6 +83,7 @@ class SiembraController extends Controller
         $campos=array();
         foreach($peces as $p) {
             $pxs[$p['id_siembra']][$p['id']] = $p;
+
             $campos[$p['id_siembra']][$p['id']] = array(
                 "id_especie"=>$p['id_especie'],
                 "id_siembra"=>$p['id_siembra'] ,
@@ -51,9 +93,10 @@ class SiembraController extends Controller
                 "cantidad"=>'',
                 'cant_actual'=>$p['cant_actual'],
                 'peso_actual'=>$p['peso_actual']);
-        }                
-        // echo date('Y-m-d');
-        return ["siembra"=> $siembra,"listado_siembras"=> $listado_siembras, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes, 'fecha_actual'=> $fecha_actual];
+        }            
+				// exit;    
+        
+        return ["siembra"=> $detalles_siembra,"listado_siembras"=> $listado_siembras, "pecesSiembra" =>  $peces, 'campos'=>$campos, 'lotes' => $lotes, 'fecha_actual'=> $fecha_actual];
     }
 
 		public function listadoLotes(){
