@@ -138,10 +138,10 @@ export default {
         'Fecha de registro' : 'fecha_registro',
         'Especie' : 'especie',
         'Tipo registro' : 'nombre_registro',
-        ' Peso ganado' : 'peso_ganado',
-        ' Mortalidad' : 'mortalidad',
+        'Peso ganado' : 'peso_ganado',
+        'Mortalidad' : 'mortalidad',
         'Biomasa' : 'bioamasa',
-        ' Cantidad' : 'cantidad',
+        'Cantidad' : 'cantidad',
         
       }, 
       

@@ -61,7 +61,7 @@
             </div>
          
             <div>
-              <table class="table table-sticky table-bordered table-striped table-sm-responsive">
+              <table class="table table-sticky table-bordered table-striped table-sm table-sm-responsive">
                 <thead class="thead-primary">
                   <tr>
                     <th>#</th>
