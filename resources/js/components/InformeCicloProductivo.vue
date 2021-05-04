@@ -66,11 +66,11 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped table-sticky">
-                          <thead class="thead-primary">
+                        <table class="table table-bordered table-striped table-sticky">
+                          <thead class="table-primary">
                             <tr>                           
-                              <th>#</th>
-                              <th>Siembra</th>
+                              <th class="fixed-column">#</th>
+                              <th class="fixed-column">Siembra</th>
                               <th>Lote</th>
                               <th>Area</th>
                               <th>Especie</th>
@@ -96,8 +96,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>
+                              <td v-text="index+1" class="fixed-column"></td>
+                              <td v-text="le.nombre_siembra" class="fixed-column"></td>
                               <td v-text="le.lote"></td>
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.especie"></td>

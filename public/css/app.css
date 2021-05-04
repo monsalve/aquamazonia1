@@ -11245,7 +11245,7 @@ ul#main-navigation li.col-nav-item a.nav-link {
 .table-sticky .fixed-column {
   position: -webkit-sticky;
   position: sticky;
-  left: 0;
+  left: 50px;
   z-index: 2;
 }
 

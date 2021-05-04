@@ -61,7 +61,7 @@
                             <div class="form-group col-md-2">                                      
                               
                               <downloadexcel
-                              class = "btn btn-success"
+                              class = "btn btn-success form-control"
                               :fetch   = "fetchData"
                               :fields = "json_fields"                             
                               name    = "informe-recursos.xls"
