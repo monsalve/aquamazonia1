@@ -55449,7 +55449,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-bordered table-striped table-sticky"
+                  staticClass:
+                    "table table-bordered table-striped table-sm table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -55480,13 +55481,16 @@ var render = function() {
                           _vm._l(siembra.peces, function(pez) {
                             return _c(
                               "ul",
-                              { key: pez.id, staticClass: "nav" },
+                              { key: pez.id, staticClass: "nav border-0" },
                               [
                                 _c(
                                   "li",
                                   {
                                     staticClass: "nav-item border-bottom",
-                                    staticStyle: { width: "80px" },
+                                    staticStyle: {
+                                      width: "80px",
+                                      display: "inline-block"
+                                    },
                                     domProps: {
                                       textContent: _vm._s(pez.especie)
                                     }
@@ -55498,7 +55502,10 @@ var render = function() {
                                   "li",
                                   {
                                     staticClass: "nav-item border-bottom",
-                                    staticStyle: { width: "80px" },
+                                    staticStyle: {
+                                      width: "80px",
+                                      display: "inline-block"
+                                    },
                                     domProps: { textContent: _vm._s(pez.lote) }
                                   },
                                   [_vm._v("Lote")]
@@ -55508,7 +55515,10 @@ var render = function() {
                                   "li",
                                   {
                                     staticClass: "nav-item border-bottom",
-                                    staticStyle: { width: "80px" },
+                                    staticStyle: {
+                                      width: "80px",
+                                      display: "inline-block"
+                                    },
                                     domProps: {
                                       textContent: _vm._s(pez.cant_actual)
                                     }
@@ -55520,7 +55530,10 @@ var render = function() {
                                   "li",
                                   {
                                     staticClass: "nav-item border-bottom",
-                                    staticStyle: { width: "60px" },
+                                    staticStyle: {
+                                      width: "60px",
+                                      display: "inline-block"
+                                    },
                                     domProps: {
                                       textContent: _vm._s(
                                         pez.peso_actual + "Gr"
@@ -57551,7 +57564,7 @@ var staticRenderFns = [
           [
             _c("h5", [_vm._v(" Especie")]),
             _vm._v(" "),
-            _c("div", { staticClass: "nav" }, [
+            _c("div", { staticClass: "py-3" }, [
               _c(
                 "li",
                 { staticStyle: { width: "80px", display: "inline-block" } },
