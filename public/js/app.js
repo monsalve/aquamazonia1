@@ -47935,8 +47935,7 @@ var render = function() {
                     "table",
                     {
                       staticClass:
-                        "table table-cebra table-bordered table-striped",
-                      attrs: { id: "tabla-parametro" }
+                        "table table-sticky table-bordered table-striped"
                     },
                     [
                       _vm._m(1),
@@ -48760,7 +48759,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -49317,7 +49316,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body jumbotron" }, [
-              _c("h1", { staticClass: "display-4" }, [
+              _c("h1", { staticClass: "display-5" }, [
                 _vm._v("Bienvenido al gestor de Aquamazonia!!")
               ])
             ])
@@ -50468,8 +50467,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -54532,6 +54530,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+<<<<<<< HEAD
             _c("div", [
               _c(
                 "table",
@@ -54549,6 +54548,111 @@ var render = function() {
                           _c("td", {
                             domProps: { textContent: _vm._s(index + 1) }
                           }),
+=======
+            _c(
+              "div",
+              {
+                staticClass: "table-container",
+                attrs: { id: "table-container2" }
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table-sticky table table-sm table-hover table-bordered"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.listado, function(item, index) {
+                          return _c("tr", { key: index }, [
+                            _c("td", {
+                              domProps: { textContent: _vm._s(index + 1) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.actividad) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.nombre_siembra)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.fecha_ra) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.total_minutos_hombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.recurso) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.cantidad_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.costo) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(item.costo_total_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(item.detalles) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.eliminarRegistro(
+                                        item.id_registro
+                                      )
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-trash" })]
+                              )
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-right",
+                              attrs: { colspan: "4" }
+                            },
+                            [_vm._v("TOTAL:")]
+                          ),
+>>>>>>> 435785ed662ff2eb1b97d58bdde908c867342624
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(item.actividad) }
