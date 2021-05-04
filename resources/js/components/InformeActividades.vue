@@ -85,8 +85,8 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped table-sticky">
-                          <thead class="table-primary">
+                        <table class="table table-bordered table-striped table-sticky">
+                          <thead class="thead-primary">
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>

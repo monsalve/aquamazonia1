@@ -69,9 +69,9 @@
             </div>
          
             <div class="table-container" id="table-container2">
-              <table class="table-cebra table table-sm table-hover table-bordered" id="table-cebra2">
+              <table class="table-sticky table table-sm table-hover table-bordered">
 
-                <thead>
+                <thead class="thead-primary">
                   <tr>
                     <th>#</th>
                     <th>Tipo de <br> Actividad</th>

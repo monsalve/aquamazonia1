@@ -43,7 +43,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-cebra table-bordered table-striped table-sticky">
+                        <table class="table table-bordered table-striped table-sticky">
                           <thead class="thead-primary">
                             <tr class="text-right">
                               <th>#</th>

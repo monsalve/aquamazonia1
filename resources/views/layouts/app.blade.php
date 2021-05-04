@@ -133,6 +133,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="text-primary text-center">
+            <small>
+                Desarrollado por <b>FRACTAL AGENCIA DIGITAL 💙</b>
+            </small>
+        </footer>
     </div>
 </body>
 </html>

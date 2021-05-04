@@ -47938,8 +47938,7 @@ var render = function() {
                     "table",
                     {
                       staticClass:
-                        "table table-cebra table-bordered table-striped",
-                      attrs: { id: "tabla-parametro" }
+                        "table table-sticky table-bordered table-striped"
                     },
                     [
                       _vm._m(1),
@@ -48763,7 +48762,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -49320,7 +49319,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body jumbotron" }, [
-              _c("h1", { staticClass: "display-4" }, [
+              _c("h1", { staticClass: "display-5" }, [
                 _vm._v("Bienvenido al gestor de Aquamazonia!!")
               ])
             ])
@@ -50181,8 +50180,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -50257,7 +50255,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "table-primary" }, [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
@@ -50472,8 +50470,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -50948,8 +50945,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51329,8 +51325,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(1),
@@ -51786,8 +51781,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(0),
@@ -52148,8 +52142,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _vm._m(3),
@@ -53566,8 +53559,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass:
-                    "table table-cebra table-bordered table-striped table-sticky"
+                  staticClass: "table table-bordered table-striped table-sticky"
                 },
                 [
                   _c("thead", { staticClass: "thead-primary" }, [
@@ -54549,8 +54541,7 @@ var render = function() {
                   "table",
                   {
                     staticClass:
-                      "table-cebra table table-sm table-hover table-bordered",
-                    attrs: { id: "table-cebra2" }
+                      "table-sticky table table-sm table-hover table-bordered"
                   },
                   [
                     _vm._m(1),
@@ -55353,7 +55344,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),

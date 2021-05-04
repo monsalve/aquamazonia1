@@ -121,8 +121,8 @@
               </div>
             </div>
             <div class="row" v-if="mostrar==0">
-              <table class="table table-cebra table-bordered table-striped" id="tabla-parametro">
-                <thead>
+              <table class="table table-sticky table-bordered table-striped">
+                <thead class="thead-primary">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Contenedor</th>
