@@ -2161,6 +2161,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Kg día': 'alimento_dia',
         'Costo': 'costo_kg',
         'Costo total': 'costo_total_alimento',
+        'Conversion alimenticia teorica': 'conv_alimenticia',
+        'incremento biomasa acumulada por convercion': 'incr_bio_acum_conver',
         'Detalles': 'detalles'
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
@@ -6660,7 +6662,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
         'Minutos hombre': 'minutos_hombre',
-        'Costo total minutos': 'total_minutos_hombre',
+        'Costo minutos hombre': 'total_minutos_hombre',
         'Recurso': 'recurso',
         'Cantidad': 'cantidad_recurso',
         'Costo': 'costo',

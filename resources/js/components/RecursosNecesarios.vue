@@ -237,7 +237,7 @@ import downloadexcel from "vue-json-excel"
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',        
           'Minutos hombre' : 'minutos_hombre',
-          'Costo total minutos' : 'total_minutos_hombre',
+          'Costo minutos hombre' : 'total_minutos_hombre',
           'Recurso' : 'recurso',
           'Cantidad' : 'cantidad_recurso',
           'Costo' : 'costo',

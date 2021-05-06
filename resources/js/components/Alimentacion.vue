@@ -229,6 +229,8 @@ import downloadexcel from "vue-json-excel"
           'Kg día' : 'alimento_dia',
           'Costo' : 'costo_kg',
           'Costo total' : 'costo_total_alimento',
+          'Conversion alimenticia teorica' :'conv_alimenticia',
+          'incremento biomasa acumulada por convercion' : 'incr_bio_acum_conver',
           'Detalles' : 'detalles'
         },
         form : new Form({
