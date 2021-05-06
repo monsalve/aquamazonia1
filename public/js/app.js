@@ -53559,7 +53559,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-bordered table-striped table-sticky"
+                  staticClass:
+                    "table table-bordered table-striped table-sticky table-sm"
                 },
                 [
                   _c("thead", { staticClass: "thead-primary" }, [
