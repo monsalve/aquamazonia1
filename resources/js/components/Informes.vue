@@ -68,7 +68,6 @@
                               type    = "xls">
                                 <i class="fa fa-fw fa-download"></i> Generar Excel 
                               </downloadexcel>
-                              
                             </div>
                           </form>
                         </div>

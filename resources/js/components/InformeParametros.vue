@@ -44,8 +44,8 @@
                 </div>
               </div>
             </div>
-            <div>   
-              <table class="table table-bordered table-striped table-sticky">
+            <div class="table-container" id="table-container2">
+              <table class="table-sticky table table-sm table-hover table-bordered">
                 <thead class="thead-primary">
                   <tr>                    
                     <th rowspan="2" data-field="id">#</th>                    
@@ -87,7 +87,6 @@
                     <td v-text="lp.otros"></td>
                   </tr>
                   <tr class="bg-secondary text-white">
-                    
                     <th colspan="4">PROMEDIO:</th>
                     <td v-text="promedios.promedio_12_am"></td>
                     <td v-text="promedios.promedio_4_am"></td>
@@ -100,7 +99,6 @@
                     <td v-text="promedios.promedio_nitrito"></td>
                     <td v-text="promedios.promedio_nitrato"></td>
                     <td v-text="promedios.promedio_otros"></td>
-                    
                   </tr>                  
                 </tbody>
               </table>

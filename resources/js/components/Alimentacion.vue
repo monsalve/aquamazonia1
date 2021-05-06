@@ -56,8 +56,7 @@
                     <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
-              </div>
-              
+              </div> 
             </div>
          
             <div>
@@ -98,9 +97,7 @@
                     <td v-text="item.conv_alimenticia"></td>
                     <td v-text="item.incr_bio_acum_conver"></td>
                     <td v-text="item.detalles"></td>
-              
                   </tr>
-                 
                 </tbody>
                 <tfoot>
                    <tr>
@@ -229,6 +226,8 @@ import downloadexcel from "vue-json-excel"
           'Kg día' : 'alimento_dia',
           'Costo' : 'costo_kg',
           'Costo total' : 'costo_total_alimento',
+          'Conversion alimenticia teorica' :'conv_alimenticia',
+          'incremento biomasa acumulada por convercion' : 'incr_bio_acum_conver',
           'Detalles' : 'detalles'
         },
         form : new Form({
