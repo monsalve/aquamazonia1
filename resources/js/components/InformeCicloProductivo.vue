@@ -67,7 +67,7 @@
                       </div>
                       <div>
                         <table class="table table-bordered table-striped table-sticky">
-                          <thead class="table-primary">
+                          <thead class="thead-primary">
                             <tr>                           
                               <th class="fixed-column">#</th>
                               <th class="fixed-column">Siembra</th>

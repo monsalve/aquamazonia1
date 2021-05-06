@@ -6,7 +6,7 @@
                     <div class="card-header">Panel de Administración</div>
 
                     <div class="card-body jumbotron">
-                     <h1 class="display-4">Bienvenido al gestor de Aquamazonia!!</h1>
+                     <h1 class="display-5">Bienvenido al gestor de Aquamazonia!!</h1>
                         
                     </div>
                 </div>
