@@ -56,12 +56,10 @@
                     <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
-              </div>
-              
+              </div> 
             </div>
-         
-            <div>
-              <table class="table table-sticky table-bordered table-striped table-sm-responsive">
+            <div class="table-container" id="table-container2">
+              <table class="table-sticky table table-sm table-hover table-bordered">
                 <thead class="thead-primary">
                   <tr>
                     <th>#</th>
@@ -98,9 +96,7 @@
                     <td v-text="item.conv_alimenticia"></td>
                     <td v-text="item.incr_bio_acum_conver"></td>
                     <td v-text="item.detalles"></td>
-              
                   </tr>
-                 
                 </tbody>
                 <tfoot>
                    <tr>

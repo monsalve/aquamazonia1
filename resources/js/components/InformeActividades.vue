@@ -84,8 +84,8 @@
                           </form>
                         </div>
                       </div>
-                      <div>
-                        <table class="table table-bordered table-striped table-sticky">
+                      <div class="table-container" id="table-container2">
+                        <table class="table-sticky table table-sm table-hover table-bordered">
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
