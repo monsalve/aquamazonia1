@@ -48,9 +48,8 @@
                         <table class="table-sticky table table-sm table-hover table-bordered">
                           <thead class="thead-primary">
                             <tr>
-                              <th class="fixed-column">#</th>
-                              <th class="fixed-column">Siembra</th>  
-                              <th>Area</th>                           
+                              <th>#</th>
+                              <th class="fixed-column">Siembra</th>                            
                               <th>Inicio siembra</th>
                               <th>Tiempo de cultivo</th>
                               <th>Cant Inicial</th>
@@ -83,9 +82,11 @@
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
                               <td v-text="index+1" class="fixed-column"></td>
-                              <td v-text="le.nombre_siembra" class="fixed-column"></td>   
+                              <td v-text="le.nombre_siembra" class="fixed-column"></td>
                               <td v-text="le.capacidad"></td>
+                              <td v-text="le.tiempo_cultivo"></td>
                               <td v-text="le.fecha_inicio"></td>
+                              <td v-text="le.biomasa_inicial"></td>
                               <td v-text="le.intervalo_tiempo"></td>
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td>
@@ -134,7 +135,9 @@
         json_fields: {      
           'Siembra' : 'nombre_siembra',
           'Fecha inicio siembra' : 'fecha_inicio',
+          'Tiempo de cultivo' : 'tiempo_cultivo',
           'Cantidad Inicial' : 'cantidad_inicial',
+          'Biomasa inicial' : 'biomasa_inicial',
           'Peso inicial' : 'peso_inicial',
           'Animales final' : 'cant_actual',
           'Peso actual' : 'peso_actual',

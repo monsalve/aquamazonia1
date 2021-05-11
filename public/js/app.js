@@ -3891,223 +3891,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeBiomasaAlimento.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Fecha inicio siembra': 'fecha_inicio',
-        'Biomasa inicial': 'biomasa_inicial',
-        'Biomasa dispo': 'biomasa_disponible',
-        'Salida de biomasa': 'salida_biomasa',
-        'Mortalidad': 'mortalidad',
-        'Mort. Kg': 'mortalidad_kg',
-        'Salida animales': 'salida_animales',
-        'Total alimento (Kg)': 'cantidad_total_alimento',
-        'Biomasa disponible por conversión teórica': 'incr_bio_acum_conver',
-        'Biomasa disponible por alimento': 'bio_dispo_alimen'
-      },
-      listadoExistencias: [],
-      listadoEspecies: [],
-      listadoSiembras: [],
-      imprimirRecursos: [],
-      f_siembra: '',
-      f_especie: '',
-      f_inicio_d: '',
-      f_inicio_h: ''
-    };
-  },
-  components: {
-    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var me, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                me = _this;
-                _context.next = 3;
-                return _this.listadoExistencias;
-
-              case 3:
-                response = _context.sent;
-                return _context.abrupt("return", _this.listadoExistencias);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    listar: function listar() {
-      var me = this;
-      this.listarEspecies();
-      this.listarSiembras();
-      axios.get("api/informes-biomasa-alimento").then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    },
-    listarEspecies: function listarEspecies() {
-      var me = this;
-      axios.get("api/especies").then(function (response) {
-        me.listadoEspecies = response.data;
-      });
-    },
-    listarSiembras: function listarSiembras() {
-      var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
-      });
-    },
-    filtroSiembra: function filtroSiembra() {
-      var me = this;
-
-      if (this.f_siembra == '') {
-        this.smb = '-1';
-      } else {
-        this.smb = this.f_siembra;
-      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
-
-
-      if (this.f_inicio_d == '') {
-        this.fecd = '-1';
-      } else {
-        this.fecd = this.f_inicio_d;
-      }
-
-      if (this.f_inicio_h == '') {
-        this.fech = '-1';
-      } else {
-        this.fech = this.f_inicio_h;
-      }
-
-      var data = {
-        'f_siembra': this.smb,
-        'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
-      };
-      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.listar();
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\aquamazonia1\\resources\\js\\components\\InformeBiomasaAlimento.vue: Unexpected token, expected \",\" (100:8)\n\n\u001b[0m \u001b[90m  98 | \u001b[39m        \u001b[32m'Siembra'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'nombre_siembra'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  99 | \u001b[39m        \u001b[32m'Area'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'area'\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 100 | \u001b[39m        \u001b[32m'Fecha inicio siembra'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'fecha_inicio'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 101 | \u001b[39m        \u001b[32m'Tiempo de cultivo'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'tiempo_cultivo'\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 102 | \u001b[39m        \u001b[32m'Biomasa inicial'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'biomasa_inicial'\u001b[39m\u001b[33m,\u001b[39m          \u001b[0m\n\u001b[0m \u001b[90m 103 | \u001b[39m        \u001b[32m'Biomasa dispo'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'biomasa_disponible'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:790:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:783:17)\n    at Parser.raise (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:777:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9095:16)\n    at Parser.expect (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9081:28)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10886:14)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10445:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9933:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9907:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9870:21)\n    at C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9837:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11510:12)\n    at Parser.parseMaybeAssignAllowIn (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9837:17)\n    at Parser.parseObjectProperty (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11055:101)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11080:100)\n    at Parser.parsePropertyDefinition (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11004:10)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10894:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10445:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9933:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9907:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9870:21)\n    at Parser.parseExpressionBase (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9815:23)\n    at C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9809:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11504:16)\n    at Parser.parseExpression (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9809:17)\n    at Parser.parseReturnStatement (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12008:28)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11687:21)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11639:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12221:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12207:10)");
 
 /***/ }),
 
@@ -4574,6 +4361,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4581,7 +4369,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       json_fields: {
         'Siembra': 'nombre_siembra',
         'Fecha inicio siembra': 'fecha_inicio',
+        'Tiempo de cultivo': 'tiempo_cultivo',
         'Cantidad Inicial': 'cantidad_inicial',
+        'Biomasa inicial': 'biomasa_inicial',
         'Peso inicial': 'peso_inicial',
         'Animales final': 'cant_actual',
         'Peso actual': 'peso_actual',
@@ -5038,210 +4828,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Costo minutos Hombre': 'costo_minutosh',
-        'Costo total recursos': 'costo_total_recurso',
-        'Costo total alimentos': 'costo_total_alimento',
-        'Costo total': 'costo_tot',
-        'Total Kg Alimento': 'cantidad_total_alimento',
-        'Costo de producción parcial': 'costo_produccion_parcial'
-      },
-      listadoExistencias: [],
-      listadoEspecies: [],
-      listadoSiembras: [],
-      imprimirRecursos: [],
-      f_siembra: '',
-      f_especie: '',
-      f_inicio_d: '',
-      f_inicio_h: ''
-    };
-  },
-  components: {
-    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var me, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                me = _this; // const response = await axios.get('api/informe-recursos');
-
-                _context.next = 3;
-                return _this.listadoExistencias;
-
-              case 3:
-                response = _context.sent;
-                return _context.abrupt("return", _this.listadoExistencias);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    listar: function listar() {
-      var me = this;
-      this.listarEspecies();
-      this.listarSiembras();
-      axios.get("api/informes-biomasa-alimento").then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    },
-    listarEspecies: function listarEspecies() {
-      var me = this;
-      axios.get("api/especies").then(function (response) {
-        me.listadoEspecies = response.data;
-      });
-    },
-    listarSiembras: function listarSiembras() {
-      var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
-      });
-    },
-    filtroSiembra: function filtroSiembra() {
-      var me = this;
-
-      if (this.f_siembra == '') {
-        this.smb = '-1';
-      } else {
-        this.smb = this.f_siembra;
-      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
-
-
-      if (this.f_inicio_d == '') {
-        this.fecd = '-1';
-      } else {
-        this.fecd = this.f_inicio_d;
-      }
-
-      if (this.f_inicio_h == '') {
-        this.fech = '-1';
-      } else {
-        this.fech = this.f_inicio_h;
-      }
-
-      var data = {
-        'f_siembra': this.smb,
-        'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
-      };
-      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.listar();
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\aquamazonia1\\resources\\js\\components\\InformeProduccion.vue: Unexpected token, expected \",\" (95:8)\n\n\u001b[0m \u001b[90m 93 | \u001b[39m        \u001b[32m'Total Kg Alimento'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'cantidad_total_alimento'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 94 | \u001b[39m        \u001b[32m'Costo de producción parcial'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'costo_produccion_parcial'\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 95 | \u001b[39m        \u001b[32m'Biomasa disponible por alimento'\u001b[39m \u001b[33m:\u001b[39m \u001b[32m'bio_dispo_alimen'\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 96 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 97 | \u001b[39m      }\u001b[33m,\u001b[39m       \u001b[0m\n\u001b[0m \u001b[90m 98 | \u001b[39m      listadoExistencias \u001b[33m:\u001b[39m []\u001b[33m,\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:790:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:783:17)\n    at Parser.raise (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:777:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9095:16)\n    at Parser.expect (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9081:28)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10886:14)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10445:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9933:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9907:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9870:21)\n    at C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9837:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11510:12)\n    at Parser.parseMaybeAssignAllowIn (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9837:17)\n    at Parser.parseObjectProperty (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11055:101)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11080:100)\n    at Parser.parsePropertyDefinition (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11004:10)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10894:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10445:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9933:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9907:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9870:21)\n    at Parser.parseExpressionBase (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9815:23)\n    at C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9809:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11504:16)\n    at Parser.parseExpression (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:9809:17)\n    at Parser.parseReturnStatement (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12008:28)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11687:21)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:11639:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12221:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\aquamazonia1\\node_modules\\@babel\\parser\\lib\\index.js:12207:10)");
 
 /***/ }),
 
@@ -6413,9 +6003,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
 //
 //
 //
@@ -51421,7 +51008,17 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
+                            domProps: { textContent: _vm._s(le.tiempo_cultivo) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
                             domProps: { textContent: _vm._s(le.fecha_inicio) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(le.biomasa_inicial)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -51598,11 +51195,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { staticClass: "fixed-column" }, [_vm._v("#")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Area")]),
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
@@ -77333,14 +76928,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************!*\
   !*** ./resources/js/components/InformeBiomasaAlimento.vue ***!
   \************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InformeBiomasaAlimento_vue_vue_type_template_id_2b0377ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeBiomasaAlimento.vue?vue&type=template&id=2b0377ec& */ "./resources/js/components/InformeBiomasaAlimento.vue?vue&type=template&id=2b0377ec&");
 /* harmony import */ var _InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeBiomasaAlimento.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeBiomasaAlimento.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -77370,13 +76966,15 @@ component.options.__file = "resources/js/components/InformeBiomasaAlimento.vue"
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/InformeBiomasaAlimento.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeBiomasaAlimento.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeBiomasaAlimento.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeBiomasaAlimento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -77609,14 +77207,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/InformeProduccion.vue ***!
   \*******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=template&id=166f97cb& */ "./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&");
 /* harmony import */ var _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -77646,13 +77245,15 @@ component.options.__file = "resources/js/components/InformeProduccion.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeProduccion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

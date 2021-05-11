@@ -96,10 +96,13 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
+          'Area' : 'area'
           'Fecha inicio siembra' : 'fecha_inicio',
+          'Tiempo de cultivo' : 'tiempo_cultivo'
           'Biomasa inicial' : 'biomasa_inicial',          
           'Biomasa dispo' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
+          'carga inicial' : 'carga_inicial'
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
           'Salida animales' : 'salida_animales',
