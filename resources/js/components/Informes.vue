@@ -157,7 +157,7 @@
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
             'Costo Alimento' : 'costo_total_alimento',
-            'Costo acumulado Alimento' : 'costo_a_acum', 
+            'Costo acumulado Alimento' : 'costo_a_acum' 
             
         },       
         listados: [],

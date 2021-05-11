@@ -91,7 +91,7 @@
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Costo de producción parcial' : 'costo_produccion_parcial'
+          'Costo de producción parcial' : 'costo_produccion_parcial',
           'Biomasa disponible por alimento' : 'bio_dispo_alimen'
           
         },       

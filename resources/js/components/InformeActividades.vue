@@ -141,7 +141,7 @@ export default {
         'Peso ganado' : 'peso_ganado',
         'Mortalidad' : 'mortalidad',
         'Biomasa' : 'bioamasa',
-        'Cantidad' : 'cantidad',
+        'Cantidad' : 'cantidad'
         
       }, 
       

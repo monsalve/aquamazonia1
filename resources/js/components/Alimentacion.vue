@@ -67,7 +67,6 @@
                     <th>Siembras</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
-                    <!-- <th>Total minutos hombre</th> -->
                     <th> Alimento</th>
                     <th>Cantidad Mañana</th>
                     <th>Cantidad Tarde</th>
@@ -77,7 +76,6 @@
                     <th>Conversión alimenticia teórica</th>
                     <th>Incremento biomasa acumulada por conversión</th>
                     <th>Detalles</th>
-                    <!-- <th>Eliminar</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -218,7 +216,7 @@ import downloadexcel from "vue-json-excel"
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
-          'Costo minutos hombre': 'total_minutos_hombre',
+          'Minutos hombre': 'total_minutos_hombre',
           'Alimento' : 'alimento',
           'Kg Mañana' : 'cant_manana', 
           'Kg tarde' : 'cant_tarde',

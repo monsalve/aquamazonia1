@@ -159,7 +159,7 @@
           'Incremento de biomasa': 'incremento_biomasa',
           'Gananacia de peso por día': 'ganancia_peso_día',
           'Densidad final (Animales/m2)' : 'densidad_final',
-          'Carga final (Kg/m2)' : 'carga_final',
+          'Carga final (Kg/m2)' : 'carga_final'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
