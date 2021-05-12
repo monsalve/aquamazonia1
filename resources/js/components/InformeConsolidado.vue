@@ -51,22 +51,27 @@
                               <th>#</th>
                               <th class="fixed-column">Siembra</th>                            
                               <th>Inicio siembra</th>
-                              <th>Tiempo de cultivo</th>
-                              <th>Cant Inicial</th>
+                              <th>Cantidad Inicial</th>
+                              <th>Fecha inicio siembra</th>
+
+
                               <th>Biomasa Inicial</th>
                               <th>Peso Inicial</th>
                               <th>Carga inicial</th>
                               <th>Animales final</th>
-                              <th>Peso Actual</th>                                 
+                              <th>Peso Actual</th>  
+                              <th>Intervalo de tiempo</th>                               
                               <th>Biomasa dispo</th>
                               <th>Salida de biomasa</th>
+                              <th>Mortalidad</th>
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
                               <th>Salida animales</th>                              
                               <th>Densidad Inicial (Animales/m<sup>2</sup>)</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
-                              <th>Horas Hombre</th>             
+                              <th>Horas Hombre</th>
+                              <th>Costo minutos hombre</th>             
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
@@ -84,29 +89,26 @@
                               <td v-text="index+1" class="fixed-column"></td>
                               <td v-text="le.nombre_siembra" class="fixed-column"></td>
                               <td v-text="le.capacidad"></td>
-                              <td v-text="le.tiempo_cultivo"></td>
-                              <td v-text="le.fecha_inicio"></td>
-                              <td v-text="le.biomasa_inicial"></td>
-                              <td v-text="le.intervalo_tiempo"></td>
                               <td v-text="le.cantidad_inicial"></td>
+                              <td v-text="le.fecha_inicio"></td>
                               <td v-text="le.biomasa_inicial"></td>
                               <td v-text="le.peso_inicial+' gr'"></td>
                               <td v-text="le.carga_inicial"></td>
                               <td v-text="le.cant_actual"></td>
-                              <td v-text="le.peso_actual+' gr'"></td>                                                               
-                              <td v-text="le.biomasa_disponible+' kg'"></td> 
+                              <td v-text="le.peso_actual+' gr'"></td>
+                              <td v-text="le.intervalo_tiempo"></td>
+                              <td v-text="le.biomasa_disponible+' kg'"></td>
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>                             
+                              <td v-text="le.mortalidad"></td>
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
                               <td v-if="le.mortalidad_porcentaje">{{le.mortalidad_porcentaje}}</td>
-                              <td v-else>0</td>
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
-                              <td v-else>0</td>
                               <td v-text="le.densidad_inicial"></td>
                               <td v-text="le.densidad_final"></td>
                               <td v-text="le.carga_final"></td>
                               <td v-text="le.horas_hombre"></td>
                               <td v-text="le.costo_minutosh"></td>
+                              <td v-text="le.costo_horas"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
                               <td v-text="le.cantidad_total_alimento"></td>
@@ -134,30 +136,36 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
+          'Inicio siembra' : 'capacidad',
           'Fecha inicio siembra' : 'fecha_inicio',
-          'Tiempo de cultivo' : 'tiempo_cultivo',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',
           'Peso inicial' : 'peso_inicial',
+          'carga inicial' : 'carga_inicial',
           'Animales final' : 'cant_actual',
           'Peso actual' : 'peso_actual',
           'Intervalo de tiempo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
-          'Biomasa acumulada' : 'biomasa_acumulada',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
+          'Dencidad inicial (Animales/m2)' : 'densidad_inicial',
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
           'Horas hombre':'horas_hombre',
           'Costo minutos Hombre':'costo_minutosh',
           'Costo total recursos':'costo_total_recurso',
+          'Costo horas':'costo_horas',
           'Costo total alimentos':'costo_total_alimento',
           'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra'
+          'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
+          'Costo produccion final' : 'costo_produccion_final',
+          'Convercion final' : 'conversion_final',
+          'Ganacia peso dia' : 'ganancia_peso_dia',
+          '%Supervivencia final' : 'porc_supervivencia_final'
         },       
         listadoExistencias : [],
         listadoEspecies : [],

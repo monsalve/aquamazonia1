@@ -4576,36 +4576,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
         'Siembra': 'nombre_siembra',
+        'Inicio siembra': 'capacidad',
         'Fecha inicio siembra': 'fecha_inicio',
-        'Tiempo de cultivo': 'tiempo_cultivo',
         'Cantidad Inicial': 'cantidad_inicial',
         'Biomasa inicial': 'biomasa_inicial',
         'Peso inicial': 'peso_inicial',
+        'carga inicial': 'carga_inicial',
         'Animales final': 'cant_actual',
         'Peso actual': 'peso_actual',
         'Intervalo de tiempo': 'intervalo_tiempo',
         'Biomasa disponible': 'biomasa_disponible',
         'Salida de biomasa': 'salida_biomasa',
-        'Biomasa acumulada': 'biomasa_acumulada',
         'Mortalidad': 'mortalidad',
         'Mortalidad kg': 'mortalidad_kg',
         'Mortalidad %': 'mortalidad_porcentaje',
         'Salida animales': 'salida_animales',
+        'Dencidad inicial (Animales/m2)': 'densidad_inicial',
         'Densidad final (Animales/m2)': 'densidad_final',
         'Carga final (Kg/m2)': 'carga_final',
         'Horas hombre': 'horas_hombre',
         'Costo minutos Hombre': 'costo_minutosh',
         'Costo total recursos': 'costo_total_recurso',
+        'Costo horas': 'costo_horas',
         'Costo total alimentos': 'costo_total_alimento',
         'Costo total': 'costo_tot',
         'Total Kg Alimento': 'cantidad_total_alimento',
-        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra'
+        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra',
+        'Costo produccion final': 'costo_produccion_final',
+        'Convercion final': 'conversion_final',
+        'Ganacia peso dia': 'ganancia_peso_dia',
+        '%Supervivencia final': 'porc_supervivencia_final'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -5886,6 +5894,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51423,29 +51437,13 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(le.tiempo_cultivo) }
+                            domProps: {
+                              textContent: _vm._s(le.cantidad_inicial)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.fecha_inicio) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.biomasa_inicial)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.intervalo_tiempo)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(le.cantidad_inicial)
-                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -51476,6 +51474,12 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
+                              textContent: _vm._s(le.intervalo_tiempo)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
                               textContent: _vm._s(le.biomasa_disponible + " kg")
                             }
                           }),
@@ -51484,7 +51488,11 @@ var render = function() {
                             ? _c("td", [
                                 _vm._v(_vm._s(le.salida_biomasa) + " kg")
                               ])
-                            : _c("td", [_vm._v("0")]),
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(le.mortalidad) }
+                          }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -51500,11 +51508,11 @@ var render = function() {
                             ? _c("td", [
                                 _vm._v(_vm._s(le.mortalidad_porcentaje))
                               ])
-                            : _c("td", [_vm._v("0")]),
+                            : _vm._e(),
                           _vm._v(" "),
                           le.salida_animales
                             ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _c("td", [_vm._v("0")]),
+                            : _vm._e(),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -51526,6 +51534,10 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.costo_minutosh) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(le.costo_horas) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -51616,9 +51628,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tiempo de cultivo")]),
+        _c("th", [_vm._v("Cantidad Inicial")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cant Inicial")]),
+        _c("th", [_vm._v("Fecha inicio siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa Inicial")]),
         _vm._v(" "),
@@ -51630,9 +51642,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Intervalo de tiempo")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida de biomasa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
@@ -51659,6 +51675,8 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", [_vm._v("Horas Hombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo minutos hombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Horas")]),
         _vm._v(" "),
@@ -53720,7 +53738,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("th", [_vm._v("Siembra")]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Estado siembrasw")]),
+                        _c("th", [_vm._v("Estado siembras")]),
                         _vm._v(" "),
                         _vm._m(0),
                         _vm._v(" "),
@@ -53744,17 +53762,15 @@ var render = function() {
                           ? _c("th", [_vm._v("Costo Recurso")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.tipoActividad != "Alimentación"
-                          ? _c("th", [
-                              _vm._v("Costo "),
-                              _c("br"),
-                              _vm._v("Acumulado")
-                            ])
-                          : _vm._e(),
+                        _c("th", [_vm._v("Costo acumulado Recurso")]),
                         _vm._v(" "),
                         _vm.tipoActividad == "Alimentación"
                           ? _c("th", [_vm._v("Alimentos")])
                           : _vm._e(),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Cantidad kg mañana")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Cantidad kg tarde")]),
                         _vm._v(" "),
                         _vm.tipoActividad == "Alimentación"
                           ? _c("th", [_vm._v("Costo")])
@@ -53767,6 +53783,8 @@ var render = function() {
                               _vm._v("Acumulado")
                             ])
                           : _vm._e(),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Alimento")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("Costo actividad")])
                       ])
@@ -53807,9 +53825,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: {
-                              textContent: _vm._s(lrn.costo_minutosh)
-                            }
+                            domProps: { textContent: _vm._s(lrn.costo_minutos) }
                           }),
                           _vm._v(" "),
                           _c("th", {
@@ -53852,6 +53868,14 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lrn.cant_manana) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: { textContent: _vm._s(lrn.cant_tarde) }
+                          }),
+                          _vm._v(" "),
                           _vm.tipoActividad == "Alimentación"
                             ? _c("td", {
                                 domProps: {
@@ -53869,6 +53893,10 @@ var render = function() {
                             : _vm._e(),
                           _vm._v(" "),
                           _c("td", {
+                            domProps: { textContent: _vm._s(lrn.alimento) }
+                          }),
+                          _vm._v(" "),
+                          _c("th", {
                             domProps: {
                               textContent: _vm._s(lrn.costo_total_actividad)
                             }
