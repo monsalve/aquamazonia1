@@ -78,7 +78,7 @@
                             <tr>
                               <th>#</th>
                               <th>Siembra</th>
-                              <th>Estado siembrasw</th>
+                              <th>Estado siembras</th>
                               <th>Tipo <br>actividad</th>
                               <th>Fecha</th>
                               <th>Minutos <br>hombre</th>
@@ -89,7 +89,9 @@
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo <br>Acumulado</th>
                               <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
-                              <th v-if="tipoActividad == 'Alimentación'">Costo</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Cantidada Mañana (KG)</th>
+                              <th v-if="tipoActividad == 'Alimentación'">Cantidada Tarde (KG)</th>
+                              <th v-if="tipoActividad == 'Alimentación'">CostoAlimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
                               <th>Costo actividad</th>
                             </tr>
@@ -109,6 +111,8 @@
                               <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th>
                               <td v-text="lrn.alimento" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td v-text="lrn.cant_manana" v-if="tipoActividad == 'Alimentación'"></td>
+                              <td v-text="lrn.cant_tarde" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
                               <td v-text="lrn.costo_total_actividad"></td>
@@ -157,7 +161,8 @@
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
             'Costo Alimento' : 'costo_total_alimento',
-            'Costo acumulado Alimento' : 'costo_a_acum', 
+            'Costo acumulado Alimento' : 'costo_a_acum',
+            'Costo Actividad' : 'costo_total_actividad'
             
         },       
         listados: [],

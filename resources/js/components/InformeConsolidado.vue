@@ -38,7 +38,7 @@
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
                           :fields = "json_fields"
-                          name    = "informe-ciclo-productivo.xls"
+                          name    = "informe-consolidado.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
                           </downloadexcel>

@@ -6074,6 +6074,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6094,7 +6098,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Cantidad KG mañana': 'cant_manana',
         'Cantidad KG tarde': 'cant_tarde',
         'Costo Alimento': 'costo_total_alimento',
-        'Costo acumulado Alimento': 'costo_a_acum'
+        'Costo acumulado Alimento': 'costo_a_acum',
+        'Costo Actividad': 'costo_total_actividad'
       },
       listados: [],
       listadorn: [],
@@ -46246,7 +46251,7 @@ var render = function() {
                         attrs: {
                           fetch: _vm.fetchData,
                           fields: _vm.json_fields,
-                          name: "informe-alimentos.xls",
+                          name: "alimentacion.xls",
                           type: "xls"
                         }
                       },
@@ -51401,7 +51406,7 @@ var render = function() {
                       attrs: {
                         fetch: _vm.fetchData,
                         fields: _vm.json_fields,
-                        name: "informe-ciclo-productivo.xls",
+                        name: "informe-consolidado.xls",
                         type: "xls"
                       }
                     },
@@ -53732,7 +53737,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("th", [_vm._v("Siembra")]),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Estado siembrasw")]),
+                      _c("th", [_vm._v("Estado siembras")]),
                       _vm._v(" "),
                       _vm._m(0),
                       _vm._v(" "),
@@ -53769,7 +53774,15 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
-                        ? _c("th", [_vm._v("Costo")])
+                        ? _c("th", [_vm._v("Cantidada Mañana (KG)")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("th", [_vm._v("Cantidada Tarde (KG)")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.tipoActividad == "Alimentación"
+                        ? _c("th", [_vm._v("CostoAlimento")])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
@@ -53857,6 +53870,18 @@ var render = function() {
                         _vm.tipoActividad == "Alimentación"
                           ? _c("td", {
                               domProps: { textContent: _vm._s(lrn.alimento) }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.tipoActividad == "Alimentación"
+                          ? _c("td", {
+                              domProps: { textContent: _vm._s(lrn.cant_manana) }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.tipoActividad == "Alimentación"
+                          ? _c("td", {
+                              domProps: { textContent: _vm._s(lrn.cant_tarde) }
                             })
                           : _vm._e(),
                         _vm._v(" "),
@@ -54678,7 +54703,7 @@ var render = function() {
                           attrs: {
                             fetch: _vm.fetchData,
                             fields: _vm.json_fields,
-                            name: "informe-recursos.xls",
+                            name: "recursos-necesarios.xls",
                             type: "xls"
                           }
                         },

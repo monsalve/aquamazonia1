@@ -13,7 +13,7 @@
                     class = "btn btn-success form-control"
                     :fetch   = "fetchData"
                     :fields = "json_fields"                   
-                    name    = "informe-alimentos.xls"
+                    name    = "alimentacion.xls"
                     type    = "xls">
                       <i class="fa fa-fw fa-download"></i> Generar Excel 
                   </downloadexcel>    
