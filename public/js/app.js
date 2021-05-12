@@ -4048,16 +4048,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       json_fields: {
         'Siembra': 'nombre_siembra',
-        'Fecha inicio siembra': 'fecha_inicio',
+        'Area': 'capacidad',
+        'Cantidad inicial': 'cantidad_inicial',
         'Biomasa inicial': 'biomasa_inicial',
-        'Biomasa dispo': 'biomasa_disponible',
+        'Biomasa disponible muestreo (KG)': 'biomasa_disponible',
         'Salida de biomasa': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mort. Kg': 'mortalidad_kg',
         'Salida animales': 'salida_animales',
         'Total alimento (Kg)': 'cantidad_total_alimento',
-        'Biomasa disponible por conversión teórica': 'incr_bio_acum_conver',
-        'Biomasa disponible por alimento': 'bio_dispo_alimen'
+        'Incremento de biomasa por alimento': 'incr_bio_acum_conver',
+        'Biomasa disponible por alimento': 'bio_dispo_alimen',
+        '% Supervievencia final': 'porc_supervivencia_final'
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -50562,6 +50564,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
+                            staticClass: "fixed-column",
                             domProps: { textContent: _vm._s(le.nombre_siembra) }
                           }),
                           _vm._v(" "),
@@ -50661,7 +50664,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
+        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Area m"), _c("sup", [_vm._v("3")])]),
         _vm._v(" "),
@@ -50683,7 +50686,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Supervivencia final")])
+        _c("th", [_vm._v("% Supervivencia final")])
       ])
     ])
   }
