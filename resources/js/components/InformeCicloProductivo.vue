@@ -75,8 +75,8 @@
                               <th>Area</th>
                               <th>Especie</th>
                               <th>Inicio siembra</th>                             
-                              <th>Cant Ini</th>
-                              <th>Peso Ini</th>
+                              <th>Cant Inicial</th>
+                              <th>Peso Inicial</th>
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>   
                                <th>Fecha último registro</th>
@@ -142,19 +142,21 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
+          'Lote' : 'lote',
+          'Area' : 'capacidad',
           'Especie' : 'especie',
-          'Fecha inicio siembra' : 'fecha_inicio',
-          'Fecha registro' : 'fecha_registro',
+          'Inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
           'Cantidad actual' : 'cant_actual',
           'Peso actual' : 'peso_actual',
+          'Fecha último registro' : 'fecha_registro',
           'Tiempo de cultivo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
-          'Mortalidad %' : 'mortalidad_porcentaje',
+          '% Mortalidad' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
           'Incremento de biomasa': 'incremento_biomasa',
           'Gananacia de peso por día': 'ganancia_peso_día',
