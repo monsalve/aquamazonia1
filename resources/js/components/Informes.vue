@@ -87,12 +87,13 @@
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
-                              <th v-if="tipoActividad != 'Alimentación'">Costo <br>Acumulado</th>
+                              <th>Costo acumulado Recurso</th>
                               <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidada Mañana (KG)</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidada Tarde (KG)</th>
                               <th v-if="tipoActividad == 'Alimentación'">CostoAlimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
+                              <th>Alimento</th>
                               <th>Costo actividad</th>
                             </tr>
                           </thead>
@@ -104,7 +105,7 @@
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.minutos_hombre +'min'"></td>
-                              <td v-text="lrn.costo_minutosh"></td>
+                              <td v-text="lrn.costo_minutos"></td>
                               <th v-text="lrn.costo_h_acum"></th>
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
@@ -115,7 +116,8 @@
                               <td v-text="lrn.cant_tarde" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
-                              <td v-text="lrn.costo_total_actividad"></td>
+                              <td v-text="lrn.alimento"></td>
+                              <th v-text="lrn.costo_total_actividad"></th>
                             </tr>
                           </tbody>
                           <tfoot>

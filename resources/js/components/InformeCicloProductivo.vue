@@ -91,7 +91,6 @@
                               <th>Ganancia de peso por día</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
-                              
                             </tr>
                           </thead>
                           <tbody>
@@ -159,9 +158,9 @@
           '% Mortalidad' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
           'Incremento de biomasa': 'incremento_biomasa',
-          'Gananacia de peso por día': 'ganancia_peso_día',
+          'Gananacia de peso por día': 'ganancia_peso_dia',
           'Densidad final (Animales/m2)' : 'densidad_final',
-          'Carga final (Kg/m2)' : 'carga_final',
+          'Carga final (Kg/m2)' : 'carga_final'
         },       
         listadoExistencias : [],
         listadoEspecies : [],

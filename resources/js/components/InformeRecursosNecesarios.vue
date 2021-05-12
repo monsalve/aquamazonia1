@@ -103,6 +103,7 @@ import downloadexcel from "vue-json-excel"
       return {
         json_fields : {          
           'Siembra' : 'nombre_siembra',
+          'Estado' : 'estado',
           'Tipo actividad' : 'actividad',
           'Minutos hombre' : 'minutos_hombre',
           'Costo total minutos' : 'costo_minutos',          

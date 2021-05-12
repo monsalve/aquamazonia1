@@ -65,7 +65,6 @@
                   </div>
                 </form>
               </div>
-              
             </div>
             <div>
               <table class="table table-bordered table-striped table-sticky table-sm">
