@@ -3767,14 +3767,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       json_fields: {
-        'siembra': 'nombre_siembra',
+        'Siembra': 'nombre_siembra',
+        'Lote': 'lote',
         'Fecha de registro': 'fecha_registro',
         'Especie': 'especie',
         'Tipo registro': 'nombre_registro',
-        'Peso ganado': 'peso_ganado',
+        'Peso Actual': 'peso_ganado',
         'Mortalidad': 'mortalidad',
-        'Biomasa': 'bioamasa',
-        'Cantidad': 'cantidad'
+        'Salida biomasa muestreo': 'biomasa',
+        'Cantidad': 'cantidad',
+        'Biomasa disponible': 'biomasa_disponible'
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -47189,7 +47191,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo de Actividad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Siembras")]),
+        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
@@ -51057,7 +51059,6 @@ var render = function() {
                     _vm._l(_vm.listadoExistencias, function(le, index) {
                       return _c("tr", { key: index }, [
                         _c("td", {
-                          staticClass: "fixed-column",
                           domProps: { textContent: _vm._s(index + 1) }
                         }),
                         _vm._v(" "),
@@ -51191,7 +51192,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { staticClass: "fixed-column" }, [_vm._v("#")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
         _vm._v(" "),

@@ -134,14 +134,16 @@ export default {
   
     return {
       json_fields: {
-        'siembra' : 'nombre_siembra',
+        'Siembra' : 'nombre_siembra',
+        'Lote' : 'lote',
         'Fecha de registro' : 'fecha_registro',
         'Especie' : 'especie',
         'Tipo registro' : 'nombre_registro',
-        'Peso ganado' : 'peso_ganado',
+        'Peso Actual' : 'peso_ganado',
         'Mortalidad' : 'mortalidad',
-        'Biomasa' : 'bioamasa',
+        'Salida biomasa muestreo' : 'biomasa',
         'Cantidad' : 'cantidad',
+        'Biomasa disponible' : 'biomasa_disponible'
         
       }, 
       

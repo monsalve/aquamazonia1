@@ -69,7 +69,7 @@
                         <table class="table table-bordered table-striped table-sm table-sticky">
                           <thead class="thead-primary">
                             <tr>                           
-                              <th class="fixed-column">#</th>
+                              <th>#</th>
                               <th class="fixed-column">Siembra</th>
                               <th>Lote</th>
                               <th>Area</th>
@@ -96,7 +96,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td v-text="index+1" class="fixed-column"></td>
+                              <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra" class="fixed-column"></td>
                               <td v-text="le.lote"></td>
                               <td v-text="le.capacidad"></td>

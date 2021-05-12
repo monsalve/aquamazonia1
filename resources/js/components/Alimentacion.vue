@@ -65,7 +65,7 @@
                   <tr>
                     <th>#</th>
                     <th>Tipo de Actividad</th>
-                    <th>Siembras</th>
+                    <th class="fixed-column">Siembra</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
                     <th> Alimento</th>
