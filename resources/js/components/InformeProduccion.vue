@@ -36,7 +36,7 @@
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
                           :fields = "json_fields"        
-                          name    = "informe-ciclo-productivo.xls"
+                          name    = "informe-produccion.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
                           </downloadexcel>
@@ -86,12 +86,13 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Costo minutos Hombre':'costo_minutosh',
-          'Costo total recursos':'costo_total_recurso',
-          'Costo total alimentos':'costo_total_alimento',
-          'Costo total':'costo_tot',
-          'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Costo de producción parcial' : 'costo_produccion_parcial'
+          'Costo Horas':'costo_minutosh',
+          'Costo recursos':'costo_total_recurso',
+          'Costo alimentos':'costo_total_alimento',
+          'Total Alimento (KG)' : 'cantidad_total_alimento',
+          'Costo total siembra':'costo_tot',
+          'Costo total de producción parcial' : 'costo_produccion_parcial',
+          'Biomasa disponible por alimento' : 'bio_dispo_alimen'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
