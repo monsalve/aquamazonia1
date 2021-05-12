@@ -5431,7 +5431,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Cantidad total recurso': 'cantidad_recurso',
         'Costo total recurso': 'costo_recurso',
         'Cantidad total alimento': 'cantidad_alimento',
-        'Costo total alimento': 'costo_alimento'
+        'Costo total alimento': 'costo_alimento',
+        'Costo total actividad': 'costo_total_actividad',
+        '%Costo total producción': 'porcentaje_total_produccion'
       },
       f_actividad: '',
       f_siembra: '',
@@ -52648,7 +52650,7 @@ var render = function() {
                         attrs: {
                           fetch: _vm.fetchData,
                           fields: _vm.json_fields,
-                          name: "informe-recursos-necesarios.xls",
+                          name: "informe-consolidado-recursos-necesarios.xls",
                           type: "xls"
                         }
                       },
