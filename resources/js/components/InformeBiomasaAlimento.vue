@@ -47,7 +47,7 @@
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
-                              <th>Siembra</th>
+                              <th class="fixed-column">Siembra</th>
                               <th>Area m<sup>3</sup> </th>
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
@@ -58,13 +58,13 @@
                               <th>Total alimento (Kg)</th>
                               <th>Incremento de biomasa por alimento</th>
                               <th>Biomasa disponible por alimento</th>
-                              <th>Supervivencia final</th>
+                              <th>% Supervivencia final</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index"> 
                               <td v-text="index+1"></td>
-                              <td v-text="le.nombre_siembra"></td>
+                              <td v-text="le.nombre_siembra"  class="fixed-column"></td>
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td> 
@@ -96,19 +96,19 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Area' : 'area',
-          'Fecha inicio siembra' : 'fecha_inicio',
-          'Tiempo de cultivo' : 'tiempo_cultivo',
+          'Area': 'capacidad',
+          'Cantidad inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',          
-          'Biomasa dispo' : 'biomasa_disponible',
+          'Biomasa disponible muestreo (KG)' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
           'carga inicial' : 'carga_inicial',
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
           'Salida animales' : 'salida_animales',
           'Total alimento (Kg)' : 'cantidad_total_alimento',
-          'Biomasa disponible por conversión teórica' : 'incr_bio_acum_conver',
-          'Biomasa disponible por alimento' : 'bio_dispo_alimen'
+          'Incremento de biomasa por alimento' : 'incr_bio_acum_conver',
+          'Biomasa disponible por alimento' : 'bio_dispo_alimen',
+          '% Supervievencia final' : 'porc_supervivencia_final'
         },       
         listadoExistencias : [],
         listadoEspecies : [],

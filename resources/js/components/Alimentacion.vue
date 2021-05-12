@@ -13,7 +13,7 @@
                     class = "btn btn-success form-control"
                     :fetch   = "fetchData"
                     :fields = "json_fields"                   
-                    name    = "informe-alimentos.xls"
+                    name    = "alimentacion.xls"
                     type    = "xls">
                       <i class="fa fa-fw fa-download"></i> Generar Excel 
                   </downloadexcel>    
@@ -58,13 +58,14 @@
                 </form>
               </div> 
             </div>
-            <div class="table-container" id="table-container2">
-              <table class="table-sticky table table-sm table-hover table-bordered">
+         
+            <div>
+              <table class="table table-sticky table-bordered table-striped table-sm table-sm-responsive">
                 <thead class="thead-primary">
                   <tr>
                     <th>#</th>
                     <th>Tipo de Actividad</th>
-                    <th>Siembras</th>
+                    <th class="fixed-column">Siembra</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
                     <th> Alimento</th>
@@ -82,7 +83,7 @@
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.actividad"></td>
-                    <td v-text="item.nombre_siembra"></td>
+                    <td v-text="item.nombre_siembra" class="fixed-column"></td>
                     <td v-text="item.fecha_ra"></td>                    
                     <td v-text="item.minutos_hombre"></td>
                     <td v-text="item.alimento"></td>
@@ -216,15 +217,15 @@ import downloadexcel from "vue-json-excel"
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
-          'Minutos hombre': 'total_minutos_hombre',
+          'Minutos hombre' : 'minutos_hombre',
           'Alimento' : 'alimento',
-          'Kg Mañana' : 'cant_manana', 
-          'Kg tarde' : 'cant_tarde',
-          'Kg día' : 'alimento_dia',
-          'Costo' : 'costo_kg',
+          'Cantidad KG Mañana' : 'cant_manana', 
+          'Cantidad KG tarde' : 'cant_tarde',
+          'Cantidad total día' : 'alimento_dia',
+          'Costo KG' : 'costo_kg',
           'Costo total' : 'costo_total_alimento',
           'Conversion alimenticia teorica' :'conv_alimenticia',
-          'incremento biomasa acumulada por convercion' : 'incr_bio_acum_conver',
+          'incremento biomasa acumulada por conversion' : 'incr_bio_acum_conver',
           'Detalles' : 'detalles'
         },
         form : new Form({

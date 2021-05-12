@@ -65,18 +65,18 @@
                           </downloadexcel>
                         </div>
                       </div>
-                      <div class="table-container" id="table-container2">
-                        <table class="table-sticky table table-sm table-hover table-bordered">
+                      <div>
+                        <table class="table table-bordered table-striped table-sm table-sticky">
                           <thead class="thead-primary">
                             <tr>                           
-                              <th class="fixed-column">#</th>
+                              <th>#</th>
                               <th class="fixed-column">Siembra</th>
                               <th>Lote</th>
                               <th>Area</th>
                               <th>Especie</th>
                               <th>Inicio siembra</th>                             
-                              <th>Cant Ini</th>
-                              <th>Peso Ini</th>
+                              <th>Cant Inicial</th>
+                              <th>Peso Inicial</th>
                               <th>Cant Actual</th>
                               <th>Peso Actual</th>   
                                <th>Fecha último registro</th>
@@ -96,7 +96,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td v-text="index+1" class="fixed-column"></td>
+                              <td v-text="index+1"></td>
                               <td v-text="le.nombre_siembra" class="fixed-column"></td>
                               <td v-text="le.lote"></td>
                               <td v-text="le.capacidad"></td>
@@ -142,19 +142,21 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
+          'Lote' : 'lote',
+          'Area' : 'capacidad',
           'Especie' : 'especie',
-          'Fecha inicio siembra' : 'fecha_inicio',
-          'Fecha registro' : 'fecha_registro',
+          'Inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
           'Cantidad actual' : 'cant_actual',
           'Peso actual' : 'peso_actual',
+          'Fecha último registro' : 'fecha_registro',
           'Tiempo de cultivo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
-          'Mortalidad %' : 'mortalidad_porcentaje',
+          '% Mortalidad' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
           'Incremento de biomasa': 'incremento_biomasa',
           'Gananacia de peso por día': 'ganancia_peso_día',
