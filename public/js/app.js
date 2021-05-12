@@ -2187,8 +2187,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2198,15 +2196,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Tipo actividad': 'actividad',
         'Siembra': 'nombre_siembra',
         'Fecha': 'fecha_ra',
-        'Costo minutos hombre': 'total_minutos_hombre',
+        'Minutos hombre': 'minutos_hombre',
         'Alimento': 'alimento',
-        'Kg Mañana': 'cant_manana',
-        'Kg tarde': 'cant_tarde',
-        'Kg día': 'alimento_dia',
-        'Costo': 'costo_kg',
+        'Cantidad KG Mañana': 'cant_manana',
+        'Cantidad KG tarde': 'cant_tarde',
+        'Cantidad total día': 'alimento_dia',
+        'Costo KG': 'costo_kg',
         'Costo total': 'costo_total_alimento',
         'Conversion alimenticia teorica': 'conv_alimenticia',
-        'incremento biomasa acumulada por convercion': 'incr_bio_acum_conver',
+        'incremento biomasa acumulada por conversion': 'incr_bio_acum_conver',
         'Detalles': 'detalles'
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
@@ -46535,6 +46533,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          staticClass: "fixed-column",
                           domProps: { textContent: _vm._s(item.nombre_siembra) }
                         }),
                         _vm._v(" "),
