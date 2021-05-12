@@ -38,7 +38,7 @@
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
                           :fields = "json_fields"
-                          name    = "informe-ciclo-productivo.xls"
+                          name    = "informe-consolidado.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
                           </downloadexcel>
@@ -49,7 +49,8 @@
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
-                              <th class="fixed-column">Siembra</th>                            
+                              <th class="fixed-column">Siembra</th>  
+                              <th>Area</th>                           
                               <th>Inicio siembra</th>
                               <th>Cantidad Inicial</th>
                               <th>Fecha inicio siembra</th>
@@ -86,8 +87,8 @@
                           </thead>
                           <tbody>
                             <tr v-for="(le, index) in listadoExistencias" :key="index">                              
-                              <td v-text="index+1" class="fixed-column"></td>
-                              <td v-text="le.nombre_siembra" class="fixed-column"></td>
+                              <td v-text="index+1"></td>
+                              <td v-text="le.nombre_siembra" class="fixed-column"></td>   
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.fecha_inicio"></td>
@@ -136,36 +137,36 @@
       return {
         json_fields: {      
           'Siembra' : 'nombre_siembra',
-          'Inicio siembra' : 'capacidad',
-          'Fecha inicio siembra' : 'fecha_inicio',
+          'Area' : 'capacidad',
+          'Inicio siembra' : 'fecha_inicio',
+          'Tiempo de cultivo' : 'intervalo_tiempo',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',
           'Peso inicial' : 'peso_inicial',
-          'carga inicial' : 'carga_inicial',
+          'Carga inicial' : 'carga_inicial',
           'Animales final' : 'cant_actual',
           'Peso actual' : 'peso_actual',
-          'Intervalo de tiempo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',
           'Salida animales' : 'salida_animales',
-          'Dencidad inicial (Animales/m2)' : 'densidad_inicial',
+          'Densidad inicial (Animales/m2)' : 'densidad_inicial',
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
           'Horas hombre':'horas_hombre',
-          'Costo minutos Hombre':'costo_minutosh',
+          'Costo Horas':'costo_minutosh',
           'Costo total recursos':'costo_total_recurso',
           'Costo horas':'costo_horas',
           'Costo total alimentos':'costo_total_alimento',
-          'Costo total':'costo_tot',
           'Total Kg Alimento' : 'cantidad_total_alimento',
+          'Costo total':'costo_tot',
+          'Costo producccion final' : 'costo_produccion_final',
           'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
-          'Costo produccion final' : 'costo_produccion_final',
-          'Convercion final' : 'conversion_final',
-          'Ganacia peso dia' : 'ganancia_peso_dia',
-          '%Supervivencia final' : 'porc_supervivencia_final'
+          'Conversion final' : 'conversion_final',
+          'Ganancia peso dia' : 'ganancia_peso_dia',
+          '% Supervivencia final' : 'porc_supervivencia_final'
         },       
         listadoExistencias : [],
         listadoEspecies : [],

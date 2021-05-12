@@ -11,8 +11,8 @@
                 <button class="btn btn-success" @click="anadirItem()">Nueva siembra</button>                             
               </div>
             </div>
-            <div class="table-container" id="table-container2">
-              <table class="table-sticky table table-sm table-hover table-bordered">
+            <div>
+              <table class="table table-bordered table-striped table-sm table-sticky">
                 <thead class="thead-primary">
                   <tr>
                     <th>#</th>
@@ -20,7 +20,7 @@
                     <th>Contenedor</th>
                     <th class="text-center d-sm-none d-none d-md-block" style="width:340px">
                       <h5> Especie</h5>
-                      <div class="nav">
+                      <div class="py-3">
                         <li class="" style="width:80px; display:inline-block">Especie</li>
                         <li class="" style="width:80px; display:inline-block">Lote</li>
                         <li class="" style="width:80px; display:inline-block">Cantidad</li>
@@ -42,17 +42,17 @@
                     <td v-text="siembra.nombre_siembra" scope="row"></td>
                     <td v-text="siembra.contenedor"></td>
                     <td class="d-sm-none d-none d-md-block">
-                      <ul v-for="pez in siembra.peces" :key="pez.id" class="nav">
-                          <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px">Especie</li>
-                          <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px">Lote</li>
-                          <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px">Cantidad</li>
-                          <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px">Peso</li>
+                      <ul v-for="pez in siembra.peces" :key="pez.id" class="nav border-0">
+                          <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px; display:inline-block">Especie</li>
+                          <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px; display:inline-block">Lote</li>
+                          <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px; display:inline-block">Cantidad</li>
+                          <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px; display:inline-block">Peso</li>
                       </ul>
                       
                     </td>
                     <td v-text="siembra.fecha_inicio"></td>
                     <td>{{siembra.ini_descanso}} - <br> {{siembra.fin_descanso}}</td>
-                    <!-- <td v-text="estados[siembra.estado]"></td> -->
+
                     <td>
                       <span v-bind:class="[fechaActual <= siembra.fecha_alimento ? '' : 'badge badge-warning']">
                         {{siembra.fecha_alimento}}

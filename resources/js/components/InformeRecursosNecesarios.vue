@@ -40,7 +40,7 @@
                             class = "btn btn-success form-control"
                             :fetch   = "fetchData"
                             :fields = "json_fields"                           
-                            name    = "informe-recursos-necesarios.xls"
+                            name    = "informe-consolidado-recursos-necesarios.xls"
                             type    = "xls">
                               <i class="fa fa-fw fa-download"></i> Generar Excel 
                             </downloadexcel>      
@@ -102,14 +102,17 @@ import downloadexcel from "vue-json-excel"
     data(){
       return {
         json_fields : {          
-          'Siembra' : 'nombre_siembra',                 
+          'Siembra' : 'nombre_siembra',
+          'Estado' : 'estado',
           'Tipo actividad' : 'actividad',
           'Minutos hombre' : 'minutos_hombre',
           'Costo total minutos' : 'costo_minutos',          
           'Cantidad total recurso' : 'cantidad_recurso',
           'Costo total recurso' : 'costo_recurso',
           'Cantidad total alimento' : 'cantidad_alimento',
-          'Costo total alimento' : 'costo_alimento'
+          'Costo total alimento' : 'costo_alimento',
+          'Costo total actividad' : 'costo_total_actividad',
+          '%Costo total producción': 'porcentaje_total_produccion'
         }, 
         f_actividad:'',
         f_siembra:'',
