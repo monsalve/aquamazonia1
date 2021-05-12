@@ -3400,6 +3400,109 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {}
 });
@@ -47533,7 +47636,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
@@ -49379,29 +49482,326 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("section", { staticClass: "content-dashboard" }, [
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/siembras" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Siembras")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/recursos-necesarios" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Recursos necesarios")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/alimentacion" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Alimentación")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/informes-biomasa-alimento" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Biomasa por alimentacion")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/calidad-agua" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Párametros de calidad")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/especies" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Especies")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/alimentos" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Alimentos")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/recursos" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Recursos")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c(
+                  "div",
+                  { staticClass: "box-option rounded" },
+                  [
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "description-option bg-primary text-center",
+                        attrs: { to: "/usuarios" }
+                      },
+                      [
+                        _c("h4", { staticClass: " text-white" }, [
+                          _vm._v("Usuarios")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Panel de Administración")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body jumbotron" }, [
-              _c("h1", { staticClass: "display-5" }, [
-                _vm._v("Bienvenido al gestor de Aquamazonia!!")
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Bienvenido a Aquamazonia")]),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Panel de Administración")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-fish" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-plus-square" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-utensils" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-file-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-tint" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
+      _c("i", { staticClass: "fa fa-4x fa-user" })
     ])
   }
 ]
@@ -54046,7 +54446,8 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-cebra table-bordered table-striped"
+                  staticClass:
+                    "table table-cebra table-bordered table-striped table-sm"
                 },
                 [
                   _vm._m(0),
@@ -54336,7 +54737,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),

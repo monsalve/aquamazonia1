@@ -13,7 +13,7 @@
                         </div>
                         <div class="row">
                             <table class="table table-hover table-sm">
-                              <thead>
+                              <thead class="thead-primary">
                                 <tr>
                                   <th scope="col">#</th>
                                   <th scope="col">Alimento</th>

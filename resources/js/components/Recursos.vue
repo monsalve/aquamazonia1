@@ -12,8 +12,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table table-cebra table-bordered table-striped">
-                              <thead>
+                            <table class="table table-cebra table-bordered table-striped table-sm">
+                              <thead class="thead-primary">
                                 <tr>
                                   <th scope="col">#</th>
                                   <th scope="col">Recurso</th>

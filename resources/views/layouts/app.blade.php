@@ -56,7 +56,7 @@
                             @endif
                         @else
                             <li class="nav-item col-nav-item ">
-                                <router-link class="nav-link active" to="/dashboard">Dashboard</router-link>
+                                <router-link class="nav-link active" to="/dashboard">Panel principal</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
                                 <router-link class="nav-link" to="/siembras">Siembras</router-link>
