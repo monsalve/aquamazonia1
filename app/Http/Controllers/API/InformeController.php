@@ -144,14 +144,14 @@ class InformeController extends Controller
     public function traerInformes(){
         $minutos_hombre = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
 
-        $recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-        ->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
-        ->join('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
-        ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-        ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-        ->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
-        ->select('recursos_necesarios.id as id', 'minutos_hombre', 'id_recurso', 'id_alimento','actividad', 'fecha_ra', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso')
-        ->get();
+				$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+				->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+				->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
+				->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+				->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+				->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
+				->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id','actividad', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso')
+				->get();
         
         $acumula=0;
         $acumula2=0;

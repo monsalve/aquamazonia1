@@ -13,7 +13,7 @@
                     class = "btn btn-success form-control"
                     :fetch   = "fetchData"
                     :fields = "json_fields"                   
-                    name    = "informe-alimentos.xls"
+                    name    = "alimentacion.xls"
                     type    = "xls">
                       <i class="fa fa-fw fa-download"></i> Generar Excel 
                   </downloadexcel>    
@@ -56,20 +56,18 @@
                     <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                 </form>
-              </div>
-              
+              </div> 
             </div>
          
             <div>
-              <table class="table table-sticky table-bordered table-striped table-sm-responsive">
+              <table class="table table-sticky table-bordered table-striped table-sm table-sm-responsive">
                 <thead class="thead-primary">
                   <tr>
                     <th>#</th>
                     <th>Tipo de Actividad</th>
-                    <th>Siembras</th>
+                    <th class="fixed-column">Siembra</th>
                     <th>Fecha</th>
                     <th>Minutos hombre</th>
-                    <!-- <th>Total minutos hombre</th> -->
                     <th> Alimento</th>
                     <th>Cantidad Mañana</th>
                     <th>Cantidad Tarde</th>
@@ -79,14 +77,13 @@
                     <th>Conversión alimenticia teórica</th>
                     <th>Incremento biomasa acumulada por conversión</th>
                     <th>Detalles</th>
-                    <!-- <th>Eliminar</th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.actividad"></td>
-                    <td v-text="item.nombre_siembra"></td>
+                    <td v-text="item.nombre_siembra" class="fixed-column"></td>
                     <td v-text="item.fecha_ra"></td>                    
                     <td v-text="item.minutos_hombre"></td>
                     <td v-text="item.alimento"></td>
@@ -98,9 +95,7 @@
                     <td v-text="item.conv_alimenticia"></td>
                     <td v-text="item.incr_bio_acum_conver"></td>
                     <td v-text="item.detalles"></td>
-              
                   </tr>
-                 
                 </tbody>
                 <tfoot>
                    <tr>
@@ -222,13 +217,15 @@ import downloadexcel from "vue-json-excel"
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
           'Fecha' : 'fecha_ra',
-          'Costo minutos hombre': 'total_minutos_hombre',
+          'Minutos hombre' : 'minutos_hombre',
           'Alimento' : 'alimento',
-          'Kg Mañana' : 'cant_manana', 
-          'Kg tarde' : 'cant_tarde',
-          'Kg día' : 'alimento_dia',
-          'Costo' : 'costo_kg',
+          'Cantidad KG Mañana' : 'cant_manana', 
+          'Cantidad KG tarde' : 'cant_tarde',
+          'Cantidad total día' : 'alimento_dia',
+          'Costo KG' : 'costo_kg',
           'Costo total' : 'costo_total_alimento',
+          'Conversion alimenticia teorica' :'conv_alimenticia',
+          'incremento biomasa acumulada por conversion' : 'incr_bio_acum_conver',
           'Detalles' : 'detalles'
         },
         form : new Form({

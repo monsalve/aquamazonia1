@@ -49,10 +49,9 @@
                   Regresar
                 </button>
               </div>
-              <div> 
+              <div class="table-container" id="table-container2"> 
               <h2>Registros de párametros de agua {{ listadoParametros[0].contenedor }}</h2>
-                <table class="table table-striped table-bordered table-hover table-sm table-sticky">
-                 
+                <table class="table-sticky table table-sm table-hover table-bordered">
                   <thead class="thead-primary">
                     <tr>                    
                       <th rowspan="2" data-field="id">#</th>                    
@@ -101,7 +100,6 @@
                       </td>                     
                     </tr>                   
                     <tr class="bg-secondary text-white">
-                      
                       <th colspan="3">PROMEDIO:</th>
                       <td v-text="promedios.promedio_12_am"></td>
                       <td v-text="promedios.promedio_4_am"></td>
@@ -114,14 +112,13 @@
                       <td v-text="promedios.promedio_nitrito"></td>
                       <td v-text="promedios.promedio_nitrato"></td>
                       <td v-text="promedios.promedio_otros"></td>
-                      
                     </tr>                  
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="row" v-if="mostrar==0">
-              <table class="table table-sticky table-bordered table-striped">
+            <div class="table-container" id="table-container2" v-if="mostrar==0">
+              <table class="table-sticky table table-sm table-hover table-bordered">
                 <thead class="thead-primary">
                   <tr>
                     <th scope="col">#</th>

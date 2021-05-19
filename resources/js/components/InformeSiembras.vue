@@ -60,10 +60,9 @@
                               </downloadexcel>                            
                           </div>
                         </div>
-                        
-                        <div class="row">
-                            <table class="table table-bordered table-striped table-sticky">
-                              <thead class="thead-primary">
+                        <div class="table-container" id="table-container2">
+                          <table class="table-sticky table table-sm table-hover table-bordered">
+                            <thead class="thead-primary">
                                 <tr>
                                   <th scope="col">#</th>
                                   <th>Nombre<br>siembra</th>
@@ -75,8 +74,7 @@
                                   <th>Cantidad actual</th>
                                   <th>Peso actual</th>
                                   <th>Mortalidad</th>
-                                  <th>Cantidad Pesca</th>
-                                                           
+                                  <th>Cantidad Pesca</th>                        
                                 </tr>
                               </thead>
                               <tbody>

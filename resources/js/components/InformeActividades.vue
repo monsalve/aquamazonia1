@@ -84,8 +84,8 @@
                           </form>
                         </div>
                       </div>
-                      <div>
-                        <table class="table table-bordered table-striped table-sticky">
+                      <div class="table-container" id="table-container2">
+                        <table class="table-sticky table table-sm table-hover table-bordered">
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
@@ -134,14 +134,16 @@ export default {
   
     return {
       json_fields: {
-        'siembra' : 'nombre_siembra',
+        'Siembra' : 'nombre_siembra',
+        'Lote' : 'lote',
         'Fecha de registro' : 'fecha_registro',
         'Especie' : 'especie',
         'Tipo registro' : 'nombre_registro',
-        ' Peso ganado' : 'peso_ganado',
-        ' Mortalidad' : 'mortalidad',
-        'Biomasa' : 'bioamasa',
-        ' Cantidad' : 'cantidad',
+        'Peso Actual' : 'peso_ganado',
+        'Mortalidad' : 'mortalidad',
+        'Salida biomasa muestreo' : 'biomasa',
+        'Cantidad' : 'cantidad',
+        'Biomasa disponible' : 'biomasa_disponible'
         
       }, 
       
