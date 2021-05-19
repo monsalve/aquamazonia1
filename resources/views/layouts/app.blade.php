@@ -72,7 +72,7 @@
                                 <router-link class="nav-link" to="/informes-biomasa-alimento">Biomasa por Alimentación</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
-                                <router-link class="nav-link" to="/informes-produccion">Informes Producción</router-link>
+                                <router-link class="nav-link" to="/informe-costos">Informes Costos</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
                                 <router-link class="nav-link" to="/calidad-agua">Registrar parametros de calidad  del Agua</router-link>

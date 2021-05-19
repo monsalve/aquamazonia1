@@ -11300,6 +11300,7 @@ ul#main-navigation li.col-nav-item a.nav-link {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .table-sticky thead tr {

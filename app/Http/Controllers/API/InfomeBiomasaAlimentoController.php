@@ -117,11 +117,16 @@ class InfomeBiomasaAlimentoController extends Controller
                                   ->where('id_siembra', $existencias[$j]->id_siembra)
                                   ->where('id_especie', $existencias[$j]->id_especie)
                                   ->first();
+
                               $date1 = new \DateTime($existencias[$j]->fecha_inicio);
-                              $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                              if (isset($int_tiempo['fecha_registro'])) {
+                                $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                              } else {
+                                $date2 = new \DateTime();
+                              }
                               $diff = $date1->diff($date2);
-                        
                               $existencias[$j]->intervalo_tiempo  = $diff->days;
+
                               $existencias[$j]->salida_biomasa += $registros[$k]->biomasa; 
                               
                               // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
@@ -380,10 +385,14 @@ class InfomeBiomasaAlimentoController extends Controller
                                     ->where('id_especie', $existencias[$j]->id_especie)
                                     ->first();
                                 $date1 = new \DateTime($existencias[$j]->fecha_inicio);
-                                $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                                if (isset($int_tiempo['fecha_registro'])) {
+                                  $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                                } else {
+                                  $date2 = new \DateTime();
+                                }
                                 $diff = $date1->diff($date2);
-                          
                                 $existencias[$j]->intervalo_tiempo  = $diff->days;
+
                                 $existencias[$j]->salida_biomasa += $registros[$k]->biomasa;
                                 if($existencias[$j]->id_especie == $registros[$k]->id_especie){
                                     $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);

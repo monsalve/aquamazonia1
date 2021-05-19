@@ -3865,8 +3865,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4421,7 +4419,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4732,7 +4729,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4863,6 +4859,215 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.fech
       };
       axios.post("api/filtro-existencias-detalle", data).then(function (response) {
+        me.listadoExistencias = response.data.existencias;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      json_fields: {
+        'Siembra': 'nombre_siembra',
+        'Costo Horas': 'costo_minutosh',
+        'Costo recursos': 'costo_total_recurso',
+        'Costo alimentos': 'costo_total_alimento',
+        'Costo total siembra': 'costo_tot',
+        'Costo total de producción parcial': 'costo_produccion_parcial'
+      },
+      listadoExistencias: [],
+      listadoEspecies: [],
+      listadoSiembras: [],
+      imprimirRecursos: [],
+      f_siembra: '',
+      f_especie: '',
+      f_inicio_d: '',
+      f_inicio_h: ''
+    };
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this; // const response = await axios.get('api/informe-recursos');
+
+                _context.next = 3;
+                return _this.listadoExistencias;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listadoExistencias);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    listar: function listar() {
+      var me = this;
+      this.listarEspecies();
+      this.listarSiembras();
+      axios.get("api/informes-biomasa-alimento").then(function (response) {
+        me.listadoExistencias = response.data.existencias;
+      });
+    },
+    listarEspecies: function listarEspecies() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        me.listadoEspecies = response.data;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    filtroSiembra: function filtroSiembra() {
+      var me = this;
+
+      if (this.f_siembra == '') {
+        this.smb = '-1';
+      } else {
+        this.smb = this.f_siembra;
+      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
+
+
+      if (this.f_inicio_d == '') {
+        this.fecd = '-1';
+      } else {
+        this.fecd = this.f_inicio_d;
+      }
+
+      if (this.f_inicio_h == '') {
+        this.fech = '-1';
+      } else {
+        this.fech = this.f_inicio_h;
+      }
+
+      var data = {
+        'f_siembra': this.smb,
+        'f_inicio_d': this.fecd,
+        'f_inicio_h': this.fech
+      };
+      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
         me.listadoExistencias = response.data.existencias;
       });
     }
@@ -5192,218 +5397,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             me.listar();
           });
         }
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.listar();
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Costo Horas': 'costo_minutosh',
-        'Costo recursos': 'costo_total_recurso',
-        'Costo alimentos': 'costo_total_alimento',
-        'Total Alimento (KG)': 'cantidad_total_alimento',
-        'Costo total siembra': 'costo_tot',
-        'Costo total de producción parcial': 'costo_produccion_parcial',
-        'Biomasa disponible por alimento': 'bio_dispo_alimen'
-      },
-      listadoExistencias: [],
-      listadoEspecies: [],
-      listadoSiembras: [],
-      imprimirRecursos: [],
-      f_siembra: '',
-      f_especie: '',
-      f_inicio_d: '',
-      f_inicio_h: ''
-    };
-  },
-  components: {
-    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var me, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                me = _this; // const response = await axios.get('api/informe-recursos');
-
-                _context.next = 3;
-                return _this.listadoExistencias;
-
-              case 3:
-                response = _context.sent;
-                return _context.abrupt("return", _this.listadoExistencias);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    listar: function listar() {
-      var me = this;
-      this.listarEspecies();
-      this.listarSiembras();
-      axios.get("api/informes-biomasa-alimento").then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    },
-    listarEspecies: function listarEspecies() {
-      var me = this;
-      axios.get("api/especies").then(function (response) {
-        me.listadoEspecies = response.data;
-      });
-    },
-    listarSiembras: function listarSiembras() {
-      var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
-      });
-    },
-    filtroSiembra: function filtroSiembra() {
-      var me = this;
-
-      if (this.f_siembra == '') {
-        this.smb = '-1';
-      } else {
-        this.smb = this.f_siembra;
-      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
-
-
-      if (this.f_inicio_d == '') {
-        this.fecd = '-1';
-      } else {
-        this.fecd = this.f_inicio_d;
-      }
-
-      if (this.f_inicio_h == '') {
-        this.fech = '-1';
-      } else {
-        this.fech = this.f_inicio_h;
-      }
-
-      var data = {
-        'f_siembra': this.smb,
-        'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
-      };
-      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias;
       });
     }
   },
@@ -47299,7 +47292,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo de Actividad")]),
         _vm._v(" "),
-        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
+        _c("th", [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
@@ -50552,7 +50545,7 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
+                          _c("option", { attrs: { selected: "", value: "" } }, [
                             _vm._v(" Seleccionar")
                           ]),
                           _vm._v(" "),
@@ -50790,10 +50783,6 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(lr.mortalidad) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
                             domProps: { textContent: _vm._s(lr.biomasa) }
                           }),
                           _vm._v(" "),
@@ -50844,9 +50833,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Mortalidad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Salida biomasa muestreo")]),
+        _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),
@@ -51939,8 +51926,6 @@ var render = function() {
                       "tbody",
                       _vm._l(_vm.listadoExistencias, function(le, index) {
                         return _c("tr", { key: index }, [
-                          _c("th", [_vm._v("#")]),
-                          _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(index + 1) }
                           }),
@@ -52203,6 +52188,275 @@ var staticRenderFns = [
         _c("th", [_vm._v("Ganancia peso día")]),
         _vm._v(" "),
         _c("th", [_c("b", [_vm._v("%")]), _vm._v(" Supervivencia final ")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Informes de Costos")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "siembra" } }, [
+                  _vm._v("Siembras")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_siembra,
+                        expression: "f_siembra"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "siembra" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_siembra = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: ls.id } },
+                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.filtroSiembra()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Filtrar resultados\n                      "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group col-md-2" },
+                [
+                  _c(
+                    "downloadexcel",
+                    {
+                      staticClass: "btn btn-success form-control",
+                      attrs: {
+                        fetch: _vm.fetchData,
+                        fields: _vm.json_fields,
+                        name: "informe-costos.xls",
+                        type: "xls"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-fw fa-download" }),
+                      _vm._v(" Generar Excel \n                      ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "table-container",
+                attrs: { id: "table-container2" }
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table-sticky table table-sm table-hover table-bordered"
+                  },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.listadoExistencias, function(le, index) {
+                        return _c(
+                          "tr",
+                          { key: index, staticClass: "text-right" },
+                          [
+                            _c("td", {
+                              domProps: { textContent: _vm._s(index + 1) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.nombre_siembra)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_minutosh)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_total_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_total_alimento)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(le.costo_tot) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_produccion_parcial)
+                              }
+                            })
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row text-left" }, [
+      _c("h5", [_vm._v("Filtrar por: ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-md-2" }, [
+      _c("label", { attrs: { for: "Fecha desde" } }, [
+        _vm._v("Fecha inicio desde: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_d" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-md-2" }, [
+      _c("label", { attrs: { for: "fecha hasta" } }, [
+        _vm._v("Fecha inicio hasta: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_h" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-primary" }, [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Horas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Recursos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Alimentos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo total de siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo de producción parcial")])
       ])
     ])
   }
@@ -52636,291 +52890,6 @@ var staticRenderFns = [
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 pm ")]),
         _vm._v(" "),
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("8:00 pm ")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Informes de producción")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "siembra" } }, [
-                  _vm._v("Siembras")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_siembra,
-                        expression: "f_siembra"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "siembra" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_siembra = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoSiembras, function(ls, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: ls.id } },
-                        [_vm._v(_vm._s(ls.nombre_siembra))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.filtroSiembra()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Filtrar resultados\n                      "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-md-2" },
-                [
-                  _c(
-                    "downloadexcel",
-                    {
-                      staticClass: "btn btn-success form-control",
-                      attrs: {
-                        fetch: _vm.fetchData,
-                        fields: _vm.json_fields,
-                        name: "informe-produccion.xls",
-                        type: "xls"
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-fw fa-download" }),
-                      _vm._v(" Generar Excel \n                      ")
-                    ]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "table-container",
-                attrs: { id: "table-container2" }
-              },
-              [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table-sticky table table-sm table-hover table-bordered"
-                  },
-                  [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.listadoExistencias, function(le, index) {
-                        return _c(
-                          "tr",
-                          { key: index, staticClass: "text-right" },
-                          [
-                            _c("td", {
-                              domProps: { textContent: _vm._s(index + 1) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.nombre_siembra)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_minutosh)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_total_recurso)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_total_alimento)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.cantidad_total_alimento)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: { textContent: _vm._s(le.costo_tot) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_produccion_parcial)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.bio_dispo_alimen)
-                              }
-                            })
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-left" }, [
-      _c("h5", [_vm._v("Filtrar por: ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "Fecha desde" } }, [
-        _vm._v("Fecha inicio desde: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_d" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "fecha hasta" } }, [
-        _vm._v("Fecha inicio hasta: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_h" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-primary" }, [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Horas")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Recursos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Alimentos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total alimento (Kg)")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo total de siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo de producción parcial")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible por alimento")])
       ])
     ])
   }
@@ -77220,8 +77189,8 @@ var routes = [{
   path: '/informes-biomasa-alimento',
   component: __webpack_require__(/*! ./components/InformeBiomasaAlimento.vue */ "./resources/js/components/InformeBiomasaAlimento.vue")["default"]
 }, {
-  path: '/informes-produccion',
-  component: __webpack_require__(/*! ./components/InformeProduccion.vue */ "./resources/js/components/InformeProduccion.vue")["default"]
+  path: '/informe-costos',
+  component: __webpack_require__(/*! ./components/InformeCostos.vue */ "./resources/js/components/InformeCostos.vue")["default"]
 }, {
   path: '/example',
   component: __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]
@@ -78060,6 +78029,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/InformeCostos.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeCostos.vue?vue&type=template&id=ebd35e5c& */ "./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&");
+/* harmony import */ var _InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeCostos.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InformeCostos.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCostos.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCostos.vue?vue&type=template&id=ebd35e5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/InformeParametros.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/InformeParametros.vue ***!
@@ -78124,75 +78162,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=template&id=166f97cb& */ "./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&");
-/* harmony import */ var _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/InformeProduccion.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeProduccion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeProduccion.vue?vue&type=template&id=166f97cb& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

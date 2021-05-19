@@ -3,7 +3,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Informes de producción</div>
+                    <div class="card-header">Informes de Costos</div>
+                    <!-- Informe de producción -->
                       <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
                     <div class="card-body">   
                       <div class="row text-left">
@@ -36,7 +37,7 @@
                           class = "btn btn-success form-control"
                           :fetch   = "fetchData"
                           :fields = "json_fields"        
-                          name    = "informe-produccion.xls"
+                          name    = "informe-costos.xls"
                           type    = "xls">
                             <i class="fa fa-fw fa-download"></i> Generar Excel 
                           </downloadexcel>
@@ -51,10 +52,9 @@
                               <th>Costo Horas</th>
                               <th>Costo Recursos</th>
                               <th>Costo Alimentos</th>
-                              <th>Total alimento (Kg)</th>
                               <th>Costo total de siembra</th>
                               <th>Costo de producción parcial</th>
-                              <th>Biomasa disponible por alimento</th>
+                              <!-- <th>Biomasa disponible por alimento</th> -->
                             </tr>
                           </thead>
                           <tbody>
@@ -64,10 +64,9 @@
                               <td v-text="le.costo_minutosh"></td>
                               <td v-text="le.costo_total_recurso"></td>
                               <td v-text="le.costo_total_alimento"></td>
-                              <td v-text="le.cantidad_total_alimento"></td>
                               <td v-text="le.costo_tot"></td>
                               <td v-text="le.costo_produccion_parcial"></td>
-                              <td v-text="le.bio_dispo_alimen"></td>
+                              <!-- <td v-text="le.bio_dispo_alimen"></td> -->
                             </tr>
                           </tbody>
                         </table>
@@ -89,10 +88,8 @@
           'Costo Horas':'costo_minutosh',
           'Costo recursos':'costo_total_recurso',
           'Costo alimentos':'costo_total_alimento',
-          'Total Alimento (KG)' : 'cantidad_total_alimento',
           'Costo total siembra':'costo_tot',
-          'Costo total de producción parcial' : 'costo_produccion_parcial',
-          'Biomasa disponible por alimento' : 'bio_dispo_alimen'
+          'Costo total de producción parcial' : 'costo_produccion_parcial'
         },       
         listadoExistencias : [],
         listadoEspecies : [],
