@@ -31,8 +31,8 @@
             <div class="container">
                <div class="text-center">
                  	<img id="logo-app" src="{{ asset('img/logo-aquamazonia.jpg') }}" alt="Logo-aquamazonia" style="width:70px; border-radius:50%">
-									<br>
-									<h2 id="title-app-shadow">{{ config('app.name', 'Aquamazonia') }}</h2> 
+                    <br>
+                    <h2 id="title-app-shadow">{{ config('app.name', 'Aquamazonia') }}</h2> 
                </div>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
