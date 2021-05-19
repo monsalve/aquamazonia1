@@ -4146,9 +4146,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4159,7 +4156,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Cantidad inicial': 'cantidad_inicial',
         'Biomasa inicial': 'biomasa_inicial',
         'Biomasa disponible muestreo (KG)': 'biomasa_disponible',
-        'Salida de biomasa': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mort. Kg': 'mortalidad_kg',
         'Salida animales': 'salida_animales',
@@ -51077,12 +51073,6 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          le.salida_biomasa
-                            ? _c("td", [
-                                _vm._v(_vm._s(le.salida_biomasa) + " kg")
-                              ])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.mortalidad) }
                           }),
@@ -51164,8 +51154,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Biomasa Inicial")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible muestreo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Salida de biomasa")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),

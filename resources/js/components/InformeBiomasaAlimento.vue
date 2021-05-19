@@ -52,7 +52,6 @@
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
                               <th>Biomasa disponible muestreo</th>
-                              <th>Salida de biomasa</th>
                               <th>Mortalidad</th>
                               <th>Mort. Kg</th>
                               <th>Salida animales</th>
@@ -70,8 +69,6 @@
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td> 
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
-                              <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
-                              <td v-else>0</td>
                               <td v-text="le.mortalidad"></td>
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td> 
                               <td v-if="le.salida_animales">{{le.salida_animales}}</td>
@@ -102,7 +99,6 @@
           'Cantidad inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',          
           'Biomasa disponible muestreo (KG)' : 'biomasa_disponible',
-          'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
           'Salida animales' : 'salida_animales',
