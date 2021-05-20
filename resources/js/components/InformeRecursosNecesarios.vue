@@ -55,8 +55,8 @@
                               <th>Siembra</th>
                               <th>Estado</th>
                               <th>Tipo actividad</th>
-                              <th>Horas hombre</th>
-                              <th>Costo horas hombre</th>
+                              <th>Minutos hombre</th>
+                              <th>Costo minutos hombre</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad Recurso</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
@@ -72,7 +72,7 @@
                               <td v-if="lrn.estado == 1">Activa</td>
                               <td v-else>Inactiva</td>
                               <td v-text="lrn.actividad"></td>
-                              <td v-text="lrn.horas_hombre+' Hr'"></td>
+                              <td v-text="lrn.minutos_hombre+' min'"></td>
                               <td class="text-right" v-text="lrn.costo_minutos"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td class="text-right" v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>

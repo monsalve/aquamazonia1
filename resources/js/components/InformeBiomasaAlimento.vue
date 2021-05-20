@@ -52,11 +52,12 @@
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
                               <th>Biomasa disponible muestreo</th>
+                              <th>Salida de biomasa</th>
                               <th>Mortalidad</th>
                               <th>Mort. Kg</th>
-                              <th>Salida animales</th>
                               <th>Total alimento (Kg)</th>
                               <th>Incremento de biomasa por alimento</th>
+                              <th>Conversión Alimenticia</th>
                               <th>Biomasa disponible por alimento</th>
                               <th>% Supervivencia final</th>
                             </tr>
@@ -69,12 +70,13 @@
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td> 
                               <td v-text="le.biomasa_disponible+' kg'"></td> 
+                              <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
+                              <td v-else>0</td>
                               <td v-text="le.mortalidad"></td>
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td> 
-                              <td v-if="le.salida_animales">{{le.salida_animales}}</td>
-                              <td v-else>0</td>
                               <td v-text="le.cantidad_total_alimento"></td>    
                               <td v-text="le.incr_bio_acum_conver"></td>
+                              <td v-text="le.conversion_alimenticia"></td>
                               <td v-text="le.bio_dispo_alimen"></td>
                               <td v-text="le.porc_supervivencia_final"></td>
                             </tr>
@@ -99,11 +101,12 @@
           'Cantidad inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',          
           'Biomasa disponible muestreo (KG)' : 'biomasa_disponible',
+          'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
-          'Salida animales' : 'salida_animales',
           'Total alimento (Kg)' : 'cantidad_total_alimento',
           'Incremento de biomasa por alimento' : 'incr_bio_acum_conver',
+          'Conversion alimenticia' : 'conversion_alimenticia',
           'Biomasa disponible por alimento' : 'bio_dispo_alimen',
           '% Supervievencia final' : 'porc_supervivencia_final'
         },       

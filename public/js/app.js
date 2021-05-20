@@ -4146,6 +4146,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4156,11 +4158,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Cantidad inicial': 'cantidad_inicial',
         'Biomasa inicial': 'biomasa_inicial',
         'Biomasa disponible muestreo (KG)': 'biomasa_disponible',
+        'Salida de biomasa': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mort. Kg': 'mortalidad_kg',
-        'Salida animales': 'salida_animales',
         'Total alimento (Kg)': 'cantidad_total_alimento',
         'Incremento de biomasa por alimento': 'incr_bio_acum_conver',
+        'Conversion alimenticia': 'conversion_alimenticia',
         'Biomasa disponible por alimento': 'bio_dispo_alimen',
         '% Supervievencia final': 'porc_supervivencia_final'
       },
@@ -51073,6 +51076,12 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          le.salida_biomasa
+                            ? _c("td", [
+                                _vm._v(_vm._s(le.salida_biomasa) + " kg")
+                              ])
+                            : _c("td", [_vm._v("0")]),
+                          _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.mortalidad) }
                           }),
@@ -51087,10 +51096,6 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          le.salida_animales
-                            ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(le.cantidad_total_alimento)
@@ -51100,6 +51105,12 @@ var render = function() {
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(le.incr_bio_acum_conver)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(le.conversion_alimenticia)
                             }
                           }),
                           _vm._v(" "),
@@ -51155,15 +51166,17 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible muestreo")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Salida de biomasa")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Total alimento (Kg)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento de biomasa por alimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversión Alimenticia")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
@@ -53145,9 +53158,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("th", [_vm._v("Tipo actividad")]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Horas hombre")]),
+                        _c("th", [_vm._v("Minutos hombre")]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Costo horas hombre")]),
+                        _c("th", [_vm._v("Costo minutos hombre")]),
                         _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
                           ? _c("th", [_vm._v("Cantidad Recurso")])
@@ -53197,7 +53210,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(lrn.horas_hombre + " Hr")
+                              textContent: _vm._s(lrn.minutos_hombre + " min")
                             }
                           }),
                           _vm._v(" "),

@@ -183,6 +183,10 @@ class InfomeBiomasaAlimentoController extends Controller
           $siembras[$i]->costo_produccion = 0;
           }
 
+          if ($siembras[$i]->incr_bio_acum_conver > 0) {
+            $siembras[$i]->conversion_alimenticia = ($siembras[$i]->cantidad_total_alimento) / ($siembras[$i]->incr_bio_acum_conver);
+          }
+
           if( $siembras[$i]->incremento_biomasa>0){
             $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;                     
           }
@@ -233,6 +237,7 @@ class InfomeBiomasaAlimentoController extends Controller
           $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
           $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
           $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
+          $siembras[$i]->conversion_alimenticia = number_format($siembras[$i]->conversion_alimenticia,2,',','');
           $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
           $siembras[$i]->costo_produccion_parcial = number_format($siembras[$i]->costo_produccion_parcial,2,',','');
           $siembras[$i]->costo_produccion = number_format($siembras[$i]->costo_produccion,2,',','');
@@ -254,6 +259,7 @@ class InfomeBiomasaAlimentoController extends Controller
               "costo_tot" => $siembras[$i]->costo_total_siembra,
               "costo_produccion" => $siembras[$i]->costo_produccion,
               "costo_produccion_parcial" => $siembras[$i]->costo_produccion_parcial,
+              'conversion_alimenticia' => $siembras[$i]->conversion_alimenticia,
               'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
               'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
               "densidad_final" => $siembras[$i]->densidad_final,
@@ -443,6 +449,10 @@ class InfomeBiomasaAlimentoController extends Controller
               }else{
                   $siembras[$i]->costo_produccion = 0;
               }
+    
+              if ($siembras[$i]->incr_bio_acum_conver > 0) {
+                $siembras[$i]->conversion_alimenticia = ($siembras[$i]->cantidad_total_alimento) / ($siembras[$i]->incr_bio_acum_conver);
+              }
               if( $siembras[$i]->incremento_biomasa>0){
                 $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;
               }else{
@@ -480,6 +490,7 @@ class InfomeBiomasaAlimentoController extends Controller
               $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
               $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
               $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
+              $siembras[$i]->conversion_alimenticia = number_format($siembras[$i]->conversion_alimenticia,2,',','');
               $siembras[$i]->costo_produccion = number_format($siembras[$i]->costo_produccion,2,',','');
 							$siembras[$i]->costo_produccion_parcial = number_format($siembras[$i]->costo_produccion_parcial,2,',','');
               $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final,2,',','');
@@ -500,6 +511,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   "costo_tot" => $siembras[$i]->costo_total_siembra,
                   "costo_produccion" => $siembras[$i]->costo_produccion,
 									"costo_produccion_parcial" => $siembras[$i]->costo_produccion_parcial,
+                  'conversion_alimenticia' => $siembras[$i]->conversion_alimenticia,
                   'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
                   'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
                   "densidad_final" => $siembras[$i]->densidad_final,
