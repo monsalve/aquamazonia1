@@ -5523,6 +5523,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5541,13 +5545,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total actividad': 'costo_total_actividad',
         '%Costo total producción': 'porcentaje_total_produccion'
       },
+      tipoActividad: '',
       f_actividad: '',
       f_siembra: '',
       f_estado: '',
       listado: [],
       listadoSiembras: [],
-      listadoActividades: [],
-      tipoActividad: ''
+      listadoActividades: []
     };
   },
   components: {
@@ -53075,21 +53079,25 @@ var render = function() {
                       ) {
                         return _c(
                           "option",
-                          {
-                            key: index,
-                            domProps: { value: actividad.id },
-                            on: {
-                              click: function($event) {
-                                _vm.tipoActividad = actividad.actividad
-                              }
-                            }
-                          },
-                          [_vm._v(_vm._s(actividad.actividad))]
+                          { key: index, domProps: { value: actividad.id } },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(actividad.actividad) +
+                                "\n                          \n                          "
+                            )
+                          ]
                         )
                       })
                     ],
                     2
-                  )
+                  ),
+                  _vm._v(" "),
+                  (_vm.f_actividad == 1
+                  ? (_vm.tipoActividad = "Alimentación")
+                  : (_vm.tipoActividad = ""))
+                    ? _c("div")
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [

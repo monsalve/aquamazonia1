@@ -29,8 +29,12 @@
                            <label for="f_actividad">Tipo de Actividad: </label>
                             <select class="custom-select" id="f_actividad" v-model="f_actividad">
                               <option  value="-1" selected> Seleccionar</option>   
-                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>                 
+                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">
+                                {{actividad.actividad}}
+                              
+                              </option>
                             </select>
+                            <div v-if="f_actividad == 1 ? tipoActividad = 'Alimentación' : tipoActividad =  ''"></div>
                           </div>                          
                           <div class="form-group col-md-2">                                      
                             <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
@@ -114,24 +118,26 @@ import downloadexcel from "vue-json-excel"
           'Costo total actividad' : 'costo_total_actividad',
           '%Costo total producción': 'porcentaje_total_produccion'
         }, 
+        tipoActividad : '',
         f_actividad:'',
         f_siembra:'',
         f_estado : '',
         listado : [],        
         listadoSiembras : [],        
         listadoActividades : [],
-        tipoActividad : ''
       }
     },
      components: {
       downloadexcel,
     },
+   
     methods:{
       async fetchData(){
       let me = this;
       const response = await this.listado
       return this.listado;
       },
+
       listar(){
         let me = this;
         axios.get("api/informes-recursos-necesarios")
@@ -174,6 +180,7 @@ import downloadexcel from "vue-json-excel"
       
     },
     mounted() {
+      
       this.listar();
       this.listarSiembras();
       this.listarActividades();
