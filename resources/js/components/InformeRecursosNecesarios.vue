@@ -27,14 +27,12 @@
                           </div>
                           <div class="form-group col-md-2">
                            <label for="f_actividad">Tipo de Actividad: </label>
-                            <select class="custom-select" id="f_actividad" v-model="f_actividad">
+                            <select class="custom-select" id="f_actividad" v-model="f_actividad" @click="cambiarActividad()">
                               <option  value="-1" selected> Seleccionar</option>   
                               <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">
                                 {{actividad.actividad}}
-                              
                               </option>
                             </select>
-      
                           </div>                          
                           <div class="form-group col-md-2">                                      
                             <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
@@ -137,7 +135,9 @@ import downloadexcel from "vue-json-excel"
       const response = await this.listado
       return this.listado;
       },
-
+      cambiarActividad () {
+        if (this.f_actividad == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
+      },
       listar(){
         let me = this;
         axios.get("api/informes-recursos-necesarios")
@@ -180,7 +180,6 @@ import downloadexcel from "vue-json-excel"
       
     },
     mounted() {
-      if (this.f_actividad == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       this.listar();
       this.listarSiembras();
       this.listarActividades();

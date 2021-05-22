@@ -27,9 +27,9 @@
                             </div>
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
-                              <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
+                              <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad" @click="cambiarActividad()">
                                 <option selected> Seleccionar</option>   
-                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" v-on:click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>
+                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -196,6 +196,9 @@
         // const response = await axios.get('api/informe-recursos');
         const response = await this.imprimirRecursos;
         return this.imprimirRecursos;
+      },
+      cambiarActividad () {
+        if (this.f_actividad == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       },
       listar(){
         let me = this;        

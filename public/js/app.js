@@ -5525,8 +5525,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5583,6 +5581,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+    cambiarActividad: function cambiarActividad() {
+      if (this.f_actividad == 1) {
+        this.tipoActividad = 'Alimentación';
+      } else this.tipoActividad = '';
+    },
     listar: function listar() {
       var me = this;
       axios.get("api/informes-recursos-necesarios").then(function (response) {
@@ -5635,10 +5638,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    if (this.f_actividad == 1) {
-      this.tipoActividad = 'Alimentación';
-    } else this.tipoActividad = '';
-
     this.listar();
     this.listarSiembras();
     this.listarActividades();
@@ -6267,6 +6266,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    cambiarActividad: function cambiarActividad() {
+      if (this.f_actividad == 1) {
+        this.tipoActividad = 'Alimentación';
+      } else this.tipoActividad = '';
     },
     listar: function listar() {
       var me = this;
@@ -53057,6 +53061,9 @@ var render = function() {
                       staticClass: "custom-select",
                       attrs: { id: "f_actividad" },
                       on: {
+                        click: function($event) {
+                          return _vm.cambiarActividad()
+                        },
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
                             .call($event.target.options, function(o) {
@@ -53088,7 +53095,7 @@ var render = function() {
                             _vm._v(
                               "\n                            " +
                                 _vm._s(actividad.actividad) +
-                                "\n                          \n                          "
+                                "\n                          "
                             )
                           ]
                         )
@@ -53940,6 +53947,9 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: { id: "actividad", name: "tipo_actividad" },
                           on: {
+                            click: function($event) {
+                              return _vm.cambiarActividad()
+                            },
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
                                 .call($event.target.options, function(o) {
@@ -53966,15 +53976,7 @@ var render = function() {
                           ) {
                             return _c(
                               "option",
-                              {
-                                key: index,
-                                domProps: { value: actividad.id },
-                                on: {
-                                  click: function($event) {
-                                    _vm.tipoActividad = actividad.actividad
-                                  }
-                                }
-                              },
+                              { key: index, domProps: { value: actividad.id } },
                               [_vm._v(_vm._s(actividad.actividad))]
                             )
                           })
