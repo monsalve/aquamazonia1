@@ -299,7 +299,17 @@ class InfomeBiomasaAlimentoController extends Controller
       if($request['f_inicio_d']!='-1'){$c5="fecha_inicio"; $op3='>='; $c6= $request['f_inicio_d'];}
       if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
       
-      $siembras = Siembra::select()
+      $siembras = Siembra::select(
+        'siembras.id as id', 
+				'capacidad', 
+				'nombre_siembra',
+				'id_contenedor',
+				'fecha_inicio',
+				'ini_descanso',
+				'siembras.estado',
+				'fin_descanso'
+      )
+      ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
       ->where($c1, $op1, $c2)
       ->where('siembras.estado', '=', 1)
       ->where($c5, $op3, $c6)
@@ -502,6 +512,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   'bio_dispo_conver' =>$siembras[$i]->bio_dispo_conver,
                   'bio_dispo_alimen' =>$siembras[$i]->bio_dispo_alimen,
                   "carga_final" => $siembras[$i]->carga_final,
+                  'capacidad' => $siembras[$i]->capacidad,
                   "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                   "cant_actual" => $siembras[$i]->cant_actual,
                   "costo_minutosh" => $siembras[$i]->costo_minutos_hombre ,
