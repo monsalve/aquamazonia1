@@ -34,7 +34,7 @@
                               
                               </option>
                             </select>
-                            <div v-if="f_actividad == 1 ? tipoActividad = 'Alimentación' : tipoActividad =  ''"></div>
+      
                           </div>                          
                           <div class="form-group col-md-2">                                      
                             <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
@@ -180,7 +180,7 @@ import downloadexcel from "vue-json-excel"
       
     },
     mounted() {
-      
+      if (this.f_actividad == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       this.listar();
       this.listarSiembras();
       this.listarActividades();

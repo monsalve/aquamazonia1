@@ -5635,6 +5635,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
+    if (this.f_actividad == 1) {
+      this.tipoActividad = 'Alimentación';
+    } else this.tipoActividad = '';
+
     this.listar();
     this.listarSiembras();
     this.listarActividades();
@@ -53091,13 +53095,7 @@ var render = function() {
                       })
                     ],
                     2
-                  ),
-                  _vm._v(" "),
-                  (_vm.f_actividad == 1
-                  ? (_vm.tipoActividad = "Alimentación")
-                  : (_vm.tipoActividad = ""))
-                    ? _c("div")
-                    : _vm._e()
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
