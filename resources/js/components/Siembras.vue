@@ -18,12 +18,12 @@
                     <th>#</th>
                     <th>Nombre <br> siembra</th>
                     <th>Contenedor</th>
-                    <th class="text-center d-sm-none d-none d-md-block" style="width:340px">
+                    <th class="text-center d-sm-none d-none d-md-block" style="min-width:340px">
                       <h5> Especie</h5>
                       <div class="py-3">
-                        <li class="" style="width:80px; display:inline-block">Especie</li>
-                        <li class="" style="width:80px; display:inline-block">Lote</li>
-                        <li class="" style="width:80px; display:inline-block">Cantidad</li>
+                        <li class="" style="min-width:80px; display:inline-block">Especie</li>
+                        <li class="" style="min-width:80px; display:inline-block">Lote</li>
+                        <li class="" style="min-width:80px; display:inline-block">Cantidad</li>
                         <li class="" style="width:60px; display:inline-block">Peso gr</li>
                       </div>
                     </th>
@@ -43,10 +43,10 @@
                     <td v-text="siembra.contenedor"></td>
                     <td class="d-sm-none d-none d-md-block">
                       <ul v-for="pez in siembra.peces" :key="pez.id" class="nav border-0">
-                          <li v-text="pez.especie" class="nav-item border-bottom" style="width:80px; display:inline-block">Especie</li>
-                          <li v-text="pez.lote" class="nav-item border-bottom" style="width:80px; display:inline-block">Lote</li>
-                          <li v-text="pez.cant_actual" class="nav-item border-bottom" style="width:80px; display:inline-block">Cantidad</li>
-                          <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="width:60px; display:inline-block">Peso</li>
+                          <li v-text="pez.especie" class="nav-item border-bottom" style="min-width:80px; display:inline-block">Especie</li>
+                          <li v-text="pez.lote" class="nav-item border-bottom" style="min-width:80px; display:inline-block">Lote</li>
+                          <li v-text="pez.cant_actual" class="nav-item border-bottom" style="min-width:80px; display:inline-block">Cantidad</li>
+                          <li v-text="pez.peso_actual+'Gr'" class="nav-item border-bottom" style="min-width:60px; display:inline-block">Peso</li>
                       </ul>
                       
                     </td>

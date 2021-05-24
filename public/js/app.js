@@ -52892,9 +52892,7 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("tr", [
-        _c("th", { attrs: { "data-field": "", "data-not-first-th": "" } }, [
-          _vm._v("12:00 am")
-        ]),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("12:00 am")]),
         _vm._v(" "),
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 am")]),
         _vm._v(" "),
@@ -56144,7 +56142,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -56159,7 +56157,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: { textContent: _vm._s(pez.lote) }
@@ -56172,7 +56170,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -56187,7 +56185,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "60px",
+                                      "min-width": "60px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -58215,7 +58213,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass: "text-center d-sm-none d-none d-md-block",
-            staticStyle: { width: "340px" }
+            staticStyle: { "min-width": "340px" }
           },
           [
             _c("h5", [_vm._v(" Especie")]),
@@ -58223,19 +58221,25 @@ var staticRenderFns = [
             _c("div", { staticClass: "py-3" }, [
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Especie")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Lote")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Cantidad")]
               ),
               _vm._v(" "),
