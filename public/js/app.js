@@ -5525,6 +5525,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53189,9 +53190,7 @@ var render = function() {
                           ? _c("th", [_vm._v("Costo Alimento")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.tipoActividad != "Alimentación"
-                          ? _c("th", [_vm._v("Costo total actividad")])
-                          : _vm._e(),
+                        _c("th", [_vm._v("Costo total actividad")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("% Costo total de producción")])
                       ])
@@ -53264,14 +53263,12 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
-                          _vm.tipoActividad != "Alimentación"
-                            ? _c("td", {
-                                staticClass: "text-right",
-                                domProps: {
-                                  textContent: _vm._s(lrn.costo_total_actividad)
-                                }
-                              })
-                            : _vm._e(),
+                          _c("td", {
+                            staticClass: "text-right",
+                            domProps: {
+                              textContent: _vm._s(lrn.costo_total_actividad)
+                            }
+                          }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             lrn.porcentaje_total_produccion

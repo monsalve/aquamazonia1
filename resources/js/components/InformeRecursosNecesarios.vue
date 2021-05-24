@@ -63,7 +63,7 @@
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
-                              <th v-if="tipoActividad != 'Alimentación'">Costo total actividad</th>
+                              <th>Costo total actividad</th>
                               <th>% Costo total de producción</th>
                             </tr>
                           </thead>
@@ -80,8 +80,9 @@
                               <td class="text-right" v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td class="text-right" v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td class="text-right" v-text="lrn.costo_total_actividad" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td class="text-right" v-text="lrn.costo_total_actividad"></td>
                               <td class="text-right">
+                                <!-- {{ lrn.por_total_produccion = ((lrn.costo_total_actividad * 100)/(lrn.costoTotalSiembra)) }} -->
                                 <span v-if="lrn.porcentaje_total_produccion">
                                   {{lrn.porcentaje_total_produccion}} %
                                 </span>
