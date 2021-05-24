@@ -573,6 +573,7 @@ class InformeController extends Controller
                             $siembras[$i]->densidad_final =($siembras[$i]->salida_animales/$siembras[$i]->capacidad);
 														$siembras[$i]->carga_inicial = ($siembras[$i]->biomasa_inicial/$existencias[$j]->capacidad);
                             $siembras[$i]->carga_final = ($siembras[$i]->salida_biomasa/$existencias[$j]->capacidad);
+														$siembras[$i]->ganancia_peso_dia += $existencias[$j]->ganancia_peso_dia;
                             
                         }
                     }
@@ -619,9 +620,9 @@ class InformeController extends Controller
                     $siembras[$i]->conversion_final = 0;
                 }
                 $siembras[$i]->bio_dispo_conver = ($siembras[$i]->biomasa_inicial + $siembras[$i]->incr_bio_acum_conver) - ($siembras[$i]->biomasa_disponible + $siembras[$i]->mortalidad_kg);
-                if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
-                    $siembras[$i]->ganancia_peso_dia = ((($siembras[$i]->salida_biomasa*1000)/$siembras[$i]->salida_animales)/$siembras[$i]->intervalo_tiempo);
-                }
+                // if($siembras[$i]->salida_animales>0 && $siembras[$i]->intervalo_tiempo>0){
+                //     $siembras[$i]->ganancia_peso_dia = ((($siembras[$i]->salida_biomasa*1000)/$siembras[$i]->salida_animales)/$siembras[$i]->intervalo_tiempo);
+                // }
                 $siembras[$i]->contador_esp = $contador_esp;
                 if(($siembras[$i]->contador_esp)>0){
                     $siembras[$i]->peso_inicial = $siembras[$i]->peso_ini/$siembras[$i]->contador_esp;
@@ -842,6 +843,7 @@ class InformeController extends Controller
                             $siembras[$i]->densidad_final =($siembras[$i]->salida_animales/$siembras[$i]->capacidad);
 														$siembras[$i]->carga_inicial = ($siembras[$i]->biomasa_inicial/$existencias[$j]->capacidad);
                             $siembras[$i]->carga_final = ($siembras[$i]->salida_biomasa/$existencias[$j]->capacidad);
+														$siembras[$i]->ganancia_peso_dia += $existencias[$j]->ganancia_peso_dia;
                         }     
                     }
                 }
