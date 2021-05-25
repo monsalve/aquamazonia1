@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Alimento;
+use App\HistorialAlimento;
 
 class AlimentosController extends Controller
 {
@@ -38,6 +39,13 @@ class AlimentosController extends Controller
             'alimento' => $request['alimento'],            
             'costo_kg' => $request['costo_kg']
         ]);
+
+        HistorialAlimento::create([
+            'id_alimento' => $alimento['id'],            
+            'costo' => $alimento['costo_kg'], 
+            'fecha_registro' => date('Y-m-d')
+        ]);
+
         // $this->validate($request, [
         //     'alimento' => 'alimento',
         //     'costo_kg' => 'costo_kg',
@@ -67,6 +75,12 @@ class AlimentosController extends Controller
     {
         $alimento = Alimento::findOrFail($id);
         $alimento->update($request->all());
+
+        HistorialAlimento::create([
+            'id_alimento' => $request['id'],            
+            'costo' => $request['costo_kg'], 
+            'fecha_registro' => date('Y-m-d')
+        ]);
         return 'ok guardado';
     }
 
@@ -80,6 +94,8 @@ class AlimentosController extends Controller
     {
         //
         Alimento::destroy($id);
-        return 'ok';
+        HistorialAlimento::where('id_alimento', $id)->delete();
+
+        return 'eliminado';
     }
 }

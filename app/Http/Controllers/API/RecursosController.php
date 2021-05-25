@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Recursos;
+use App\HistorialRecurso;
 
 class RecursosController extends Controller
 {
@@ -34,10 +35,16 @@ class RecursosController extends Controller
             'unidad' => 'required',
             'costo' => 'required'
         ]);
-        $alimento = Recursos::create([
+        $recursos = Recursos::create([
             'recurso' => $request['recurso'],            
             'unidad' => $request['unidad'],
             'costo' => $request['costo']
+        ]);
+
+        HistorialRecurso::create([
+            'id_recurso' => $recursos['id'],            
+            'costo' => $recursos['costo'], 
+            'fecha_registro' => date('Y-m-d')
         ]);
     }
 
@@ -64,6 +71,13 @@ class RecursosController extends Controller
         //
         $recurso = Recursos::findOrFail($id);
         $recurso->update($request->all());
+
+        HistorialRecurso::create([
+            'id_recurso' => $request['id'],            
+            'costo' => $request['costo'], 
+            'fecha_registro' => date('Y-m-d')
+        ]);
+
         return 'ok';
     }
 
@@ -77,6 +91,8 @@ class RecursosController extends Controller
     {
         //
         Recursos::destroy($id);
+        HistorialRecurso::where('id_recurso', $id)->delete();
+        
         return 'eliminado';
     }
 }
