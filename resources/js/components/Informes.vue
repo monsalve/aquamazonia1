@@ -27,9 +27,9 @@
                             </div>
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
-                              <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad">
+                              <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad" @click="cambiarActividad()">
                                 <option selected> Seleccionar</option>   
-                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>
+                                <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -73,7 +73,7 @@
                         </div>
                       </div>
                       <div>
-                        <table class="table table-bordered table-striped table-sticky table-sm">
+                        <table class="table table-bordered table-hover table-sticky table-sm">
                           <thead class="thead-primary">
                             <tr>
                               <th>#</th>
@@ -87,12 +87,12 @@
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
-                              <th v-if="tipoActividad != 'Alimentación'">Costo acumulado Recurso</th>
+                              <!-- <th v-if="tipoActividad != 'Alimentación'">Costo acumulado Recurso</th> -->
                               <th v-if="tipoActividad == 'Alimentación'">Alimentos</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidada Mañana (KG)</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidada Tarde (KG)</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
-                              <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th>
+                              <!-- <th v-if="tipoActividad == 'Alimentación'">Costo <br>Acumulado</th> -->
                               <th>Costo actividad</th>
                             </tr>
                           </thead>
@@ -104,17 +104,17 @@
                               <td v-text="lrn.actividad"></td>
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.minutos_hombre +'min'"></td>
-                              <td v-text="lrn.costo_minutos"></td>
+                              <td v-text="lrn.costo_minutosh"></td>
                               <th v-text="lrn.costo_h_acum"></th>
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
-                              <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th>
+                              <!-- <th v-text="lrn.costo_r_acum" v-if="tipoActividad != 'Alimentación'"></th> -->
                               <td v-text="lrn.alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.cant_manana" v-if="tipoActividad == 'Alimentación'"></td>
                               <td v-text="lrn.cant_tarde" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th>
+                              <th v-text="lrn.costo_total_alimento" v-if="tipoActividad == 'Alimentación'"></th>
+                              <!-- <th v-text="lrn.costo_a_acum" v-if="tipoActividad == 'Alimentación'"></th> -->
                               <th v-text="lrn.costo_total_actividad"></th>
                             </tr>
                           </tbody>
@@ -123,9 +123,9 @@
                               <th colspan="5" class="text-right">PROMEDIOS</th>
                               <td colspan="2" class="text-right">Costo minutos: </td>
                               <th>{{listadoPromedios.total_minutos}}</th>
-                              <td colspan="3" v-if="tipoActividad != 'Alimentación'" class="text-right">Costo recursos: </td>
+                              <td colspan="2" v-if="tipoActividad != 'Alimentación'" class="text-right">Costo recursos: </td>
                               <th v-if="tipoActividad != 'Alimentación'">{{listadoPromedios.total_recurso}}</th>
-                              <td colspan="2" v-if="tipoActividad == 'Alimentación'">Costo alimentos: </td>
+                              <td colspan="3" v-if="tipoActividad == 'Alimentación'">Costo alimentos: </td>
                               <th v-if="tipoActividad == 'Alimentación'">{{listadoPromedios.total_alimento}}</th>
                               <th>Costo total actividades: {{listadoPromedios.total_actividad}}</th>
                             </tr>
@@ -156,12 +156,12 @@
             'Recurso' : 'recurso',
             'Cantidad Recurso' : 'cantidad_recurso',
             'Costo Recurso' : 'costo_total_recurso',
-            'Costo acumulado Recurso' : 'costo_r_acum',
+            // 'Costo acumulado Recurso' : 'costo_r_acum',
             'Alimento' : 'alimento',
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
             'Costo Alimento' : 'costo_total_alimento',
-            'Costo acumulado Alimento' : 'costo_a_acum',
+            // 'Costo acumulado Alimento' : 'costo_a_acum',
             'Costo Actividad' : 'costo_total_actividad'
             
         },       
@@ -196,6 +196,9 @@
         // const response = await axios.get('api/informe-recursos');
         const response = await this.imprimirRecursos;
         return this.imprimirRecursos;
+      },
+      cambiarActividad () {
+        if (this.actividad_s == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       },
       listar(){
         let me = this;        

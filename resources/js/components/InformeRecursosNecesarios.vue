@@ -27,9 +27,11 @@
                           </div>
                           <div class="form-group col-md-2">
                            <label for="f_actividad">Tipo de Actividad: </label>
-                            <select class="custom-select" id="f_actividad" v-model="f_actividad">
+                            <select class="custom-select" id="f_actividad" v-model="f_actividad" @click="cambiarActividad()">
                               <option  value="-1" selected> Seleccionar</option>   
-                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id" @click="tipoActividad = actividad.actividad">{{actividad.actividad}}</option>                 
+                              <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">
+                                {{actividad.actividad}}
+                              </option>
                             </select>
                           </div>                          
                           <div class="form-group col-md-2">                                      
@@ -55,13 +57,13 @@
                               <th>Siembra</th>
                               <th>Estado</th>
                               <th>Tipo actividad</th>
-                              <th>Horas hombre</th>
-                              <th>Costo horas hombre</th>
+                              <th>Minutos hombre</th>
+                              <th>Costo minutos hombre</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad Recurso</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
                               <th v-if="tipoActividad == 'Alimentación'">Cantidad Alimento</th>
                               <th v-if="tipoActividad == 'Alimentación'">Costo Alimento</th>
-                              <th v-if="tipoActividad != 'Alimentación'">Costo total actividad</th>
+                              <th>Costo total actividad</th>
                               <th>% Costo total de producción</th>
                             </tr>
                           </thead>
@@ -72,14 +74,15 @@
                               <td v-if="lrn.estado == 1">Activa</td>
                               <td v-else>Inactiva</td>
                               <td v-text="lrn.actividad"></td>
-                              <td v-text="lrn.horas_hombre+' Hr'"></td>
+                              <td v-text="lrn.minutos_hombre+' min'"></td>
                               <td class="text-right" v-text="lrn.costo_minutos"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td class="text-right" v-text="lrn.costo_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_alimento" v-if="tipoActividad == 'Alimentación'"></td>
                               <td class="text-right" v-text="lrn.costo_alimento" v-if="tipoActividad == 'Alimentación'"></td>
-                              <td class="text-right" v-text="lrn.costo_total_actividad" v-if="tipoActividad != 'Alimentación'"></td>
+                              <td class="text-right" v-text="lrn.costo_total_actividad"></td>
                               <td class="text-right">
+                                <!-- {{ lrn.por_total_produccion = ((lrn.costo_total_actividad * 100)/(lrn.costoTotalSiembra)) }} -->
                                 <span v-if="lrn.porcentaje_total_produccion">
                                   {{lrn.porcentaje_total_produccion}} %
                                 </span>
@@ -114,23 +117,27 @@ import downloadexcel from "vue-json-excel"
           'Costo total actividad' : 'costo_total_actividad',
           '%Costo total producción': 'porcentaje_total_produccion'
         }, 
+        tipoActividad : '',
         f_actividad:'',
         f_siembra:'',
         f_estado : '',
         listado : [],        
         listadoSiembras : [],        
         listadoActividades : [],
-        tipoActividad : ''
       }
     },
      components: {
       downloadexcel,
     },
+   
     methods:{
       async fetchData(){
       let me = this;
       const response = await this.listado
       return this.listado;
+      },
+      cambiarActividad () {
+        if (this.f_actividad == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       },
       listar(){
         let me = this;

@@ -39,18 +39,19 @@ class ParametroCalidadController extends Controller
         $valph=0;
         $valtem=0;
         $parametros_calidad = array();
+
         foreach($calidad_agua as $cl){                       
-            if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,',','');}
-            if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,',','');}
-            if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,',','');}
-            if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,',','');}
-            if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,',','');}
-            if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,',','');}
-            if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,',','');}
-            if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,',','');}
-            if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,',','');}
-            if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,',','');}
-            if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,',','');}
+            if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,'.','');}
+            if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,'.','');}
+            if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,'.','');}
+            if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,'.','');}
+            if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,'.','');}
+            if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,'.','');}
+            if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,'.','');}
+            if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,'.','');}
+            if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,'.','');}
+            if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,'.','');}
+            if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,'.','');}
             
             $parametros_calidad[] = array(
                 'id' =>  $cl['id'],
@@ -444,17 +445,17 @@ class ParametroCalidadController extends Controller
 			$valtem=0;
 			
 			foreach($calidad_agua as $cl){                       
-					if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,',','');}
-					if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,',','');}
-					if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,',','');}
-					if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,',','');}
-					if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,',','');}
-					if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,',','');}
-					if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,',','');}
-					if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,',','');}
-					if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,',','');}
-					if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,',','');}
-					if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,',','');}
+					if($cl['4_am']==0 || $cl['4_am']==''){ $val4am = '';}elseif($cl['4_am']>0){$val4am =  number_format($cl['4_am'], 2,'.','');}
+					if($cl['4_pm']==0 || $cl['4_pm']==''){ $val4pm = '';}elseif($cl['4_pm']>0){$val4pm =  number_format($cl['4_pm'], 2,'.','');}
+					if($cl['7_am']==0 || $cl['7_am']==''){ $val7am = '';}elseif($cl['7_am']>0){$val7am =  number_format($cl['7_am'], 2,'.','');}
+					if($cl['8_pm']==0 || $cl['8_pm']==''){ $val8pm = '';}elseif($cl['8_pm']>0){$val8pm =  number_format($cl['8_pm'], 2,'.','');}
+					if($cl['12_am']==0 || $cl['12_am']==''){ $val12am = '';}elseif($cl['12_am']>0){$val12am =  number_format($cl['12_am'], 2,'.','');}
+					if($cl['amonio']==0 || $cl['amonio']==''){ $valamo = '';}elseif($cl['amonio']>0){$valamo =  number_format($cl['amonio'], 2,'.','');}
+					if($cl['nitrato']==0 || $cl['nitrato']==''){ $valnat = '';}elseif($cl['nitrato']>0){$valnat =  number_format($cl['nitrato'], 2,'.','');}
+					if($cl['nitrito']==0 || $cl['nitrito']==''){ $valnit = '';}elseif($cl['nitrito']>0){$valnit =  number_format($cl['nitrito'], 2,'.','');}
+					if($cl['otros']==0 || $cl['otros']==''){ $valot = '';}elseif($cl['otros']>0){$valot =  number_format($cl['otros'], 2,'.','');}
+					if($cl['ph']==0 || $cl['ph']==''){ $valph = '';}elseif($cl['ph']>0){$valph =  number_format($cl['ph'], 2,'.','');}
+					if($cl['temperatura']==0 || $cl['temperatura']==''){ $valtem = '';}elseif($cl['temperatura']>0){$valtem =  number_format($cl['temperatura'], 2,'.','');}
 					$parametros_calidad[] = array(
 							'id' =>  $cl['id'],
 							'id_contenedor' => $cl['id_contenedor'],

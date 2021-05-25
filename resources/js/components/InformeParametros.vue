@@ -61,7 +61,7 @@
                     <th rowspan="2" data-field="id">Otros</th>
                   </tr>
                   <tr>
-                    <th data-field="" data-not-first-th="">12:00 am</th>
+                    <th data-field="">12:00 am</th>
                     <th data-field="">4:00 am</th>
                     <th data-field="">7:00 am </th>
                     <th data-field="">4:00 pm </th>
@@ -170,7 +170,6 @@
     methods:{
       async fetchData(){
         let me = this;
-        // const response = await axios.get('api/informe-Parametros');
         const response = await this.listadoParametros;
         return this.listadoParametros;
       },

@@ -122,7 +122,6 @@
                               <td v-text="le.ganancia_peso_dia"></td>
                               <td v-text="le.densidad_final"></td>
                               <td v-text="le.carga_final"></td>
-                           
                             </tr>
                           </tbody>
                         </table>

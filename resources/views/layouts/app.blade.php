@@ -31,8 +31,8 @@
             <div class="container">
                <div class="text-center">
                  	<img id="logo-app" src="{{ asset('img/logo-aquamazonia.jpg') }}" alt="Logo-aquamazonia" style="width:70px; border-radius:50%">
-									<br>
-									<h2 id="title-app-shadow">{{ config('app.name', 'Aquamazonia') }}</h2> 
+                    <br>
+                    <h2 id="title-app-shadow">{{ config('app.name', 'Aquamazonia') }}</h2> 
                </div>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -72,7 +72,7 @@
                                 <router-link class="nav-link" to="/informes-biomasa-alimento">Biomasa por Alimentación</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
-                                <router-link class="nav-link" to="/informes-produccion">Informes Producción</router-link>
+                                <router-link class="nav-link" to="/informe-costos">Informes Costos</router-link>
                             </li>
                             <li class="nav-item col-nav-item ">
                                 <router-link class="nav-link" to="/calidad-agua">Registrar parametros de calidad  del Agua</router-link>

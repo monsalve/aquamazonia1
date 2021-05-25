@@ -3503,6 +3503,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {}
 });
@@ -3736,8 +3738,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -4161,9 +4161,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Salida de biomasa': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mort. Kg': 'mortalidad_kg',
-        'Salida animales': 'salida_animales',
         'Total alimento (Kg)': 'cantidad_total_alimento',
         'Incremento de biomasa por alimento': 'incr_bio_acum_conver',
+        'Conversion alimenticia': 'conversion_alimenticia',
         'Biomasa disponible por alimento': 'bio_dispo_alimen',
         '% Supervievencia final': 'porc_supervivencia_final'
       },
@@ -4283,7 +4283,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -4729,10 +4728,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4863,6 +4858,215 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'f_inicio_h': this.fech
       };
       axios.post("api/filtro-existencias-detalle", data).then(function (response) {
+        me.listadoExistencias = response.data.existencias;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.listar();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      json_fields: {
+        'Siembra': 'nombre_siembra',
+        'Costo Horas': 'costo_minutosh',
+        'Costo recursos': 'costo_total_recurso',
+        'Costo alimentos': 'costo_total_alimento',
+        'Costo total siembra': 'costo_tot',
+        'Costo total de producción parcial': 'costo_produccion_parcial'
+      },
+      listadoExistencias: [],
+      listadoEspecies: [],
+      listadoSiembras: [],
+      imprimirRecursos: [],
+      f_siembra: '',
+      f_especie: '',
+      f_inicio_d: '',
+      f_inicio_h: ''
+    };
+  },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this; // const response = await axios.get('api/informe-recursos');
+
+                _context.next = 3;
+                return _this.listadoExistencias;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listadoExistencias);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    listar: function listar() {
+      var me = this;
+      this.listarEspecies();
+      this.listarSiembras();
+      axios.get("api/informes-biomasa-alimento").then(function (response) {
+        me.listadoExistencias = response.data.existencias;
+      });
+    },
+    listarEspecies: function listarEspecies() {
+      var me = this;
+      axios.get("api/especies").then(function (response) {
+        me.listadoEspecies = response.data;
+      });
+    },
+    listarSiembras: function listarSiembras() {
+      var me = this;
+      axios.get("api/siembras").then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+      });
+    },
+    filtroSiembra: function filtroSiembra() {
+      var me = this;
+
+      if (this.f_siembra == '') {
+        this.smb = '-1';
+      } else {
+        this.smb = this.f_siembra;
+      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
+
+
+      if (this.f_inicio_d == '') {
+        this.fecd = '-1';
+      } else {
+        this.fecd = this.f_inicio_d;
+      }
+
+      if (this.f_inicio_h == '') {
+        this.fech = '-1';
+      } else {
+        this.fech = this.f_inicio_h;
+      }
+
+      var data = {
+        'f_siembra': this.smb,
+        'f_inicio_d': this.fecd,
+        'f_inicio_h': this.fech
+      };
+      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
         me.listadoExistencias = response.data.existencias;
       });
     }
@@ -5070,8 +5274,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                me = _this; // const response = await axios.get('api/informe-Parametros');
-
+                me = _this;
                 _context.next = 3;
                 return _this.listadoParametros;
 
@@ -5202,218 +5405,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Costo Horas': 'costo_minutosh',
-        'Costo recursos': 'costo_total_recurso',
-        'Costo alimentos': 'costo_total_alimento',
-        'Total Alimento (KG)': 'cantidad_total_alimento',
-        'Costo total siembra': 'costo_tot',
-        'Costo total de producción parcial': 'costo_produccion_parcial',
-        'Biomasa disponible por alimento': 'bio_dispo_alimen'
-      },
-      listadoExistencias: [],
-      listadoEspecies: [],
-      listadoSiembras: [],
-      imprimirRecursos: [],
-      f_siembra: '',
-      f_especie: '',
-      f_inicio_d: '',
-      f_inicio_h: ''
-    };
-  },
-  components: {
-    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var me, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                me = _this; // const response = await axios.get('api/informe-recursos');
-
-                _context.next = 3;
-                return _this.listadoExistencias;
-
-              case 3:
-                response = _context.sent;
-                return _context.abrupt("return", _this.listadoExistencias);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    listar: function listar() {
-      var me = this;
-      this.listarEspecies();
-      this.listarSiembras();
-      axios.get("api/informes-biomasa-alimento").then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    },
-    listarEspecies: function listarEspecies() {
-      var me = this;
-      axios.get("api/especies").then(function (response) {
-        me.listadoEspecies = response.data;
-      });
-    },
-    listarSiembras: function listarSiembras() {
-      var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
-      });
-    },
-    filtroSiembra: function filtroSiembra() {
-      var me = this;
-
-      if (this.f_siembra == '') {
-        this.smb = '-1';
-      } else {
-        this.smb = this.f_siembra;
-      } // if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
-
-
-      if (this.f_inicio_d == '') {
-        this.fecd = '-1';
-      } else {
-        this.fecd = this.f_inicio_d;
-      }
-
-      if (this.f_inicio_h == '') {
-        this.fech = '-1';
-      } else {
-        this.fech = this.f_inicio_h;
-      }
-
-      var data = {
-        'f_siembra': this.smb,
-        'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
-      };
-      axios.post("api/filtro-biomasa-alimento", data).then(function (response) {
-        me.listadoExistencias = response.data.existencias;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.listar();
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeRecursosNecesarios.vue?vue&type=script&lang=js& ***!
@@ -5531,6 +5522,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5549,13 +5543,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo total actividad': 'costo_total_actividad',
         '%Costo total producción': 'porcentaje_total_produccion'
       },
+      tipoActividad: '',
       f_actividad: '',
       f_siembra: '',
       f_estado: '',
       listado: [],
       listadoSiembras: [],
-      listadoActividades: [],
-      tipoActividad: ''
+      listadoActividades: []
     };
   },
   components: {
@@ -5586,6 +5580,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    cambiarActividad: function cambiarActividad() {
+      if (this.f_actividad == 1) {
+        this.tipoActividad = 'Alimentación';
+      } else this.tipoActividad = '';
     },
     listar: function listar() {
       var me = this;
@@ -6194,8 +6193,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6211,12 +6208,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Recurso': 'recurso',
         'Cantidad Recurso': 'cantidad_recurso',
         'Costo Recurso': 'costo_total_recurso',
-        'Costo acumulado Recurso': 'costo_r_acum',
+        // 'Costo acumulado Recurso' : 'costo_r_acum',
         'Alimento': 'alimento',
         'Cantidad KG mañana': 'cant_manana',
         'Cantidad KG tarde': 'cant_tarde',
         'Costo Alimento': 'costo_total_alimento',
-        'Costo acumulado Alimento': 'costo_a_acum',
+        // 'Costo acumulado Alimento' : 'costo_a_acum',
         'Costo Actividad': 'costo_total_actividad'
       },
       listados: [],
@@ -6269,6 +6266,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    cambiarActividad: function cambiarActividad() {
+      if (this.actividad_s == 1) {
+        this.tipoActividad = 'Alimentación';
+      } else this.tipoActividad = '';
     },
     listar: function listar() {
       var me = this;
@@ -47301,7 +47303,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo de Actividad")]),
         _vm._v(" "),
-        _c("th", { staticClass: "fixed-column" }, [_vm._v("Siembra")]),
+        _c("th", [_vm._v("Siembra")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
@@ -49497,230 +49499,384 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("section", { staticClass: "content-dashboard" }, [
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/siembras" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Siembras")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/siembras" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/siembras.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Siembras")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/recursos-necesarios" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Recursos necesarios")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/recursos-necesarios" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/recursos-necesarios.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Recursos necesarios")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/alimentacion" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Alimentación")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/alimentacion" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/alimentacion.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Alimentación")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/informes-biomasa-alimento" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Biomasa por alimentacion")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/informes-biomasa-alimento" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/biomasa-alimentacion.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Biomasa por alimentacion")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/calidad-agua" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Párametros de calidad")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/calidad-agua" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/parametros-calidad.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Párametros de calidad")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/especies" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Especies")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/especies" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/especies.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Especies")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/alimentos" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Alimentos")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/alimentos" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "img/alimentos.jpg",
+                              alt: "",
+                              srcset: ""
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Alimentos")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/recursos" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Recursos")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/recursos" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: { src: "img/tools.png", alt: "", srcset: "" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Recursos")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  { staticClass: "box-option rounded" },
-                  [
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass:
-                          "description-option bg-primary text-center",
-                        attrs: { to: "/usuarios" }
-                      },
-                      [
-                        _c("h4", { staticClass: " text-white" }, [
-                          _vm._v("Usuarios")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ])
+              _c(
+                "div",
+                { staticClass: "card" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "box-option rounded",
+                      attrs: { to: "/usuarios" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "cover-option bg-light text-center" },
+                        [
+                          _c("img", {
+                            attrs: { src: "img/user.png", alt: "", srcset: "" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "description-option bg-primary text-center"
+                        },
+                        [
+                          _c("h4", { staticClass: " text-white" }, [
+                            _vm._v("Usuarios")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
             ])
           ])
         ])
@@ -49737,78 +49893,6 @@ var staticRenderFns = [
       _c("h3", [_vm._v("Bienvenido a Aquamazonia")]),
       _vm._v(" "),
       _c("h5", [_vm._v("Panel de Administración")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-fish" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-plus-square" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-utensils" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-file-alt" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-tint" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-tools" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cover-option bg-light text-center" }, [
-      _c("i", { staticClass: "fa fa-4x fa-user" })
     ])
   }
 ]
@@ -50472,7 +50556,7 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
+                          _c("option", { attrs: { selected: "", value: "" } }, [
                             _vm._v(" Seleccionar")
                           ]),
                           _vm._v(" "),
@@ -50710,10 +50794,6 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(lr.mortalidad) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
                             domProps: { textContent: _vm._s(lr.biomasa) }
                           }),
                           _vm._v(" "),
@@ -50764,9 +50844,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Mortalidad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Salida biomasa muestreo")]),
+        _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),
@@ -51014,7 +51092,7 @@ var render = function() {
                             ? _c("td", [
                                 _vm._v(_vm._s(le.salida_biomasa) + " kg")
                               ])
-                            : _vm._e(),
+                            : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.mortalidad) }
@@ -51030,10 +51108,6 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          le.salida_animales
-                            ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _c("td", [_vm._v("0")]),
-                          _vm._v(" "),
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(le.cantidad_total_alimento)
@@ -51043,6 +51117,12 @@ var render = function() {
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(le.incr_bio_acum_conver)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(le.conversion_alimenticia)
                             }
                           }),
                           _vm._v(" "),
@@ -51104,11 +51184,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Total alimento (Kg)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento de biomasa por alimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Conversión Alimenticia")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
@@ -51873,13 +51953,19 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
+                            domProps: { textContent: _vm._s(le.fecha_inicio) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
                             domProps: {
-                              textContent: _vm._s(le.cantidad_inicial)
+                              textContent: _vm._s(le.intervalo_tiempo)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(le.fecha_inicio) }
+                            domProps: {
+                              textContent: _vm._s(le.cantidad_inicial)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -51910,12 +51996,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(le.intervalo_tiempo)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
                               textContent: _vm._s(le.biomasa_disponible + " kg")
                             }
                           }),
@@ -51924,11 +52004,7 @@ var render = function() {
                             ? _c("td", [
                                 _vm._v(_vm._s(le.salida_biomasa) + " kg")
                               ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.mortalidad) }
-                          }),
+                            : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -51944,11 +52020,11 @@ var render = function() {
                             ? _c("td", [
                                 _vm._v(_vm._s(le.mortalidad_porcentaje))
                               ])
-                            : _vm._e(),
+                            : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           le.salida_animales
                             ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
-                            : _vm._e(),
+                            : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -51970,10 +52046,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: { textContent: _vm._s(le.costo_minutosh) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { textContent: _vm._s(le.costo_horas) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -52066,9 +52138,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Inicial")]),
+        _c("th", [_vm._v("Tiempo de cultivo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Fecha inicio siembra")]),
+        _c("th", [_vm._v("Cant Inicial")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa Inicial")]),
         _vm._v(" "),
@@ -52080,13 +52152,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Intervalo de tiempo")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Salida de biomasa")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
@@ -52114,8 +52182,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Horas Hombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Costo minutos hombre")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Costo Horas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Recursos")]),
@@ -52135,6 +52201,275 @@ var staticRenderFns = [
         _c("th", [_vm._v("Ganancia peso día")]),
         _vm._v(" "),
         _c("th", [_c("b", [_vm._v("%")]), _vm._v(" Supervivencia final ")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Informes de Costos")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "siembra" } }, [
+                  _vm._v("Siembras")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_siembra,
+                        expression: "f_siembra"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "siembra" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_siembra = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: ls.id } },
+                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.filtroSiembra()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Filtrar resultados\n                      "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group col-md-2" },
+                [
+                  _c(
+                    "downloadexcel",
+                    {
+                      staticClass: "btn btn-success form-control",
+                      attrs: {
+                        fetch: _vm.fetchData,
+                        fields: _vm.json_fields,
+                        name: "informe-costos.xls",
+                        type: "xls"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-fw fa-download" }),
+                      _vm._v(" Generar Excel \n                      ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "table-container",
+                attrs: { id: "table-container2" }
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table-sticky table table-sm table-hover table-bordered"
+                  },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.listadoExistencias, function(le, index) {
+                        return _c(
+                          "tr",
+                          { key: index, staticClass: "text-right" },
+                          [
+                            _c("td", {
+                              domProps: { textContent: _vm._s(index + 1) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.nombre_siembra)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_minutosh)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_total_recurso)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_total_alimento)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(le.costo_tot) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(le.costo_produccion_parcial)
+                              }
+                            })
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row text-left" }, [
+      _c("h5", [_vm._v("Filtrar por: ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-md-2" }, [
+      _c("label", { attrs: { for: "Fecha desde" } }, [
+        _vm._v("Fecha inicio desde: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_d" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-md-2" }, [
+      _c("label", { attrs: { for: "fecha hasta" } }, [
+        _vm._v("Fecha inicio hasta: ")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "date", id: "f_inicio_h" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-primary" }, [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Horas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Recursos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo Alimentos")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo total de siembra")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Costo de producción parcial")])
       ])
     ])
   }
@@ -52557,9 +52892,7 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("tr", [
-        _c("th", { attrs: { "data-field": "", "data-not-first-th": "" } }, [
-          _vm._v("12:00 am")
-        ]),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("12:00 am")]),
         _vm._v(" "),
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 am")]),
         _vm._v(" "),
@@ -52568,291 +52901,6 @@ var staticRenderFns = [
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 pm ")]),
         _vm._v(" "),
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("8:00 pm ")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Informes de producción")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "siembra" } }, [
-                  _vm._v("Siembras")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_siembra,
-                        expression: "f_siembra"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "siembra" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_siembra = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoSiembras, function(ls, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: ls.id } },
-                        [_vm._v(_vm._s(ls.nombre_siembra))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.filtroSiembra()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Filtrar resultados\n                      "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-md-2" },
-                [
-                  _c(
-                    "downloadexcel",
-                    {
-                      staticClass: "btn btn-success form-control",
-                      attrs: {
-                        fetch: _vm.fetchData,
-                        fields: _vm.json_fields,
-                        name: "informe-produccion.xls",
-                        type: "xls"
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-fw fa-download" }),
-                      _vm._v(" Generar Excel \n                      ")
-                    ]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "table-container",
-                attrs: { id: "table-container2" }
-              },
-              [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table-sticky table table-sm table-hover table-bordered"
-                  },
-                  [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.listadoExistencias, function(le, index) {
-                        return _c(
-                          "tr",
-                          { key: index, staticClass: "text-right" },
-                          [
-                            _c("td", {
-                              domProps: { textContent: _vm._s(index + 1) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.nombre_siembra)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_minutosh)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_total_recurso)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_total_alimento)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.cantidad_total_alimento)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: { textContent: _vm._s(le.costo_tot) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.costo_produccion_parcial)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(le.bio_dispo_alimen)
-                              }
-                            })
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row text-left" }, [
-      _c("h5", [_vm._v("Filtrar por: ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "Fecha desde" } }, [
-        _vm._v("Fecha inicio desde: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_d" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "fecha hasta" } }, [
-        _vm._v("Fecha inicio hasta: ")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", id: "f_inicio_h" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-primary" }, [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Horas")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Recursos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo Alimentos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total alimento (Kg)")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo total de siembra")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Costo de producción parcial")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible por alimento")])
       ])
     ])
   }
@@ -53011,6 +53059,9 @@ var render = function() {
                       staticClass: "custom-select",
                       attrs: { id: "f_actividad" },
                       on: {
+                        click: function($event) {
+                          return _vm.cambiarActividad()
+                        },
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
                             .call($event.target.options, function(o) {
@@ -53037,16 +53088,14 @@ var render = function() {
                       ) {
                         return _c(
                           "option",
-                          {
-                            key: index,
-                            domProps: { value: actividad.id },
-                            on: {
-                              click: function($event) {
-                                _vm.tipoActividad = actividad.actividad
-                              }
-                            }
-                          },
-                          [_vm._v(_vm._s(actividad.actividad))]
+                          { key: index, domProps: { value: actividad.id } },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(actividad.actividad) +
+                                "\n                          "
+                            )
+                          ]
                         )
                       })
                     ],
@@ -53120,9 +53169,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("th", [_vm._v("Tipo actividad")]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Horas hombre")]),
+                        _c("th", [_vm._v("Minutos hombre")]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Costo horas hombre")]),
+                        _c("th", [_vm._v("Costo minutos hombre")]),
                         _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
                           ? _c("th", [_vm._v("Cantidad Recurso")])
@@ -53140,9 +53189,7 @@ var render = function() {
                           ? _c("th", [_vm._v("Costo Alimento")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.tipoActividad != "Alimentación"
-                          ? _c("th", [_vm._v("Costo total actividad")])
-                          : _vm._e(),
+                        _c("th", [_vm._v("Costo total actividad")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("% Costo total de producción")])
                       ])
@@ -53172,7 +53219,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(lrn.horas_hombre + " Hr")
+                              textContent: _vm._s(lrn.minutos_hombre + " min")
                             }
                           }),
                           _vm._v(" "),
@@ -53215,14 +53262,12 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
-                          _vm.tipoActividad != "Alimentación"
-                            ? _c("td", {
-                                staticClass: "text-right",
-                                domProps: {
-                                  textContent: _vm._s(lrn.costo_total_actividad)
-                                }
-                              })
-                            : _vm._e(),
+                          _c("td", {
+                            staticClass: "text-right",
+                            domProps: {
+                              textContent: _vm._s(lrn.costo_total_actividad)
+                            }
+                          }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             lrn.porcentaje_total_produccion
@@ -53896,6 +53941,9 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: { id: "actividad", name: "tipo_actividad" },
                           on: {
+                            click: function($event) {
+                              return _vm.cambiarActividad()
+                            },
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
                                 .call($event.target.options, function(o) {
@@ -53922,15 +53970,7 @@ var render = function() {
                           ) {
                             return _c(
                               "option",
-                              {
-                                key: index,
-                                domProps: { value: actividad.id },
-                                on: {
-                                  click: function($event) {
-                                    _vm.tipoActividad = actividad.actividad
-                                  }
-                                }
-                              },
+                              { key: index, domProps: { value: actividad.id } },
                               [_vm._v(_vm._s(actividad.actividad))]
                             )
                           })
@@ -54161,7 +54201,7 @@ var render = function() {
                 "table",
                 {
                   staticClass:
-                    "table table-bordered table-striped table-sticky table-sm"
+                    "table table-bordered table-hover table-sticky table-sm"
                 },
                 [
                   _c("thead", { staticClass: "thead-primary" }, [
@@ -54194,8 +54234,6 @@ var render = function() {
                         ? _c("th", [_vm._v("Costo Recurso")])
                         : _vm._e(),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Costo acumulado Recurso")]),
-                      _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
                         ? _c("th", [_vm._v("Alimentos")])
                         : _vm._e(),
@@ -54209,18 +54247,8 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
-                        ? _c("th", [_vm._v("CostoAlimento")])
+                        ? _c("th", [_vm._v("Costo Alimento")])
                         : _vm._e(),
-                      _vm._v(" "),
-                      _vm.tipoActividad == "Alimentación"
-                        ? _c("th", [
-                            _vm._v("Costo "),
-                            _c("br"),
-                            _vm._v("Acumulado")
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Alimento")]),
                       _vm._v(" "),
                       _c("th", [_vm._v("Costo actividad")])
                     ])
@@ -54259,7 +54287,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(lrn.costo_minutos) }
+                          domProps: { textContent: _vm._s(lrn.costo_minutosh) }
                         }),
                         _vm._v(" "),
                         _c("th", {
@@ -54288,14 +54316,6 @@ var render = function() {
                             })
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.tipoActividad != "Alimentación"
-                          ? _c("th", {
-                              domProps: {
-                                textContent: _vm._s(lrn.costo_r_acum)
-                              }
-                            })
-                          : _vm._e(),
-                        _vm._v(" "),
                         _vm.tipoActividad == "Alimentación"
                           ? _c("td", {
                               domProps: { textContent: _vm._s(lrn.alimento) }
@@ -54315,24 +54335,12 @@ var render = function() {
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.tipoActividad == "Alimentación"
-                          ? _c("td", {
+                          ? _c("th", {
                               domProps: {
                                 textContent: _vm._s(lrn.costo_total_alimento)
                               }
                             })
                           : _vm._e(),
-                        _vm._v(" "),
-                        _vm.tipoActividad == "Alimentación"
-                          ? _c("th", {
-                              domProps: {
-                                textContent: _vm._s(lrn.costo_a_acum)
-                              }
-                            })
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(lrn.alimento) }
-                        }),
                         _vm._v(" "),
                         _c("th", {
                           domProps: {
@@ -54367,7 +54375,7 @@ var render = function() {
                             "td",
                             {
                               staticClass: "text-right",
-                              attrs: { colspan: "3" }
+                              attrs: { colspan: "2" }
                             },
                             [_vm._v("Costo recursos: ")]
                           )
@@ -54380,7 +54388,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
-                        ? _c("td", { attrs: { colspan: "2" } }, [
+                        ? _c("td", { attrs: { colspan: "3" } }, [
                             _vm._v("Costo alimentos: ")
                           ])
                         : _vm._e(),
@@ -56102,7 +56110,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -56117,7 +56125,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: { textContent: _vm._s(pez.lote) }
@@ -56130,7 +56138,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "80px",
+                                      "min-width": "80px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -56145,7 +56153,7 @@ var render = function() {
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      width: "60px",
+                                      "min-width": "60px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -58173,7 +58181,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass: "text-center d-sm-none d-none d-md-block",
-            staticStyle: { width: "340px" }
+            staticStyle: { "min-width": "340px" }
           },
           [
             _c("h5", [_vm._v(" Especie")]),
@@ -58181,19 +58189,25 @@ var staticRenderFns = [
             _c("div", { staticClass: "py-3" }, [
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Especie")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Lote")]
               ),
               _vm._v(" "),
               _c(
                 "li",
-                { staticStyle: { width: "80px", display: "inline-block" } },
+                {
+                  staticStyle: { "min-width": "80px", display: "inline-block" }
+                },
                 [_vm._v("Cantidad")]
               ),
               _vm._v(" "),
@@ -77156,8 +77170,8 @@ var routes = [{
   path: '/informes-biomasa-alimento',
   component: __webpack_require__(/*! ./components/InformeBiomasaAlimento.vue */ "./resources/js/components/InformeBiomasaAlimento.vue")["default"]
 }, {
-  path: '/informes-produccion',
-  component: __webpack_require__(/*! ./components/InformeProduccion.vue */ "./resources/js/components/InformeProduccion.vue")["default"]
+  path: '/informe-costos',
+  component: __webpack_require__(/*! ./components/InformeCostos.vue */ "./resources/js/components/InformeCostos.vue")["default"]
 }, {
   path: '/example',
   component: __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]
@@ -77931,15 +77945,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/components/InformeConsolidado.vue ***!
   \********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InformeConsolidado_vue_vue_type_template_id_c03747dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeConsolidado.vue?vue&type=template&id=c03747dc& */ "./resources/js/components/InformeConsolidado.vue?vue&type=template&id=c03747dc&");
 /* harmony import */ var _InformeConsolidado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeConsolidado.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeConsolidado.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _InformeConsolidado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _InformeConsolidado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -77969,7 +77982,7 @@ component.options.__file = "resources/js/components/InformeConsolidado.vue"
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/InformeConsolidado.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77992,6 +78005,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeConsolidado_vue_vue_type_template_id_c03747dc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeConsolidado_vue_vue_type_template_id_c03747dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCostos.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeCostos.vue?vue&type=template&id=ebd35e5c& */ "./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&");
+/* harmony import */ var _InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeCostos.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InformeCostos.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCostos.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeCostos.vue?vue&type=template&id=ebd35e5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeCostos.vue?vue&type=template&id=ebd35e5c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeCostos_vue_vue_type_template_id_ebd35e5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -78061,75 +78143,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeParametros_vue_vue_type_template_id_3e9a488a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=template&id=166f97cb& */ "./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&");
-/* harmony import */ var _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InformeProduccion.vue?vue&type=script&lang=js& */ "./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/InformeProduccion.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeProduccion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InformeProduccion.vue?vue&type=template&id=166f97cb& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InformeProduccion.vue?vue&type=template&id=166f97cb&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformeProduccion_vue_vue_type_template_id_166f97cb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -78636,8 +78649,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aquamazonia\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\aquamazonia\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

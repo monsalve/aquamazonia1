@@ -12,101 +12,103 @@
                     <div class="card-body">
                       <section class="content-dashboard">
                         <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/siembras" class="box-option rounded">
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-fish"></i>
+                              <img src="img/siembras.jpg" alt="" srcset="">
                             </div>
-                            <router-link to="/siembras" class="description-option bg-primary text-center" >
-                                <h4 class=" text-white">Siembras</h4>
-                            </router-link>
-                          </div>
+
+                            <div class="description-option bg-primary text-center">
+                              <h4 class=" text-white">Siembras</h4>
+                            </div>
+                          </router-link>
                         </div>
 
                         <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/recursos-necesarios" class="box-option rounded">
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-plus-square"></i>
+                              <img src="img/recursos-necesarios.jpg" alt="" srcset="">
                             </div>
-                            <router-link to="/recursos-necesarios" class="description-option bg-primary text-center" >
-                                <h4 class=" text-white">Recursos necesarios</h4>
-                            </router-link>
-                          </div>
+                            <div class="description-option bg-primary text-center" >
+                            <h4 class=" text-white">Recursos necesarios</h4>
+                            </div>
+                          </router-link>
                         </div>
 
                         <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/alimentacion" class="box-option rounded" >
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-utensils"></i>
+                              <img src="img/alimentacion.jpg" alt="" srcset="">
                             </div>
-                            <router-link to="/alimentacion" class="description-option bg-primary text-center" >
+                            <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Alimentación</h4>
-                            </router-link>
-                          </div>
-                        </div>
-                         <div class="card">
-                          <div class="box-option rounded">
-                            <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-file-alt"></i>
                             </div>
-                            <router-link to="/informes-biomasa-alimento" class="description-option bg-primary text-center" >
+                          </router-link>
+                        </div>
+
+                         <div class="card">
+                          <router-link to="/informes-biomasa-alimento"  class="box-option rounded">
+                            <div class="cover-option bg-light text-center">
+                              <img src="img/biomasa-alimentacion.jpg" alt="" srcset="">
+                            </div>
+                            <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Biomasa por alimentacion</h4>
-                            </router-link>
-                          </div>
+                            </div>
+                          </router-link>
                         </div>
 
                         <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/calidad-agua" class="box-option rounded">
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-tint"></i>
+                              <img src="img/parametros-calidad.jpg" alt="" srcset="">
                             </div>
-                            <router-link to="/calidad-agua" class="description-option bg-primary text-center" >
+                            <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Párametros de calidad</h4>
-                            </router-link>
-                          </div>
+                            </div>
+                          </router-link>
                         </div>
 
                         <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/especies" class="box-option rounded" >
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-tools"></i>
+                              <img src="img/especies.jpg" alt="" srcset="">
                             </div>
-                            <router-link to="/especies" class="description-option bg-primary text-center" >
-                                <h4 class=" text-white">Especies</h4>
-                            </router-link>
-                          </div>
+                            <div class="description-option bg-primary text-center" >
+                              <h4 class=" text-white">Especies</h4>
+                            </div>
+                          </router-link>
                         </div>
 
                          <div class="card">
-                          <div class="box-option rounded">
-                            <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-tools"></i>
-                            </div>
-                            <router-link to="/alimentos" class="description-option bg-primary text-center" >
+                           <router-link to="/alimentos" class="box-option rounded" >
+                              <div class="cover-option bg-light text-center">
+                                <img src="img/alimentos.jpg" alt="" srcset="">
+                              </div>
+                              <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Alimentos</h4>
-                            </router-link>
-                          </div>
+                              </div>
+                           </router-link>
                         </div>
 
                          <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/recursos"  class="box-option rounded">
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-tools"></i>
+                              <img src="img/tools.png" alt="" srcset="">
                             </div>
-                            <router-link to="/recursos" class="description-option bg-primary text-center" >
+                            <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Recursos</h4>
-                            </router-link>
-                          </div>
+                            </div>
+                          </router-link>
                         </div>
 
                          <div class="card">
-                          <div class="box-option rounded">
+                          <router-link to="/usuarios" class="box-option rounded">
                             <div class="cover-option bg-light text-center">
-                              <i class="fa fa-4x fa-user"></i>
+                              <img src="img/user.png" alt="" srcset="">
                             </div>
-                            <router-link to="/usuarios" class="description-option bg-primary text-center" >
+                            <div class="description-option bg-primary text-center" >
                                 <h4 class=" text-white">Usuarios</h4>
-                            </router-link>
-                          </div>
+                            </div>
+                          </router-link>
                         </div>
                         
                       </section>

@@ -46,7 +46,7 @@ class InformeRecursosNecesariosController extends Controller
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
-      ->paginate(20);
+      ->paginate(30);
 
      
       foreach($recursosNecesarios as $recursoNecesario){
@@ -76,10 +76,11 @@ class InformeRecursosNecesariosController extends Controller
               $recursoNecesario->costo_recurso +=  ($costo_recurso->cantidad_recurso * $costo_recurso->costo);
               $recursoNecesario->cantidad_alimento += ($costo_recurso->cant_tarde + $costo_recurso->cant_manana);
               $recursoNecesario->costo_alimento +=  (($costo_recurso->cant_tarde + $costo_recurso->cant_manana) * $costo_recurso->costo_kg);
-              $recursoNecesario->costo_minutos = (floatval($recursoNecesario->minutos_hombre)) * $minutos_hombre->costo;
+              $recursoNecesario->costo_minutos = ($recursoNecesario->minutos_hombre) * $minutos_hombre->costo;
               $recursoNecesario->costo_total_actividad = $recursoNecesario->costo_recurso + $recursoNecesario->costo_minutos + $recursoNecesario->costo_alimento;
-              $recursoNecesario->porcentaje_total_produccion = ($recursoNecesario->costo_total_actividad * 100)/$recursoNecesario->costoTotalSiembra;
             }
+          
+            $recursoNecesario->porcentaje_total_produccion = ($recursoNecesario->costo_total_actividad * 100)/$recursoNecesario->costoTotalSiembra;
           }
         }
        
@@ -129,7 +130,7 @@ class InformeRecursosNecesariosController extends Controller
       ->where($c1, $op1, $c2)
       ->where($c3, $op2, $c4)
       ->where($c5, $op3, $c6)
-      ->paginate(20);
+      ->paginate(30);
   
       foreach($recursosNecesarios as $recursoNecesario){
        
@@ -154,16 +155,14 @@ class InformeRecursosNecesariosController extends Controller
             $recursoNecesario->costoMinutos = ($recursoNecesario->minutosHombre) * $minutos_hombre->costo;
             $recursoNecesario->costoTotalSiembra = $recursoNecesario->costoRecurso + $recursoNecesario->costoMinutos + $recursoNecesario->costoAlimento;
 
-          
-
             if ($recursoNecesario->tipo_actividad == $costo_recurso->tipo_actividad) {          
               $recursoNecesario->costo_recurso +=  ($costo_recurso->cantidad_recurso * $costo_recurso->costo);
               $recursoNecesario->cantidad_alimento += ($costo_recurso->cant_tarde + $costo_recurso->cant_manana);
               $recursoNecesario->costo_alimento +=  (($costo_recurso->cant_tarde + $costo_recurso->cant_manana) * $costo_recurso->costo_kg);
               $recursoNecesario->costo_minutos = (floatval($recursoNecesario->minutos_hombre)) * $minutos_hombre->costo;
               $recursoNecesario->costo_total_actividad = $recursoNecesario->costo_recurso + $recursoNecesario->costo_minutos + $recursoNecesario->costo_alimento;
-              $recursoNecesario->porcentaje_total_produccion = ($recursoNecesario->costo_total_actividad * 100)/$recursoNecesario->costoTotalSiembra;
             }
+            $recursoNecesario->porcentaje_total_produccion = ($recursoNecesario->costo_total_actividad * 100)/$recursoNecesario->costoTotalSiembra;
           }
         }
        

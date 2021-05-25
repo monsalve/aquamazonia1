@@ -117,11 +117,16 @@ class InfomeBiomasaAlimentoController extends Controller
                                   ->where('id_siembra', $existencias[$j]->id_siembra)
                                   ->where('id_especie', $existencias[$j]->id_especie)
                                   ->first();
+
                               $date1 = new \DateTime($existencias[$j]->fecha_inicio);
-                              $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                              if (isset($int_tiempo['fecha_registro'])) {
+                                $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                              } else {
+                                $date2 = new \DateTime();
+                              }
                               $diff = $date1->diff($date2);
-                        
                               $existencias[$j]->intervalo_tiempo  = $diff->days;
+
                               $existencias[$j]->salida_biomasa += $registros[$k]->biomasa; 
                               
                               // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
@@ -178,6 +183,10 @@ class InfomeBiomasaAlimentoController extends Controller
           $siembras[$i]->costo_produccion = 0;
           }
 
+          if ($siembras[$i]->incr_bio_acum_conver > 0) {
+            $siembras[$i]->conversion_alimenticia = ($siembras[$i]->cantidad_total_alimento) / ($siembras[$i]->incr_bio_acum_conver);
+          }
+
           if( $siembras[$i]->incremento_biomasa>0){
             $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;                     
           }
@@ -228,6 +237,7 @@ class InfomeBiomasaAlimentoController extends Controller
           $siembras[$i]->mortalidad_porcentaje = number_format($siembras[$i]->mortalidad_porcentaje,2,',','');
           $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
           $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
+          $siembras[$i]->conversion_alimenticia = number_format($siembras[$i]->conversion_alimenticia,2,',','');
           $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
           $siembras[$i]->costo_produccion_parcial = number_format($siembras[$i]->costo_produccion_parcial,2,',','');
           $siembras[$i]->costo_produccion = number_format($siembras[$i]->costo_produccion,2,',','');
@@ -249,6 +259,7 @@ class InfomeBiomasaAlimentoController extends Controller
               "costo_tot" => $siembras[$i]->costo_total_siembra,
               "costo_produccion" => $siembras[$i]->costo_produccion,
               "costo_produccion_parcial" => $siembras[$i]->costo_produccion_parcial,
+              'conversion_alimenticia' => $siembras[$i]->conversion_alimenticia,
               'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
               'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
               "densidad_final" => $siembras[$i]->densidad_final,
@@ -288,7 +299,17 @@ class InfomeBiomasaAlimentoController extends Controller
       if($request['f_inicio_d']!='-1'){$c5="fecha_inicio"; $op3='>='; $c6= $request['f_inicio_d'];}
       if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
       
-      $siembras = Siembra::select()
+      $siembras = Siembra::select(
+        'siembras.id as id', 
+				'capacidad', 
+				'nombre_siembra',
+				'id_contenedor',
+				'fecha_inicio',
+				'ini_descanso',
+				'siembras.estado',
+				'fin_descanso'
+      )
+      ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
       ->where($c1, $op1, $c2)
       ->where('siembras.estado', '=', 1)
       ->where($c5, $op3, $c6)
@@ -380,10 +401,14 @@ class InfomeBiomasaAlimentoController extends Controller
                                     ->where('id_especie', $existencias[$j]->id_especie)
                                     ->first();
                                 $date1 = new \DateTime($existencias[$j]->fecha_inicio);
-                                $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                                if (isset($int_tiempo['fecha_registro'])) {
+                                  $date2 = new \DateTime($int_tiempo['fecha_registro']);
+                                } else {
+                                  $date2 = new \DateTime();
+                                }
                                 $diff = $date1->diff($date2);
-                          
                                 $existencias[$j]->intervalo_tiempo  = $diff->days;
+
                                 $existencias[$j]->salida_biomasa += $registros[$k]->biomasa;
                                 if($existencias[$j]->id_especie == $registros[$k]->id_especie){
                                     $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado)/1000);
@@ -434,6 +459,10 @@ class InfomeBiomasaAlimentoController extends Controller
               }else{
                   $siembras[$i]->costo_produccion = 0;
               }
+    
+              if ($siembras[$i]->incr_bio_acum_conver > 0) {
+                $siembras[$i]->conversion_alimenticia = ($siembras[$i]->cantidad_total_alimento) / ($siembras[$i]->incr_bio_acum_conver);
+              }
               if( $siembras[$i]->incremento_biomasa>0){
                 $siembras[$i]->conversion_alimenticia_siembra = $siembras[$i]->cantidad_total_alimento /  $siembras[$i]->incremento_biomasa;
               }else{
@@ -471,6 +500,7 @@ class InfomeBiomasaAlimentoController extends Controller
               $siembras[$i]->peso_actual_esp = number_format($siembras[$i]->peso_actual_esp,2,',','');
               $siembras[$i]->horas_hombre = number_format($siembras[$i]->horas_hombre,2,',','');
               $siembras[$i]->conversion_alimenticia_parcial = number_format($siembras[$i]->conversion_alimenticia_parcial,2,',','');
+              $siembras[$i]->conversion_alimenticia = number_format($siembras[$i]->conversion_alimenticia,2,',','');
               $siembras[$i]->costo_produccion = number_format($siembras[$i]->costo_produccion,2,',','');
 							$siembras[$i]->costo_produccion_parcial = number_format($siembras[$i]->costo_produccion_parcial,2,',','');
               $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final,2,',','');
@@ -482,6 +512,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   'bio_dispo_conver' =>$siembras[$i]->bio_dispo_conver,
                   'bio_dispo_alimen' =>$siembras[$i]->bio_dispo_alimen,
                   "carga_final" => $siembras[$i]->carga_final,
+                  'capacidad' => $siembras[$i]->capacidad,
                   "cantidad_inicial" => $siembras[$i]->cantidad_inicial,
                   "cant_actual" => $siembras[$i]->cant_actual,
                   "costo_minutosh" => $siembras[$i]->costo_minutos_hombre ,
@@ -491,6 +522,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   "costo_tot" => $siembras[$i]->costo_total_siembra,
                   "costo_produccion" => $siembras[$i]->costo_produccion,
 									"costo_produccion_parcial" => $siembras[$i]->costo_produccion_parcial,
+                  'conversion_alimenticia' => $siembras[$i]->conversion_alimenticia,
                   'conversion_alimenticia_parcial' => $siembras[$i]->conversion_alimenticia_parcial,
                   'conversion_alimenticia_siembra' => $siembras[$i]->conversion_alimenticia_siembra,
                   "densidad_final" => $siembras[$i]->densidad_final,

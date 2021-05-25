@@ -44,7 +44,7 @@
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="f_actividad" name="tipo_actividad">
-                                <option selected> Seleccionar</option>
+                                <option selected value=""> Seleccionar</option>
                                 <option value="0">Muestreo</option>
                                 <option value="1">Pesca</option>
                                 <option value="2">Mortalidad Inicial</option>
@@ -95,8 +95,7 @@
                               <th>Especie</th>                              
                               <th>Tipo <br>actividad</th>
                               <th>Peso actual</th>
-                              <th>Mortalidad</th>
-                              <th>Salida biomasa muestreo</th>
+                              <th>Biomasa muestreo</th>
                               <th>Cantidad</th>
                               <th>Biomasa disponible</th>
                             </tr>
@@ -110,7 +109,6 @@
                               <td v-text="lr.especie"></td>
                               <td v-text="lr.nombre_registro"></td>
                               <td v-text="lr.peso_ganado"></td>
-                              <td v-text="lr.mortalidad"></td>
                               <td v-text="lr.biomasa"></td>
                               <td v-text="lr.cantidad"></td>
                               <td>{{

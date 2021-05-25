@@ -105,14 +105,17 @@ ul#main-navigation {
         align-self: center;
         padding: 1rem;
 
-        i{
-          color: #16C9A8;
+        img {
+          max-width: 80%;
+          max-height: 6rem;
+          margin: auto;
         }
       }
 
       .description-option {
         padding: 0.5rem;
         background: linear-gradient(to right, #158d99, #155799);
+        min-height: 2rem;
 
         h4 {
           align-self: center;
