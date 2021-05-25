@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\HistorialAlimento;
+use App\Alimento;
 
 class HistorialAlimentoController extends Controller
 {
@@ -12,9 +14,13 @@ class HistorialAlimentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return HistorialAlimento::select('historial_costos_alimentos.id as id', 'historial_costos_alimentos.id_alimento', 'historial_costos_alimentos.costo', 'historial_costos_alimentos.fecha_registro', 'alimentos.alimento')
+        ->where('id_alimento', $request['idAlimento'])
+        ->join('alimentos', 'alimentos.id', 'historial_costos_alimentos.id_alimento')
+        ->get();
     }
 
     /**

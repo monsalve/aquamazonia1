@@ -50,7 +50,7 @@
                 </button>
               </div>
               <div class="table-container" id="table-container2"> 
-              <h2>Registros de párametros de agua {{ listadoParametros[0].contenedor }}</h2>
+              <h2>Registros de párametros de agua {{listadoParametros[0] ? listadoParametros[0].contenedor : ''}}</h2>
                 <table class="table-sticky table table-sm table-hover table-bordered">
                   <thead class="thead-primary">
                     <tr>                    
@@ -407,7 +407,6 @@
         .then(response=>{
           this.mostrar = 1
           this.listadoParametrosExcel = response.data.calidad_agua;
-          // this.promedios = response.data.promedios
         })
        
       },

@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		 <div class="modal fade" id="modalAlimentos" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalAlimentosLabel" aria-hidden="true">
+		<div class="modal fade" id="modalAlimentos" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalAlimentosLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -86,6 +86,44 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="modalCostos" tabindex="-1" role="dialog" aria-labelledby="modalCostosLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalCostosLabel">Historial de costos</h5>
+						<button type="button" class="close" @click="cerrarCostos();" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-sm table-bordered table-hover">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Fecha registro</th>
+									<th scope="col">Alimento</th>
+									<th scope="col">Costo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(registro, index) in listadoCostos" :key="registro.id">
+									<th scope="row" v-text="index+1"></th>
+									<td>{{registro.fecha_registro}}</td>
+									<td class="text-right">{{registro.alimento}}</td>
+									<td class="text-right"> $ {{registro.costo}}</td>
+								</tr>
+							
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" @click="cerrarCostos();">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </template>
 
@@ -107,7 +145,8 @@
 					costo_kg : '',
 				}),
 
-				listado: []
+				listado: [],
+				listadoCostos: []
 			}
 		},
 		methods: {
@@ -168,8 +207,18 @@
 				});
 
 			},
-			verCostos(id){
-
+			verCostos(idAlimento){
+				let me = this;
+				$("#modalCostos").modal('show');
+				axios.get("api/historial-alimento-costos?idAlimento="+idAlimento)
+				.then(function (response){
+        	me.listadoCostos = response.data;
+					console.log(response);
+     		})
+			},
+			cerrarCostos() {
+				$("#modalCostos").modal('hide');
+				this.listadoCostos = [];
 			}
 		},
 		mounted() {
