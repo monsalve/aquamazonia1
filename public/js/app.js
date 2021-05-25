@@ -2639,7 +2639,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           });
         }
       });
-    }
+    },
+    verCostos: function verCostos(id) {}
   },
   mounted: function mounted() {
     this.listar();
@@ -47403,60 +47404,78 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("table", { staticClass: "table table-hover table-sm" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.listado, function(alimento, index) {
-                    return _c("tr", { key: index }, [
-                      _c("th", {
-                        attrs: { scope: "row" },
-                        domProps: { textContent: _vm._s(index + 1) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(alimento.alimento) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: { textContent: _vm._s(alimento.costo_kg) }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cargaEditar(alimento)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-edit" })]
-                        ),
+              _c(
+                "table",
+                { staticClass: "table table-hover table-sm table-bordered" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listado, function(alimento, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", {
+                          attrs: { scope: "row" },
+                          domProps: { textContent: _vm._s(index + 1) }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.eliminar(alimento.id)
+                        _c("td", {
+                          domProps: { textContent: _vm._s(alimento.alimento) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(alimento.costo_kg) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.cargaEditar(alimento)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash" })]
-                        )
+                            },
+                            [_c("i", { staticClass: "fas fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminar(alimento.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.verCostos(alimento.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-dollar-sign" })]
+                          )
+                        ])
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ])
+                    }),
+                    0
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -47563,7 +47582,7 @@ var render = function() {
                         staticClass: "col-sm-12  col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo KL\n                            ")]
+                      [_vm._v("Costo KL\n\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -47653,7 +47672,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo Kl")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
       ])
     ])
   },
