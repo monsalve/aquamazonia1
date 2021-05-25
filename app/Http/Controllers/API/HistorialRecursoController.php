@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Recursos;
+use App\HistorialRecurso;
 
 class HistorialRecursoController extends Controller
 {
@@ -12,9 +14,13 @@ class HistorialRecursoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return HistorialRecurso::select('historial_costos_recursos.id as id', 'historial_costos_recursos.id_recurso', 'historial_costos_recursos.costo', 'historial_costos_recursos.fecha_registro', 'recursos.recurso', 'recursos.unidad')
+        ->where('id_recurso', $request['idRecurso'])
+        ->join('recursos', 'recursos.id', 'historial_costos_recursos.id_recurso')
+        ->get();
     }
 
     /**

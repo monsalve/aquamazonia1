@@ -210,10 +210,9 @@
 			verCostos(idAlimento){
 				let me = this;
 				$("#modalCostos").modal('show');
-				axios.get("api/historial-alimento-costos?idAlimento="+idAlimento)
+				axios.get("api/historial-alimentos-costos?idAlimento="+idAlimento)
 				.then(function (response){
         	me.listadoCostos = response.data;
-					console.log(response);
      		})
 			},
 			cerrarCostos() {

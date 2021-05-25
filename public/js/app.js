@@ -2682,9 +2682,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     verCostos: function verCostos(idAlimento) {
       var me = this;
       $("#modalCostos").modal('show');
-      axios.get("api/historial-alimento-costos?idAlimento=" + idAlimento).then(function (response) {
+      axios.get("api/historial-alimentos-costos?idAlimento=" + idAlimento).then(function (response) {
         me.listadoCostos = response.data;
-        console.log(response);
       });
     },
     cerrarCostos: function cerrarCostos() {
@@ -6544,6 +6543,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -6558,7 +6600,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         unidad: '',
         costo: ''
       }),
-      listado: []
+      listado: [],
+      listadoCostos: []
     };
   },
   methods: {
@@ -6616,6 +6659,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           });
         }
       });
+    },
+    verCostos: function verCostos(idRecurso) {
+      var me = this;
+      $("#modalCostos").modal('show');
+      axios.get("api/historial-recursos-costos?idRecurso=" + idRecurso).then(function (response) {
+        me.listadoCostos = response.data;
+        console.log(response);
+      });
+    },
+    cerrarCostos: function cerrarCostos() {
+      $("#modalCostos").modal('hide');
+      this.listadoCostos = [];
     }
   },
   mounted: function mounted() {
@@ -54726,6 +54781,20 @@ var render = function() {
                               }
                             },
                             [_c("i", { staticClass: "fas fa-trash" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.verCostos(recurso.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-dollar-sign" })]
                           )
                         ])
                       ])
@@ -54836,7 +54905,7 @@ var render = function() {
                         staticClass: "col-sm-12  col-md-4 col-form-label",
                         attrs: { for: "unidad" }
                       },
-                      [_vm._v("Unidad\n                            ")]
+                      [_vm._v("Unidad\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -54887,7 +54956,7 @@ var render = function() {
                         staticClass: "col-sm-12  col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo Unidad\n                            ")]
+                      [_vm._v("Costo Unidad\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -54955,6 +55024,112 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalCostos",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modalCostosLabel",
+          "aria-hidden": "true",
+          "data-backdrop": "static"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "modalCostosLabel" }
+                  },
+                  [_vm._v("Historial de costos")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarCostos()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "table",
+                  { staticClass: "table table-sm table-bordered table-hover" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.listadoCostos, function(registro, index) {
+                        return _c("tr", { key: registro.id }, [
+                          _c("th", {
+                            attrs: { scope: "row" },
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(registro.fecha_registro))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(_vm._s(registro.recurso))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(_vm._s(registro.unidad))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(" $ " + _vm._s(registro.costo))
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarCostos()
+                      }
+                    }
+                  },
+                  [_vm._v("Cerrar")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -54993,6 +55168,24 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha registro")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Recurso")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Unidad")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
