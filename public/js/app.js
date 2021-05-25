@@ -5274,8 +5274,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                me = _this; // const response = await axios.get('api/informe-Parametros');
-
+                me = _this;
                 _context.next = 3;
                 return _this.listadoParametros;
 

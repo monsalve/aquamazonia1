@@ -170,7 +170,6 @@
     methods:{
       async fetchData(){
         let me = this;
-        // const response = await axios.get('api/informe-Parametros');
         const response = await this.listadoParametros;
         return this.listadoParametros;
       },
