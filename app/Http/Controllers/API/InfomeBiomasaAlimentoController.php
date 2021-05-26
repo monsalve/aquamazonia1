@@ -361,12 +361,7 @@ class InfomeBiomasaAlimentoController extends Controller
           ->get();
           
       $mh = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();;
-          
-      $sal_bio = 0;
-      $bio_acum  = 0;
-      $bio_dispo = 0;
-      $sum_bio_dispo=0;
-    
+  
       $aux_regs = array();
       $diff = 0 ;
       
