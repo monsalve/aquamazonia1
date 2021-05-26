@@ -3903,8 +3903,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3914,12 +3912,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Lote': 'lote',
         'Fecha de registro': 'fecha_registro',
         'Especie': 'especie',
-        'Tipo registro': 'nombre_registro',
+        'Tipo actividad': 'nombre_registro',
         'Peso Actual': 'peso_ganado',
-        'Mortalidad': 'mortalidad',
-        'Salida biomasa muestreo': 'biomasa',
-        'Cantidad': 'cantidad',
-        'Biomasa disponible': 'biomasa_disponible'
+        'biomasa muestreo': 'biomasa_disponible',
+        'Cantidad Actual': 'cantidad_actual',
+        'Biomasa disponible': 'bio_dispo_alimen'
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -54224,21 +54221,22 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(lr.biomasa) }
+                            domProps: {
+                              textContent: _vm._s(lr.biomasa_disponible)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
-                            domProps: { textContent: _vm._s(lr.cantidad) }
+                            domProps: {
+                              textContent: _vm._s(lr.cantidad_actual)
+                            }
                           }),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(
-                                (lr.biomasa_disponible =
-                                  (lr.cantidad * lr.peso_ganado) / 1000)
-                              )
-                            )
-                          ])
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lr.bio_dispo_alimen)
+                            }
+                          })
                         ])
                       }),
                       0
@@ -54276,9 +54274,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad")]),
+        _c("th", [_vm._v("Cantidad Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible")])
+        _c("th", [_vm._v("Biomasa disponible por alimento")])
       ])
     ])
   }

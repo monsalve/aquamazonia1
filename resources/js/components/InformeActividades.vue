@@ -96,8 +96,8 @@
                               <th>Tipo <br>actividad</th>
                               <th>Peso actual</th>
                               <th>Biomasa muestreo</th>
-                              <th>Cantidad</th>
-                              <th>Biomasa disponible</th>
+                              <th>Cantidad Actual</th>
+                              <th>Biomasa disponible por alimento</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -109,11 +109,9 @@
                               <td v-text="lr.especie"></td>
                               <td v-text="lr.nombre_registro"></td>
                               <td v-text="lr.peso_ganado"></td>
-                              <td v-text="lr.biomasa"></td>
-                              <td v-text="lr.cantidad"></td>
-                              <td>{{
-                                lr.biomasa_disponible = (lr.cantidad * lr.peso_ganado)/1000
-                                }}</td>
+                              <td v-text="lr.biomasa_disponible"></td>
+                              <td v-text="lr.cantidad_actual"></td>
+                              <td v-text="lr.bio_dispo_alimen"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -136,13 +134,11 @@ export default {
         'Lote' : 'lote',
         'Fecha de registro' : 'fecha_registro',
         'Especie' : 'especie',
-        'Tipo registro' : 'nombre_registro',
+        'Tipo actividad' : 'nombre_registro',
         'Peso Actual' : 'peso_ganado',
-        'Mortalidad' : 'mortalidad',
-        'Salida biomasa muestreo' : 'biomasa',
-        'Cantidad' : 'cantidad',
-        'Biomasa disponible' : 'biomasa_disponible'
-        
+        'biomasa muestreo' : 'biomasa_disponible',
+        'Cantidad Actual' : 'cantidad_actual',
+        'Biomasa disponible' : 'bio_dispo_alimen'
       }, 
       
       listadoSiembras : [],
