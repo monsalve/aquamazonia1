@@ -420,15 +420,18 @@ import downloadexcel from "vue-json-excel"
       },
       eliminarRegistro(objeto){
         let me = this;
-        swal({
+        Swal.fire({
           title: "Estás seguro?",
           text: "Una vez eliminado, no se puede recuperar este registro",
           icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
+          showCancelButton: true,
+          confirmButtonColor: '#c7120c',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Aceptar!',
+          reverseButtons: true
         })
-        .then((willDelete) => {
-          if (willDelete) {
+        .then((result) => {
+            if (result.isConfirmed) {
             axios.delete('api/recursos-necesarios/'+objeto)
             .then(({data})=>{
               me.listar();

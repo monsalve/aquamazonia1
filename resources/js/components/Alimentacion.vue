@@ -384,12 +384,6 @@ import downloadexcel from "vue-json-excel"
           auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
         })
       },
-      checkSiembras(){
-        let me = this;
-        me.addSiembras({
-          'id_siembra' : this.form.id_siembra
-        })
-      },
       guardarRecursos(){
         let me = this;        
         this.form.post("api/recursos-necesarios")
@@ -397,25 +391,6 @@ import downloadexcel from "vue-json-excel"
           me.listar();
          $('#modalRecursos').modal('hide');
         })
-      },
-      eliminarRegistro(objeto){
-        let me = this;
-        swal({
-          title: "Estás seguro?",
-          text: "Una vez eliminado, no se puede recuperar este registro",
-          icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            axios.delete('api/recursos-necesarios/'+objeto)
-            .then(({data})=>{
-              me.listar();
-              
-            })
-          }
-        });        
       },
       cambiarPagina(page){
         let me = this;

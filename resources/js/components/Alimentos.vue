@@ -190,15 +190,19 @@
 			},
 			eliminar(index){
 				let me = this;
-				swal({
+				Swal.fire({
 					title: "Estás seguro?",
 					text: "Una vez eliminado, no se puede recuperar este registro",
 					icon: "warning",
-					buttons: ["Cancelar", "Aceptar"],
+					showCancelButton: true,
+					confirmButtonColor: '#c7120c',
+					cancelButtonText: 'Cancelar',
+					confirmButtonText: 'Aceptar!',
+					reverseButtons: true,
 					dangerMode: true,
 				})
-				.then((willDelete) => {
-					if (willDelete) {
+				.then((result) => {
+					if (result.isConfirmed) {
 						me.form.delete('api/alimentos/'+index)
 						.then(({data})=>{
 							me.listar();

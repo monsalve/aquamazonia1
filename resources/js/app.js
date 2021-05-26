@@ -9,16 +9,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
 
 import JsonExcel from 'vue-json-excel'
-
-
-
 Vue.component('downloadExcel', JsonExcel)
-
+window.Swal = Swal
 Vue.use(VueRouter)
 
 let routes = [

@@ -829,7 +829,7 @@ export default {
           }); 
         }
       }else{
-        swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
+        Swal.fire("Advertencia", "Por favor, diligencia los datos restantes", "warning");
       }
 
     
@@ -868,7 +868,7 @@ export default {
 
         me.listar();
         me.abrirCrear(this.form.id_siembra);
-        swal("Excelente!", "Los datos se guardaron correctamente!", "success");
+        Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
       })}else{
         this.form.put('api/recursos-necesarios/'+this.form.id_registro)
         .then(({data})=>{
@@ -881,15 +881,18 @@ export default {
     eliminarRegistro(id, objeto){
     
       let me = this;
-      swal({
+      Swal.fire({
         title: "Estás seguro?",
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
-        buttons: ["Cancelar", "Aceptar"],
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonColor: '#c7120c',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Aceptar!',
+        reverseButtons: true
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+          if (result.isConfirmed) {
         
           const data = {
             campos :  objeto 
@@ -905,15 +908,18 @@ export default {
         
     eliminarAlimento(objeto){
       let me = this;
-      swal({
+      Swal.fire({
         title: "Estás seguro?",
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
-        buttons: ["Cancelar", "Aceptar"],
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonColor: '#c7120c',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Aceptar!',
+        reverseButtons: true
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+          if (result.isConfirmed) {
           axios.delete('api/recursos-necesarios/'+objeto)
           .then(({data})=>{
 
@@ -927,15 +933,18 @@ export default {
     
     eliminarSiembra(index){
       let me = this;
-      swal({
+      Swal.fire({
         title: "Estás seguro?",
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
-        buttons: ["Cancelar", "Aceptar"],
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonColor: '#c7120c',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Aceptar!',
+        reverseButtons: true
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+          if (result.isConfirmed) {
           axios.delete('api/siembras/'+index)
           .then(({data})=>{
             me.listar();              

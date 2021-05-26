@@ -344,7 +344,7 @@
             }); 
           }
         }else{
-         swal("Advertencia", "Por favor, diligencia los datos restantes", "warning");
+         Swal.fire("Advertencia", "Por favor, diligencia los datos restantes", "warning");
         }
       
       },
