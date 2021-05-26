@@ -103,13 +103,11 @@ class InformeRegistroController extends Controller
 				->leftJoin('alimentos', 'recursos_necesarios.id_alimento','alimentos.id')
 				->get();
 
-			 $data = array();
+			$data = array();
 			if(count($siembras)>0){
 				foreach($siembras as $siembra){
-
 					if(count($existencias)>0){
 						foreach($existencias as $existencia){
-
 							$existencia->biomasa_inicial =  ((($existencia->peso_inicial)*($existencia->cantidad_inicial)) / 1000);
 
 							if($siembra->id == $existencia->id_siembra ){
@@ -144,7 +142,6 @@ class InformeRegistroController extends Controller
 								$siembra->incr_bio_acum_conver +=  $recurso_necesario->incr_bio_acum_conver;
 							}
 						}
-
 					}
 					$siembra->bio_dispo_alimen = (($siembra->incr_bio_acum_conver + $siembra->biomasa_inicial) - ($siembra->salida_biomasa + $siembra->mortalidad_kg));
 
@@ -256,8 +253,6 @@ class InformeRegistroController extends Controller
 				->where($c5, $op3, $c6)
 				->where($c7, $op4, $c8)
 				->where($c9, $op5, $c10)
-				// ->where('peso_ganado', $op6, $c12)
-				// ->where('peso_ganado', $op7, $c14)
 				->where($c15, $op8, $c16)
 				->where('siembras.estado', $filtro_estado_siembra, $estado_siembra )
 				->orderBy('fecha_registro', 'desc')
