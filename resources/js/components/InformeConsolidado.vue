@@ -157,7 +157,7 @@
           'Costo horas':'costo_horas',
           'Costo total alimentos':'costo_total_alimento',
           'Total Kg Alimento' : 'cantidad_total_alimento',
-          'Costo total':'costo_tot',
+          'Costo total Siembra':'costo_tot',
           'Costo producccion final' : 'costo_produccion_final',
           'Conversión alimenticia parcial' : 'conversion_alimenticia_siembra',
           'Conversion final' : 'conversion_final',
