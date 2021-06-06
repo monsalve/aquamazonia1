@@ -6267,7 +6267,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Fecha Registro': 'fecha_ra',
         'Minutos hombre': 'minutos_hombre',
         'Costo minutos hombre': 'costo_minutosh',
-        'Costo acumulado minutos': 'costo_h_acum',
         'Recurso': 'recurso',
         'Cantidad Recurso': 'cantidad_recurso',
         'Costo Recurso': 'costo_total_recurso',
@@ -57722,8 +57721,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("th", [_vm._v("Costo minutos ")]),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Costo Acumulado Minutos")]),
-                      _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
                         ? _c("th", [_vm._v("Recursos")])
                         : _vm._e(),
@@ -57792,10 +57789,6 @@ var render = function() {
                           domProps: { textContent: _vm._s(lrn.costo_minutosh) }
                         }),
                         _vm._v(" "),
-                        _c("th", {
-                          domProps: { textContent: _vm._s(lrn.costo_h_acum) }
-                        }),
-                        _vm._v(" "),
                         _vm.tipoActividad != "Alimentación"
                           ? _c("td", {
                               domProps: { textContent: _vm._s(lrn.recurso) }
@@ -57858,7 +57851,7 @@ var render = function() {
                     _c("tr", [
                       _c(
                         "th",
-                        { staticClass: "text-right", attrs: { colspan: "5" } },
+                        { staticClass: "text-right", attrs: { colspan: "4" } },
                         [_vm._v("PROMEDIOS")]
                       ),
                       _vm._v(" "),

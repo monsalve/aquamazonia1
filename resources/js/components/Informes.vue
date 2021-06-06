@@ -83,7 +83,7 @@
                               <th>Fecha</th>
                               <th>Minutos <br>hombre</th>
                               <th>Costo minutos </th>
-                              <th>Costo Acumulado Minutos</th>
+                              
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
@@ -105,7 +105,7 @@
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.minutos_hombre +'min'"></td>
                               <td v-text="lrn.costo_minutosh"></td>
-                              <th v-text="lrn.costo_h_acum"></th>
+                              
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
@@ -120,7 +120,7 @@
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th colspan="5" class="text-right">PROMEDIOS</th>
+                              <th colspan="4" class="text-right">PROMEDIOS</th>
                               <td colspan="2" class="text-right">Costo minutos: </td>
                               <th>{{listadoPromedios.total_minutos}}</th>
                               <td colspan="2" v-if="tipoActividad != 'Alimentación'" class="text-right">Costo recursos: </td>
@@ -151,8 +151,7 @@
             'Tipo de Actividad' : 'actividad',
             'Fecha Registro' : 'fecha_ra',
             'Minutos hombre' : 'minutos_hombre',
-            'Costo minutos hombre' : 'costo_minutosh',
-            'Costo acumulado minutos' : 'costo_h_acum',
+            'Costo minutos hombre' : 'costo_minutosh',            
             'Recurso' : 'recurso',
             'Cantidad Recurso' : 'cantidad_recurso',
             'Costo Recurso' : 'costo_total_recurso',
