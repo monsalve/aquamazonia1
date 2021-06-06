@@ -62,12 +62,7 @@ class SiembraController extends Controller
 						];
 
 					}
-
-
 				}
-				// echo '<pre>';
-				// 		print_r ($detalles_siembra);
-				// 		echo '</pre>';
                   
         $fecha_actual = date('Y-m-d');
                     
@@ -76,8 +71,6 @@ class SiembraController extends Controller
 					->orderBy('especie', 'asc')
 					->get()->toArray();
                     
-       
-        // $users = DB::table('users')->distinct()->get();
         $lotes = EspecieSiembra::select('lote')->distinct()->orderBy('lote', 'asc')->get();
         $pxs = array();
         $campos=array();

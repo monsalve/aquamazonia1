@@ -371,7 +371,7 @@ class InformeController extends Controller
 		->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
 		->join('especies', 'especies_siembra.id_especie', 'especies.id')
 		->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
-		->where('siembras.estado', '=', 1)
+		// ->where('siembras.estado', '=', 1)
 		->where($c1, $op1, $c2)
 		->where($c3, $op2, $c4)
 		->where($c5, $op3, $c6)
@@ -386,7 +386,8 @@ class InformeController extends Controller
 		$bio_acum  = 0;
 		$int_tiempo = 0;
 		$registros = Registro::select()
-			->join('siembras', 'registros.id_siembra', 'siembras.id' )->where('siembras.estado','=','1')
+			->join('siembras', 'registros.id_siembra', 'siembras.id' )
+			// ->where('siembras.estado','=','1')
 			->get();
 			
 		if(count($existencias)>0){
@@ -478,7 +479,8 @@ class InformeController extends Controller
 		->where('siembras.estado', '=', 1)
 		->get();
 		$registros = Registro::select()
-			->join('siembras', 'registros.id_siembra', 'siembras.id' )->where('siembras.estado','=','1')            
+			->join('siembras', 'registros.id_siembra', 'siembras.id' )
+			// ->where('siembras.estado','=','1')            
 			->get();
 			
 		$recursos_necesarios = RecursoNecesario::select(
@@ -746,10 +748,11 @@ class InformeController extends Controller
 		->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
 		->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
 		->join('especies', 'especies_siembra.id_especie', 'especies.id')
-		->where('siembras.estado', '=', 1)
+		// ->where('siembras.estado', '=', 1)
 		->get();
 		$registros = Registro::select()
-			->join('siembras', 'registros.id_siembra', 'siembras.id' )->where('siembras.estado','=','1')            
+			->join('siembras', 'registros.id_siembra', 'siembras.id' )
+			// ->where('siembras.estado','=','1')            
 			->get();
 			
 		$recursos_necesarios = RecursoNecesario::select(
@@ -772,13 +775,8 @@ class InformeController extends Controller
 			->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')            
 			->get();
 			
-		$mh = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();;
-			
-		$sal_bio = 0;
-		$bio_acum  = 0;
-		$bio_dispo = 0;
-		$sum_bio_dispo=0;
-	  
+		$mh = Recursos::select()->where('recurso','Minutos hombre')->orWhere('recurso','Minuto hombre')->orWhere('recurso','Minutos')->first();
+
 		$aux_regs = array();
 		$diff = 0 ;
 		
