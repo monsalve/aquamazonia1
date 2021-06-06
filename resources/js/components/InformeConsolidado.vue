@@ -18,10 +18,17 @@
                           </select>
                         </div>
                         <div class="form-group col-md-2">
+                          <label for="contenedor">Contenedor:</label>
+                          <select class="custom-select" id="contenedor" v-model="f_contenedor">
+                            <option value="-1">Seleccionar</option>
+                            <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>                        
+                          </select>
+                        </div>
+                        <div class="form-group col-md-2">
                           <label for="f_estado">
                             Estado:
                             <select class="custom-select" name="estado" id="estado" v-model="f_estado">
-                              <option value="-1" disabled>--Seleccionar--</option>                              
+                              <option value="-1">--Seleccionar--</option>                              
                               <option value="0">Inactiva</option>
                               <option value="1">Activa</option>
                             </select>
@@ -168,7 +175,9 @@
         listadoEspecies : [],
         listadoSiembras: [],
         imprimirRecursos:[],
+        listadoContenedores : [],
         f_siembra : '',
+        f_contenedor : '',
         f_estado : '', 
         f_inicio_d : '',
         f_inicio_h : '',
@@ -188,6 +197,7 @@
         let me = this;      
         this.listarEspecies();
         this.listarSiembras();
+        this.listarContenedores();
         axios.get("api/traer-existencias-detalle")
         .then(function (response){
           me.listadoExistencias = response.data.existencias;
@@ -207,16 +217,25 @@
           me.listadoSiembras = response.data.siembra;
         })
       },
+      listarContenedores(){
+        let me = this;
+        axios.get("api/contenedores")
+        .then(function (response){
+          me.listadoContenedores = response.data;
+        })
+      },
       
       filtroSiembra(){
         let me = this;
         
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+        if(this.f_contenedor == ''){this.cont = '-1'}else{this.cont = this.f_contenedor}
         if(this.f_estado == ''){this.est = '-1'}else{this.est = this.f_estado}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
         if(this.f_inicio_h == ''){this.fech = '-1'}else{this.fech = this.f_inicio_h}        
         const data ={
           'f_siembra' : this.smb,
+          'f_contenedor' : this.cont,
           'f_estado' : this.est,
           'f_inicio_d' : this.fecd,
           'f_inicio_h' : this.fech,

@@ -4765,6 +4765,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4795,7 +4802,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Costo horas': 'costo_horas',
         'Costo total alimentos': 'costo_total_alimento',
         'Total Kg Alimento': 'cantidad_total_alimento',
-        'Costo total': 'costo_tot',
+        'Costo total Siembra': 'costo_tot',
         'Costo producccion final': 'costo_produccion_final',
         'Conversión alimenticia parcial': 'conversion_alimenticia_siembra',
         'Conversion final': 'conversion_final',
@@ -4806,7 +4813,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoEspecies: [],
       listadoSiembras: [],
       imprimirRecursos: [],
+      listadoContenedores: [],
       f_siembra: '',
+      f_contenedor: '',
       f_estado: '',
       f_inicio_d: '',
       f_inicio_h: ''
@@ -4845,6 +4854,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.listarEspecies();
       this.listarSiembras();
+      this.listarContenedores();
       axios.get("api/traer-existencias-detalle").then(function (response) {
         me.listadoExistencias = response.data.existencias;
       });
@@ -4861,6 +4871,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.siembra;
       });
     },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
+      });
+    },
     filtroSiembra: function filtroSiembra() {
       var me = this;
 
@@ -4868,6 +4884,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.smb = '-1';
       } else {
         this.smb = this.f_siembra;
+      }
+
+      if (this.f_contenedor == '') {
+        this.cont = '-1';
+      } else {
+        this.cont = this.f_contenedor;
       }
 
       if (this.f_estado == '') {
@@ -4890,6 +4912,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var data = {
         'f_siembra': this.smb,
+        'f_contenedor': this.cont,
         'f_estado': this.est,
         'f_inicio_d': this.fecd,
         'f_inicio_h': this.fech
@@ -55253,6 +55276,57 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "contenedor" } }, [
+                  _vm._v("Contenedor:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.f_contenedor,
+                        expression: "f_contenedor"
+                      }
+                    ],
+                    staticClass: "custom-select",
+                    attrs: { id: "contenedor" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.f_contenedor = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "-1" } }, [
+                      _vm._v("Seleccionar")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.listadoContenedores, function(cont, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: cont.id } },
+                        [_vm._v(_vm._s(cont.contenedor))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "f_estado" } }, [
                   _vm._v(
                     "\n                        Estado:\n                        "
@@ -55287,7 +55361,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("option", { attrs: { value: "-1", disabled: "" } }, [
+                      _c("option", { attrs: { value: "-1" } }, [
                         _vm._v("--Seleccionar--")
                       ]),
                       _vm._v(" "),

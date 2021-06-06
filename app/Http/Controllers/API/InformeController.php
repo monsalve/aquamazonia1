@@ -709,11 +709,12 @@ class InformeController extends Controller
   public function filtroExistenciasDetalle(Request $request){
 
     $c1 = "siembras.id"; $op1 = '!='; $c2 = '-1';
-    $c3 = "siembras.id"; $op2 = '!='; $c4 = '-1';
-
+    $op2 = '!='; $c4 = '-1';
+    $signCont = '!='; $idContenedor = '-1';
 
     if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
-    if($request['f_estado']!='-1'){$c3="siembras.estado"; $op2='='; $c4= $request['f_estado'];}
+    if($request['f_contenedor']!='-1'){$signCont='='; $idContenedor= $request['f_contenedor'];}
+    if($request['f_estado']!='-1'){ $op2='='; $c4= $request['f_estado'];}
 
 
     $siembras = Siembra::select(
@@ -727,6 +728,7 @@ class InformeController extends Controller
       'fin_descanso'
     )
     ->where($c1, $op1, $c2)
+    ->where('id_contenedor', $signCont, $idContenedor )
     ->where('siembras.estado', $op2, $c4)
     ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
     ->get();
