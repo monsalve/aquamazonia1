@@ -28,21 +28,21 @@
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad" @click="cambiarActividad()">
-                                <option selected> Seleccionar</option>   
+                                <option value="-1" selected> Seleccionar</option>   
                                 <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
                              <label for="alimento">Alimento: </label>
                               <select class="form-control" id="alimento" v-model="alimento_s">
-                                <option selected> Seleccionar</option>
+                                <option value="-1" selected> Seleccionar</option>
                                 <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
                              <label for="recurso">Recurso: </label>
                               <select class="form-control" id="recurso" v-model="recurso_s">
-                                <option selected> Seleccionar</option>   
+                                <option value="-1" selected> Seleccionar</option>   
                                 <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                               </select>
                             </div>
@@ -120,14 +120,14 @@
                           </tbody>
                           <tfoot>
                             <tr>
-                              <th colspan="4" class="text-right">PROMEDIOS</th>
+                              <th colspan="4" class="text-right">TOTAL: </th>
                               <td colspan="2" class="text-right">Costo minutos: </td>
-                              <th>{{listadoPromedios.total_minutos}}</th>
+                              <th>{{calcularTotalMinutos}}</th>
                               <td colspan="2" v-if="tipoActividad != 'Alimentación'" class="text-right">Costo recursos: </td>
-                              <th v-if="tipoActividad != 'Alimentación'">{{listadoPromedios.total_recurso}}</th>
+                              <th v-if="tipoActividad != 'Alimentación'">{{calcularTotalRecursos}}</th>
                               <td colspan="3" v-if="tipoActividad == 'Alimentación'">Costo alimentos: </td>
-                              <th v-if="tipoActividad == 'Alimentación'">{{listadoPromedios.total_alimento}}</th>
-                              <th>Costo total actividades: {{listadoPromedios.total_actividad}}</th>
+                              <th v-if="tipoActividad == 'Alimentación'">{{calcularTotalAlimentos}}</th>
+                              <th>Costo total actividades: <br> {{calcularTotalActividades}}</th>
                             </tr>
                           </tfoot>
                         </table>
@@ -182,12 +182,41 @@
         fecha_ra2: '', 
         costo_acum : 0, 
         tipoActividad : '',
-        listadoPromedios : []
         
       }
     },
     components: {
       downloadexcel,
+    },
+    computed : {
+      calcularTotalMinutos: function(){
+          var resultado=0.0;
+          for(var i=0;i<this.listadorn.length;i++){
+              resultado+=this.listadorn[i].costo_minutosh;
+          }
+          return resultado;
+      },
+      calcularTotalRecursos: function(){
+         var resultado=0.0;
+        for(var i=0;i<this.listadorn.length;i++){
+            resultado+=this.listadorn[i].costo_total_recurso;
+        }
+        return resultado;
+      },
+      calcularTotalAlimentos: function(){
+        var resultado=0.0;
+        for(var i=0;i<this.listadorn.length;i++){
+            resultado+=this.listadorn[i].costo_total_alimento;
+        }
+        return resultado;
+      },
+      calcularTotalActividades : function(){
+        var resultado=0.0;
+        for(var i=0;i<this.listadorn.length;i++){
+            resultado+=this.listadorn[i].costo_total_actividad;
+        }
+        return resultado;
+      }
     },
     methods:{
       async fetchData(){
@@ -204,7 +233,6 @@
         axios.get("api/informes")
         .then(function (response){
           me.listadorn = response.data.recursosNecesarios;
-          me.listadoPromedios = response.data.promedioRecursos;
         })         
         axios.get("api/traer-recursos")
         .then(response=>{
@@ -266,6 +294,7 @@
         axios.post("api/filtroInformes", data)
         .then(response=>{
           me.listadorn = response.data.recursosNecesarios;
+          console.log(response);
         });
         axios.post("api/informe-recursos", data)
         .then(response=>{

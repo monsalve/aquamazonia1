@@ -6295,12 +6295,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fecha_ra1: '',
       fecha_ra2: '',
       costo_acum: 0,
-      tipoActividad: '',
-      listadoPromedios: []
+      tipoActividad: ''
     };
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: {
+    calcularTotalMinutos: function calcularTotalMinutos() {
+      var resultado = 0.0;
+
+      for (var i = 0; i < this.listadorn.length; i++) {
+        resultado += this.listadorn[i].costo_minutosh;
+      }
+
+      return resultado;
+    },
+    calcularTotalRecursos: function calcularTotalRecursos() {
+      var resultado = 0.0;
+
+      for (var i = 0; i < this.listadorn.length; i++) {
+        resultado += this.listadorn[i].costo_total_recurso;
+      }
+
+      return resultado;
+    },
+    calcularTotalAlimentos: function calcularTotalAlimentos() {
+      var resultado = 0.0;
+
+      for (var i = 0; i < this.listadorn.length; i++) {
+        resultado += this.listadorn[i].costo_total_alimento;
+      }
+
+      return resultado;
+    },
+    calcularTotalActividades: function calcularTotalActividades() {
+      var resultado = 0.0;
+
+      for (var i = 0; i < this.listadorn.length; i++) {
+        resultado += this.listadorn[i].costo_total_actividad;
+      }
+
+      return resultado;
+    }
   },
   methods: {
     fetchData: function fetchData() {
@@ -6338,7 +6375,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       axios.get("api/informes").then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
-        me.listadoPromedios = response.data.promedioRecursos;
       });
       axios.get("api/traer-recursos").then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
@@ -6426,6 +6462,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/filtroInformes", data).then(function (response) {
         me.listadorn = response.data.recursosNecesarios;
+        console.log(response);
       });
       axios.post("api/informe-recursos", data).then(function (response) {
         me.imprimirRecursos = response.data.recursosNecesarios;
@@ -57461,9 +57498,11 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
-                            _vm._v(" Seleccionar")
-                          ]),
+                          _c(
+                            "option",
+                            { attrs: { value: "-1", selected: "" } },
+                            [_vm._v(" Seleccionar")]
+                          ),
                           _vm._v(" "),
                           _vm._l(_vm.listadoActividades, function(
                             actividad,
@@ -57515,9 +57554,11 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
-                            _vm._v(" Seleccionar")
-                          ]),
+                          _c(
+                            "option",
+                            { attrs: { value: "-1", selected: "" } },
+                            [_vm._v(" Seleccionar")]
+                          ),
                           _vm._v(" "),
                           _vm._l(_vm.listadoAlimentos, function(
                             alimento,
@@ -57569,9 +57610,11 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { selected: "" } }, [
-                            _vm._v(" Seleccionar")
-                          ]),
+                          _c(
+                            "option",
+                            { attrs: { value: "-1", selected: "" } },
+                            [_vm._v(" Seleccionar")]
+                          ),
                           _vm._v(" "),
                           _vm._l(_vm.listadoRecursos, function(recurso, index) {
                             return _c(
@@ -57852,7 +57895,7 @@ var render = function() {
                       _c(
                         "th",
                         { staticClass: "text-right", attrs: { colspan: "4" } },
-                        [_vm._v("PROMEDIOS")]
+                        [_vm._v("TOTAL: ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -57861,9 +57904,7 @@ var render = function() {
                         [_vm._v("Costo minutos: ")]
                       ),
                       _vm._v(" "),
-                      _c("th", [
-                        _vm._v(_vm._s(_vm.listadoPromedios.total_minutos))
-                      ]),
+                      _c("th", [_vm._v(_vm._s(_vm.calcularTotalMinutos))]),
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
                         ? _c(
@@ -57877,9 +57918,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad != "Alimentación"
-                        ? _c("th", [
-                            _vm._v(_vm._s(_vm.listadoPromedios.total_recurso))
-                          ])
+                        ? _c("th", [_vm._v(_vm._s(_vm.calcularTotalRecursos))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
@@ -57889,16 +57928,13 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.tipoActividad == "Alimentación"
-                        ? _c("th", [
-                            _vm._v(_vm._s(_vm.listadoPromedios.total_alimento))
-                          ])
+                        ? _c("th", [_vm._v(_vm._s(_vm.calcularTotalAlimentos))])
                         : _vm._e(),
                       _vm._v(" "),
                       _c("th", [
-                        _vm._v(
-                          "Costo total actividades: " +
-                            _vm._s(_vm.listadoPromedios.total_actividad)
-                        )
+                        _vm._v("Costo total actividades: "),
+                        _c("br"),
+                        _vm._v(" " + _vm._s(_vm.calcularTotalActividades))
                       ])
                     ])
                   ])
