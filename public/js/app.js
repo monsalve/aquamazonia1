@@ -6256,6 +6256,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6285,9 +6292,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoAlimentos: [],
       listadoSiembras: [],
       listadoRecursos: [],
+      listadoContenedores: [],
       imprimirRecursos: [],
       estados: [],
       f_siembra: '',
+      f_contenedor: '',
       estado_s: '',
       actividad_s: '',
       alimento_s: '',
@@ -6406,6 +6415,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.siembra;
       });
     },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
+      });
+    },
     filtroResultados: function filtroResultados() {
       var me = this;
 
@@ -6419,6 +6434,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.est = '-1';
       } else {
         this.est = this.estado_s;
+      }
+
+      if (this.f_contenedor == '') {
+        this.cont = '-1';
+      } else {
+        this.cont = this.f_contenedor;
       }
 
       if (this.actividad_s == '') {
@@ -6454,6 +6475,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var data = {
         'f_siembra': this.smb,
         'estado_s': this.est,
+        'f_contenedor': this.cont,
         'actividad_s': this.act,
         'alimento_s': this.ali,
         'recurso_s': this.rec,
@@ -6475,6 +6497,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listarAlimentos();
     this.listarRecursos();
     this.listarActividades();
+    this.listarContenedores();
     this.estados[0] = 'Inactivo';
     this.estados[1] = 'Activo';
   }
@@ -57457,6 +57480,60 @@ var render = function() {
                             [_vm._v("Activo")]
                           )
                         ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "contenedor" } }, [
+                        _vm._v("Contenedor:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.f_contenedor,
+                              expression: "f_contenedor"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          attrs: { id: "contenedor" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.f_contenedor = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "-1" } }, [
+                            _vm._v("Seleccionar")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoContenedores, function(
+                            cont,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: cont.id } },
+                              [_vm._v(_vm._s(cont.contenedor))]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]),
                     _vm._v(" "),

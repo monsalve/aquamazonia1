@@ -26,6 +26,13 @@
                               </select>
                             </div>
                             <div class="form-group col-md-2">
+                              <label for="contenedor">Contenedor:</label>
+                              <select class="custom-select" id="contenedor" v-model="f_contenedor">
+                                <option value="-1">Seleccionar</option>
+                                <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>                        
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad" @click="cambiarActividad()">
                                 <option value="-1" selected> Seleccionar</option>   
@@ -171,9 +178,11 @@
         listadoAlimentos:[],
         listadoSiembras: [], 
         listadoRecursos:[],
+        listadoContenedores: [],
         imprimirRecursos: [],
         estados : [],
         f_siembra: '',
+        f_contenedor : '',
         estado_s: '',
         actividad_s:'',
         alimento_s : '',
@@ -272,10 +281,18 @@
           me.listadoSiembras = response.data.siembra;
         })
       },
+      listarContenedores(){
+        let me = this;
+        axios.get("api/contenedores")
+        .then(function (response){
+          me.listadoContenedores = response.data;
+        })
+      },
       filtroResultados(){
         let me = this;
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
         if(this.estado_s == ''){this.est = '-1'}else{this.est = this.estado_s}
+        if(this.f_contenedor == ''){this.cont = '-1'}else{this.cont = this.f_contenedor}
         if(this.actividad_s == ''){this.act = '-1'}else{this.act = this.actividad_s}
         if(this.alimento_s == ''){this.ali = '-1'}else{this.ali = this.alimento_s}
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
@@ -285,6 +302,7 @@
         const data ={
           'f_siembra' : this.smb,
           'estado_s': this.est,
+          'f_contenedor' : this.cont,
           'actividad_s':this.act,
           'alimento_s' : this.ali,
           'recurso_s' : this.rec,
@@ -308,6 +326,7 @@
       this.listarAlimentos();
       this.listarRecursos();
       this.listarActividades();
+      this.listarContenedores();
       this.estados[0] = 'Inactivo';
       this.estados[1] = 'Activo';
     }

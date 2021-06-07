@@ -77,6 +77,7 @@ class InformeController extends Controller
 		$c9 = 'tipo_actividad'; $op5 = '!='; $c10 = '-1';
 		$c11 = 'tipo_actividad'; $op6 = '!='; $c12 = '-1';
 		$c13 = 'tipo_actividad'; $op7 = '!='; $c14 = '-1';
+		$signCont = '!='; $idContenedor = '-1';
 
 		if($request['estado_s']!='-1'){$c1="estado"; $op1='='; $c2= $request['estado_s'];}
 		if($request['actividad_s']!='-1'){$c3="tipo_actividad"; $op2='='; $c4= $request['actividad_s'];}
@@ -85,6 +86,7 @@ class InformeController extends Controller
 		if($request['fecha_ra1']!='-1'){$c9="fecha_ra"; $op5='>='; $c10=$request['fecha_ra1'];}
 		if($request['fecha_ra2']!='-1'){$c11="fecha_ra"; $op6='<='; $c12=$request['fecha_ra2'];}
 		if($request['f_siembra']!='-1'){$c13="siembras.id"; $op7='='; $c14= $request['f_siembra'];}
+		if($request['f_contenedor']!='-1'){$signCont='='; $idContenedor= $request['f_contenedor'];}
 
 		$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
 		->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
@@ -92,7 +94,7 @@ class InformeController extends Controller
 		->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
 		->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 		->join('actividades','recursos_necesarios.tipo_actividad','actividades.id')
-		->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'actividad','minutos_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso')
+		->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'actividad','minutos_hombre', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso', 'siembras.id_contenedor')
 		->where($c1, $op1, $c2)
 		->where($c3, $op2, $c4)
 		->where($c5, $op3, $c6)
@@ -100,6 +102,7 @@ class InformeController extends Controller
 		->where($c9, $op5, $c10)
 		->where($c11, $op6, $c12)
 		->where($c13, $op7, $c14)
+		->where('siembras.id_contenedor', $signCont, $idContenedor )
 		->get();
 
 		$acumula=0;
