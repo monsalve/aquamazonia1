@@ -104,7 +104,7 @@ class InformeRecursosNecesariosController extends Controller
       
       if($request['f_siembra']!='-1'){$c1="id_siembra"; $op1='='; $c2= $request['f_siembra'];}
       if($request['f_actividad']!='-1'){$c3="tipo_actividad"; $op2='='; $c4= $request['f_actividad'];}
-      if($request['f_estado']!='-1'){$c3="estado"; $op2='='; $c4= $request['f_estado'];}
+      if($request['f_estado']!='-1'){$c5="estado"; $op3='='; $c6= $request['f_estado'];}
       
       $recursosNecesarios = RecursoNecesario::
         select(
