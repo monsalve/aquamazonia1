@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Informes recursos y actividades Aquamazonia</div>
-                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->                    
+                      <!-- <a href="informe-excel"><button type="submit" class="btn btn-success" name="infoSiembras"><i class="fa fa-fw fa-download"></i> Generar Excel </button></a> -->
                     <div class="card-body">
                       <div class="row mb-1">
                         <div class="col-md-12">
@@ -13,7 +13,7 @@
                             <div class="form-group col-md-2">
                               <label for="Siembra">Siembra:</label>
                               <select class="form-control" id="f_siembra" v-model="f_siembra">
-                                <option value="-1" selected>Seleccionar</option>                             
+                                <option value="-1" selected>Seleccionar</option>
                                 <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                               </select>
                             </div>
@@ -22,20 +22,20 @@
                               <select class="form-control" id="estado_s" v-model="estado_s" name="estado_s">
                                 <option value="-1">Todos</option>
                                 <option value="0" >Inactivo</option>
-                                <option value="1" selected>Activo</option>                                
+                                <option value="1" selected>Activo</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
                               <label for="contenedor">Contenedor:</label>
                               <select class="custom-select" id="contenedor" v-model="f_contenedor">
                                 <option value="-1">Seleccionar</option>
-                                <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>                        
+                                <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
                               <label for="actividad">Tipo actividad: </label>
                               <select class="form-control" id="actividad" v-model="actividad_s" name="tipo_actividad" @click="cambiarActividad()">
-                                <option value="-1" selected> Seleccionar</option>   
+                                <option value="-1" selected> Seleccionar</option>
                                 <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                               </select>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="form-group col-md-2">
                              <label for="recurso">Recurso: </label>
                               <select class="form-control" id="recurso" v-model="recurso_s">
-                                <option value="-1" selected> Seleccionar</option>   
+                                <option value="-1" selected> Seleccionar</option>
                                 <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                               </select>
                             </div>
@@ -59,21 +59,21 @@
                             </div>
                              <div class="form-group col-md-2">
                               <label for="search">Hasta: </label>
-                              <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
+                              <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">
                             </div>
                             <div class="form-group col-md-1">
                               <label for="">Buscar</label>
                               <button  class="btn btn-primary form-control" type="button" @click="filtroResultados()"><i class="fas fa-search"></i></button>
                             </div>
-                            <div class="form-group col-md-2">                                      
-                              
+                            <div class="form-group col-md-2">
+
                               <downloadexcel
                               class = "btn btn-success form-control"
                               :fetch   = "fetchData"
-                              :fields = "json_fields"                             
+                              :fields = "json_fields"
                               name    = "informe-recursos.xls"
                               type    = "xls">
-                                <i class="fa fa-fw fa-download"></i> Generar Excel 
+                                <i class="fa fa-fw fa-download"></i> Generar Excel
                               </downloadexcel>
                             </div>
                           </form>
@@ -90,7 +90,7 @@
                               <th>Fecha</th>
                               <th>Minutos <br>hombre</th>
                               <th>Costo minutos </th>
-                              
+
                               <th v-if="tipoActividad != 'Alimentación'">Recursos</th>
                               <th v-if="tipoActividad != 'Alimentación'">Cantidad</th>
                               <th v-if="tipoActividad != 'Alimentación'">Costo Recurso</th>
@@ -112,7 +112,7 @@
                               <td v-text="lrn.fecha_ra"></td>
                               <td v-text="lrn.minutos_hombre +'min'"></td>
                               <td v-text="lrn.costo_minutosh"></td>
-                              
+
                               <td v-text="lrn.recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.cantidad_recurso" v-if="tipoActividad != 'Alimentación'"></td>
                               <td v-text="lrn.costo_total_recurso" v-if="tipoActividad != 'Alimentación'"></td>
@@ -150,7 +150,7 @@
   import downloadexcel from "vue-json-excel";
   export default {
     data(){
-    
+
       return {
         json_fields: {
             'Nombre Siembra' : 'nombre_siembra',
@@ -158,25 +158,21 @@
             'Tipo de Actividad' : 'actividad',
             'Fecha Registro' : 'fecha_ra',
             'Minutos hombre' : 'minutos_hombre',
-            'Costo minutos hombre' : 'costo_minutosh',            
+            'Costo minutos hombre' : 'costo_minutosh',
             'Recurso' : 'recurso',
             'Cantidad Recurso' : 'cantidad_recurso',
             'Costo Recurso' : 'costo_total_recurso',
-            // 'Costo acumulado Recurso' : 'costo_r_acum',
             'Alimento' : 'alimento',
             'Cantidad KG mañana' : 'cant_manana',
             'Cantidad KG tarde' : 'cant_tarde',
             'Costo Alimento' : 'costo_total_alimento',
-            // 'Costo acumulado Alimento' : 'costo_a_acum',
             'Costo Actividad' : 'costo_total_actividad'
-            
-        },       
-        listados: [],
+
+        },
         listadorn:[],
-        listadoe:[],
         listadoActividades:[],
         listadoAlimentos:[],
-        listadoSiembras: [], 
+        listadoSiembras: [],
         listadoRecursos:[],
         listadoContenedores: [],
         imprimirRecursos: [],
@@ -188,10 +184,10 @@
         alimento_s : '',
         recurso_s : '',
         fecha_ra1 : '',
-        fecha_ra2: '', 
-        costo_acum : 0, 
+        fecha_ra2: '',
+        costo_acum : 0,
         tipoActividad : '',
-        
+
       }
     },
     components: {
@@ -238,11 +234,11 @@
         if (this.actividad_s == 1) { this.tipoActividad = 'Alimentación' } else ( this.tipoActividad =  '');
       },
       listar(){
-        let me = this;        
+        let me = this;
         axios.get("api/informes")
         .then(function (response){
           me.listadorn = response.data.recursosNecesarios;
-        })         
+        })
         axios.get("api/traer-recursos")
         .then(response=>{
           me.imprimirRecursos = response.data.recursosNecesarios;
@@ -253,25 +249,21 @@
         let me = this;
         axios.get("api/actividades")
         .then(function (response){
-          me.listadoActividades = response.data; 
+          me.listadoActividades = response.data;
         })
       },
       listarAlimentos(){
         let me = this;
         axios.get("api/alimentos")
         .then(function (response){
-          me.listadoAlimentos = response.data; 
-          var auxAlimento = response.data;
-          // auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);          
+          me.listadoAlimentos = response.data;
         })
       },
       listarRecursos(){
         let me = this;
         axios.get("api/recursos")
         .then(function (response){
-          me.listadoRecursos = response.data;  
-          var auxRecurso = response.data;
-          // auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
+          me.listadoRecursos = response.data;
         })
       },
       listarSiembras(){
@@ -298,7 +290,7 @@
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
         if(this.fecha_ra1 == ''){this.fec1 = '-1'}else{this.fec1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){this.fec2 = '-1'}else{this.fec2 = this.fecha_ra2}
-        
+
         const data ={
           'f_siembra' : this.smb,
           'estado_s': this.est,

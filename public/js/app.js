@@ -5588,6 +5588,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5609,10 +5615,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tipoActividad: '',
       f_actividad: '',
       f_siembra: '',
+      f_contenedor: '',
       f_estado: '',
       listado: [],
       listadoSiembras: [],
-      listadoActividades: []
+      listadoActividades: [],
+      listadoContenedores: []
     };
   },
   components: {
@@ -5671,6 +5679,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.f_e = this.f_estado;
       }
 
+      if (this.f_contenedor == '') {
+        this.cont = '-1';
+      } else {
+        this.cont = this.f_contenedor;
+      }
+
       if (this.f_actividad == '') {
         this.actividad = '-1';
       } else {
@@ -5680,7 +5694,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var data = {
         'f_siembra': this.f_s,
         'f_estado': this.f_e,
-        'f_actividad': this.actividad
+        'f_actividad': this.actividad,
+        'f_contenedor': this.cont
       };
       axios.post("api/filtro-recursos", data).then(function (response) {
         me.listado = response.data.recursosNecesarios.data;
@@ -5698,12 +5713,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("api/actividades").then(function (response) {
         me.listadoActividades = response.data;
       });
+    },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
+      });
     }
   },
   mounted: function mounted() {
     this.listar();
     this.listarSiembras();
     this.listarActividades();
+    this.listarContenedores();
   }
 });
 
@@ -6277,17 +6299,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Recurso': 'recurso',
         'Cantidad Recurso': 'cantidad_recurso',
         'Costo Recurso': 'costo_total_recurso',
-        // 'Costo acumulado Recurso' : 'costo_r_acum',
         'Alimento': 'alimento',
         'Cantidad KG mañana': 'cant_manana',
         'Cantidad KG tarde': 'cant_tarde',
         'Costo Alimento': 'costo_total_alimento',
-        // 'Costo acumulado Alimento' : 'costo_a_acum',
         'Costo Actividad': 'costo_total_actividad'
       },
-      listados: [],
       listadorn: [],
-      listadoe: [],
       listadoActividades: [],
       listadoAlimentos: [],
       listadoSiembras: [],
@@ -6399,14 +6417,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       axios.get("api/alimentos").then(function (response) {
         me.listadoAlimentos = response.data;
-        var auxAlimento = response.data; // auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);          
       });
     },
     listarRecursos: function listarRecursos() {
       var me = this;
       axios.get("api/recursos").then(function (response) {
         me.listadoRecursos = response.data;
-        var auxRecurso = response.data; // auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
       });
     },
     listarSiembras: function listarSiembras() {
@@ -50431,6 +50447,7 @@ var render = function() {
                         staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
+                          step: "any",
                           id: "kg_manana",
                           "aria-describedby": "cant_manana",
                           placeholder: "Kg Mañana"
@@ -50473,6 +50490,7 @@ var render = function() {
                         staticClass: "form-control col-md-7",
                         attrs: {
                           type: "number",
+                          step: "any",
                           id: "cant_tarde",
                           "aria-describedby": "cant_tarde",
                           placeholder: "Kg tarde"
@@ -52808,7 +52826,11 @@ var render = function() {
                           class: {
                             "is-invalid": _vm.form.errors.has("capacidad")
                           },
-                          attrs: { type: "number", id: "capacidad" },
+                          attrs: {
+                            type: "number",
+                            step: "any",
+                            id: "capacidad"
+                          },
                           domProps: { value: _vm.form.capacidad },
                           on: {
                             input: function($event) {
@@ -56602,6 +56624,57 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "contenedor" } }, [
+                    _vm._v("Contenedor:")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_contenedor,
+                          expression: "f_contenedor"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { id: "contenedor" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_contenedor = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1" } }, [
+                        _vm._v("Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoContenedores, function(cont, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: cont.id } },
+                          [_vm._v(_vm._s(cont.contenedor))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
                   _c("label", { attrs: { for: "f_actividad" } }, [
                     _vm._v("Tipo de Actividad: ")
                   ]),
@@ -56697,7 +56770,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-fw fa-download" }),
-                        _vm._v(" Generar Excel \n                        ")
+                        _vm._v(" Generar Excel\n                        ")
                       ]
                     )
                   ],
@@ -57804,9 +57877,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fa fa-fw fa-download" }),
-                            _vm._v(
-                              " Generar Excel \n                          "
-                            )
+                            _vm._v(" Generar Excel\n                          ")
                           ]
                         )
                       ],
@@ -59523,6 +59594,7 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
+                          step: "any",
                           id: "kg_manana",
                           "aria-describedby": "cantidad_recurso",
                           placeholder: "Cantidad"
@@ -60448,6 +60520,7 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
+                                step: "any",
                                 min: "0",
                                 id: "cantidad",
                                 required: ""
@@ -60477,6 +60550,7 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: {
                                 type: "number",
+                                step: "any",
                                 min: "0",
                                 id: "peso_inicial",
                                 required: ""
@@ -60596,6 +60670,7 @@ var render = function() {
                                     staticClass: "form-control",
                                     attrs: {
                                       type: "number",
+                                      step: "any",
                                       name: "aux_cantidad",
                                       id: "aux_cantidad"
                                     },
@@ -60634,6 +60709,7 @@ var render = function() {
                                     staticClass: "form-control",
                                     attrs: {
                                       type: "number",
+                                      step: "any",
                                       name: "aux_peso_inicial",
                                       id: "aux_peso_inicial"
                                     },
@@ -60963,6 +61039,7 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
+                          step: "any",
                           id: "kg_manana",
                           "aria-describedby": "cant_manana",
                           placeholder: "Kg Mañana"
@@ -61000,6 +61077,7 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
+                          step: "any",
                           id: "cant_tarde",
                           "aria-describedby": "cant_tarde",
                           placeholder: "Kg tarde"
@@ -61681,6 +61759,7 @@ var render = function() {
                                             staticClass: "form-control",
                                             attrs: {
                                               type: "number",
+                                              step: "any",
                                               id: "mortalidad",
                                               required:
                                                 _vm.tipo_registro == 0 || 2

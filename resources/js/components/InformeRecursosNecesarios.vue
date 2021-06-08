@@ -10,7 +10,7 @@
                           <div class="form-group col-md-2">
                             <label for="Siembra">Siembra:</label>
                             <select class="custom-select" id="Siembra" v-model="f_siembra">
-                              <option value="-1" selected>Seleccionar</option>                             
+                              <option value="-1" selected>Seleccionar</option>
                               <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                             </select>
                           </div>
@@ -19,33 +19,39 @@
                               Estado:
                             </label>
                             <select class="custom-select" name="estado" id="estado" v-model="f_estado">
-                              <option value="-1" disabled>--Seleccionar--</option>                              
+                              <option value="-1" disabled>--Seleccionar--</option>
                               <option value="0">Inactiva</option>
                               <option value="1">Activa</option>
                             </select>
-                            
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="contenedor">Contenedor:</label>
+                            <select class="custom-select" id="contenedor" v-model="f_contenedor">
+                              <option value="-1">Seleccionar</option>
+                              <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>
+                            </select>
                           </div>
                           <div class="form-group col-md-2">
                            <label for="f_actividad">Tipo de Actividad: </label>
                             <select class="custom-select" id="f_actividad" v-model="f_actividad" @click="cambiarActividad()">
-                              <option  value="-1" selected> Seleccionar</option>   
+                              <option  value="-1" selected> Seleccionar</option>
                               <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">
                                 {{actividad.actividad}}
                               </option>
                             </select>
-                          </div>                          
-                          <div class="form-group col-md-2">                                      
+                          </div>
+                          <div class="form-group col-md-2">
                             <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                           </div>
                           <div class="col-md-2">
-                            <downloadexcel                                
+                            <downloadexcel
                             class = "btn btn-success form-control"
                             :fetch   = "fetchData"
-                            :fields = "json_fields"                           
+                            :fields = "json_fields"
                             name    = "informe-consolidado-recursos-necesarios.xls"
                             type    = "xls">
-                              <i class="fa fa-fw fa-download"></i> Generar Excel 
-                            </downloadexcel>      
+                              <i class="fa fa-fw fa-download"></i> Generar Excel
+                            </downloadexcel>
                           </div>
                         </form>
                       </div>
@@ -104,32 +110,34 @@ import downloadexcel from "vue-json-excel"
   export default {
     data(){
       return {
-        json_fields : {          
+        json_fields : {
           'Siembra' : 'nombre_siembra',
           'Estado' : 'estado',
           'Tipo actividad' : 'actividad',
           'Minutos hombre' : 'minutos_hombre',
-          'Costo total minutos' : 'costo_minutos',          
+          'Costo total minutos' : 'costo_minutos',
           'Cantidad total recurso' : 'cantidad_recurso',
           'Costo total recurso' : 'costo_recurso',
           'Cantidad total alimento' : 'cantidad_alimento',
           'Costo total alimento' : 'costo_alimento',
           'Costo total actividad' : 'costo_total_actividad',
           '%Costo total producción': 'porcentaje_total_produccion'
-        }, 
+        },
         tipoActividad : '',
         f_actividad:'',
         f_siembra:'',
+        f_contenedor : '',
         f_estado : '',
-        listado : [],        
-        listadoSiembras : [],        
+        listado : [],
+        listadoSiembras : [],
         listadoActividades : [],
+        listadoContenedores: [],
       }
     },
      components: {
       downloadexcel,
     },
-   
+
     methods:{
       async fetchData(){
       let me = this;
@@ -143,7 +151,7 @@ import downloadexcel from "vue-json-excel"
         let me = this;
         axios.get("api/informes-recursos-necesarios")
         .then(function (response){
-          me.listado = response.data.recursosNecesarios.data;         
+          me.listado = response.data.recursosNecesarios.data;
           me.promedios = response.data.promedioRecursos;
         })
       },
@@ -151,39 +159,48 @@ import downloadexcel from "vue-json-excel"
         let me = this;
         if(this.f_siembra == ''){this.f_s = '-1'}else{this.f_s = this.f_siembra}
         if(this.f_estado == ''){this.f_e = '-1'}else{this.f_e = this.f_estado}
-        if(this.f_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.f_actividad}               
-     
+        if(this.f_contenedor == ''){this.cont = '-1'}else{this.cont = this.f_contenedor}
+        if(this.f_actividad == ''){ this.actividad = '-1'}else{this.actividad  = this.f_actividad}
+
         const data ={
           'f_siembra' : this.f_s,
           'f_estado' : this.f_e,
-          'f_actividad' : this.actividad          
+          'f_actividad' : this.actividad,
+          'f_contenedor' : this.cont,
         }
         axios.post("api/filtro-recursos", data)
         .then(response=>{
           me.listado = response.data.recursosNecesarios.data;
           me.promedios = response.data.promedioRecursos;
-        })        
+        })
       },
       listarSiembras(){
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data.siembra;         
+          me.listadoSiembras = response.data.siembra;
         })
-      },      
+      },
       listarActividades(){
         let me = this;
         axios.get("api/actividades")
         .then(function (response){
-          me.listadoActividades = response.data; 
+          me.listadoActividades = response.data;
+        })
+      },
+      listarContenedores(){
+        let me = this;
+        axios.get("api/contenedores")
+        .then(function (response){
+          me.listadoContenedores = response.data;
         })
       }
-      
     },
     mounted() {
       this.listar();
       this.listarSiembras();
       this.listarActividades();
+      this.listarContenedores();
     }
   }
 </script>
