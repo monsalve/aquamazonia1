@@ -169,11 +169,11 @@
               <div class="col-md-6"> 
                 <div class="form-group row">                    
                   <label for="cant_manana" class="col-md-4">Kg Mañana</label>
-                  <input type="number" class="form-control col-md-7" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                  <input type="number" step="any" class="form-control col-md-7" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
                 </div>
                 <div class="form-group row">    
                   <label for="cant_tarde" class="col-md-4">Kg tarde</label>
-                  <input type="number" class="form-control col-md-7" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                  <input type="number" step="any" class="form-control col-md-7" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
               
                 <div class="form-group row">   

@@ -150,10 +150,10 @@
                       <input  type="text" min="0" class="form-control" id="lote" v-model="newLote" required>                          
                     </td>
                     <td>
-                      <input  type="number" min="0" class="form-control" id="cantidad" v-model="newCantidad" required>                          
+                      <input  type="number" step="any" min="0" class="form-control" id="cantidad" v-model="newCantidad" required>                          
                     </td>
                     <td>
-                      <input type="number" min="0" class="form-control" id="peso_inicial" v-model="newPeso" required>
+                      <input type="number" step="any" min="0" class="form-control" id="peso_inicial" v-model="newPeso" required>
                       <span style="
                         position: relative;
                         float: right;
@@ -179,11 +179,11 @@
                     </td>
                     <td >
                       <span v-if="id_edit_item == ''" v-text="item.cantidad"></span>
-                      <input type="number" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_cantidad" id="aux_cantidad" v-model="aux_cantidad">
+                      <input type="number" step="any" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_cantidad" id="aux_cantidad" v-model="aux_cantidad">
                     </td>
                     <td >
                       <span v-if="id_edit_item == ''" v-text="item.peso_inicial"></span>
-                      <input type="number" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_peso_inicial" id="aux_peso_inicial" v-model="aux_peso_inicial">                    
+                      <input type="number" step="any" class="form-control" v-if="id_edit_item == item.id_especie" name="aux_peso_inicial" id="aux_peso_inicial" v-model="aux_peso_inicial">                    
                     </td>
                     <td>
                       <button v-if="!item.es_edita" @click="removeItem(item.id_especie)" class="btn btn-danger">X</button>
@@ -247,11 +247,11 @@
           
                 <div class="form-group col-md-3">                    
                   <label for="cant_manana" class="">Kg Mañana</label>
-                  <input type="number" class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
+                  <input type="number" step="any"  class="form-control" id="kg_manana" aria-describedby="cant_manana" placeholder="Kg Mañana" v-model="form.cant_manana">                      
                 </div>
                 <div class="form-group col-md-3">    
                   <label for="cant_tarde" class="">Kg tarde</label>
-                  <input type="number" class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
+                  <input type="number" step="any"  class="form-control" id="cant_tarde" aria-describedby="cant_tarde" placeholder="Kg tarde" v-model="form.cant_tarde">                      
                 </div>
                 <div class="form-group col-md-4">
                   <label for="conv_alimenticia">Conversión alimenticia teórica</label>
@@ -422,7 +422,7 @@
                         <input type="number" class="form-control" v-bind:required="tipo_registro == 0 ? 'required' : ''" step="any" v-model="campos[pez.id_siembra][pez.id]['peso_ganado']">
                       </td>                        
                       <td v-if="tipo_registro == 0 || tipo_registro == 2">
-                        <input type="number" id="mortalidad" class="form-control" v-bind:required="tipo_registro == 0 || 2 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
+                        <input type="number" step="any" id="mortalidad" class="form-control" v-bind:required="tipo_registro == 0 || 2 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['mortalidad']">
                       </td>
                       <td v-if="tipo_registro == 1">
                         <input type="number" step="any" class="form-control" v-bind:required="tipo_registro == 1 ? 'required' : ''" v-model="campos[pez.id_siembra][pez.id]['biomasa']">

@@ -194,7 +194,7 @@
                 </div>
                 <div class="form-group">                    
                   <label for="cantidad_recurso">Cantidad</label>
-                  <input type="number" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
+                  <input type="number"  step="any" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
                 </div>                             
                 <div class="form-group">   
                   <label for="detalles">Detalles</label>

@@ -64,7 +64,7 @@
 							<div class="form-group row">
 								<label for="Capacidad" class="col-sm-12  col-md-4 col-form-label">Capacidad</label>
 								<div class="col-sm-12  col-md-8">
-									<input type="number" class="form-control" id="capacidad"  :class="{ 'is-invalid': form.errors.has('capacidad') }" v-model="form.capacidad">
+									<input type="number" step="any" class="form-control" id="capacidad"  :class="{ 'is-invalid': form.errors.has('capacidad') }" v-model="form.capacidad">
 									<has-error :form="form" field="capacidad"></has-error>
 								</div>
 							</div>
