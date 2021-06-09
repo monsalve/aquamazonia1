@@ -7018,6 +7018,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7036,6 +7041,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Detalles': 'detalles'
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
+        id: '',
         id_siembra: [],
         id_recurso: '',
         id_alimento: '',
@@ -7075,7 +7081,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'from': 0,
         'to': 0
       },
-      showPagination: 1
+      showPagination: 1,
+      editando: 0
     };
   },
   components: {
@@ -7266,6 +7273,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         $('#modalRecursos').modal('hide');
       });
     },
+    editarRecursos: function editarRecursos() {
+      var me = this;
+      this.form.put('api/recursos-necesarios/' + this.form.id).then(function (_ref2) {
+        var data = _ref2.data;
+        me.listar();
+        $('#modalRecursos').modal('hide');
+        me.editando = 0;
+      });
+    },
     eliminarRegistro: function eliminarRegistro(objeto) {
       var me = this;
       Swal.fire({
@@ -7279,12 +7295,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref2) {
-            var data = _ref2.data;
+          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref3) {
+            var data = _ref3.data;
             me.listar();
           });
         }
       });
+    },
+    editarRegistro: function editarRegistro(objeto) {
+      var me = this;
+      console.log(objeto);
+      this.form.fill(objeto);
+      this.editando = 1;
+      $('#modalRecursos').modal('show');
     },
     calcularDiferenciaTiempo: function calcularDiferenciaTiempo() {
       var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio); // el evento cuyo tiempo ha transcurrido aquí:
@@ -58968,7 +58991,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fa fa-fw fa-download" }),
-                          _vm._v(" Generar Excel \n                  ")
+                          _vm._v(" Generar Excel\n                  ")
                         ]
                       )
                     ],
@@ -59054,13 +59077,24 @@ var render = function() {
                                 staticClass: "btn btn-danger",
                                 on: {
                                   click: function($event) {
-                                    return _vm.eliminarRegistro(
-                                      item.id_registro
-                                    )
+                                    return _vm.eliminarRegistro(item.id)
                                   }
                                 }
                               },
                               [_c("i", { staticClass: "fas fa-trash" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editarRegistro(item)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-edit" })]
                             )
                           ])
                         ])
@@ -59648,88 +59682,91 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("h5", [_vm._v(" Seleccionar siembras")]),
-                      _vm._v(" "),
-                      _vm._l(_vm.listadoSiembras, function(item, index) {
-                        return _c("div", { key: index }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.id_siembra,
-                                expression: "form.id_siembra"
-                              }
-                            ],
-                            staticClass: "form-check-input",
-                            attrs: {
-                              type: "checkbox",
-                              id: "siembra-" + item.id
-                            },
-                            domProps: {
-                              value: item.id,
-                              checked: Array.isArray(_vm.form.id_siembra)
-                                ? _vm._i(_vm.form.id_siembra, item.id) > -1
-                                : _vm.form.id_siembra
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.form.id_siembra,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = item.id,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      _vm.$set(
-                                        _vm.form,
-                                        "id_siembra",
-                                        $$a.concat([$$v])
-                                      )
-                                  } else {
-                                    $$i > -1 &&
-                                      _vm.$set(
-                                        _vm.form,
-                                        "id_siembra",
-                                        $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1))
-                                      )
+                  _vm.editando != 1
+                    ? _c(
+                        "div",
+                        { staticClass: "col-md-6" },
+                        [
+                          _c("h5", [_vm._v(" Seleccionar siembras")]),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoSiembras, function(item, index) {
+                            return _c("div", { key: index }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.id_siembra,
+                                    expression: "form.id_siembra"
                                   }
-                                } else {
-                                  _vm.$set(_vm.form, "id_siembra", $$c)
+                                ],
+                                staticClass: "form-check-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "siembra-" + item.id,
+                                  name: "siembra-" + item.id
+                                },
+                                domProps: {
+                                  value: item.id,
+                                  checked: Array.isArray(_vm.form.id_siembra)
+                                    ? _vm._i(_vm.form.id_siembra, item.id) > -1
+                                    : _vm.form.id_siembra
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.form.id_siembra,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = item.id,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "id_siembra",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "id_siembra",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "id_siembra", $$c)
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-check-label",
-                              attrs: { for: "siembra-" + item.id }
-                            },
-                            [
-                              _c("span"),
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.nombre_siembra) +
-                                  "\n                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("br")
-                        ])
-                      })
-                    ],
-                    2
-                  )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-check-label",
+                                  attrs: { for: "siembra-" + item.id }
+                                },
+                                [
+                                  _c("span"),
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(item.nombre_siembra) +
+                                      "\n                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("br")
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -59743,19 +59780,37 @@ var render = function() {
                   [_vm._v("Cerrar")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.guardarRecursos()
-                      }
-                    }
-                  },
-                  [_vm._v("Guardar")]
-                )
+                _vm.editando != 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.guardarRecursos()
+                          }
+                        }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.editando == 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editarRecursos()
+                          }
+                        }
+                      },
+                      [_vm._v("Editar")]
+                    )
+                  : _vm._e()
               ])
             ])
           ]
@@ -59808,7 +59863,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Detalles")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Eliminar")])
+        _c("th", [_vm._v("Opciones")])
       ])
     ])
   },

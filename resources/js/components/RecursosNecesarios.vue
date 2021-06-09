@@ -17,21 +17,21 @@
                   <div class="form-group col-md-2">
                     <label for="Siembra">Siembra:</label>
                     <select class="form-control" id="f_siembra" v-model="f_siembra">
-                      <option value="-1" selected>Seleccionar</option>                             
+                      <option value="-1" selected>Seleccionar</option>
                       <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                    <label for="t_actividad">Tipo de Actividad: </label>
                     <select class="form-control" id="t_actividad" v-model="t_actividad">
-                      <option  value="-1" selected> Seleccionar</option>   
-                      <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>                 
+                      <option  value="-1" selected> Seleccionar</option>
+                      <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="recurso">Recurso: </label>
                     <select class="form-control" id="recurso" v-model="recurso_s">
-                      <option value="-1"> Seleccionar</option>   
+                      <option value="-1"> Seleccionar</option>
                       <option v-for="(recurso, index) in listadoRecursos" :key="index" v-bind:value="recurso.id">{{recurso.recurso}}</option>
                     </select>
                   </div>
@@ -41,7 +41,7 @@
                   </div>
                    <div class="form-group col-md-2">
                     <label for="search">Hasta: </label>
-                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">                                        
+                    <input class="form-control" type="date" placeholder="Search" aria-label="fecha_ra2" v-model="fecha_ra2">
                   </div>
                   <div class="form-group col-md-2">
                     <input type="checkbox" class="form-check-input" value="1" v-model="see_all" id="see_all">
@@ -50,18 +50,18 @@
                       Ver todos los registros
                     </label>
                   </div>
-                  <div class="form-group col-md-2">                                      
+                  <div class="form-group col-md-2">
                     <button  class="btn btn-primary rounded-circle mt-4" type="button" @click="buscarResultados()"><i class="fas fa-search"></i></button>
                   </div>
                   <div class="col-md-2">
-                    <downloadexcel                                
+                    <downloadexcel
                     class = "btn btn-success form-control"
                     :fetch   = "fetchData"
                     :fields = "json_fields"
                     name    = "recursos-necesarios.xls"
                     type    = "xls">
-                      <i class="fa fa-fw fa-download"></i> Generar Excel 
-                    </downloadexcel>      
+                      <i class="fa fa-fw fa-download"></i> Generar Excel
+                    </downloadexcel>
                   </div>
                 </form>
               </div>
@@ -73,19 +73,19 @@
                     <th>#</th>
                     <th>Tipo de <br> Actividad</th>
                     <th>Siembras</th>
-                    <th>Fecha</th>                  
+                    <th>Fecha</th>
                     <th>Minutos hombre</th>
                     <th>Costo minutos hombre</th>
-                    <th>Recurso</th>                   
+                    <th>Recurso</th>
                     <th>Cantidad</th>
                     <th>Costo</th>
                     <th>Costo Total</th>
                     <th>Detalles</th>
-                    <th>Eliminar</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                
+
                   <tr v-for="(item, index) in listado" :key="index">
                     <td v-text="index+1"></td>
                     <td v-text="item.actividad"></td>
@@ -96,20 +96,24 @@
                     <td v-text="item.recurso"></td>
                     <td v-text="item.cantidad_recurso"></td>
                     <td v-text="item.costo"></td>
-                    <td v-text="item.costo_total_recurso"></td>                   
+                    <td v-text="item.costo_total_recurso"></td>
                     <td v-text="item.detalles"></td>
                     <td>
-                      <button class="btn btn-danger" @click="eliminarRegistro(item.id_registro)">
+                      <button class="btn btn-danger" @click="eliminarRegistro(item.id)">
                         <i class="fas fa-trash"></i>
                       </button>
-                    </td>      
+                      <button class="btn btn-success" @click="editarRegistro(item)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+
+                    </td>
                   </tr>
                   <tr>
                     <th colspan="4" class="text-right">TOTAL:</th>
                     <th v-text="promedios.tmh"></th>
-                    <th v-text="promedios.ttmh"></th>                    
+                    <th v-text="promedios.ttmh"></th>
                     <th></th>
-                    <th v-text="promedios.tcr"></th>                    
+                    <th v-text="promedios.tcr"></th>
                     <th v-text="promedios.tc"></th>
                     <th v-text="promedios.ctr"></th>
                     <th></th>
@@ -145,7 +149,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">          
+          <div class="modal-body">
             <form class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -155,13 +159,13 @@
                     <option v-for="(actividad, index) in listadoActividades" :key="index" v-bind:value="actividad.id">{{actividad.actividad}}</option>
                   </select>
                 </div>
-                <div class="form-group">   
+                <div class="form-group">
                   <label for="minutos hombre">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">                      
+                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">
                 </div>
-                <div class="form-group">   
+                <div class="form-group">
                   <label for="minutos hombre">Minutos hombre</label>
-                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">                      
+                  <input type="number" class="form-control" id="minutos_hombre" step="any" aria-describedby="minutos_hombre" placeholder="Minutos hombre" v-model="form.minutos_hombre" min="0" value="0">
                 </div>
                 <div class="form-group">
                   <label for="recurso">Recurso</label>
@@ -189,22 +193,22 @@
                     <label for="hora_fin">Hora de fin:</label>
                     <input class="form-control" type="time" name="hora_fin" id="hora_fin" v-model="hora_fin" value="12:00">
                   </div>
-               
+
                   <button type="button" class="btn btn-primary" @click="calcularDiferenciaTiempo()">Calcular tiempo</button>
                 </div>
-                <div class="form-group">                    
+                <div class="form-group">
                   <label for="cantidad_recurso">Cantidad</label>
-                  <input type="number"  step="any" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">                      
-                </div>                             
-                <div class="form-group">   
+                  <input type="number"  step="any" class="form-control" id="kg_manana" aria-describedby="cantidad_recurso" placeholder="Cantidad" v-model="form.cantidad_recurso">
+                </div>
+                <div class="form-group">
                   <label for="detalles">Detalles</label>
                   <textarea class="form-control" id="detalles" aria-describedby="detalles" placeholder="Detalles" v-model="form.detalles"></textarea>
                 </div>
               </div>
-              <div class="col-md-6"> 
+              <div class="col-md-6" v-if="editando != 1">
                 <h5> Seleccionar siembras</h5>
-                <div v-for="(item, index) in listadoSiembras" :key="index">                                 
-                  <input type="checkbox" class="form-check-input" v-bind:value="item.id" v-model="form.id_siembra" :id="'siembra-'+item.id">
+                <div v-for="(item, index) in listadoSiembras" :key="index">
+                  <input type="checkbox" class="form-check-input" v-bind:value="item.id" v-model="form.id_siembra" :id="'siembra-'+item.id" :name="'siembra-'+item.id">
                   <label :for="'siembra-'+item.id" class="form-check-label">
                     <span></span>
                     {{item.nombre_siembra}}
@@ -212,12 +216,13 @@
                   <br>
                 </div>
               </div>
-              
+
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+            <button v-if="editando != 1" type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button>
+            <button v-if="editando == 1" type="button" class="btn btn-primary" @click="editarRecursos()">Editar</button>
           </div>
         </div>
       </div>
@@ -234,7 +239,7 @@ import downloadexcel from "vue-json-excel"
         json_fields : {
           'Tipo actividad' : 'actividad',
           'Siembra' : 'nombre_siembra',
-          'Fecha' : 'fecha_ra',        
+          'Fecha' : 'fecha_ra',
           'Minutos hombre' : 'minutos_hombre',
           'Costo minutos hombre' : 'total_minutos_hombre',
           'Recurso' : 'recurso',
@@ -244,6 +249,7 @@ import downloadexcel from "vue-json-excel"
           'Detalles' : 'detalles'
         },
         form : new Form({
+          id:'',
           id_siembra: [],
           id_recurso : '',
           id_alimento :'',
@@ -283,7 +289,8 @@ import downloadexcel from "vue-json-excel"
           'from' : 0,
           'to' : 0,
         },
-        showPagination : 1
+        showPagination : 1,
+        editando:0
       }
     },
      components: {
@@ -298,16 +305,16 @@ import downloadexcel from "vue-json-excel"
         if(!this.pagination.to) {
           return [];
         }
-        
-        var from = this.pagination.current_page - this.offset; 
+
+        var from = this.pagination.current_page - this.offset;
         if(from < 1) {
           from = 1;
         }
 
-        var to = from + (this.offset * 2); 
+        var to = from + (this.offset * 2);
         if(to >= this.pagination.last_page){
           to = this.pagination.last_page;
-        }  
+        }
 
         var pagesArray = [];
         while(from <= to) {
@@ -336,7 +343,7 @@ import downloadexcel from "vue-json-excel"
         if(this.fecha_ra1 == ''){ this.fecha1 = '-3'}else{this.fecha1 = this.fecha_ra1}
         if(this.fecha_ra2 == ''){ this.fecha2 = '-1'}else{this.fecha2 = this.fecha_ra2}
         if(this.recurso_s == ''){this.rec = '-1'}else{this.rec = this.recurso_s}
-     
+
         const data ={
           'f_siembra' : this.f_s,
           'tipo_actividad' : this.actividad,
@@ -345,7 +352,7 @@ import downloadexcel from "vue-json-excel"
           'fecha_ra1' :this.fecha1,
           'fecha_ra2' : this.fecha2,
           'see_all' : this.check,
-          
+
         }
         axios.post("api/searchResults", data)
         .then(response=>{
@@ -375,33 +382,33 @@ import downloadexcel from "vue-json-excel"
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data.siembra;         
+          me.listadoSiembras = response.data.siembra;
         })
       },
       listarAlimentos(){
         let me = this;
         axios.get("api/alimentos")
         .then(function (response){
-          me.listadoAlimentos = response.data; 
+          me.listadoAlimentos = response.data;
           var auxAlimento = response.data;
           auxAlimento.forEach(element => me.nombresAlimentos[element.id] = element.alimento);
-          
+
         })
       },
       listarActividades(){
         let me = this;
         axios.get("api/actividades")
         .then(function (response){
-          me.listadoActividades = response.data; 
+          me.listadoActividades = response.data;
         })
       },
       listarRecursos(){
         let me = this;
         axios.get("api/recursos")
         .then(function (response){
-          me.listadoRecursos = response.data;  
+          me.listadoRecursos = response.data;
           var auxRecurso = response.data;
-          auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);          
+          auxRecurso.forEach(element => me.nombresRecursos[element.id] = element.recurso);
         })
       },
       checkSiembras(){
@@ -411,12 +418,22 @@ import downloadexcel from "vue-json-excel"
         })
       },
       guardarRecursos(){
-        let me = this;        
+        let me = this;
         this.form.post("api/recursos-necesarios")
         .then(({data})=>{
           me.listar();
          $('#modalRecursos').modal('hide');
         })
+      },
+      editarRecursos(){
+        let me = this;
+        this.form.put('api/recursos-necesarios/'+this.form.id)
+        .then(({data})=>{
+          me.listar();
+         $('#modalRecursos').modal('hide');
+         me.editando = 0;
+        })
+
       },
       eliminarRegistro(objeto){
         let me = this;
@@ -435,11 +452,17 @@ import downloadexcel from "vue-json-excel"
             axios.delete('api/recursos-necesarios/'+objeto)
             .then(({data})=>{
               me.listar();
-              
             })
           }
-        });        
-      }, 
+        });
+      },
+      editarRegistro(objeto){
+        let me = this;
+        console.log(objeto);
+        this.form.fill(objeto);
+				this.editando = 1;
+				$('#modalRecursos').modal('show');
+      },
       calcularDiferenciaTiempo() {
         var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio);
         // el evento cuyo tiempo ha transcurrido aquí:
@@ -460,7 +483,7 @@ import downloadexcel from "vue-json-excel"
       },
     },
     mounted() {
-     
+
       this.listar(1);
       this.listarSiembras();
       this.listarAlimentos();
