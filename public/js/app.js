@@ -2394,7 +2394,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarAlimentos: function listarAlimentos() {
@@ -3096,7 +3096,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarParametrosContenedores: function listarParametrosContenedores() {
@@ -4260,7 +4260,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     filtroSiembra: function filtroSiembra() {
@@ -4544,7 +4544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarLotes: function listarLotes() {
@@ -4868,7 +4868,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarContenedores: function listarContenedores() {
@@ -5096,7 +5096,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     filtroSiembra: function filtroSiembra() {
@@ -5397,7 +5397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarContenedores: function listarContenedores() {
@@ -5705,7 +5705,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarActividades: function listarActividades() {
@@ -5969,7 +5969,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.listadoExcel();
       this.listarAlimentos();
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     nombreEspecie: function nombreEspecie() {
@@ -6428,7 +6428,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarContenedores: function listarContenedores() {
@@ -7230,7 +7230,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listarSiembras: function listarSiembras() {
       var me = this;
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
       });
     },
     listarAlimentos: function listarAlimentos() {
@@ -8050,7 +8050,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.listarEspecies();
       this.listarAlimentos();
       axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
         me.pecesxSiembra = response.data.pecesSiembra;
         me.campos = response.data.campos;
         me.lotes = response.data.lotes;

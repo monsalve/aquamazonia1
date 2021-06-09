@@ -727,7 +727,7 @@ export default {
       this.listarAlimentos();
       axios.get("api/siembras")
       .then(function (response){
-        me.listadoSiembras = response.data.siembra;
+        me.listadoSiembras = response.data.listado_siembras;
         me.pecesxSiembra = response.data.pecesSiembra;
         me.campos = response.data.campos; 
         me.lotes = response.data.lotes; 

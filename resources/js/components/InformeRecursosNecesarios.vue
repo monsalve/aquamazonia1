@@ -178,7 +178,7 @@ import downloadexcel from "vue-json-excel"
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data.siembra;
+          me.listadoSiembras = response.data.listado_siembras;
         })
       },
       listarActividades(){
