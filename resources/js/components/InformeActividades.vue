@@ -48,6 +48,7 @@
                                 <option value="0">Muestreo</option>
                                 <option value="1">Pesca</option>
                                 <option value="2">Mortalidad Inicial</option>
+                                <option value="3">Peso Inicial</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">

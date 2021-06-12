@@ -3903,6 +3903,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7895,6 +7896,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -8374,6 +8377,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     this.tipoRegistro[0] = 'Muestreo';
     this.tipoRegistro[1] = 'Pesca';
     this.tipoRegistro[2] = 'Mortalidad Inicial';
+    this.tipoRegistro[3] = 'Peso Inicial';
   }
 });
 
@@ -54208,6 +54212,10 @@ var render = function() {
                           _vm._v(" "),
                           _c("option", { attrs: { value: "2" } }, [
                             _vm._v("Mortalidad Inicial")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("Peso Inicial")
                           ])
                         ]
                       )
@@ -61912,6 +61920,10 @@ var render = function() {
                                 }
                               },
                               [
+                                _c("option", { attrs: { value: "3" } }, [
+                                  _vm._v("Peso inicial")
+                                ]),
+                                _vm._v(" "),
                                 _c("option", { attrs: { value: "0" } }, [
                                   _vm._v("Muestreo")
                                 ]),
@@ -62084,23 +62096,25 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.eliminarRegistro(
-                                          registro.id,
-                                          registro
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-trash" })]
-                                )
-                              ])
+                              registro.tipo_registro != 3
+                                ? _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.eliminarRegistro(
+                                              registro.id,
+                                              registro
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-trash" })]
+                                    )
+                                  ])
+                                : _vm._e()
                             ])
                           }),
                           0
@@ -62197,6 +62211,10 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("option", { attrs: { value: "2" } }, [
                                   _vm._v("Mortalidad inicial")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "3" } }, [
+                                  _vm._v("Peso inicial")
                                 ])
                               ]
                             )

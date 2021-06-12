@@ -148,9 +148,19 @@ class SiembraController extends Controller
 				$especieSiembra->cantidad =  $especie['cantidad'];
 				$especieSiembra->lote =  $especie['lote'];
 				$especieSiembra->peso_inicial = $especie['peso_inicial'];
-				$especieSiembra->cant_actual =  $especie['cantidad'];;
+				$especieSiembra->cant_actual =  $especie['cantidad'];
 				$especieSiembra->peso_actual = $especie['peso_inicial'];
 				$especieSiembra->save();
+
+
+				$registro = Registro::create([
+					'id_especie' =>$especie['id_especie'],
+					'id_siembra' => $siembra->id,
+					'fecha_registro' => $request->siembra['fecha_inicio'],
+					'tipo_registro' => 3,
+					'peso_ganado' => $especie['peso_inicial'],
+					'cantidad' =>$especie['cantidad']
+				]);
 			}
     }
     // Añadir especies a la siembra
@@ -167,6 +177,15 @@ class SiembraController extends Controller
 					$especieSiembra->cant_actual =  $especie['cantidad'];;
 					$especieSiembra->peso_actual = $especie['peso_inicial'];
 					$especieSiembra->save();
+
+					$registro = Registro::create([
+						'id_especie' =>$especie['id_especie'],
+						'id_siembra' => $request->siembra['id_siembra'],
+						'fecha_registro' => $request->siembra['fecha_inicio'],
+						'tipo_registro' => 3,
+						'peso_ganado' => $especie['peso_inicial'],
+						'cantidad' =>$especie['cantidad']
+					]);
 				}
 			}
     }
@@ -196,8 +215,16 @@ class SiembraController extends Controller
 			$especieSiembras = EspecieSiembra::findOrFail($id);
 			$especieSiembras->update($request->all());
 			// $especieSiembra->cantidad = $request['']
+
+			
+			$registro = Registro::where('id_siembra', $especieSiembras->id_siembra)->where('id_especie', $especieSiembras->id_especie)->where('tipo_registro',3)->first();
+			$registro->peso_ganado = $request->peso_inicial;
+			$registro->cantidad = $request->cantidad;
+			$registro->save();
+
 			return $especieSiembras;
     }
+
     public function actualizarEstado(Request $request, $id){
 
 			$siembra = Siembra::findOrFail($id);

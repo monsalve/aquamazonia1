@@ -362,9 +362,10 @@
                   <div class="form-group col-md-4">
                     <label for="tipo_registro">Tipo</label>
                     <select class="form-control" id="tipo_registro" v-model="f_actividad">
+                      <option value="3">Peso inicial</option>
                       <option value="0" >Muestreo</option>
                       <option value="1">Pesca</option>
-                      <option value="2">Mortalidad inicial</option>
+                      <option value="2">Mortalidad inicial</option>                      
                     </select>
                   </div>
                   <div class="form-group col-md-3">
@@ -404,7 +405,7 @@
                     <td v-text="registro.mortalidad  == null ? '-' : registro.mortalidad"></td>
                     <td v-text="registro.biomasa  == null ? '-' : registro.biomasa"></td>
                     <td v-text="registro.cantidad  == null ? '-' : registro.cantidad"></td>
-                    <td>
+                    <td v-if="registro.tipo_registro != 3">
                       <button class="btn btn-danger" @click="eliminarRegistro(registro.id, registro)">
                         <i class="fas fa-trash"></i>
                       </button>
@@ -426,6 +427,7 @@
                     <option value="0" >Muestreo</option>
                     <option value="1">Pesca</option>
                     <option value="2">Mortalidad inicial</option>
+                    <option value="3">Peso inicial</option>
                   </select>
                 </div>
               </div>
@@ -1018,6 +1020,7 @@ export default {
     this.tipoRegistro[0] = 'Muestreo';
     this.tipoRegistro[1] = 'Pesca';
     this.tipoRegistro[2] = 'Mortalidad Inicial'
+    this.tipoRegistro[3] = 'Peso Inicial'
   }
 }
 </script>
