@@ -55,8 +55,8 @@ class InformeRegistroController extends Controller
 						if($registro->tipo_registro == 1)$registro->nombre_registro = 'Pesca';
 						if($registro->tipo_registro == 2)$registro->nombre_registro = 'Mortalidad Inicial';
 
-						$registro->biomasa_disponible = number_format($registro->biomasa_disponible,2,'.','');
-						$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen,2,'.','');
+						$registro->biomasa_disponible = number_format($registro->biomasa_disponible,2,',','');
+						$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen,2,',','');
 
 					}
 				}
@@ -266,8 +266,8 @@ class InformeRegistroController extends Controller
 						if($registro->tipo_registro == 1)$registro->nombre_registro = 'Pesca';
 						if($registro->tipo_registro == 2)$registro->nombre_registro = 'Mortalidad Inicial';
 
-						$registro->biomasa_disponible = number_format($registro->biomasa_disponible,2,'.','');
-						$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen,2,'.','');
+						$registro->biomasa_disponible = number_format($registro->biomasa_disponible,2,',','');
+						$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen,2,',','');
 					}
 				}
 
