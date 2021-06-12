@@ -251,13 +251,13 @@
             <form class="row" id="editarAlimentacion">
               <!-- <div class="col-md-6"> -->
                 <div class="form-group col-md-3 ">
-                  <label for="minutos hombre" class="">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_ra" aria-describedby="fecha_ra" placeholder="Minutos hombre" v-model="form.fecha_ra">
+                  <label for="fecha_registro_alimentacion" class="">Fecha (*)</label>
+                  <input type="date" class="form-control" id="fecha_registro_alimentacion" aria-describedby="fecha_registro_alimentacion" placeholder="fecha_registro_alimentacion" v-model="form.fecha_ra" required>
                 </div>
 
                 <div class="form-group col-md-3">
-                  <label for="alimento" class="">Alimento</label>
-                  <select class="form-control custom-select" id="alimento" v-model="form.id_alimento" >
+                  <label for="alimento" class="">Alimento (*)</label>
+                  <select class="form-control custom-select" id="alimento" v-model="form.id_alimento" required>
                     <option>--Seleccionar--</option>
                     <option v-for="(alimento, index) in listadoAlimentos" :key="index" v-bind:value="alimento.id">{{alimento.alimento}}</option>
                   </select>
@@ -284,13 +284,14 @@
                   <label for="conv_alimenticia">Conversión alimenticia teórica</label>
                   <input type="number" step="any" class="form-control" id="conv_alimenticia" placeholder="Conversión alimenticia teórica" v-model="form.conv_alimenticia">
                 </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" @click="guardarRecursos()">
+                  <span v-text="editandoAlimento == 0 ? 'Guardar' : 'Actualizar'"></span>
+                </button>
+              </div>
 
             </form>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" @click="guardarRecursos()">
-                <span v-text="editandoAlimento == 0 ? 'Guardar' : 'Actualizar'"></span>
-              </button>
-            </div>
+            
             <div class="container">
               <table class="table table-sm table-hover table-responsive table-bordered">
                 <thead>
@@ -335,7 +336,6 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <!-- <button type="button" class="btn btn-primary" @click="guardarRecursos()">Guardar</button> -->
           </div>
         </div>
       </div>
@@ -900,13 +900,27 @@ export default {
     guardarRecursos(){
       let me = this;
       if(this.editandoAlimento == 0){
-      axios.post("api/recursos-necesarios", this.form)
-      .then(({data})=>{
+        if(this.form.id_alimento != '')
+        {
+          axios.post("api/recursos-necesarios", this.form)
+          .then(({data})=>{
 
-        me.listar(1, '');
-        me.abrirCrear(this.form.id_siembra);
-        Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
-      })}else{
+            me.listar(1, '');
+            me.abrirCrear(this.form.id_siembra);
+            Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
+          })
+        }else {
+          Swal.fire({
+            title: "Completar registro",
+            text: "Rellenar los campos requeridos",
+            icon: "danger",
+            showCancelButton: true,
+            confirmButtonColor: '#c7120c',            
+            confirmButtonText: 'Aceptar!',
+            reverseButtons: true
+          })
+        }
+      }else{
         this.form.put('api/recursos-necesarios/'+this.form.id_registro)
         .then(({data})=>{
           this.form.reset()

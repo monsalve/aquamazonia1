@@ -8231,12 +8231,24 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
 
       if (this.editandoAlimento == 0) {
-        axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
-          var data = _ref8.data;
-          me.listar(1, '');
-          me.abrirCrear(_this6.form.id_siembra);
-          Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
-        });
+        if (this.form.id_alimento != '') {
+          axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
+            var data = _ref8.data;
+            me.listar(1, '');
+            me.abrirCrear(_this6.form.id_siembra);
+            Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
+          });
+        } else {
+          Swal.fire({
+            title: "Completar registro",
+            text: "Rellenar los campos requeridos",
+            icon: "danger",
+            showCancelButton: true,
+            confirmButtonColor: '#c7120c',
+            confirmButtonText: 'Aceptar!',
+            reverseButtons: true
+          });
+        }
       } else {
         this.form.put('api/recursos-necesarios/' + this.form.id_registro).then(function (_ref9) {
           var data = _ref9.data;
@@ -61175,9 +61187,11 @@ var render = function() {
                   { staticClass: "row", attrs: { id: "editarAlimentacion" } },
                   [
                     _c("div", { staticClass: "form-group col-md-3 " }, [
-                      _c("label", { attrs: { for: "minutos hombre" } }, [
-                        _vm._v("Fecha")
-                      ]),
+                      _c(
+                        "label",
+                        { attrs: { for: "fecha_registro_alimentacion" } },
+                        [_vm._v("Fecha (*)")]
+                      ),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -61191,9 +61205,10 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "date",
-                          id: "fecha_ra",
-                          "aria-describedby": "fecha_ra",
-                          placeholder: "Minutos hombre"
+                          id: "fecha_registro_alimentacion",
+                          "aria-describedby": "fecha_registro_alimentacion",
+                          placeholder: "fecha_registro_alimentacion",
+                          required: ""
                         },
                         domProps: { value: _vm.form.fecha_ra },
                         on: {
@@ -61209,7 +61224,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-3" }, [
                       _c("label", { attrs: { for: "alimento" } }, [
-                        _vm._v("Alimento")
+                        _vm._v("Alimento (*)")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -61224,7 +61239,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control custom-select",
-                          attrs: { id: "alimento" },
+                          attrs: { id: "alimento", required: "" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -61444,33 +61459,35 @@ var render = function() {
                           }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.guardarRecursos()
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            domProps: {
+                              textContent: _vm._s(
+                                _vm.editandoAlimento == 0
+                                  ? "Guardar"
+                                  : "Actualizar"
+                              )
+                            }
+                          })
+                        ]
+                      )
                     ])
                   ]
                 ),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.guardarRecursos()
-                        }
-                      }
-                    },
-                    [
-                      _c("span", {
-                        domProps: {
-                          textContent: _vm._s(
-                            _vm.editandoAlimento == 0 ? "Guardar" : "Actualizar"
-                          )
-                        }
-                      })
-                    ]
-                  )
-                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "container" }, [
                   _c(
