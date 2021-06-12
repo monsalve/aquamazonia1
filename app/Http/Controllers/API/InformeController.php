@@ -334,9 +334,10 @@ class InformeController extends Controller
 		$c3 = "siembras.id"; $op2 = '!='; $c4 = '-1';
 		$c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
 		$c7 = "siembras.id"; $op4 = '!='; $c8 = '-1';
-			 $op5 = '>='; $c10 = '0';
+		$op5 = '>='; $c10 = '0';
 		$op6 = '>='; $c12 = '0';
-				$op7 = '!='; $c14 = '-1';
+		$op7 = '!='; $c14 = '-1';
+		$signEstado= '!='; $idSiembra = '-1';
 
 		if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
 		if($request['f_especie']!='-1'){$c3="especies.id"; $op2='='; $c4= $request['f_especie'];}
@@ -344,7 +345,8 @@ class InformeController extends Controller
 		if($request['f_inicio_h']!='-1'){$c7="fecha_inicio"; $op4='<='; $c8= $request['f_inicio_h'];}
 		if($request['f_peso_d']!='-1'){$op5='>='; $c10= $request['f_peso_d'];}
 		if($request['f_peso_h']!='-1'){$op6='<='; $c12= $request['f_peso_h'];}
-				if($request['f_lote']!='-1'){$op7='='; $c14= $request['f_lote'];}
+		if($request['f_lote']!='-1'){$op7='='; $c14= $request['f_lote'];}
+		if($request['f_estado']!='-1'){ $signEstado='='; $idSiembra= $request['f_estado'];}
 
 		$existencias = EspecieSiembra::select(
 					'cant_actual',
@@ -365,14 +367,14 @@ class InformeController extends Controller
 		->join('siembras', 'especies_siembra.id_siembra', 'siembras.id' )
 		->join('especies', 'especies_siembra.id_especie', 'especies.id')
 		->join('contenedores', 'siembras.id_contenedor', 'contenedores.id' )
-		// ->where('siembras.estado', '=', 1)
 		->where($c1, $op1, $c2)
 		->where($c3, $op2, $c4)
 		->where($c5, $op3, $c6)
 		->where($c7, $op4, $c8)
 		->where('peso_actual', $op5, $c10)
 		->where('peso_actual', $op6, $c12)
-				->where('lote', $op7, $c14)
+		->where('lote', $op7, $c14)
+		->where('siembras.estado', $signEstado, $idSiembra )
 		->get();
 
 		$var1 = 0;

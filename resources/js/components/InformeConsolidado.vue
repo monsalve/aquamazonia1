@@ -188,8 +188,6 @@
         f_estado : '1',
         f_inicio_d : '',
         f_inicio_h : '',
-        siembra_activa : '',
-        siembra_inactiva : '',
       }
     },
     components: {

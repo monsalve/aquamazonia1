@@ -11,10 +11,25 @@
                       </div>
                       <div class="row">
                         <div class="form-group col-md-2">
-                          <label for="siembra">Siembras</label>
-                          <select class="form-control" id="siembra" v-model="f_siembra">
-                            <option value="-1">Seleccionar</option>
-                            <option :value="ls.id" v-for="(ls, index) in listadoSiembras" :key="index">{{ls.nombre_siembra}}</option>                        
+                          <label for="f_estado">
+                            Estado:
+                            <select class="custom-select" name="estado" id="estado" v-model="f_estado">
+                              <option value="-1">--Seleccionar--</option>
+                              <option value="0">Inactiva</option>
+                              <option value="1">Activa</option>
+                            </select>
+                          </label>
+                        </div>
+                        <div class="form-group col-3" v-show="f_estado==1">
+                          <label for="siembra_activa">Siembras Activas</label>
+                          <select name="siembra_activa" class="custom-select" id="siembra_activa" v-model="f_siembra">
+                            <option v-for="(siembraActiva, index) in siembrasActivas" :key="index"  :value="siembraActiva.id">{{siembraActiva.nombre_siembra}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-3" v-show="f_estado==0">
+                          <label for="siembra_inactiva">Siembras Inactivas</label>
+                          <select name="siembra_inactiva" class="custom-select" id="siembra_inactiva"  v-model="f_siembra">
+                            <option v-for="(siembraInactiva, index) in siembrasInactivas" :key="index" :value="siembraInactiva.id">{{siembraInactiva.nombre_siembra}}</option>
                           </select>
                         </div>
                         <div class="form-group col-md-2">
@@ -166,7 +181,10 @@
         listadoSiembras: [], 
         imprimirRecursos:[],
         listadoLotes : [],
+        siembrasActivas: [],
+        siembrasInactivas: [],
         f_siembra : '',
+        f_estado : '1',
         f_lote : '',
         f_especie: '', 
         f_inicio_d : '',
@@ -202,11 +220,12 @@
           me.listadoEspecies = response.data
         })
       },
-      listarSiembras(){
+      listarSiembras(estado_siembra){
         let me = this;
-        axios.get("api/siembras")
+        axios.get('api/siembras?estado_siembra='+estado_siembra)
         .then(function (response){
-          me.listadoSiembras = response.data.listado_siembras;
+          me.siembrasActivas = response.data.listado_siembras;
+          me.siembrasInactivas = response.data.listado_siembras_inactivas;
         })
       },
       listarLotes(){
@@ -220,6 +239,7 @@
         let me = this;
         
         if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
+        if(this.f_estado == ''){this.est = '-1'}else{this.est = this.f_estado}
         if(this.f_lote == ''){this.lot = '-1'}else{this.lot = this.f_lote}
         if(this.f_especie == ''){this.esp = '-1'}else{this.esp = this.f_especie}
         if(this.f_inicio_d == ''){this.fecd = '-1'}else{this.fecd = this.f_inicio_d}
@@ -229,6 +249,7 @@
         
         const data ={
           'f_siembra' : this.smb,
+          'f_estado' : this.est,
           'f_lote' : this.lot,
           'f_especie' : this.esp,
           'f_inicio_d' : this.fecd,

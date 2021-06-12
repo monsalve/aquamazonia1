@@ -228,8 +228,6 @@ export default {
       axios.post("api/filtro-registros-siembras", data)
       .then(response=>{
         me.listadoRegistros = response.data;
-
-        console.log(response);
       });
     },
   },

@@ -4064,7 +4064,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       axios.post("api/filtro-registros-siembras", data).then(function (response) {
         me.listadoRegistros = response.data;
-        console.log(response);
       });
     }
   },
@@ -4455,6 +4454,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4487,7 +4501,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoSiembras: [],
       imprimirRecursos: [],
       listadoLotes: [],
+      siembrasActivas: [],
+      siembrasInactivas: [],
       f_siembra: '',
+      f_estado: '1',
       f_lote: '',
       f_especie: '',
       f_inicio_d: '',
@@ -4541,10 +4558,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoEspecies = response.data;
       });
     },
-    listarSiembras: function listarSiembras() {
+    listarSiembras: function listarSiembras(estado_siembra) {
       var me = this;
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.listado_siembras;
+      axios.get('api/siembras?estado_siembra=' + estado_siembra).then(function (response) {
+        me.siembrasActivas = response.data.listado_siembras;
+        me.siembrasInactivas = response.data.listado_siembras_inactivas;
       });
     },
     listarLotes: function listarLotes() {
@@ -4560,6 +4578,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.smb = '-1';
       } else {
         this.smb = this.f_siembra;
+      }
+
+      if (this.f_estado == '') {
+        this.est = '-1';
+      } else {
+        this.est = this.f_estado;
       }
 
       if (this.f_lote == '') {
@@ -4600,6 +4624,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var data = {
         'f_siembra': this.smb,
+        'f_estado': this.est,
         'f_lote': this.lot,
         'f_especie': this.esp,
         'f_inicio_d': this.fecd,
@@ -4825,9 +4850,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_contenedor: '',
       f_estado: '1',
       f_inicio_d: '',
-      f_inicio_h: '',
-      siembra_activa: '',
-      siembra_inactiva: ''
+      f_inicio_h: ''
     };
   },
   components: {
@@ -54847,55 +54870,179 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("label", { attrs: { for: "siembra" } }, [
-                  _vm._v("Siembras")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.f_siembra,
-                        expression: "f_siembra"
+                _c("label", { attrs: { for: "f_estado" } }, [
+                  _vm._v(
+                    "\n                        Estado:\n                        "
+                  ),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_estado,
+                          expression: "f_estado"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { name: "estado", id: "estado" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_estado = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "siembra" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.f_siembra = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1" } }, [
+                        _vm._v("--Seleccionar--")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "0" } }, [
+                        _vm._v("Inactiva")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Activa")
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.f_estado == 1,
+                      expression: "f_estado==1"
                     }
-                  },
-                  [
-                    _c("option", { attrs: { value: "-1" } }, [
-                      _vm._v("Seleccionar")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.listadoSiembras, function(ls, index) {
+                  ],
+                  staticClass: "form-group col-3"
+                },
+                [
+                  _c("label", { attrs: { for: "siembra_activa" } }, [
+                    _vm._v("Siembras Activas")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_siembra,
+                          expression: "f_siembra"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { name: "siembra_activa", id: "siembra_activa" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_siembra = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.siembrasActivas, function(siembraActiva, index) {
                       return _c(
                         "option",
-                        { key: index, domProps: { value: ls.id } },
-                        [_vm._v(_vm._s(ls.nombre_siembra))]
+                        { key: index, domProps: { value: siembraActiva.id } },
+                        [_vm._v(_vm._s(siembraActiva.nombre_siembra))]
                       )
-                    })
+                    }),
+                    0
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.f_estado == 0,
+                      expression: "f_estado==0"
+                    }
                   ],
-                  2
-                )
-              ]),
+                  staticClass: "form-group col-3"
+                },
+                [
+                  _c("label", { attrs: { for: "siembra_inactiva" } }, [
+                    _vm._v("Siembras Inactivas")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.f_siembra,
+                          expression: "f_siembra"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: {
+                        name: "siembra_inactiva",
+                        id: "siembra_inactiva"
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.f_siembra = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.siembrasInactivas, function(
+                      siembraInactiva,
+                      index
+                    ) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: siembraInactiva.id } },
+                        [_vm._v(_vm._s(siembraInactiva.nombre_siembra))]
+                      )
+                    }),
+                    0
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "lote" } }, [_vm._v("Lotes:")]),
