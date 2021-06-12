@@ -8231,7 +8231,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
 
       if (this.editandoAlimento == 0) {
-        if (this.form.id_alimento != '') {
+        if (this.form.id_alimento != '' && this.form.fecha_ra != '') {
           axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
             var data = _ref8.data;
             me.listar(1, '');
@@ -8242,7 +8242,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           Swal.fire({
             title: "Completar registro",
             text: "Rellenar los campos requeridos",
-            icon: "danger",
+            icon: "error",
             showCancelButton: true,
             confirmButtonColor: '#c7120c',
             confirmButtonText: 'Aceptar!',

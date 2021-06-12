@@ -900,7 +900,7 @@ export default {
     guardarRecursos(){
       let me = this;
       if(this.editandoAlimento == 0){
-        if(this.form.id_alimento != '')
+        if(this.form.id_alimento != '' && this.form.fecha_ra != '')
         {
           axios.post("api/recursos-necesarios", this.form)
           .then(({data})=>{
@@ -913,7 +913,7 @@ export default {
           Swal.fire({
             title: "Completar registro",
             text: "Rellenar los campos requeridos",
-            icon: "danger",
+            icon: "error",
             showCancelButton: true,
             confirmButtonColor: '#c7120c',            
             confirmButtonText: 'Aceptar!',
