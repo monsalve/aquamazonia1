@@ -7835,6 +7835,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -7896,7 +7923,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       id_edit_item: ''
     }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "campos", {
       camps_s: []
-    }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_actividad", ''), _defineProperty(_ref, "f_fecha_d", ''), _defineProperty(_ref, "f_fecha_h", ''), _ref;
+    }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_actividad", ''), _defineProperty(_ref, "f_fecha_d", ''), _defineProperty(_ref, "f_fecha_h", ''), _defineProperty(_ref, "estado_siembra", '-1'), _defineProperty(_ref, "siembra_activa", ''), _defineProperty(_ref, "siembra_inactiva", ''), _defineProperty(_ref, "siembrasActivas", ''), _defineProperty(_ref, "siembrasInactivas", ''), _ref;
   },
   methods: {
     editItem: function editItem(especie) {
@@ -7940,6 +7967,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         var auxAlimento = response.data;
       });
     },
+    listar: function listar(estado_siembra, id_siembra) {
+      var me = this;
+      axios.get('api/siembras?estado_siembra=' + estado_siembra + '&id_siembra=' + id_siembra).then(function (response) {
+        me.listadoSiembras = response.data.siembra;
+        me.pecesxSiembra = response.data.pecesSiembra;
+        me.campos = response.data.campos;
+        me.lotes = response.data.lotes;
+        me.fechaActual = response.data.fecha_actual;
+      });
+    },
+    listarSiembras: function listarSiembras(estado_siembra) {
+      var me = this;
+      axios.get('api/siembras?estado_siembra=' + estado_siembra).then(function (response) {
+        me.siembrasActivas = response.data.listado_siembras;
+        me.siembrasInactivas = response.data.listado_siembras_inactivas;
+      });
+    },
+    filtrarSiembras: function filtrarSiembras(estado_siembra, id_siembra) {
+      var me = this;
+      me.listar(estado_siembra, id_siembra);
+      console.log('ok');
+    },
     anadirItem: function anadirItem() {
       var me = this;
       $('#modalSiembra').modal('show');
@@ -7964,10 +8013,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       });
     },
     editarAlimento: function editarAlimento(objeto) {
-      var me = this; // let objeto = []
-
+      var me = this;
       this.editandoAlimento = 1;
-      this.form.fill(objeto); // axios.delete('api/recursos-necesarios/'+objeto).then(({data})=>{})
+      this.form.fill(objeto);
     },
     guardarEdita: function guardarEdita(objeto) {
       var _this2 = this;
@@ -7988,7 +8036,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         _this2.newPeso = '';
         _this2.listadoItems = [];
 
-        _this2.listar();
+        _this2.listar(1, '');
 
         $('#modalSiembra').modal('hide');
       });
@@ -8045,18 +8093,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         });
       });
     },
-    listar: function listar() {
-      var me = this;
-      this.listarEspecies();
-      this.listarAlimentos();
-      axios.get("api/siembras").then(function (response) {
-        me.listadoSiembras = response.data.listado_siembras;
-        me.pecesxSiembra = response.data.pecesSiembra;
-        me.campos = response.data.campos;
-        me.lotes = response.data.lotes;
-        me.fechaActual = response.data.fecha_actual;
-      });
-    },
     abrirIngreso: function abrirIngreso(id) {
       this.idSiembraRegistro = id;
       var me = this;
@@ -8083,7 +8119,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.aux_campos = [];
         me.ver_registros = 1;
         me.abrirIngreso(id);
-        me.listar();
+        me.listar(1, '');
       });
     },
     filtrarIngresos: function filtrarIngresos() {
@@ -8140,7 +8176,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
             _this4.fin_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this4.listar();
+            _this4.listar(1, '');
           });
         } else {
           var _data = {
@@ -8153,7 +8189,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
             _this4.ini_descanso = '';
             $('#modalFinalizar').modal('hide');
 
-            _this4.listar();
+            _this4.listar(1, '');
           });
         }
       } else {
@@ -8181,7 +8217,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           _this5.newPeso = '';
           _this5.listadoItems = [];
 
-          _this5.listar();
+          _this5.listar(1, '');
 
           $('#modalSiembra').modal('hide');
         });
@@ -8197,7 +8233,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       if (this.editandoAlimento == 0) {
         axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
           var data = _ref8.data;
-          me.listar();
+          me.listar(1, '');
           me.abrirCrear(_this6.form.id_siembra);
           Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
         });
@@ -8231,7 +8267,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios.put('api/registros/' + id, data).then(function (_ref10) {
             var data = _ref10.data;
             me.abrirIngreso(objeto.id_siembra);
-            me.listar();
+            me.listar(1, '');
           });
         }
       });
@@ -8254,7 +8290,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref11) {
             var data = _ref11.data;
             me.abrirCrear(_this7.idSiembraR);
-            me.listar();
+            me.listar(1, '');
           });
         }
       });
@@ -8274,15 +8310,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         if (result.isConfirmed) {
           axios["delete"]('api/siembras/' + index).then(function (_ref12) {
             var data = _ref12.data;
-            me.listar();
+            me.listar(1, '');
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar();
+    this.listar(1, '');
+    this.listarEspecies();
+    this.listarAlimentos();
     this.nombreEspecie();
+    this.listarSiembras();
     this.estados[0] = 'Inactivo';
     this.estados[1] = 'Activo';
     this.estados[2] = 'Ocupado';
@@ -59941,6 +59980,223 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-row col-12" }, [
+                  _c("div", { staticClass: "form-group col-3" }, [
+                    _c("label", { attrs: { for: "estado_siembta" } }, [
+                      _vm._v("Estado de siembra")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.estado_siembra,
+                            expression: "estado_siembra"
+                          }
+                        ],
+                        staticClass: "custom-select",
+                        attrs: { name: "estado_siembra", id: "estado_siembra" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.filtrarSiembras(_vm.estado_siembra, "")
+                          },
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.estado_siembra = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "-1" } }, [
+                          _vm._v("Todas")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Activas")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("Inactivas")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.estado_siembra == 1,
+                          expression: "estado_siembra==1"
+                        }
+                      ],
+                      staticClass: "form-group col-3"
+                    },
+                    [
+                      _c("label", { attrs: { for: "estado_siembta" } }, [
+                        _vm._v("Siembras Activas")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.siembra_activa,
+                              expression: "siembra_activa"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          attrs: {
+                            name: "estado_siembra",
+                            id: "estado_siembra"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.filtrarSiembras(1, _vm.siembra_activa)
+                            },
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.siembra_activa = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Todas")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.siembrasActivas, function(
+                            siembraActiva,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: index,
+                                domProps: { value: siembraActiva.id }
+                              },
+                              [_vm._v(_vm._s(siembraActiva.nombre_siembra))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.estado_siembra == 0,
+                          expression: "estado_siembra==0"
+                        }
+                      ],
+                      staticClass: "form-group col-3"
+                    },
+                    [
+                      _c("label", { attrs: { for: "estado_siembta" } }, [
+                        _vm._v("Siembras Inactivas")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.siembra_inactiva,
+                              expression: "siembra_inactiva"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          attrs: {
+                            name: "estado_siembra",
+                            id: "estado_siembra"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.filtrarSiembras(
+                                0,
+                                _vm.siembra_inactiva
+                              )
+                            },
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.siembra_inactiva = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Todas")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.siembrasInactivas, function(
+                            siembraInactiva,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: index,
+                                domProps: { value: siembraInactiva.id }
+                              },
+                              [_vm._v(_vm._s(siembraInactiva.nombre_siembra))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
               _c(
                 "table",
                 {
