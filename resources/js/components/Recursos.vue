@@ -187,6 +187,17 @@
             </button>
           </div>
           <div class="modal-body">
+            <div class="col-12" v-if="listadoCostos.length > 0">
+              <downloadexcel
+                class="btn btn-success float-right mb-1"
+                :fetch="fetchData"
+                :fields="json_fields"
+                name="historial-costos-alimentos.xls"
+                type="xls"
+              >
+                <i class="fa fa-fw fa-download"></i> Generar Excel
+              </downloadexcel>
+            </div>
             <table class="table table-sm table-bordered table-hover">
               <thead>
                 <tr>
@@ -195,7 +206,7 @@
                   <th scope="col">Recurso</th>
                   <th scope="col">Unidad</th>
                   <th scope="col">Costo</th>
-									<th>Opciones</th>
+                  <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -208,15 +219,15 @@
                   <td class="text-right">{{ registro.recurso }}</td>
                   <td class="text-right">{{ registro.unidad }}</td>
                   <td class="text-right">$ {{ registro.costo }}</td>
-									<td>
-										<button
-                        @click="eliminarHistorial(registro.id)"
-                        class="btn btn-danger"
-                        type="button"
-                      >
-                        <i class="fas fa-trash"></i>
-                      </button>
-									</td>
+                  <td>
+                    <button
+                      @click="eliminarHistorial(registro.id)"
+                      class="btn btn-danger"
+                      type="button"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -237,6 +248,7 @@
 </template>
 
 <script>
+import downloadexcel from "vue-json-excel";
 import Vue from "vue";
 import { Form, HasError, AlertError } from "vform";
 
@@ -245,6 +257,11 @@ Vue.component(AlertError.name, AlertError);
 export default {
   data() {
     return {
+      json_fields: {
+        "Fecha Registro": "fecha_registro",
+        'Recurso': "recurso",
+        'Costo': "costo",
+      },
       editando: 0,
       form: new Form({
         id: "",
@@ -257,7 +274,15 @@ export default {
       listadoCostos: [],
     };
   },
+  components: {
+    downloadexcel,
+  },
   methods: {
+    async fetchData() {
+      let me = this;
+      const response = await this.listadoCostos;
+      return this.listadoCostos;
+    },
     guardar() {
       let me = this;
       this.form.post("api/recursos").then(({ data }) => {
@@ -330,7 +355,7 @@ export default {
             .delete("api/historial-recursos-costos/" + index)
             .then(({ data }) => {
               me.listar("");
-							me.verCostos();
+              me.verCostos();
             });
         }
       });

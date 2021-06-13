@@ -87,9 +87,9 @@ export default {
   data() {
     return {
       json_fields: {
-        'Fecha Registro' : 'fecha_registro',
-        'Recurso' : 'recurso',
-        'Costo' : 'costo'
+        "Fecha Registro": "fecha_registro",
+        'Recurso': "recurso",
+        'Costo': "costo",
       },
       editando: 0,
       form: new Form({
@@ -107,9 +107,9 @@ export default {
     downloadexcel,
   },
   methods: {
-    async fetchData(){
+    async fetchData() {
       let me = this;
-      const response = await this.listado
+      const response = await this.listado;
       return this.listado;
     },
     listar(idRecurso) {
@@ -144,14 +144,14 @@ export default {
           me.form
             .delete("api/historial-recursos-costos/" + index)
             .then(({ data }) => {
-              me.listar('');
+              me.listar("");
             });
         }
       });
     },
   },
   mounted() {
-    this.listar('');
+    this.listar("");
     this.listarRecursos();
   },
 };

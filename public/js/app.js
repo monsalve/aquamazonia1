@@ -2451,10 +2451,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2596,38 +2694,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["AlertError"]);
+
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MODULE_3__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["HasError"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      json_fields: {
+        "Fecha Registro": "fecha_registro",
+        Alimento: "alimento",
+        Costo: "costo"
+      },
       editando: 0,
-      form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
-        id: '',
-        alimento: '',
-        costo_kg: ''
+      form: new vform__WEBPACK_IMPORTED_MODULE_3__["Form"]({
+        id: "",
+        alimento: "",
+        costo_kg: ""
       }),
       listado: [],
       listadoCostos: []
     };
   },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this;
+                _context.next = 3;
+                return _this.listadoCostos;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listadoCostos);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     guardar: function guardar() {
       var me = this;
-      this.form.post('api/alimentos').then(function (_ref) {
+      this.form.post("api/alimentos").then(function (_ref) {
         var data = _ref.data;
 
         editando: 0, me.listar();
 
-        $('#modalAlimentos').modal('hide');
-        me.form.alimento = '';
-        me.form.costo_kg = '';
+        $("#modalAlimentos").modal("hide");
+        me.form.alimento = "";
+        me.form.costo_kg = "";
       });
     },
     abrirCrear: function abrirCrear() {
       this.editando = 0;
       this.form.reset();
-      $('#modalAlimentos').modal('show');
+      $("#modalAlimentos").modal("show");
     },
     listar: function listar() {
       var me = this;
@@ -2639,13 +2771,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.form.fill(objeto);
       this.editando = 1;
-      $('#modalAlimentos').modal('show');
+      $("#modalAlimentos").modal("show");
     },
     editar: function editar() {
       var me = this;
-      this.form.put('api/alimentos/' + this.form.id).then(function (_ref2) {
+      this.form.put("api/alimentos/" + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        $('#modalAlimentos').modal('hide');
+        $("#modalAlimentos").modal("hide");
         me.listar();
       });
     },
@@ -2656,14 +2788,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true,
         dangerMode: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          me.form["delete"]('api/alimentos/' + index).then(function (_ref3) {
+          me.form["delete"]("api/alimentos/" + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
           });
@@ -2686,7 +2818,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         if (result.isConfirmed) {
           me.form["delete"]("api/historial-alimentos-costos/" + index).then(function (_ref4) {
             var data = _ref4.data;
-            me.listar('');
+            me.listar("");
             me.verCostos();
           });
         }
@@ -2694,13 +2826,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     verCostos: function verCostos(idAlimento) {
       var me = this;
-      $("#modalCostos").modal('show');
+      $("#modalCostos").modal("show");
       axios.get("api/historial-alimentos-costos?idAlimento=" + idAlimento).then(function (response) {
         me.listadoCostos = response.data;
       });
     },
     cerrarCostos: function cerrarCostos() {
-      $("#modalCostos").modal('hide');
+      $("#modalCostos").modal("hide");
       this.listadoCostos = [];
     }
   },
@@ -3900,9 +4032,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MOD
   data: function data() {
     return {
       json_fields: {
-        'Fecha Registro': 'fecha_registro',
-        'Alimento': 'alimento',
-        'Costo': 'costo'
+        "Fecha Registro": "fecha_registro",
+        Alimento: "alimento",
+        Costo: "costo"
       },
       editando: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_3__["Form"]({
@@ -3973,14 +4105,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MOD
         if (result.isConfirmed) {
           me.form["delete"]("api/historial-alimentos-costos/" + index).then(function (_ref) {
             var data = _ref.data;
-            me.listar('');
+            me.listar("");
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar('');
+    this.listar("");
     this.listarAlimentos();
   }
 });
@@ -4095,9 +4227,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MOD
   data: function data() {
     return {
       json_fields: {
-        'Fecha Registro': 'fecha_registro',
-        'Recurso': 'recurso',
-        'Costo': 'costo'
+        "Fecha Registro": "fecha_registro",
+        'Recurso': "recurso",
+        'Costo': "costo"
       },
       editando: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_3__["Form"]({
@@ -4168,14 +4300,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MOD
         if (result.isConfirmed) {
           me.form["delete"]("api/historial-recursos-costos/" + index).then(function (_ref) {
             var data = _ref.data;
-            me.listar('');
+            me.listar("");
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar('');
+    this.listar("");
     this.listarRecursos();
   }
 });
@@ -6992,10 +7124,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_json_excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-json-excel */ "./node_modules/vue-json-excel/dist/vue-json-excel.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7236,13 +7388,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["AlertError"]);
+
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MODULE_3__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["HasError"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component(vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      json_fields: {
+        "Fecha Registro": "fecha_registro",
+        'Recurso': "recurso",
+        'Costo': "costo"
+      },
       editando: 0,
-      form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
+      form: new vform__WEBPACK_IMPORTED_MODULE_3__["Form"]({
         id: "",
         recurso: "",
         unidad: "",
@@ -7252,7 +7410,35 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       listadoCostos: []
     };
   },
+  components: {
+    downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var me, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                me = _this;
+                _context.next = 3;
+                return _this.listadoCostos;
+
+              case 3:
+                response = _context.sent;
+                return _context.abrupt("return", _this.listadoCostos);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     guardar: function guardar() {
       var me = this;
       this.form.post("api/recursos").then(function (_ref) {
@@ -51451,7 +51637,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Añadir Alimento")]
+                  [_vm._v("\n                Añadir Alimento\n              ")]
                 )
               ])
             ]),
@@ -51632,10 +51818,10 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "col-sm-12  col-md-4 col-form-label",
+                        staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo KL\n\t\t\t\t\t\t\t\t")]
+                      [_vm._v("Costo KL\n              ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -51687,7 +51873,11 @@ var render = function() {
                           staticClass: "btn btn-secondary",
                           attrs: { type: "button", "data-dismiss": "modal" }
                         },
-                        [_vm._v("Cancelar")]
+                        [
+                          _vm._v(
+                            "\n                  Cancelar\n                "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c("button", {
@@ -51737,7 +51927,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "modalCostosLabel" }
                   },
-                  [_vm._v("Historial de costos")]
+                  [_vm._v("\n            Historial de costos\n          ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -51760,6 +51950,32 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
+                _vm.listadoCostos.length > 0
+                  ? _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c(
+                          "downloadexcel",
+                          {
+                            staticClass: "btn btn-success float-right mb-1",
+                            attrs: {
+                              fetch: _vm.fetchData,
+                              fields: _vm.json_fields,
+                              name: "historial-costos-alimentos.xls",
+                              type: "xls"
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-fw fa-download" }),
+                            _vm._v(" Generar Excel\n            ")
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c(
                   "table",
                   { staticClass: "table table-sm table-bordered table-hover" },
@@ -51782,7 +51998,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(" $ " + _vm._s(registro.costo))
+                            _vm._v("$ " + _vm._s(registro.costo))
                           ]),
                           _vm._v(" "),
                           _c("td", [
@@ -51820,7 +52036,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 )
               ])
             ])
@@ -59437,11 +59653,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                  Añadir Recurso\n                "
-                    )
-                  ]
+                  [_vm._v("\n                Añadir Recurso\n              ")]
                 )
               ])
             ]),
@@ -59628,7 +59840,7 @@ var render = function() {
                         staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "unidad" }
                       },
-                      [_vm._v("Unidad\n                ")]
+                      [_vm._v("Unidad\n              ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -59679,7 +59891,7 @@ var render = function() {
                         staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo Unidad\n                ")]
+                      [_vm._v("Costo Unidad\n              ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -59727,7 +59939,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                    Cancelar\n                  "
+                            "\n                  Cancelar\n                "
                           )
                         ]
                       ),
@@ -59779,7 +59991,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "modalCostosLabel" }
                   },
-                  [_vm._v("\n              Historial de costos\n            ")]
+                  [_vm._v("\n            Historial de costos\n          ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -59802,6 +60014,32 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
+                _vm.listadoCostos.length > 0
+                  ? _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c(
+                          "downloadexcel",
+                          {
+                            staticClass: "btn btn-success float-right mb-1",
+                            attrs: {
+                              fetch: _vm.fetchData,
+                              fields: _vm.json_fields,
+                              name: "historial-costos-alimentos.xls",
+                              type: "xls"
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-fw fa-download" }),
+                            _vm._v(" Generar Excel\n            ")
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c(
                   "table",
                   { staticClass: "table table-sm table-bordered table-hover" },
@@ -59866,7 +60104,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n              Cerrar\n            ")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 )
               ])
             ])
