@@ -51,6 +51,9 @@ class InformeRegistroController extends Controller
 
 						$registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual)/1000;
 						$registro->bio_dispo_alimen = $this->BiomasaAlimento($registro->id_siembra)['bio_dispo_alimen'];
+						if($registro->peso_ganado > 0){
+							$registro->salida_animales = ($registro->biomasa*1000)/$registro->peso_ganado;
+						}
 						if($registro->tipo_registro == 0)$registro->nombre_registro = 'Muestreo';
 						if($registro->tipo_registro == 1)$registro->nombre_registro = 'Pesca';
 						if($registro->tipo_registro == 2)$registro->nombre_registro = 'Mortalidad Inicial';
@@ -263,6 +266,9 @@ class InformeRegistroController extends Controller
 					foreach($registros as $registro){
 						$registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual)/1000;
 						$registro->bio_dispo_alimen = $this->BiomasaAlimento($registro->id_siembra)['bio_dispo_alimen'];
+						if($registro->peso_ganado > 0){
+							$registro->salida_animales = ($registro->biomasa*1000)/$registro->peso_ganado;
+						}
 						if($registro->tipo_registro == 0)$registro->nombre_registro = 'Muestreo';
 						if($registro->tipo_registro == 1)$registro->nombre_registro = 'Pesca';
 						if($registro->tipo_registro == 2)$registro->nombre_registro = 'Mortalidad Inicial';

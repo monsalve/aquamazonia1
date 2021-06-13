@@ -104,7 +104,8 @@ class RegistroController extends Controller
 											'fecha_registro' => $request['fecha_registro'],
 											'tipo_registro' => $request['tipo_registro'],
 											'biomasa' => $campo['biomasa'],
-											'cantidad' => (($campo['biomasa'] * 1000)/$exs->peso_actual)
+											'cantidad' => (($campo['biomasa'] * 1000)/$exs->peso_actual),
+                      'peso_ganado' => $campo['peso_actual'],
 									]);
 
 									$exs->cant_actual = $exs->cant_actual - $registro->cantidad;

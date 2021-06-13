@@ -3904,6 +3904,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3915,9 +3919,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Especie': 'especie',
         'Tipo actividad': 'nombre_registro',
         'Peso Actual': 'peso_ganado',
+        'KG cosecha': 'biomasa',
         'biomasa muestreo': 'biomasa_disponible',
         'Cantidad Actual': 'cantidad_actual',
-        'Biomasa disponible': 'bio_dispo_alimen'
+        'Biomasa disponible': 'bio_dispo_alimen',
+        'Cantidadad KG cosecha': 'salida_animales'
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -54376,9 +54382,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fa fa-fw fa-download" }),
-                            _vm._v(
-                              " Generar Excel \n                          "
-                            )
+                            _vm._v(" Generar Excel\n                          ")
                           ]
                         )
                       ],
@@ -54440,6 +54444,10 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", {
+                            domProps: { textContent: _vm._s(lr.biomasa) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
                             domProps: {
                               textContent: _vm._s(lr.biomasa_disponible)
                             }
@@ -54454,6 +54462,12 @@ var render = function() {
                           _c("td", {
                             domProps: {
                               textContent: _vm._s(lr.bio_dispo_alimen)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(lr.salida_animales)
                             }
                           })
                         ])
@@ -54491,11 +54505,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Peso actual")]),
         _vm._v(" "),
+        _c("th", [_vm._v("KG cosecha")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad Actual")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Biomasa disponible por alimento")])
+        _c("th", [_vm._v("Biomasa disponible por alimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cantidadad KG cosecha")])
       ])
     ])
   }

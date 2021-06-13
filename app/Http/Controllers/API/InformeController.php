@@ -244,8 +244,6 @@ class InformeController extends Controller
 		return ['recursosNecesarios' => $recursosNecesarios ];
 	}
 
-
-
 	public function traerExistencias(){
 
 		$existencias = EspecieSiembra::select(
@@ -429,7 +427,9 @@ class InformeController extends Controller
 							$existencias[$i]->carga_final = (number_format(($bio_dispo/$existencias[$i]->capacidad), 2, ',',''));
 							$existencias[$i]->peso_incremento = $existencias[$i]->peso_actual -  $existencias[$i]->peso_inicial;
 							$existencias[$i]->incremento_biomasa = (($existencias[$i]->peso_incremento * $existencias[$i]->cant_actual)/1000);
-							$existencias[$i]->ganancia_peso_dia = $existencias[$i]->peso_incremento/$existencias[$i]->intervalo_tiempo;
+							if($existencias[$i]->intervalo_tiempo > 0){
+								$existencias[$i]->ganancia_peso_dia = $existencias[$i]->peso_incremento/$existencias[$i]->intervalo_tiempo;
+							}
 						}
 					}
 				}
