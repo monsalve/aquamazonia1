@@ -124,7 +124,7 @@
                   <label for="">Contenedor</label>
                   <div v-if="id_edita == ''">
                     <select  v-model="form.id_contenedor"  name="id_contenedor" class="form-control" id="id_contenedor">
-                      <option v-if="contenedor.estado == 1" :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
+                      <option v-show="contenedor.estado == 1" :value="contenedor.id"  v-for="(contenedor, index) in listadoContenedores" :key="index" selected>
                         {{contenedor.contenedor}}
                       </option>
                     </select>
@@ -444,7 +444,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="pez in pecesxSiembra" :key="pez.id" v-if="pez.id_siembra == idSiembraRegistro" >
+                    <tr v-for="pez in pecesxSiembra" :key="pez.id">
                       <th scope="row" v-text="pez.especie">
                       </th>
                       <td v-if="tipo_registro == 0">
@@ -654,7 +654,7 @@ export default {
       axios.get('api/siembras?estado_siembra='+estado_siembra+'&id_siembra='+id_siembra)
       .then(function (response){
         me.listadoSiembras = response.data.siembra; 
-        me.pecesxSiembra = response.data.pecesSiembra;
+        // me.pecesxSiembra = response.data.pecesSiembra
         me.campos = response.data.campos;
         me.lotes = response.data.lotes;
         me.fechaActual = response.data.fecha_actual
@@ -785,6 +785,16 @@ export default {
       .then(function (response){
         me.listadoRegistros = response.data
       })
+      me.especiesSiembra(id)
+    },
+
+    especiesSiembra(idSiembra) {
+       let me = this;
+      axios
+        .get("api/especies-siembra?idSiembra=" + idSiembra)
+        .then(function (response) {
+          me.pecesxSiembra = response.data;
+        });
     },
 
     crearRegistro(id){

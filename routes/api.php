@@ -36,7 +36,8 @@ Route::apiResources([
 	'informes-recursos-necesarios' => 'API\InformeRecursosNecesariosController',
 	'informes-biomasa-alimento' => 'API\InfomeBiomasaAlimentoController',
 	'historial-alimentos-costos' => 'API\HistorialAlimentoController',
-	'historial-recursos-costos' => 'API\HistorialRecursoController'
+	'historial-recursos-costos' => 'API\HistorialRecursoController',
+	'especies-siembra' => 'API\EspeciesSiembraController'
 ]);
 
 Route::namespace('API')->group(function () {
