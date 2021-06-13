@@ -9,16 +9,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 import Vue from 'vue'
 import { Form, HasError, AlertError } from 'vform'
 
 import JsonExcel from 'vue-json-excel'
-
-
-
 Vue.component('downloadExcel', JsonExcel)
-
+window.Swal = Swal
 Vue.use(VueRouter)
 
 let routes = [
@@ -42,6 +39,8 @@ let routes = [
     { path: '/informes-recursos-necesarios', component: require('./components/InformeRecursosNecesarios.vue').default },
     { path: '/informes-biomasa-alimento', component: require('./components/InformeBiomasaAlimento.vue').default },
     { path: '/informe-costos', component: require('./components/InformeCostos.vue').default },
+    { path: '/historial-costos-alimentos', component: require('./components/HistorialCostosAlimentos.vue').default },
+    { path: '/historial-costos-recursos', component: require('./components/HistorialCostosRecursos.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
 
 ]

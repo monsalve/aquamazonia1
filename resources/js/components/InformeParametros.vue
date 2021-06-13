@@ -210,7 +210,7 @@
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data.siembra;         
+          me.listadoSiembras = response.data.listado_siembras;         
         })
       },
        listarContenedores(){
@@ -253,15 +253,18 @@
       },
       eliminarParametros(objeto){
         let me = this;
-        swal({
+        Swal.fire({
           title: "Estás seguro?",
           text: "Una vez eliminado, no se puede recuperar los registros asociados a este ID",
           icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
+          showCancelButton: true,
+          confirmButtonColor: '#c7120c',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Aceptar!',
+          reverseButtons: true
         })
-        .then((willDelete) => {
-          if (willDelete) {
+        .then((result) => {
+            if (result.isConfirmed) {
             axios.delete('api/parametros-calidad/'+objeto)
             .then(({data})=>{
               me.listar();

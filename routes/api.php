@@ -35,6 +35,9 @@ Route::apiResources([
 	'informes-registros' => 'API\InformeRegistroController',
 	'informes-recursos-necesarios' => 'API\InformeRecursosNecesariosController',
 	'informes-biomasa-alimento' => 'API\InfomeBiomasaAlimentoController',
+	'historial-alimentos-costos' => 'API\HistorialAlimentoController',
+	'historial-recursos-costos' => 'API\HistorialRecursoController',
+	'especies-siembra' => 'API\EspeciesSiembraController'
 ]);
 
 Route::namespace('API')->group(function () {
@@ -50,13 +53,13 @@ Route::namespace('API')->group(function () {
 	Route::post('informe-recursos-totales', 'InformeController@informeRecursosTotales');
 	Route::post('filtro-parametros', 'ParametroCalidadController@filtroParametros');
 	Route::post('filtro-parametros-excel', 'ParametroCalidadController@filtroParametrosExcel');
+	Route::post('filtro-registros-siembras', 'InformeRegistroController@filtroRegistros');   
+	Route::post('filtro-recursos', 'InformeRecursosNecesariosController@filtroRecursos');
+	Route::post('filtro-biomasa-alimento', 'InfomeBiomasaAlimentoController@filtroBiomasaAlimento');
 	Route::post('parametro-x-contenedor/{id}', 'ParametroCalidadController@mostrarParametrosxContenedores');
 	Route::post('parametro-x-contenedor-excel/{id}', 'ParametroCalidadController@mostrarParametrosxContenedoresExcel');
 	Route::post('siembras-alimentacion/{id}', 'RecursoNecesarioController@siembraxAlimentacion');   
 	Route::post('anadir-especie-siembra', 'SiembraController@anadirEspeciesxSiembra');   
-	Route::post('filtro-registros-siembras', 'InformeRegistroController@filtroRegistros');   
-	Route::post('filtro-recursos', 'InformeRecursosNecesariosController@filtroRecursos');
-	Route::post('filtro-biomasa-alimento', 'InfomeBiomasaAlimentoController@filtroBiomasaAlimento');
 	
 	Route::get('listadoContenedores', 'ContenedorController@listadoContenedores');
 	Route::get('listadoLotes', 'SiembraController@listadoLotes');

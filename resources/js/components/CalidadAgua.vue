@@ -50,7 +50,7 @@
                 </button>
               </div>
               <div class="table-container" id="table-container2"> 
-              <h2>Registros de párametros de agua {{ listadoParametros[0].contenedor }}</h2>
+              <h2>Registros de párametros de agua {{listadoParametros[0] ? listadoParametros[0].contenedor : ''}}</h2>
                 <table class="table-sticky table table-sm table-hover table-bordered">
                   <thead class="thead-primary">
                     <tr>                    
@@ -75,7 +75,7 @@
                     </tr>                  
                   </thead>
                   <tbody>
-                    <tr v-for="(lp, index) in listadoParametros" :key="index" v-if="lp.id != null">                
+                    <tr v-for="(lp, index) in listadoParametros" :key="index" v-if="lp.id != null">
                       <th v-text="index+1"></th>
                       <th v-text="lp.id"></th>
                       <td v-text="lp.fecha_parametro"></td>
@@ -373,7 +373,7 @@
         let me = this;
         axios.get("api/siembras")
         .then(function (response){
-          me.listadoSiembras = response.data.siembra;         
+          me.listadoSiembras = response.data.listado_siembras;         
         })
       },
       listarParametrosContenedores(){
@@ -407,7 +407,6 @@
         .then(response=>{
           this.mostrar = 1
           this.listadoParametrosExcel = response.data.calidad_agua;
-          // this.promedios = response.data.promedios
         })
        
       },
@@ -457,15 +456,18 @@
       },
       eliminarParametros(objeto){
         let me = this;
-        swal({
+        Swal.fire({
           title: "Estás seguro?",
           text: "Una vez eliminado, no se puede recuperar los registros asociados a este ID",
           icon: "warning",
-          buttons: ["Cancelar", "Aceptar"],
-          dangerMode: true,
+          showCancelButton: true,
+          confirmButtonColor: '#c7120c',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Aceptar!',
+          reverseButtons: true
         })
-        .then((willDelete) => {
-          if (willDelete) {
+        .then((result) => {
+          if (result.isConfirmed) {
             axios.delete('api/parametros-calidad/'+objeto)
             .then(({data})=>{
               me.listar();
