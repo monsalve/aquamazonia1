@@ -2584,6 +2584,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -2656,6 +2666,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
           me.form["delete"]('api/alimentos/' + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
+          });
+        }
+      });
+    },
+    eliminarHistorial: function eliminarHistorial(index) {
+      var me = this;
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
+        reverseButtons: true,
+        dangerMode: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          me.form["delete"]("api/historial-alimentos-costos/" + index).then(function (_ref4) {
+            var data = _ref4.data;
+            me.listar('');
+            me.verCostos();
           });
         }
       });
@@ -7104,6 +7136,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -7113,10 +7243,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     return {
       editando: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
-        id: '',
-        recurso: '',
-        unidad: '',
-        costo: ''
+        id: "",
+        recurso: "",
+        unidad: "",
+        costo: ""
       }),
       listado: [],
       listadoCostos: []
@@ -7125,21 +7255,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
   methods: {
     guardar: function guardar() {
       var me = this;
-      this.form.post('api/recursos').then(function (_ref) {
+      this.form.post("api/recursos").then(function (_ref) {
         var data = _ref.data;
 
         editando: 0, me.listar();
 
-        $('#modalRecursos').modal('hide');
-        me.form.recurso = '';
-        me.form.unidad = '';
-        me.form.costo = '';
+        $("#modalRecursos").modal("hide");
+        me.form.recurso = "";
+        me.form.unidad = "";
+        me.form.costo = "";
       });
     },
     abrirCrear: function abrirCrear() {
       this.editando = 0;
       this.form.reset();
-      $('#modalRecursos').modal('show');
+      $("#modalRecursos").modal("show");
     },
     listar: function listar() {
       var me = this;
@@ -7151,13 +7281,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.form.fill(objeto);
       this.editando = 1;
-      $('#modalRecursos').modal('show');
+      $("#modalRecursos").modal("show");
     },
     editar: function editar() {
       var me = this;
-      this.form.put('api/recursos/' + this.form.id).then(function (_ref2) {
+      this.form.put("api/recursos/" + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        $('#modalRecursos').modal('hide');
+        $("#modalRecursos").modal("hide");
         me.listar();
       });
     },
@@ -7168,29 +7298,50 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          me.form["delete"]('api/recursos/' + index).then(function (_ref3) {
+          me.form["delete"]("api/recursos/" + index).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
           });
         }
       });
     },
+    eliminarHistorial: function eliminarHistorial(index) {
+      var me = this;
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
+        reverseButtons: true,
+        dangerMode: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          me.form["delete"]("api/historial-recursos-costos/" + index).then(function (_ref4) {
+            var data = _ref4.data;
+            me.listar("");
+            me.verCostos();
+          });
+        }
+      });
+    },
     verCostos: function verCostos(idRecurso) {
       var me = this;
-      $("#modalCostos").modal('show');
+      $("#modalCostos").modal("show");
       axios.get("api/historial-recursos-costos?idRecurso=" + idRecurso).then(function (response) {
         me.listadoCostos = response.data;
-        console.log(response);
       });
     },
     cerrarCostos: function cerrarCostos() {
-      $("#modalCostos").modal('hide');
+      $("#modalCostos").modal("hide");
       this.listadoCostos = [];
     }
   },
@@ -51477,7 +51628,7 @@ var render = function() {
                         staticClass: "col-sm-12  col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo KL\n\t\t\t\t\t\t\t")]
+                      [_vm._v("Costo KL\n\t\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -51625,6 +51776,22 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(" $ " + _vm._s(registro.costo))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarHistorial(registro.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
                           ])
                         ])
                       }),
@@ -51702,7 +51869,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Alimento")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
       ])
     ])
   }
@@ -59261,7 +59430,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Añadir Recurso")]
+                  [
+                    _vm._v(
+                      "\n                  Añadir Recurso\n                "
+                    )
+                  ]
                 )
               ])
             ]),
@@ -59445,10 +59618,10 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "col-sm-12  col-md-4 col-form-label",
+                        staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "unidad" }
                       },
-                      [_vm._v("Unidad\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]
+                      [_vm._v("Unidad\n                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -59496,10 +59669,10 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "col-sm-12  col-md-4 col-form-label",
+                        staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "costo" }
                       },
-                      [_vm._v("Costo Unidad\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]
+                      [_vm._v("Costo Unidad\n                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -59545,7 +59718,11 @@ var render = function() {
                           staticClass: "btn btn-secondary",
                           attrs: { type: "button", "data-dismiss": "modal" }
                         },
-                        [_vm._v("Cancelar")]
+                        [
+                          _vm._v(
+                            "\n                    Cancelar\n                  "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c("button", {
@@ -59595,7 +59772,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "modalCostosLabel" }
                   },
-                  [_vm._v("Historial de costos")]
+                  [_vm._v("\n              Historial de costos\n            ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -59644,7 +59821,23 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(" $ " + _vm._s(registro.costo))
+                            _vm._v("$ " + _vm._s(registro.costo))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarHistorial(registro.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
                           ])
                         ])
                       }),
@@ -59666,7 +59859,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n              Cerrar\n            ")]
                 )
               ])
             ])
@@ -59726,7 +59919,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Unidad")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Costo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
       ])
     ])
   }

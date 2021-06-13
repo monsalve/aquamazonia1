@@ -104,6 +104,7 @@
 									<th scope="col">Fecha registro</th>
 									<th scope="col">Alimento</th>
 									<th scope="col">Costo</th>
+									<th>Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -112,6 +113,15 @@
 									<td>{{registro.fecha_registro}}</td>
 									<td class="text-right">{{registro.alimento}}</td>
 									<td class="text-right"> $ {{registro.costo}}</td>
+									<td>
+										<button
+                        @click="eliminarHistorial(registro.id)"
+                        class="btn btn-danger"
+                        type="button"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+									</td>
 								</tr>
 							
 							</tbody>
@@ -211,6 +221,29 @@
 				});
 
 			},
+			eliminarHistorial(index) {
+      let me = this;
+      Swal.fire({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no se puede recuperar este registro",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
+        reverseButtons: true,
+        dangerMode: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          me.form
+            .delete("api/historial-alimentos-costos/" + index)
+            .then(({ data }) => {
+              me.listar('');
+							me.verCostos();
+            });
+        }
+      });
+    },
 			verCostos(idAlimento){
 				let me = this;
 				$("#modalCostos").modal('show');
