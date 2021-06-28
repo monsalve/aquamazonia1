@@ -90,6 +90,7 @@
 								<router-link class="dropdown-item" to="/informe-consolidado">Informe consolidado variables de producción </router-link>
 								<router-link class="dropdown-item" to="/informes">Informe recursos </router-link>
 								<router-link class="dropdown-item" to="/informes-recursos-necesarios">Informe consolidado recursos necesarios</router-link>
+								<router-link class="dropdown-item" to="/informe-consolidado-alimentos">Informe consolidado alimentos</router-link>
 								<router-link class="dropdown-item" to="/informes-parametros">Informe Párametros de calidad del agua </router-link>
 								<!-- <router-link class="dropdown-item" to="/informe-siembras">Informe siembras</router-link>       -->
 								<router-link class="dropdown-item" to="/ciclo-productivo">Informe ciclo productivo</router-link>

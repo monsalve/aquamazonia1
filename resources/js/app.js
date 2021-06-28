@@ -41,6 +41,7 @@ let routes = [
     { path: '/informe-costos', component: require('./components/InformeCostos.vue').default },
     { path: '/historial-costos-alimentos', component: require('./components/HistorialCostosAlimentos.vue').default },
     { path: '/historial-costos-recursos', component: require('./components/HistorialCostosRecursos.vue').default },
+    { path: '/informe-consolidado-alimentos', component: require('./components/InformeConsolidadoAlimentos.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
 
 ]
