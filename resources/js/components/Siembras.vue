@@ -671,7 +671,6 @@ export default {
     filtrarSiembras(estado_siembra, id_siembra){
       let me = this;
       me.listar(estado_siembra, id_siembra);
-      console.log('ok')
     }, 
     anadirItem(){
       let me = this;

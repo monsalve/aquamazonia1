@@ -196,7 +196,8 @@ class RecursoNecesarioController extends Controller
         $recursoNecesario->save();
 
         if($request['tipo_actividad'] == '1') {
-					$siembras = Siembra::findOrFail($request['id_siembra']);
+					if(!is_array($request['id_siembra'])) {
+						$siembras = Siembra::findOrFail($request['id_siembra']);
 					$siembras->fecha_alimento = $request['fecha_ra'];
 					$siembras->save();
 
@@ -204,6 +205,20 @@ class RecursoNecesarioController extends Controller
 					$recursoSiembra->id_registro = $recursoNecesario->id;
 					$recursoSiembra->id_siembra =$request['id_siembra'];
 					$recursoSiembra->save();
+					}
+
+					else {
+						foreach ($request->id_siembra as $siembra){
+							$siembras = Siembra::findOrFail($siembra);
+							$siembras->fecha_alimento = $request['fecha_ra'];
+							$siembras->save();
+		
+							$recursoSiembra = new RecursoSiembra();
+							$recursoSiembra->id_registro = $recursoNecesario->id;
+							$recursoSiembra->id_siembra =$siembra;
+							$recursoSiembra->save();
+						}
+					}
         }else{
 					foreach ($request->id_siembra as $siembra) {
 						$recursoSiembra = new RecursoSiembra();

@@ -34,6 +34,7 @@ Route::apiResources([
 	'informes-siembras' => 'API\InformeSiembraController',
 	'informes-registros' => 'API\InformeRegistroController',
 	'informes-recursos-necesarios' => 'API\InformeRecursosNecesariosController',
+	'informes-alimentos' => 'API\InformeAlimentosController',
 	'informes-biomasa-alimento' => 'API\InfomeBiomasaAlimentoController',
 	'historial-alimentos-costos' => 'API\HistorialAlimentoController',
 	'historial-recursos-costos' => 'API\HistorialRecursoController',
