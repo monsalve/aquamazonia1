@@ -42,10 +42,6 @@
 													</div>
 												</div>
 												
-
-												<!-- <div class="form-group col-md-2">
-													<button  class="btn btn-primary rounded-circle mt-4" type="button" @click="listar()"><i class="fas fa-search"></i></button>
-												</div> -->
 												<div class="col-md-2">
 													<downloadexcel
 													class = "btn btn-success form-control"
@@ -71,6 +67,7 @@
                               <th>Alimento Mañana</th>
                               <th>Alimento Tarde</th>
                               <th >Cantidad Total Alimento</th>
+                              <th>% Cantidad Alimento</th>
                               <th >Costo Alimento</th>
                             </tr>
                           </thead>
@@ -86,6 +83,7 @@
                               <td>{{lrn.c_manana}}</td>
                               <td>{{lrn.c_tarde}}</td>
                               <th v-text="lrn.cantidadTotalAlimento" ></th>
+                              <td class="text-right" v-text="lrn.porcCantidadAlimento + '%'"></td>
                               <th class="text-right">$ {{lrn.costoAlimento}}</th>
                             </tr>
                           </tbody>
@@ -126,6 +124,7 @@ import downloadexcel from "vue-json-excel"
           'Alimento Mañana' : 'c_manana',
           'Alimento Tarde' : 'c_tarde',
           'Cantidad total alimento' : 'cantidadTotalAlimento',
+          '% Cantidad Alimento' : 'porcCantidadAlimento',
           'Costo total alimento' : 'costoAlimento',
 
         },

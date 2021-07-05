@@ -5654,8 +5654,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5670,6 +5668,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Alimento Mañana': 'c_manana',
         'Alimento Tarde': 'c_tarde',
         'Cantidad total alimento': 'cantidadTotalAlimento',
+        '% Cantidad Alimento': 'porcCantidadAlimento',
         'Costo total alimento': 'costoAlimento'
       },
       pagination: {
@@ -58006,6 +58005,15 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-right",
+                            domProps: {
+                              textContent: _vm._s(
+                                lrn.porcCantidadAlimento + "%"
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("th", { staticClass: "text-right" }, [
                             _vm._v("$ " + _vm._s(lrn.costoAlimento))
                           ])
@@ -58122,6 +58130,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Alimento Tarde")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad Total Alimento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("% Cantidad Alimento")]),
         _vm._v(" "),
         _c("th", [_vm._v("Costo Alimento")])
       ])

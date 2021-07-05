@@ -321,9 +321,9 @@ class InformeController extends Controller
 					}
 				}
 				$existencias[$i]->mortalidad_kg =(number_format(($existencias[$i]->mortalidad_kg),2, ',',''));
-				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,1,',','');
+				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
 				$existencias[$i]->incremento_biomasa = number_format($existencias[$i]->incremento_biomasa, 2,',','');
-				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,1,',','');
+				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,2,',','');
 			}
 		}
 		return ['existencias'=> $existencias];
@@ -434,9 +434,9 @@ class InformeController extends Controller
 					}
 				}
 				$existencias[$i]->mortalidad_kg =(number_format(($existencias[$i]->mortalidad_kg),2, ',',''));
-				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,1,',','');
+				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
 				$existencias[$i]->incremento_biomasa = number_format($existencias[$i]->incremento_biomasa, 2,',','');
-				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,1,',','');
+				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,2,',','');
 			}
 		}
 
@@ -555,7 +555,11 @@ class InformeController extends Controller
 										$existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000)/$existencias[$j]->peso_actual);
 										$existencias[$j]->peso_incremento = $existencias[$j]->peso_actual -  $existencias[$j]->peso_inicial;
 										$existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual)/1000);
-										$existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento/$existencias[$j]->intervalo_tiempo;
+										if($existencias[$j]->intervalo_tiempo > 0) {
+											$existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento/$existencias[$j]->intervalo_tiempo;
+										} else {
+											$existencias[$j]->ganancia_peso_dia = 0;
+										}
 										$existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad*100)/$existencias[$j]->cantidad_inicial);
 
 									}

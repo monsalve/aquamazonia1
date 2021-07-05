@@ -75,13 +75,16 @@ class InformeAlimentosController extends Controller
       $recursosNecesarios = $recursosNecesarios->paginate(30);
     
     foreach ($recursosNecesarios as $recursoNecesario) {
-
+      $cantidadAlimentoSiembra  = $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_manana + $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_tarde;
       $costo_recursos = $this->datosAlimento($recursoNecesario->alimento_id);
       $recursoNecesario->cantidadTotalAlimento = $recursoNecesario->c_manana + $recursoNecesario->c_tarde;
       $recursoNecesario->costoAlimento = $costo_recursos->costo_kg * $recursoNecesario->cantidadTotalAlimento;
       $recursoNecesario->costoUnitarioAlimento = $costo_recursos->costo_kg;
+      $recursoNecesario->porcCantidadAlimento = ( $recursoNecesario->cantidadTotalAlimento * 100)/ $cantidadAlimentoSiembra;
+      $recursoNecesario->porcCantidadAlimento = (number_format(($recursoNecesario->porcCantidadAlimento), 2, ',',''));
+
     }
-    
+
     return [
       'recursosNecesarios' => $recursosNecesarios,
       'pagination' => [
@@ -98,6 +101,29 @@ class InformeAlimentosController extends Controller
   public function datosAlimento($id_alimento)
   {
     return Alimento::select('costo_kg')->where('id', $id_alimento)->first();
+  }
+
+  public function cantidadAlimentoSiembra($id_siembra) {
+
+    $cantidadAlimento = RecursoNecesario::select(
+      'id_siembra',
+      DB::raw('SUM(cantidad_recurso) as cantidad_recurso'),
+      DB::raw('SUM(cant_manana) as c_manana'),
+      DB::raw('SUM(cant_tarde) as c_tarde'),
+      DB::raw('SUM(minutos_hombre) as minutos_hombre'),
+      DB::raw('SUM(horas_hombre) as horas_hombre'),
+    )
+      ->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
+      ->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
+      ->join('alimentos', 'recursos_necesarios.id_alimento', 'alimentos.id')
+      ->where('recursos_necesarios.tipo_actividad', 1)
+      ->where('siembras.id', '=', $id_siembra)
+      ->groupBy('recursos_siembras.id_siembra')
+      ->orderBy('id_siembra', 'DESC')
+      ->first();
+
+      return $cantidadAlimento;
+
   }
 
 
