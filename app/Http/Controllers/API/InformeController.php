@@ -324,6 +324,7 @@ class InformeController extends Controller
 				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
 				$existencias[$i]->incremento_biomasa = number_format($existencias[$i]->incremento_biomasa, 2,',','');
 				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,2,',','');
+				$existencias[$i]->salida_biomasa = number_format($existencias[$i]->salida_biomasa, 2, ',','');
 			}
 		}
 		return ['existencias'=> $existencias];
@@ -430,6 +431,7 @@ class InformeController extends Controller
 							if($existencias[$i]->intervalo_tiempo > 0){
 								$existencias[$i]->ganancia_peso_dia = $existencias[$i]->peso_incremento/$existencias[$i]->intervalo_tiempo;
 							}
+							
 						}
 					}
 				}
@@ -437,6 +439,7 @@ class InformeController extends Controller
 				$existencias[$i]->biomasa_disponible = number_format($existencias[$i]->biomasa_disponible,2,',','');
 				$existencias[$i]->incremento_biomasa = number_format($existencias[$i]->incremento_biomasa, 2,',','');
 				$existencias[$i]->ganancia_peso_dia = number_format($existencias[$i]->ganancia_peso_dia,2,',','');
+				$existencias[$i]->salida_biomasa = number_format($existencias[$i]->salida_biomasa, 2, ',','');
 			}
 		}
 
@@ -661,6 +664,7 @@ class InformeController extends Controller
 				$siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso,2,',','');
 				$siembras[$i]->costo_total_siembra = number_format($siembras[$i]->costo_total_siembra,2,',','');
 				$siembras[$i]->costo_produccion_final = number_format($siembras[$i]->costo_produccion_final,2,',','');
+				$siembras[$i]->salida_biomasa = number_format($siembras[$i]->salida_biomasa, 2, ',','');
 				// recursos_necesarios
 				$aux_regs[]=[
 					"biomasa_inicial" => $siembras[$i]->biomasa_inicial,
@@ -928,6 +932,7 @@ class InformeController extends Controller
 				$siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso,2,',','');
 				$siembras[$i]->costo_produccion_final = number_format($siembras[$i]->costo_produccion_final,2,',','');
 				$siembras[$i]->costo_total_siembra = number_format($siembras[$i]->costo_total_siembra,2,',','');
+				$siembras[$i]->salida_biomasa = number_format($siembras[$i]->salida_biomasa, 2, ',','');
 
 				// recursos_necesarios
 				$aux_regs[]=[

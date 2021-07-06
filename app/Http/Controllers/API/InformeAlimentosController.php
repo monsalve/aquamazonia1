@@ -82,6 +82,7 @@ class InformeAlimentosController extends Controller
       $recursoNecesario->costoUnitarioAlimento = $costo_recursos->costo_kg;
       $recursoNecesario->porcCantidadAlimento = ( $recursoNecesario->cantidadTotalAlimento * 100)/ $cantidadAlimentoSiembra;
       $recursoNecesario->porcCantidadAlimento = (number_format(($recursoNecesario->porcCantidadAlimento), 2, ',',''));
+      $recursoNecesario->costoAlimento = (number_format(($recursoNecesario->costoAlimento), 2, ',',''));
 
     }
 
