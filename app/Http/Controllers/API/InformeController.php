@@ -645,7 +645,7 @@ class InformeController extends Controller
 				$siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
 				$siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
 				$siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
-				$siembras[$i]->salida_animales = number_format($siembras[$i]->salida_animales,2,',','');
+				$siembras[$i]->salida_animales = number_format($siembras[$i]->salida_animales,0,'','');
 								$siembras[$i]->densidad_inicial = (number_format(( $siembras[$i]->densidad_inicial),2, ',',''));
 				$siembras[$i]->densidad_final = (number_format(( $siembras[$i]->densidad_final),2, ',',''));
 				$siembras[$i]->incremento_biomasa = number_format($siembras[$i]->incremento_biomasa,2,',','');
@@ -913,7 +913,7 @@ class InformeController extends Controller
 				$siembras[$i]->conversion_alimenticia_siembra = number_format($siembras[$i]->conversion_alimenticia_siembra,2,',','');
 				$siembras[$i]->biomasa_disponible = number_format($siembras[$i]->biomasa_disponible,2,',','');
 				$siembras[$i]->mortalidad_kg = number_format($siembras[$i]->mortalidad_kg,2,',','');
-				$siembras[$i]->salida_animales = number_format($siembras[$i]->salida_animales,2,',','');
+				$siembras[$i]->salida_animales = number_format($siembras[$i]->salida_animales,0,'','');
 				$siembras[$i]->incremento_biomasa = number_format($siembras[$i]->incremento_biomasa,2,',','');
 				$siembras[$i]->bio_dispo_conver = number_format($siembras[$i]->bio_dispo_conver,2,',','');
 				$siembras[$i]->incr_bio_acum_conver = number_format($siembras[$i]->incr_bio_acum_conver,2,',','');
