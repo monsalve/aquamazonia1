@@ -8899,6 +8899,559 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -8909,31 +9462,31 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
     return _ref = {
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
-        id: '',
-        fecha_inicio: '',
-        nombre_siembra: '',
-        id_contenedor: '',
-        id_siembra: '',
+        id: "",
+        fecha_inicio: "",
+        nombre_siembra: "",
+        id_contenedor: "",
+        id_siembra: "",
         id_recurso: 0,
-        id_registro: '',
-        id_alimento: '',
-        tipo_actividad: '1',
-        fecha_ra: '',
-        minutos_hombre: '',
-        cant_manana: '',
-        cant_tarde: '',
-        conv_alimenticia: '',
-        detalles: ''
+        id_registro: "",
+        id_alimento: "",
+        tipo_actividad: "1",
+        fecha_ra: "",
+        minutos_hombre: "",
+        cant_manana: "",
+        cant_tarde: "",
+        conv_alimenticia: "",
+        detalles: ""
       }),
       editandoAlimento: 0,
       fechaActual: [],
       ver_registros: 1,
-      id_edita: '',
+      id_edita: "",
       itemRegistro: [],
-      newLote: '',
-      newEspecie: '',
-      newCantidad: '',
-      newPeso: '',
+      newLote: "",
+      newEspecie: "",
+      newCantidad: "",
+      newPeso: "",
       listadoEspecies: [],
       listadoContenedores: [],
       listado: [],
@@ -8946,21 +9499,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       pecesxSiembra: [],
       lotes: [],
       // Registros
-      id_siembra: '',
-      id_especie: '',
-      fecha_registro: '',
-      tipo_registro: '',
-      peso_ganado: '',
+      id_siembra: "",
+      id_especie: "",
+      fecha_registro: "",
+      tipo_registro: "",
+      peso_ganado: "",
       mortalidad: 0,
-      biomasa: '',
-      cantidad: '',
-      aux_lote: '',
-      aux_cantidad: '',
-      aux_peso_inicial: '',
-      id_edit_item: ''
-    }, _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "campos", {
+      biomasa: "",
+      cantidad: "",
+      aux_lote: "",
+      aux_cantidad: "",
+      aux_peso_inicial: "",
+      id_edit_item: ""
+    }, _defineProperty(_ref, "id_siembra", ""), _defineProperty(_ref, "mortalidad_inicial", ""), _defineProperty(_ref, "idSiembraRegistro", ""), _defineProperty(_ref, "idSiembraR", ""), _defineProperty(_ref, "ini_descanso", ""), _defineProperty(_ref, "fin_descanso", ""), _defineProperty(_ref, "id_finalizar", ""), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "campos", {
       camps_s: []
-    }), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_actividad", ''), _defineProperty(_ref, "f_fecha_d", ''), _defineProperty(_ref, "f_fecha_h", ''), _defineProperty(_ref, "estado_siembra", '-1'), _defineProperty(_ref, "siembra_activa", ''), _defineProperty(_ref, "siembra_inactiva", ''), _defineProperty(_ref, "siembrasActivas", ''), _defineProperty(_ref, "siembrasInactivas", ''), _ref;
+    }), _defineProperty(_ref, "f_siembra", ""), _defineProperty(_ref, "f_actividad", ""), _defineProperty(_ref, "f_fecha_d", ""), _defineProperty(_ref, "f_fecha_h", ""), _defineProperty(_ref, "estado_siembra", "-1"), _defineProperty(_ref, "siembra_activa", ""), _defineProperty(_ref, "siembra_inactiva", ""), _defineProperty(_ref, "siembrasActivas", ""), _defineProperty(_ref, "siembrasInactivas", ""), _ref;
   },
   methods: {
     editItem: function editItem(especie) {
@@ -8974,15 +9527,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       var me = this;
       var data = {
-        'especie': this.id_edit_item,
-        'lote': this.aux_lote,
-        'cantidad': this.aux_cantidad,
-        'cant_actual': this.aux_cantidad,
-        'peso_inicial': this.aux_peso_inicial
+        especie: this.id_edit_item,
+        lote: this.aux_lote,
+        cantidad: this.aux_cantidad,
+        cant_actual: this.aux_cantidad,
+        peso_inicial: this.aux_peso_inicial
       };
-      axios.put('api/siembras/' + id, data).then(function (_ref2) {
+      axios.put("api/siembras/" + id, data).then(function (_ref2) {
         var data = _ref2.data;
-        _this.id_edit_item = '', _this.aux_lote = '', _this.aux_cantidad = '', _this.aux_peso_inicial = '';
+        _this.id_edit_item = "", _this.aux_lote = "", _this.aux_cantidad = "", _this.aux_peso_inicial = "";
       });
     },
     listarEspecies: function listarEspecies() {
@@ -9006,7 +9559,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     listar: function listar(estado_siembra, id_siembra) {
       var me = this;
-      axios.get('api/siembras?estado_siembra=' + estado_siembra + '&id_siembra=' + id_siembra).then(function (response) {
+      axios.get("api/siembras?estado_siembra=" + estado_siembra + "&id_siembra=" + id_siembra).then(function (response) {
         me.listadoSiembras = response.data.siembra; // me.pecesxSiembra = response.data.pecesSiembra
 
         me.campos = response.data.campos;
@@ -9016,7 +9569,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     listarSiembras: function listarSiembras(estado_siembra) {
       var me = this;
-      axios.get('api/siembras?estado_siembra=' + estado_siembra).then(function (response) {
+      axios.get("api/siembras?estado_siembra=" + estado_siembra).then(function (response) {
         me.siembrasActivas = response.data.listado_siembras;
         me.siembrasInactivas = response.data.listado_siembras_inactivas;
       });
@@ -9027,15 +9580,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     },
     anadirItem: function anadirItem() {
       var me = this;
-      $('#modalSiembra').modal('show');
+      $("#modalSiembra").modal("show");
       this.listarEspecies();
       this.listarContenedores();
-      this.id_edita = '';
+      this.id_edita = "";
       this.listadoItems = [];
     },
     editarSiembra: function editarSiembra(siembra) {
       var me = this;
-      $('#modalSiembra').modal('show');
+      $("#modalSiembra").modal("show");
       me.listarContenedores();
       me.form.nombre_siembra = siembra.nombre_siembra;
       me.form.id_contenedor = siembra.id_contenedor;
@@ -9061,25 +9614,25 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         siembra: this.form,
         especies: this.listadoItems
       };
-      axios.post('api/anadir-especie-siembra', data).then(function (_ref3) {
+      axios.post("api/anadir-especie-siembra", data).then(function (_ref3) {
         var response = _ref3.response;
-        _this2.form.nombre_siembra = '';
-        _this2.form.id_contenedor = '';
-        _this2.form.fecha_inicio = '';
-        _this2.newEspecie = '';
-        _this2.newLote = '';
-        _this2.newCantidad = '';
-        _this2.newPeso = '';
+        _this2.form.nombre_siembra = "";
+        _this2.form.id_contenedor = "";
+        _this2.form.fecha_inicio = "";
+        _this2.newEspecie = "";
+        _this2.newLote = "";
+        _this2.newCantidad = "";
+        _this2.newPeso = "";
         _this2.listadoItems = [];
 
-        _this2.listar(1, '');
+        _this2.listar(1, "");
 
-        $('#modalSiembra').modal('hide');
+        $("#modalSiembra").modal("hide");
       });
     },
     abrirCrear: function abrirCrear(id) {
       var me = this;
-      $('#modalRecursos').modal('show');
+      $("#modalRecursos").modal("show");
       this.form.id_siembra = id;
       this.idSiembraR = id;
       axios.post("api/siembras-alimentacion/" + id).then(function (response) {
@@ -9091,12 +9644,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       var me = this;
 
-      if (this.newEspecie != '' && this.newCantidad != '' && this.newPeso != '') {
+      if (this.newEspecie != "" && this.newCantidad != "" && this.newPeso != "") {
         me.listadoItems.push({
-          'id_especie': this.newEspecie,
-          'lote': this.newLote,
-          'cantidad': this.newCantidad,
-          'peso_inicial': this.newPeso
+          id_especie: this.newEspecie,
+          lote: this.newLote,
+          cantidad: this.newCantidad,
+          peso_inicial: this.newPeso
         });
 
         var idEspecie = function idEspecie(element) {
@@ -9105,19 +9658,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
         var index = this.listadoEspecies.findIndex(idEspecie);
         this.listadoEspecies.splice(index, 1);
-        this.newEspecie = '';
-        this.newLote = '', this.newCantidad = '';
-        this.newPeso = '';
+        this.newEspecie = "";
+        this.newLote = "", this.newCantidad = "";
+        this.newPeso = "";
       } else {
-        alert('Debe diligenciar todos los campos');
+        alert("Debe diligenciar todos los campos");
       }
     },
     removeItem: function removeItem(index) {
       var me = this;
       me.listadoItems.pop(index, 1);
       this.listadoEspecies.push({
-        'id': index,
-        'especie': this.nombresEspecies[index]
+        id: index,
+        especie: this.nombresEspecies[index]
       });
     },
     nombreEspecie: function nombreEspecie() {
@@ -9133,7 +9686,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       this.idSiembraRegistro = id;
       var me = this;
       this.ver_registros = 1;
-      $("#modalIngreso").modal('show');
+      $("#modalIngreso").modal("show");
       this.tipo_registro = 0;
       axios.post("api/registros-siembra/" + id).then(function (response) {
         me.listadoRegistros = response.data;
@@ -9157,47 +9710,47 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         fecha_registro: this.fecha_registro,
         tipo_registro: this.tipo_registro
       };
-      axios.post('api/registros', data).then(function (_ref4) {
+      axios.post("api/registros", data).then(function (_ref4) {
         var response = _ref4.response;
         me.aux_campos = [];
         me.ver_registros = 1;
         me.abrirIngreso(id);
-        me.listar(1, '');
+        me.listar(1, "");
       });
     },
     filtrarIngresos: function filtrarIngresos() {
       var me = this; // if(this.f_siembra == ''){this.smb = '-1'}else{this.smb = this.f_siembra}
 
-      if (this.f_actividad == '') {
-        this.act = '-1';
+      if (this.f_actividad == "") {
+        this.act = "-1";
       } else {
         this.act = this.f_actividad;
       }
 
-      if (this.f_fecha_d == '') {
-        this.f_d = '-1';
+      if (this.f_fecha_d == "") {
+        this.f_d = "-1";
       } else {
         this.f_d = this.f_fecha_d;
       }
 
-      if (this.f_fecha_h == '') {
-        this.f_h = '-1';
+      if (this.f_fecha_h == "") {
+        this.f_h = "-1";
       } else {
         this.f_h = this.f_fecha_h;
       }
 
       var data = {
-        'f_siembra': this.idSiembraRegistro,
-        'f_actividad': this.act,
-        'f_fecha_d': this.f_d,
-        'f_fecha_h': this.f_h
+        f_siembra: this.idSiembraRegistro,
+        f_actividad: this.act,
+        f_fecha_d: this.f_d,
+        f_fecha_h: this.f_h
       };
       axios.post("api/filtro-registros", data).then(function (response) {
         me.listadoRegistros = response.data;
       });
     },
     finalizarSiembra: function finalizarSiembra(id) {
-      $("#modalFinalizar").modal('show');
+      $("#modalFinalizar").modal("show");
       this.id_finalizar = id;
     },
     fechaDescanso: function fechaDescanso(id) {
@@ -9205,34 +9758,34 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       var me = this;
 
-      if (this.ini_descanso != '') {
-        if (this.fin_descanso != '') {
+      if (this.ini_descanso != "") {
+        if (this.fin_descanso != "") {
           var data = {
-            'id': this.id_finalizar,
-            'ini_descanso': this.ini_descanso,
-            'fin_descanso': this.fin_descanso
+            id: this.id_finalizar,
+            ini_descanso: this.ini_descanso,
+            fin_descanso: this.fin_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, data).then(function (_ref5) {
+          axios.post("api/actualizarEstado/" + this.id_finalizar, data).then(function (_ref5) {
             var response = _ref5.response;
-            _this4.id_finalizar = '';
-            _this4.ini_descanso = '';
-            _this4.fin_descanso = '';
-            $('#modalFinalizar').modal('hide');
+            _this4.id_finalizar = "";
+            _this4.ini_descanso = "";
+            _this4.fin_descanso = "";
+            $("#modalFinalizar").modal("hide");
 
-            _this4.listar(1, '');
+            _this4.listar(1, "");
           });
         } else {
           var _data = {
-            'id': this.id_finalizar,
-            'ini_descanso': this.ini_descanso
+            id: this.id_finalizar,
+            ini_descanso: this.ini_descanso
           };
-          axios.post('api/actualizarEstado/' + this.id_finalizar, _data).then(function (_ref6) {
+          axios.post("api/actualizarEstado/" + this.id_finalizar, _data).then(function (_ref6) {
             var response = _ref6.response;
-            _this4.id_finalizar = '';
-            _this4.ini_descanso = '';
-            $('#modalFinalizar').modal('hide');
+            _this4.id_finalizar = "";
+            _this4.ini_descanso = "";
+            $("#modalFinalizar").modal("hide");
 
-            _this4.listar(1, '');
+            _this4.listar(1, "");
           });
         }
       } else {
@@ -9244,28 +9797,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       var me = this;
 
-      if (this.form.id_contenedor != '' && this.form.nombre_siembra != '' && this.form.fecha_inicio != '' && this.listadoItems.length > 0) {
+      if (this.form.id_contenedor != "" && this.form.nombre_siembra != "" && this.form.fecha_inicio != "" && this.listadoItems.length > 0) {
         var data = {
           siembra: this.form,
           especies: this.listadoItems
         };
-        axios.post('api/siembras', data).then(function (_ref7) {
+        axios.post("api/siembras", data).then(function (_ref7) {
           var response = _ref7.response;
-          _this5.form.nombre_siembra = '';
-          _this5.form.id_contenedor = '';
-          _this5.form.fecha_inicio = '';
-          _this5.newEspecie = '';
-          _this5.newLote = '';
-          _this5.newCantidad = '';
-          _this5.newPeso = '';
+          _this5.form.nombre_siembra = "";
+          _this5.form.id_contenedor = "";
+          _this5.form.fecha_inicio = "";
+          _this5.newEspecie = "";
+          _this5.newLote = "";
+          _this5.newCantidad = "";
+          _this5.newPeso = "";
           _this5.listadoItems = [];
 
-          _this5.listar(1, '');
+          _this5.listar(1, "");
 
-          $('#modalSiembra').modal('hide');
+          $("#modalSiembra").modal("hide");
         });
       } else {
-        alert('Debe diligenciar todos los campos');
+        alert("Debe diligenciar todos los campos");
       }
     },
     guardarRecursos: function guardarRecursos() {
@@ -9274,10 +9827,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
 
       if (this.editandoAlimento == 0) {
-        if (this.form.id_alimento != '' && this.form.fecha_ra != '') {
+        if (this.form.id_alimento != "" && this.form.fecha_ra != "") {
           axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
             var data = _ref8.data;
-            me.listar(1, '');
+            me.listar(1, "");
             me.abrirCrear(_this6.form.id_siembra);
             Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
           });
@@ -9287,13 +9840,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
             text: "Rellenar los campos requeridos",
             icon: "error",
             showCancelButton: true,
-            confirmButtonColor: '#c7120c',
-            confirmButtonText: 'Aceptar!',
+            confirmButtonColor: "#c7120c",
+            confirmButtonText: "Aceptar!",
             reverseButtons: true
           });
         }
       } else {
-        this.form.put('api/recursos-necesarios/' + this.form.id_registro).then(function (_ref9) {
+        this.form.put("api/recursos-necesarios/" + this.form.id_registro).then(function (_ref9) {
           var data = _ref9.data;
 
           _this6.form.reset();
@@ -9310,19 +9863,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
           var data = {
             campos: objeto
           };
-          axios.put('api/registros/' + id, data).then(function (_ref10) {
+          axios.put("api/registros/" + id, data).then(function (_ref10) {
             var data = _ref10.data;
             me.abrirIngreso(objeto.id_siembra);
-            me.listar(1, '');
+            me.listar(1, "");
           });
         }
       });
@@ -9336,16 +9889,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref11) {
+          axios["delete"]("api/recursos-necesarios/" + objeto).then(function (_ref11) {
             var data = _ref11.data;
             me.abrirCrear(_this7.idSiembraR);
-            me.listar(1, '');
+            me.listar(1, "");
           });
         }
       });
@@ -9357,34 +9910,34 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('api/siembras/' + index).then(function (_ref12) {
+          axios["delete"]("api/siembras/" + index).then(function (_ref12) {
             var data = _ref12.data;
-            me.listar(1, '');
+            me.listar(1, "");
           });
         }
       });
     }
   },
   mounted: function mounted() {
-    this.listar(1, '');
+    this.listar(1, "");
     this.listarEspecies();
     this.listarAlimentos();
     this.nombreEspecie();
     this.listarSiembras();
-    this.estados[0] = 'Inactivo';
-    this.estados[1] = 'Activo';
-    this.estados[2] = 'Ocupado';
-    this.estados[3] = 'Descanso';
-    this.tipoRegistro[0] = 'Muestreo';
-    this.tipoRegistro[1] = 'Pesca';
-    this.tipoRegistro[2] = 'Mortalidad Inicial';
-    this.tipoRegistro[3] = 'Peso Inicial';
+    this.estados[0] = "Inactivo";
+    this.estados[1] = "Activo";
+    this.estados[2] = "Ocupado";
+    this.estados[3] = "Descanso";
+    this.tipoRegistro[0] = "Muestreo";
+    this.tipoRegistro[1] = "Pesca";
+    this.tipoRegistro[2] = "Mortalidad Inicial";
+    this.tipoRegistro[3] = "Peso Inicial";
   }
 });
 
@@ -55952,7 +56505,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidadad KG cosecha")])
+        _c("th", [_vm._v("Cantidadad Animales")])
       ])
     ])
   }
@@ -56815,7 +57368,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(le.cant_actual) }
+                          domProps: { textContent: _vm._s(le.cantidad_actual) }
                         }),
                         _vm._v(" "),
                         _c("td", {
@@ -62299,7 +62852,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "row mb-1" }, [
-              _c("div", { staticClass: "col-12 text-right " }, [
+              _c("div", { staticClass: "col-12 text-right" }, [
                 _c(
                   "button",
                   {
@@ -62310,7 +62863,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Nueva siembra")]
+                  [_vm._v("\n                Nueva siembra\n              ")]
                 )
               ])
             ]),
@@ -62380,7 +62933,7 @@ var render = function() {
                           name: "show",
                           rawName: "v-show",
                           value: _vm.estado_siembra == 1,
-                          expression: "estado_siembra==1"
+                          expression: "estado_siembra == 1"
                         }
                       ],
                       staticClass: "form-group col-3"
@@ -62441,7 +62994,13 @@ var render = function() {
                                 key: index,
                                 domProps: { value: siembraActiva.id }
                               },
-                              [_vm._v(_vm._s(siembraActiva.nombre_siembra))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(siembraActiva.nombre_siembra) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -62458,7 +63017,7 @@ var render = function() {
                           name: "show",
                           rawName: "v-show",
                           value: _vm.estado_siembra == 0,
-                          expression: "estado_siembra==0"
+                          expression: "estado_siembra == 0"
                         }
                       ],
                       staticClass: "form-group col-3"
@@ -62522,7 +63081,13 @@ var render = function() {
                                 key: index,
                                 domProps: { value: siembraInactiva.id }
                               },
-                              [_vm._v(_vm._s(siembraInactiva.nombre_siembra))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(siembraInactiva.nombre_siembra) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -62582,7 +63147,11 @@ var render = function() {
                                       textContent: _vm._s(pez.especie)
                                     }
                                   },
-                                  [_vm._v("Especie")]
+                                  [
+                                    _vm._v(
+                                      "\n                        Especie\n                      "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -62595,7 +63164,11 @@ var render = function() {
                                     },
                                     domProps: { textContent: _vm._s(pez.lote) }
                                   },
-                                  [_vm._v("Lote")]
+                                  [
+                                    _vm._v(
+                                      "\n                        Lote\n                      "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -62610,7 +63183,11 @@ var render = function() {
                                       textContent: _vm._s(pez.cant_actual)
                                     }
                                   },
-                                  [_vm._v("Cantidad")]
+                                  [
+                                    _vm._v(
+                                      "\n                        Cantidad\n                      "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -62627,7 +63204,11 @@ var render = function() {
                                       )
                                     }
                                   },
-                                  [_vm._v("Peso")]
+                                  [
+                                    _vm._v(
+                                      "\n                        Peso\n                      "
+                                    )
+                                  ]
                                 )
                               ]
                             )
@@ -62642,9 +63223,17 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", [
-                          _vm._v(_vm._s(siembra.ini_descanso) + " - "),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(siembra.ini_descanso) +
+                              " - "
+                          ),
                           _c("br"),
-                          _vm._v(" " + _vm._s(siembra.fin_descanso))
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(siembra.fin_descanso) +
+                              "\n                  "
+                          )
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -62677,7 +63266,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Añadir Alimentos")]
+                            [
+                              _vm._v(
+                                "\n                      Añadir Alimentos\n                    "
+                              )
+                            ]
                           )
                         ]),
                         _vm._v(" "),
@@ -62780,7 +63373,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "container row" }, [
-                  _c("div", { staticClass: "form-group row   col-md-4" }, [
+                  _c("div", { staticClass: "form-group row col-md-4" }, [
                     _c(
                       "div",
                       { staticClass: "col-sm-12 col-md-12 text-left" },
@@ -62929,7 +63522,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group row   col-md-4" }, [
+                  _c("div", { staticClass: "form-group row col-md-4" }, [
                     _c(
                       "div",
                       { staticClass: "col-sm-12 col-md-12 text-left" },
@@ -62997,7 +63590,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group row  col-md-4" }, [
+                  _c("div", { staticClass: "form-group row col-md-4" }, [
                     _c(
                       "div",
                       { staticClass: "col-sm-12 col-md-12 text-left" },
@@ -63124,7 +63717,13 @@ var render = function() {
                                     attrs: { selected: "" },
                                     domProps: { value: especie.id }
                                   },
-                                  [_vm._v(_vm._s(especie.especie))]
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(especie.especie) +
+                                        "\n                      "
+                                    )
+                                  ]
                                 )
                               }),
                               0
@@ -63392,7 +63991,11 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v("X")]
+                                    [
+                                      _vm._v(
+                                        "\n                      X\n                    "
+                                      )
+                                    ]
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
@@ -63443,10 +64046,14 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-secondary ",
+                          staticClass: "btn btn-secondary",
                           attrs: { type: "button", "data-dismiss": "modal" }
                         },
-                        [_vm._v("Cancelar")]
+                        [
+                          _vm._v(
+                            "\n                  Cancelar\n                "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _vm.id_edita == ""
@@ -63461,7 +64068,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Crear")]
+                            [
+                              _vm._v(
+                                "\n                  Crear\n                "
+                              )
+                            ]
                           )
                         : _c(
                             "button",
@@ -63476,7 +64087,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Actualizar")]
+                            [
+                              _vm._v(
+                                "\n                  Actualizar\n                "
+                              )
+                            ]
                           )
                     ])
                   ])
@@ -63516,7 +64131,7 @@ var render = function() {
                   "form",
                   { staticClass: "row", attrs: { id: "editarAlimentacion" } },
                   [
-                    _c("div", { staticClass: "form-group col-md-3 " }, [
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _c(
                         "label",
                         { attrs: { for: "fecha_registro_alimentacion" } },
@@ -63600,7 +64215,13 @@ var render = function() {
                             return _c(
                               "option",
                               { key: index, domProps: { value: alimento.id } },
-                              [_vm._v(_vm._s(alimento.alimento))]
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(alimento.alimento) +
+                                    "\n                "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -63824,7 +64445,7 @@ var render = function() {
                     "table",
                     {
                       staticClass:
-                        "table table-sm table-hover table-responsive table-bordered"
+                        "\n                table table-sm table-hover table-responsive table-bordered\n              "
                     },
                     [
                       _vm._m(4),
@@ -63845,7 +64466,7 @@ var render = function() {
                               domProps: { textContent: _vm._s(item.fecha_ra) }
                             }),
                             _vm._v(" "),
-                            _c("td", [_vm._v(" " + _vm._s(item.alimento))]),
+                            _c("td", [_vm._v(_vm._s(item.alimento))]),
                             _vm._v(" "),
                             _c("td", {
                               domProps: {
@@ -63952,7 +64573,7 @@ var render = function() {
                   [
                     _vm.ver_registros == 1
                       ? _c("span", [
-                          _vm._v("Crear Registros  "),
+                          _vm._v("Crear Registros "),
                           _c("i", { staticClass: "fas fa-arrow-right" })
                         ])
                       : _vm._e(),
@@ -63960,7 +64581,7 @@ var render = function() {
                     _vm.ver_registros == 0
                       ? _c("span", [
                           _c("i", { staticClass: "fas fa-arrow-left" }),
-                          _vm._v("  Ver listado de registros")
+                          _vm._v(" Ver listado de\n              registros")
                         ])
                       : _vm._e()
                   ]
@@ -64168,25 +64789,25 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(
-                                    registro.biomasa == null
-                                      ? "-"
-                                      : registro.biomasa
-                                  )
-                                }
-                              }),
+                              registro.biomasa != null
+                                ? _c("td", [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(registro.biomasa.toFixed(2)) +
+                                        "\n                  "
+                                    )
+                                  ])
+                                : _c("td", [_vm._v("-")]),
                               _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(
-                                    registro.cantidad == null
-                                      ? "-"
-                                      : registro.cantidad
-                                  )
-                                }
-                              }),
+                              registro.cantidad != null
+                                ? _c("td", [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(Math.floor(registro.cantidad)) +
+                                        "\n                  "
+                                    )
+                                  ])
+                                : _c("td", [_vm._v("-")]),
                               _vm._v(" "),
                               registro.tipo_registro != 3
                                 ? _c("td", [
@@ -64324,7 +64945,9 @@ var render = function() {
                               _vm._v(" "),
                               _vm.tipo_registro == 0
                                 ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Peso actual (gr)")
+                                    _vm._v(
+                                      "\n                      Peso actual (gr)\n                    "
+                                    )
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
@@ -64336,13 +64959,17 @@ var render = function() {
                               _vm._v(" "),
                               _vm.tipo_registro == 1
                                 ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Biomasa (kg)")
+                                    _vm._v(
+                                      "\n                      Biomasa (kg)\n                    "
+                                    )
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.tipo_registro == 2
                                 ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Mortalidad Inicial")
+                                    _vm._v(
+                                      "\n                      Mortalidad Inicial\n                    "
+                                    )
                                   ])
                                 : _vm._e()
                             ])
@@ -64369,7 +64996,7 @@ var render = function() {
                                                 pez.id
                                               ]["peso_ganado"],
                                             expression:
-                                              "campos[pez.id_siembra][pez.id]['peso_ganado']"
+                                              "\n                          campos[pez.id_siembra][pez.id]['peso_ganado']\n                        "
                                           }
                                         ],
                                         staticClass: "form-control",
@@ -64518,7 +65145,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Cerrar")]
+                  [_vm._v("\n            Cerrar\n          ")]
                 ),
                 _vm._v(" "),
                 _vm.ver_registros == 0
@@ -64533,7 +65160,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Crear registro")]
+                      [_vm._v("\n            Crear registro\n          ")]
                     )
                   : _vm._e()
               ])
@@ -64629,7 +65256,7 @@ var render = function() {
                   staticClass: "btn btn-secondary",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
-                [_vm._v("Cerrar")]
+                [_vm._v("\n            Cerrar\n          ")]
               ),
               _vm._v(" "),
               _c(
@@ -64643,7 +65270,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Guardar")]
+                [_vm._v("\n            Guardar\n          ")]
               )
             ])
           ])
@@ -64661,7 +65288,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nombre "), _c("br"), _vm._v(" siembra")]),
+        _c("th", [
+          _vm._v("\n                    Nombre "),
+          _c("br"),
+          _vm._v("\n                    siembra\n                  ")
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Contenedor")]),
         _vm._v(" "),
@@ -64672,7 +65303,7 @@ var staticRenderFns = [
             staticStyle: { "min-width": "340px" }
           },
           [
-            _c("h5", [_vm._v(" Especie")]),
+            _c("h5", [_vm._v("Especie")]),
             _vm._v(" "),
             _c("div", { staticClass: "py-3" }, [
               _c(
@@ -64680,7 +65311,11 @@ var staticRenderFns = [
                 {
                   staticStyle: { "min-width": "80px", display: "inline-block" }
                 },
-                [_vm._v("Especie")]
+                [
+                  _vm._v(
+                    "\n                        Especie\n                      "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -64688,7 +65323,11 @@ var staticRenderFns = [
                 {
                   staticStyle: { "min-width": "80px", display: "inline-block" }
                 },
-                [_vm._v("Lote")]
+                [
+                  _vm._v(
+                    "\n                        Lote\n                      "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -64696,13 +65335,21 @@ var staticRenderFns = [
                 {
                   staticStyle: { "min-width": "80px", display: "inline-block" }
                 },
-                [_vm._v("Cantidad")]
+                [
+                  _vm._v(
+                    "\n                        Cantidad\n                      "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
                 "li",
                 { staticStyle: { width: "60px", display: "inline-block" } },
-                [_vm._v("Peso gr")]
+                [
+                  _vm._v(
+                    "\n                        Peso gr\n                      "
+                  )
+                ]
               )
             ])
           ]
@@ -64710,7 +65357,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Inicio - fin de  descanso estanque")]),
+        _c("th", [_vm._v("Inicio - fin de descanso estanque")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha Alimentación")]),
         _vm._v(" "),
@@ -64779,7 +65426,7 @@ var staticRenderFns = [
       _c(
         "h3",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Alimentos por siembra")]
+        [_vm._v("\n            Alimentos por siembra\n          ")]
       ),
       _vm._v(" "),
       _c(
@@ -64804,7 +65451,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo de "), _c("br"), _vm._v(" Actividad")]),
+        _c("th", [
+          _vm._v("\n                    Tipo de "),
+          _c("br"),
+          _vm._v("\n                    Actividad\n                  ")
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
@@ -64833,7 +65484,7 @@ var staticRenderFns = [
           staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Cerrar")]
+        [_vm._v("\n            Cerrar\n          ")]
       )
     ])
   },
@@ -64888,7 +65539,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Finalizar siembra")]
+        [_vm._v("\n            Finalizar siembra\n          ")]
       ),
       _vm._v(" "),
       _c(
