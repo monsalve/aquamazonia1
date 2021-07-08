@@ -4477,7 +4477,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'biomasa muestreo': 'biomasa_disponible',
         'Cantidad Actual': 'cantidad_actual',
         'Biomasa disponible': 'bio_dispo_alimen',
-        'Cantidadad KG cosecha': 'salida_animales'
+        'Cantidadad Animales': 'salida_animales'
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -56505,7 +56505,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidadad Animales")])
+        _c("th", [_vm._v("Cantidad Animales")])
       ])
     ])
   }
