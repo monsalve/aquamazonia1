@@ -64,8 +64,8 @@ class InformeRegistroController extends Controller
 
 				$registro->biomasa_disponible = number_format($registro->biomasa_disponible, 2, ',', '');
 				$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen, 2, ',', '');
-				$registro->cantidad_actual = number_format($registro->cantidad_actual, 2, ',', '');
-				$registro->salida_animales = number_format($registro->salida_animales, 2, ',', '');
+				$registro->cantidad_actual = number_format($registro->cantidad_actual, 0, '', '');
+				$registro->salida_animales = number_format($registro->salida_animales, 0, '', '');
 			}
 		}
 		return $registros;
@@ -332,8 +332,8 @@ class InformeRegistroController extends Controller
 
 				$registro->biomasa_disponible = number_format($registro->biomasa_disponible, 2, ',', '');
 				$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen, 2, ',', '');
-				$registro->cantidad_actual = number_format($registro->cantidad_actual, 2, ',', '');
-				$registro->salida_animales = number_format($registro->salida_animales, 2, ',', '');
+				$registro->cantidad_actual = number_format($registro->cantidad_actual, 0, '', '');
+				$registro->salida_animales = number_format($registro->salida_animales, 0, '', '');
 			}
 		}
 
