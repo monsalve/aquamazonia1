@@ -4477,7 +4477,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'biomasa muestreo': 'biomasa_disponible',
         'Cantidad Actual': 'cantidad_actual',
         'Biomasa disponible': 'bio_dispo_alimen',
-        'Cantidadad KG cosecha': 'salida_animales'
+        'Cantidadad Animales': 'salida_animales'
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -8391,6 +8391,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -63178,14 +63181,13 @@ var render = function() {
                                     staticStyle: {
                                       "min-width": "80px",
                                       display: "inline-block"
-                                    },
-                                    domProps: {
-                                      textContent: _vm._s(pez.cant_actual)
                                     }
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        Cantidad\n                      "
+                                      "\n                        " +
+                                        _vm._s(Math.floor(pez.cant_actual)) +
+                                        "\n                      "
                                     )
                                   ]
                                 ),
@@ -63223,20 +63225,6 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("td", [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(siembra.ini_descanso) +
-                              " - "
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(siembra.fin_descanso) +
-                              "\n                  "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
                           _c(
                             "span",
                             {
@@ -63254,6 +63242,8 @@ var render = function() {
                               )
                             ]
                           ),
+                          _vm._v(" "),
+                          _c("br"),
                           _vm._v(" "),
                           _c(
                             "button",
@@ -63293,26 +63283,6 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-warning",
-                              attrs: {
-                                "data-toggle": "tooltip",
-                                title: "Finalizar siembra",
-                                "data-placement": "top"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.finalizarSiembra(siembra.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-power-off" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
                               staticClass: "btn btn-success",
                               on: {
                                 click: function($event) {
@@ -63336,6 +63306,40 @@ var render = function() {
                               }
                             },
                             [_c("i", { staticClass: "fas fa-trash" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: {
+                                "data-toggle": "tooltip",
+                                title: "Finalizar siembra",
+                                "data-placement": "top"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.finalizarSiembra(siembra.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-power-off" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(siembra.ini_descanso) +
+                              " - "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(siembra.fin_descanso) +
+                              "\n                  "
                           )
                         ])
                       ])
@@ -65052,6 +65056,7 @@ var render = function() {
                                           type: "number",
                                           step: "any",
                                           id: "mortalidad",
+                                          value: "",
                                           required:
                                             _vm.tipo_registro == 0 || 2
                                               ? "required"
@@ -65357,17 +65362,21 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Inicio - fin de descanso estanque")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Fecha Alimentación")]),
         _vm._v(" "),
         _c("th", [_vm._v("Ingreso")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Finalizar")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Editar")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Eliminar")])
+        _c("th", [_vm._v("Eliminar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Finalizar")]),
+        _vm._v(" "),
+        _c("th", [
+          _vm._v("Inicio - fin de "),
+          _c("br"),
+          _vm._v(" descanso estanque")
+        ])
       ])
     ])
   },

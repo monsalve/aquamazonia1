@@ -111,12 +111,14 @@
                       </div>
                     </th>
                     <th>Inicio siembra</th>
-                    <th>Inicio - fin de descanso estanque</th>
+
                     <th>Fecha Alimentación</th>
                     <th>Ingreso</th>
-                    <th>Finalizar</th>
+
                     <th>Editar</th>
                     <th>Eliminar</th>
+                    <th>Finalizar</th>
+                    <th>Inicio - fin de <br> descanso estanque</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -148,11 +150,10 @@
                           Lote
                         </li>
                         <li
-                          v-text="pez.cant_actual"
                           class="nav-item border-bottom"
                           style="min-width: 80px; display: inline-block"
                         >
-                          Cantidad
+                          {{ Math.floor(pez.cant_actual) }}
                         </li>
                         <li
                           v-text="pez.peso_actual + 'Gr'"
@@ -164,10 +165,6 @@
                       </ul>
                     </td>
                     <td v-text="siembra.fecha_inicio"></td>
-                    <td>
-                      {{ siembra.ini_descanso }} - <br />
-                      {{ siembra.fin_descanso }}
-                    </td>
 
                     <td>
                       <span
@@ -179,7 +176,7 @@
                       >
                         {{ siembra.fecha_alimento }}
                       </span>
-
+                      <br>
                       <button
                         type="button"
                         class="btn btn-success btn-sm"
@@ -196,17 +193,7 @@
                         <i class="fas fa-list-ul"></i>
                       </button>
                     </td>
-                    <td>
-                      <button
-                        class="btn btn-warning"
-                        data-toggle="tooltip"
-                        title="Finalizar siembra"
-                        data-placement="top"
-                        @click="finalizarSiembra(siembra.id)"
-                      >
-                        <i class="fas fa-power-off"></i>
-                      </button>
-                    </td>
+
                     <td>
                       <button
                         class="btn btn-success"
@@ -222,6 +209,21 @@
                       >
                         <i class="fas fa-trash"></i>
                       </button>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-warning"
+                        data-toggle="tooltip"
+                        title="Finalizar siembra"
+                        data-placement="top"
+                        @click="finalizarSiembra(siembra.id)"
+                      >
+                        <i class="fas fa-power-off"></i>
+                      </button>
+                    </td>
+                    <td>
+                      {{ siembra.ini_descanso }} - <br />
+                      {{ siembra.fin_descanso }}
                     </td>
                   </tr>
                 </tbody>
@@ -943,6 +945,7 @@
                           type="number"
                           step="any"
                           id="mortalidad"
+                          value=""
                           class="form-control"
                           v-bind:required="
                             tipo_registro == 0 || 2 ? 'required' : ''
