@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\EspeciesSiembraController;
 use Illuminate\Http\Request;
 use App\Registro;
 use App\EspecieSiembra;
@@ -23,17 +24,18 @@ class InformeRegistroController extends Controller
 		//
 		$registros = Registro::select(
 			'registros.id as id',
-			'registros.id_siembra',
+			'registros.id_siembra as id_siembra',
+			'registros.id_especie as id_especie',
 			'fecha_registro',
 			'tipo_registro',
 			'peso_ganado',
-			'mortalidad',
 			'registros.cantidad',
 			'biomasa',
+			'mortalidad',
 			'especies.especie as especie',
-			'especies.id as id_especie',
 			'nombre_siembra',
 			'lote',
+			'especies_siembra.cantidad as cantidad_inicial',
 			'especies_siembra.cant_actual as cantidad_actual',
 			'especies_siembra.peso_actual as peso_actual',
 		)
@@ -49,14 +51,23 @@ class InformeRegistroController extends Controller
 			->orderBy('fecha_registro', 'desc')
 			->get();
 
+		$especies_siembra = new EspeciesSiembraController;
 		if (count($registros) > 0) {
 			foreach ($registros as $registro) {
 
-				$registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual) / 1000;
+				$registro->mortalidad_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->mortalidad;
+				$registro->biomasa_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->biomasa;
+				$registro->salida_animales_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->cantidad + $registro->mortalidad_general;
+				$registro->cantidad_actual = $registro->cantidad_inicial - $registro->salida_animales_general;
+				$registro->biomasa_disponible = ((($registro->peso_actual) * ($registro->cantidad_actual)) / 1000);
+				$registro->biomasa_inicial =  ((($registro->peso_inicial) * ($registro->cantidad_inicial)) / 1000);
+
+
+				// $registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual) / 1000;
 				$registro->bio_dispo_alimen = $this->BiomasaAlimento($registro->id_siembra)['bio_dispo_alimen'];
-				if ($registro->peso_ganado > 0) {
-					$registro->salida_animales = ($registro->biomasa * 1000) / $registro->peso_ganado;
-				}
+				// if ($registro->peso_ganado > 0) {
+				$registro->salida_animales = $registro->cantidad + $registro->mortalidad;
+				// }
 				if ($registro->tipo_registro == 0) $registro->nombre_registro = 'Muestreo';
 				if ($registro->tipo_registro == 1) $registro->nombre_registro = 'Pesca';
 				if ($registro->tipo_registro == 2) $registro->nombre_registro = 'Mortalidad Inicial';
@@ -66,6 +77,7 @@ class InformeRegistroController extends Controller
 				$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen, 2, ',', '');
 				$registro->cantidad_actual = number_format($registro->cantidad_actual, 0, '', '');
 				$registro->salida_animales = number_format($registro->salida_animales, 0, '', '');
+				$registro->biomasa = number_format($registro->biomasa, 2, ',', '');
 			}
 		}
 		return $registros;
@@ -285,20 +297,20 @@ class InformeRegistroController extends Controller
 
 		$registros = Registro::select(
 			'registros.id as id',
-			'registros.id_siembra',
+			'registros.id_siembra as id_siembra',
+			'registros.id_especie as id_especie',
 			'fecha_registro',
 			'tipo_registro',
 			'peso_ganado',
-			'mortalidad',
 			'registros.cantidad',
 			'biomasa',
+			'mortalidad',
 			'especies.especie as especie',
-			'especies.id as id_especie',
 			'nombre_siembra',
 			'lote',
+			'especies_siembra.cantidad as cantidad_inicial',
 			'especies_siembra.cant_actual as cantidad_actual',
 			'especies_siembra.peso_actual as peso_actual',
-			'siembras.estado as estado'
 		)
 			->join(
 				'especies',
@@ -319,21 +331,29 @@ class InformeRegistroController extends Controller
 			->orderBy('fecha_registro', 'desc')
 			->get();
 
+		$especies_siembra = new EspeciesSiembraController;
 		if (count($registros) > 0) {
 			foreach ($registros as $registro) {
-				$registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual) / 1000;
+
+				$registro->mortalidad_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->mortalidad;
+				$registro->biomasa_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->biomasa;
+				$registro->salida_animales_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->cantidad + $registro->mortalidad_general;
+				$registro->cantidad_actual = $registro->cantidad_inicial - $registro->salida_animales_general;
+				$registro->biomasa_disponible = ((($registro->peso_actual) * ($registro->cantidad_actual)) / 1000);
+				$registro->biomasa_inicial =  ((($registro->peso_inicial) * ($registro->cantidad_inicial)) / 1000);
+
 				$registro->bio_dispo_alimen = $this->BiomasaAlimento($registro->id_siembra)['bio_dispo_alimen'];
-				if ($registro->peso_ganado > 0) {
-					$registro->salida_animales = ($registro->biomasa * 1000) / $registro->peso_ganado;
-				}
+				$registro->salida_animales = $registro->cantidad + $registro->mortalidad;
 				if ($registro->tipo_registro == 0) $registro->nombre_registro = 'Muestreo';
 				if ($registro->tipo_registro == 1) $registro->nombre_registro = 'Pesca';
 				if ($registro->tipo_registro == 2) $registro->nombre_registro = 'Mortalidad Inicial';
+				if ($registro->tipo_registro == 3) $registro->nombre_registro = 'Peso Inicial';
 
 				$registro->biomasa_disponible = number_format($registro->biomasa_disponible, 2, ',', '');
 				$registro->bio_dispo_alimen = number_format($registro->bio_dispo_alimen, 2, ',', '');
 				$registro->cantidad_actual = number_format($registro->cantidad_actual, 0, '', '');
 				$registro->salida_animales = number_format($registro->salida_animales, 0, '', '');
+				$registro->biomasa = number_format($registro->biomasa, 2, ',', '');
 			}
 		}
 
