@@ -118,7 +118,10 @@
                     <th>Editar</th>
                     <th>Eliminar</th>
                     <th>Finalizar</th>
-                    <th>Inicio - fin de <br> descanso estanque</th>
+                    <th>
+                      Inicio - fin de <br />
+                      descanso estanque
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -176,7 +179,7 @@
                       >
                         {{ siembra.fecha_alimento }}
                       </span>
-                      <br>
+                      <br />
                       <button
                         type="button"
                         class="btn btn-success btn-sm"

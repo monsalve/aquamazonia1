@@ -9455,6 +9455,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -56508,7 +56511,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidadad Animales")])
+        _c("th", [_vm._v("Cantidad Animales")])
       ])
     ])
   }
@@ -65373,9 +65376,9 @@ var staticRenderFns = [
         _c("th", [_vm._v("Finalizar")]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("Inicio - fin de "),
+          _vm._v("\n                    Inicio - fin de "),
           _c("br"),
-          _vm._v(" descanso estanque")
+          _vm._v("\n                    descanso estanque\n                  ")
         ])
       ])
     ])

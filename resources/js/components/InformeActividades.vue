@@ -100,7 +100,7 @@
                               <th>Biomasa muestreo</th>
                               <th>Cantidad Actual</th>
                               <th>Biomasa disponible por alimento</th>
-                              <th>Cantidadad Animales</th>
+                              <th>Cantidad Animales</th>
                             </tr>
                           </thead>
                           <tbody>
