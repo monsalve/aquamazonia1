@@ -65,7 +65,7 @@ class RegistroController extends Controller
             $biomasa = 0;
 
             if ($request->tipo_registro == 0) {
-                
+
                 $exs->cant_actual = $exs->cant_actual - $campo['mortalidad'];
 
                 if ($campo['peso_ganado'] > $exs->peso_actual) {

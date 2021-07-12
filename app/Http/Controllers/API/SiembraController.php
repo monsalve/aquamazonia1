@@ -159,7 +159,7 @@ class SiembraController extends Controller
 					'fecha_registro' => $request->siembra['fecha_inicio'],
 					'tipo_registro' => 3,
 					'peso_ganado' => $especie['peso_inicial'],
-					'cantidad' =>$especie['cantidad']
+					// 'cantidad' =>$especie['cantidad']
 				]);
 			}
     }
@@ -184,7 +184,7 @@ class SiembraController extends Controller
 						'fecha_registro' => $request->siembra['fecha_inicio'],
 						'tipo_registro' => 3,
 						'peso_ganado' => $especie['peso_inicial'],
-						'cantidad' =>$especie['cantidad']
+						// 'cantidad' =>$especie['cantidad']
 					]);
 				}
 			}
@@ -219,7 +219,7 @@ class SiembraController extends Controller
 			
 			$registro = Registro::where('id_siembra', $especieSiembras->id_siembra)->where('id_especie', $especieSiembras->id_especie)->where('tipo_registro',3)->first();
 			$registro->peso_ganado = $request->peso_inicial;
-			$registro->cantidad = $request->cantidad;
+			// $registro->cantidad = $request->cantidad;
 			$registro->save();
 
 			return $especieSiembras;
