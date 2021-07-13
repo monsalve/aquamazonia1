@@ -28,8 +28,8 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        
-       /*
+
+        /*
         $val = $request->validate([
             'name' => 'required|string|max:191',            
             'email' => 'required|string|email|max:191|unique:users',
@@ -38,14 +38,13 @@ class UsuarioController extends Controller
 */
         //print_r($rerrores); exit; die;
         $user = User::create([
-            'name' => $request['name'],            
-            'email' => $request['email'],            
+            'name' => $request['name'],
+            'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        
-         
+
+
         return $user;
-        
     }
 
     /**
@@ -71,8 +70,7 @@ class UsuarioController extends Controller
         $usuario = User::findOrFail($id);
         $usuario->name = $request['name'];
         $usuario->email  = $request['email'];
-        if($request['password'])
-        {
+        if ($request['password']) {
             $usuario->password = Hash::make($request['password']);
         }
         $usuario->save();

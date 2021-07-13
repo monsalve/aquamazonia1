@@ -22,8 +22,7 @@ class ContenedorController extends Controller
 
     public function listadoContenedores()
     {
-     	return Contenedor::all()->chunk(18);
-		
+        return Contenedor::all()->chunk(18);
     }
 
     /**
@@ -34,18 +33,18 @@ class ContenedorController extends Controller
      */
     public function store(Request $request)
     {
-			//
-			$val = $request->validate([
-					'contenedor' => 'required',            
-					'capacidad' => 'required',
-					'estado' => 'required'
-					
-			]);
-			$contenedor = Contenedor::create([
-					'contenedor' => $request['contenedor'],            
-					'capacidad' => $request['capacidad'],
-					'estado' => $request['estado']
-			]);
+        //
+        $val = $request->validate([
+            'contenedor' => 'required',
+            'capacidad' => 'required',
+            'estado' => 'required'
+
+        ]);
+        $contenedor = Contenedor::create([
+            'contenedor' => $request['contenedor'],
+            'capacidad' => $request['capacidad'],
+            'estado' => $request['estado']
+        ]);
     }
 
     /**
