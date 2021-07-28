@@ -78,10 +78,14 @@ class SiembraController extends Controller
 			);
 
 			foreach ($peces as $pez) {
+				$especies_siembra = new EspeciesSiembraController();
+				$mortalidad = $especies_siembra->cantidadEspecieSiembra($pez['id_siembra'], $pez['id_especie'])->mortalidad;
+				$salida = $especies_siembra->cantidadEspecieSiembra($pez['id_siembra'], $pez['id_especie'])->cantidad;
+				$cantidad_actual = $pez['cantidad'] - $salida - $mortalidad;
 				$detalles_siembra[$siembra['id']]['peces'][$pez['id']] = [
 					'especie' => $pez['especie'],
 					'lote' => $pez['lote'],
-					'cant_actual' => $pez['cant_actual'],
+					'cant_actual' => $cantidad_actual,
 					'peso_actual' => $pez['peso_actual'],
 
 				];
@@ -101,6 +105,13 @@ class SiembraController extends Controller
 		foreach ($peces as $p) {
 			$pxs[$p['id_siembra']][$p['id']] = $p;
 
+			$especies_siembra = new EspeciesSiembraController();
+			$mortalidad = $especies_siembra->cantidadEspecieSiembra($p['id_siembra'], $p['id_especie'])->mortalidad;
+			$salida = $especies_siembra->cantidadEspecieSiembra($p['id_siembra'], $p['id_especie'])->cantidad;
+			$cantidad_actual_pez = $p['cantidad'] - $salida - $mortalidad;
+
+			// var_dump($p['id_especie'], $salida, $mortalidad);
+
 			$campos[$p['id_siembra']][$p['id']] = array(
 				"id_especie" => $p['id_especie'],
 				"id_siembra" => $p['id_siembra'],
@@ -108,7 +119,7 @@ class SiembraController extends Controller
 				"mortalidad" => '',
 				"biomasa" => '',
 				"cantidad" => '',
-				'cant_actual' => $p['cant_actual'],
+				'cant_actual' => $cantidad_actual_pez,
 				'peso_actual' => $p['peso_actual']
 			);
 		}
