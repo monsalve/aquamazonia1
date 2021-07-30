@@ -180,23 +180,10 @@ class RegistroController extends Controller
 		if ($request['campos']['mortalidad'] > 0) {
 			$exs->cant_actual = $exs->cant_actual + $request['campos']['mortalidad'];
 		}
-		// if($request['campos']['cantidad'] > 0){
-		//     $exs->cant_actual= $exs->cant_actual + $request['campos']['cantidad'];
-		// }
 
 		$exs->peso_actual = $oldData['peso_actual'];
 		$exs->cant_actual = $oldData['cantidad_actual'];
-		// var_dump($oldData);
-		/*if($request['campos']['peso_ganado'] > 0){
-			if($request['campos']['peso_ganado'] == $exs->peso_actual){
-				// $exs->peso_actual= $exs->cant_actual + $request['campos']['peso_ganado'];
-			}
-			else{
-				$exs->peso_actual= $exs->peso_actual + $request['campos']['peso_ganado'];
-			}
-
-
-		}*/
+	
 		$exs->save();
 	}
 
