@@ -118,7 +118,7 @@
                               <td v-text="le.fecha_inicio"></td>                              
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.peso_inicial+' gr'"></td>
-                              <td v-text="le.cant_actual"></td>
+                              <td v-text="le.cantidad_actual"></td>
                               <td v-text="le.peso_actual+' gr'"></td>   
                               <td v-text="le.fecha_registro"></td>
                               <td v-if="le.intervalo_tiempo">{{le.intervalo_tiempo}} días</td>

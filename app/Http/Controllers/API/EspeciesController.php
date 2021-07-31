@@ -33,10 +33,10 @@ class EspeciesController extends Controller
             'especie' =>  'required',
             'descripcion' => 'required'
         ]);
-        
+
         $especie = Especie::create([
-            'especie' => $request['especie'],            
-            'descripcion' => $request['descripcion'],            
+            'especie' => $request['especie'],
+            'descripcion' => $request['descripcion'],
         ]);
     }
 

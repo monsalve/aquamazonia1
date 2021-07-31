@@ -31,19 +31,19 @@ class RecursosController extends Controller
     {
         //
         $val = $request->validate([
-            'recurso' => 'required',            
+            'recurso' => 'required',
             'unidad' => 'required',
             'costo' => 'required'
         ]);
         $recursos = Recursos::create([
-            'recurso' => $request['recurso'],            
+            'recurso' => $request['recurso'],
             'unidad' => $request['unidad'],
             'costo' => $request['costo']
         ]);
 
         HistorialRecurso::create([
-            'id_recurso' => $recursos['id'],            
-            'costo' => $recursos['costo'], 
+            'id_recurso' => $recursos['id'],
+            'costo' => $recursos['costo'],
             'fecha_registro' => date('Y-m-d')
         ]);
     }
@@ -73,8 +73,8 @@ class RecursosController extends Controller
         $recurso->update($request->all());
 
         HistorialRecurso::create([
-            'id_recurso' => $request['id'],            
-            'costo' => $request['costo'], 
+            'id_recurso' => $request['id'],
+            'costo' => $request['costo'],
             'fecha_registro' => date('Y-m-d')
         ]);
 
@@ -92,7 +92,7 @@ class RecursosController extends Controller
         //
         Recursos::destroy($id);
         HistorialRecurso::where('id_recurso', $id)->delete();
-        
+
         return 'eliminado';
     }
 }

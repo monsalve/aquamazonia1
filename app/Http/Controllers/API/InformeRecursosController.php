@@ -19,9 +19,11 @@ class InformeRecursosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){}
-    
-   
+    public function index()
+    {
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +68,4 @@ class InformeRecursosController extends Controller
     {
         //
     }
-    
-   
-   
 }

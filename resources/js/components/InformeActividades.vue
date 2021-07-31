@@ -100,7 +100,7 @@
                               <th>Biomasa muestreo</th>
                               <th>Cantidad Actual</th>
                               <th>Biomasa disponible por alimento</th>
-                              <th>Cantidadad KG cosecha</th>
+                              <th>Cantidad Animales</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -145,7 +145,7 @@ export default {
         'biomasa muestreo' : 'biomasa_disponible',
         'Cantidad Actual' : 'cantidad_actual',
         'Biomasa disponible' : 'bio_dispo_alimen',
-        'Cantidadad KG cosecha' : 'salida_animales'
+        'Cantidadad Animales' : 'salida_animales'
       },
 
       listadoSiembras : [],
