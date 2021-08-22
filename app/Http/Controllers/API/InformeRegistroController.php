@@ -38,6 +38,7 @@ class InformeRegistroController extends Controller
 			'especies_siembra.cantidad as cantidad_inicial',
 			'especies_siembra.cant_actual as cantidad_actual',
 			'especies_siembra.peso_actual as peso_actual',
+			'siembras.id_contenedor'
 		)
 			->join(
 				'especies',
@@ -62,12 +63,8 @@ class InformeRegistroController extends Controller
 				$registro->biomasa_disponible = ((($registro->peso_actual) * ($registro->cantidad_actual)) / 1000);
 				$registro->biomasa_inicial =  ((($registro->peso_inicial) * ($registro->cantidad_inicial)) / 1000);
 
-
-				// $registro->biomasa_disponible = ($registro->peso_actual * $registro->cantidad_actual) / 1000;
 				$registro->bio_dispo_alimen = $this->BiomasaAlimento($registro->id_siembra)['bio_dispo_alimen'];
-				// if ($registro->peso_ganado > 0) {
 				$registro->salida_animales = $registro->cantidad + $registro->mortalidad;
-				// }
 				if ($registro->tipo_registro == 0) $registro->nombre_registro = 'Muestreo';
 				if ($registro->tipo_registro == 1) $registro->nombre_registro = 'Pesca';
 				if ($registro->tipo_registro == 2) $registro->nombre_registro = 'Mortalidad Inicial';
@@ -250,6 +247,9 @@ class InformeRegistroController extends Controller
 		$estado_siembra = '-1';
 		$filtro_estado_siembra = '!=';
 
+		$id_contenedor = '-1';
+		$filtro_contenedor = '!=';
+
 		if ($request['f_siembra'] != '-1') {
 			$c1 = "registros.id_siembra";
 			$op1 = '=';
@@ -294,6 +294,10 @@ class InformeRegistroController extends Controller
 			$filtro_estado_siembra = '=';
 			$estado_siembra = $request['f_estado'];
 		}
+		if ($request['id_contenedor'] != '-1' || $request['id_contenedor'] != '0' ) {
+			$filtro_contenedor = '=';
+			$id_contenedor = $request['id_contenedor'];
+		}
 
 		$registros = Registro::select(
 			'registros.id as id',
@@ -311,6 +315,7 @@ class InformeRegistroController extends Controller
 			'especies_siembra.cantidad as cantidad_inicial',
 			'especies_siembra.cant_actual as cantidad_actual',
 			'especies_siembra.peso_actual as peso_actual',
+			'siembras.id_contenedor'
 		)
 			->join(
 				'especies',
@@ -328,6 +333,8 @@ class InformeRegistroController extends Controller
 			->where($c9, $op5, $c10)
 			->where($c15, $op8, $c16)
 			->where('siembras.estado', $filtro_estado_siembra, $estado_siembra)
+			->where('siembras.id_contenedor', $filtro_contenedor, $id_contenedor)
+
 			->orderBy('fecha_registro', 'desc')
 			->get();
 

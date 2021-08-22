@@ -4462,37 +4462,129 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Lote': 'lote',
-        'Fecha de registro': 'fecha_registro',
-        'Especie': 'especie',
-        'Tipo actividad': 'nombre_registro',
-        'Peso Actual': 'peso_ganado',
-        'KG cosecha': 'biomasa',
-        'biomasa muestreo': 'biomasa_disponible',
-        'Cantidad Actual': 'cantidad_actual',
-        'Biomasa disponible': 'bio_dispo_alimen',
-        'Cantidadad Animales': 'salida_animales'
+        Siembra: "nombre_siembra",
+        Lote: "lote",
+        "Fecha de registro": "fecha_registro",
+        Especie: "especie",
+        "Tipo actividad": "nombre_registro",
+        "Peso Actual": "peso_ganado",
+        "KG cosecha": "biomasa",
+        "biomasa muestreo": "biomasa_disponible",
+        "Cantidad Actual": "cantidad_actual",
+        "Biomasa disponible": "bio_dispo_alimen",
+        "Cantidadad Animales": "salida_animales"
       },
       listadoSiembras: [],
       listadoRegistros: [],
       listadoEspecies: [],
       listadoLotes: [],
+      listadoContenedores: [],
       // filtros
-      f_siembra: '',
-      f_lote: '',
-      f_estado: '',
-      f_especie: '',
-      f_actividad: '',
-      f_fecha_d: '',
-      f_fecha_h: '',
+      f_siembra: "",
+      f_lote: "",
+      f_estado: "",
+      f_especie: "",
+      f_actividad: "",
+      f_fecha_d: "",
+      f_fecha_h: "",
       f_peso_d: 0,
-      f_peso_h: 0
+      f_peso_h: 0,
+      id_contenedor: 0
     };
   },
   components: {
@@ -4530,6 +4622,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       me.listarRegistros();
       me.listarEspecies();
       me.listarLotes();
+      me.listarContenedores();
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -4558,73 +4651,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filtroResultados: function filtroResultados() {
       var me = this;
 
-      if (this.f_siembra == '') {
-        this.smb = '-1';
+      if (this.f_siembra == "") {
+        this.smb = "-1";
       } else {
         this.smb = this.f_siembra;
       }
 
-      if (this.f_estado == '') {
-        this.est = '-1';
+      if (this.f_estado == "") {
+        this.est = "-1";
       } else {
         this.est = this.f_estado;
       }
 
-      if (this.f_lote == '') {
-        this.lot = '-1';
+      if (this.f_lote == "") {
+        this.lot = "-1";
       } else {
         this.lot = this.f_lote;
       }
 
-      if (this.f_especie == '') {
-        this.f_e = '-1';
+      if (this.f_especie == "") {
+        this.f_e = "-1";
       } else {
         this.f_e = this.f_especie;
       }
 
-      if (this.f_actividad == '') {
-        this.act = '-1';
+      if (this.f_actividad == "") {
+        this.act = "-1";
       } else {
         this.act = this.f_actividad;
       }
 
-      if (this.f_peso_d == '') {
-        this.pesod = '-1';
+      if (this.f_peso_d == "") {
+        this.pesod = "-1";
       } else {
         this.pesod = this.f_peso_d;
       }
 
-      if (this.f_peso_h == '') {
-        this.pesoh = '-1';
+      if (this.f_peso_h == "") {
+        this.pesoh = "-1";
       } else {
         this.pesoh = this.f_peso_h;
       }
 
-      if (this.f_fecha_d == '') {
-        this.fec1 = '-1';
+      if (this.f_fecha_d == "") {
+        this.fec1 = "-1";
       } else {
         this.fec1 = this.f_fecha_d;
       }
 
-      if (this.f_fecha_h == '') {
-        this.fec2 = '-1';
+      if (this.f_fecha_h == "") {
+        this.fec2 = "-1";
       } else {
         this.fec2 = this.f_fecha_h;
       }
 
       var data = {
-        'f_siembra': this.smb,
-        'f_estado': this.est,
-        'f_lote': this.lot,
-        'f_especie': this.f_e,
-        'f_actividad': this.act,
-        'f_peso_d': this.pesod,
-        'f_peso_h': this.pesoh,
-        'f_fecha_d': this.fec1,
-        'f_fecha_h': this.fec2
+        f_siembra: this.smb,
+        f_estado: this.est,
+        f_lote: this.lot,
+        f_especie: this.f_e,
+        f_actividad: this.act,
+        f_peso_d: this.pesod,
+        f_peso_h: this.pesoh,
+        f_fecha_d: this.fec1,
+        f_fecha_h: this.fec2,
+        id_contenedor: this.id_contenedor
       };
       axios.post("api/filtro-registros-siembras", data).then(function (response) {
         me.listadoRegistros = response.data;
+      });
+    },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
       });
     }
   },
@@ -5543,8 +5643,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -5776,9 +5874,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       json_fields: {
         Siembra: "nombre_siembra",
         Estado: "estado",
@@ -5806,9 +5902,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       id_contenedor: 0,
       listado: [],
       listadoSiembras: [],
+      listadoAlimentos: [],
       listadoContenedores: [],
-      listadoAlimentos: []
-    }, _defineProperty(_ref, "listadoContenedores", []), _defineProperty(_ref, "estado_siembra", "1"), _defineProperty(_ref, "siembra_activa", ""), _defineProperty(_ref, "siembra_inactiva", ""), _defineProperty(_ref, "siembrasActivas", []), _defineProperty(_ref, "siembrasInactivas", []), _ref;
+      estado_siembra: "1",
+      siembra_activa: "",
+      siembra_inactiva: "",
+      siembrasActivas: [],
+      siembrasInactivas: []
+    };
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -56078,6 +56179,66 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "form-group col-md-2" }, [
+                      _c("label", { attrs: { for: "contenedor" } }, [
+                        _vm._v("Contenedor:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.id_contenedor,
+                              expression: "id_contenedor"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          attrs: { id: "contenedor" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.id_contenedor = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "-1" } }, [
+                            _vm._v("Seleccionar")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.listadoContenedores, function(
+                            cont,
+                            index
+                          ) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: cont.id } },
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(cont.contenedor) +
+                                    "\n                    "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "Siembra" } }, [
                         _vm._v("Siembra:")
                       ]),
@@ -56122,7 +56283,13 @@ var render = function() {
                             return _c(
                               "option",
                               { key: index, domProps: { value: ls.id } },
-                              [_vm._v(_vm._s(ls.nombre_siembra))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(ls.nombre_siembra) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -56133,7 +56300,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "f_estado" } }, [
                         _vm._v(
-                          "\n                            Estado siembra:\n                            "
+                          "\n                    Estado siembra:\n                    "
                         ),
                         _c(
                           "select",
@@ -56226,7 +56393,13 @@ var render = function() {
                             return _c(
                               "option",
                               { key: index, domProps: { value: lote.lote } },
-                              [_vm._v(_vm._s(lote.lote))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(lote.lote) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -56282,7 +56455,13 @@ var render = function() {
                                 key: especie.id,
                                 domProps: { value: especie.id }
                               },
-                              [_vm._v(_vm._s(especie.especie))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(especie.especie) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -56326,7 +56505,7 @@ var render = function() {
                         },
                         [
                           _c("option", { attrs: { selected: "", value: "" } }, [
-                            _vm._v(" Seleccionar")
+                            _vm._v("Seleccionar")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "0" } }, [
@@ -56503,7 +56682,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fa fa-fw fa-download" }),
-                            _vm._v(" Generar Excel\n                          ")
+                            _vm._v(" Generar Excel\n                  ")
                           ]
                         )
                       ],

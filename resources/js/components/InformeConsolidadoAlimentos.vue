@@ -258,7 +258,6 @@ export default {
       id_contenedor: 0,
       listado: [],
       listadoSiembras: [],
-      listadoContenedores: [],
       listadoAlimentos: [],
       listadoContenedores: [],
 
