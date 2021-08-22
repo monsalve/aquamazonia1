@@ -5543,6 +5543,124 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5658,41 +5776,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Estado': 'estado',
-        'Tipo actividad': 'actividad',
-        'Alimento': 'alimento',
-        'Costo Kg': 'costoUnitarioAlimento',
-        'Alimento Mañana': 'c_manana',
-        'Alimento Tarde': 'c_tarde',
-        'Cantidad total alimento': 'cantidadTotalAlimento',
-        '% Cantidad Alimento': 'porcCantidadAlimento',
-        'Costo total alimento': 'costoAlimento'
+        Siembra: "nombre_siembra",
+        Estado: "estado",
+        "Tipo actividad": "actividad",
+        Alimento: "alimento",
+        "Costo Kg": "costoUnitarioAlimento",
+        "Alimento Mañana": "c_manana",
+        "Alimento Tarde": "c_tarde",
+        "Cantidad total alimento": "cantidadTotalAlimento",
+        "% Cantidad Alimento": "porcCantidadAlimento",
+        "Costo total alimento": "costoAlimento"
       },
       pagination: {
-        'total': 0,
-        'current_page': 0,
-        'per_page': 0,
-        'last_page': 0,
-        'from': 0,
-        'to': 0
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
       },
       offset: 10,
-      tipoActividad: '',
-      alimento_s: '',
-      f_siembra: '',
+      tipoActividad: "",
+      alimento_s: "",
+      f_siembra: "",
+      id_contenedor: 0,
       listado: [],
       listadoSiembras: [],
       listadoContenedores: [],
-      listadoAlimentos: [],
-      estado_siembra: '1',
-      siembra_activa: '',
-      siembra_inactiva: '',
-      siembrasActivas: [],
-      siembrasInactivas: []
-    };
+      listadoAlimentos: []
+    }, _defineProperty(_ref, "listadoContenedores", []), _defineProperty(_ref, "estado_siembra", "1"), _defineProperty(_ref, "siembra_activa", ""), _defineProperty(_ref, "siembra_inactiva", ""), _defineProperty(_ref, "siembrasActivas", []), _defineProperty(_ref, "siembrasInactivas", []), _ref;
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -5755,16 +5871,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    listar: function listar(page, id_siembra, estado_siembra, id_alimento) {
+    listar: function listar(page, id_siembra, estado_siembra, id_alimento, id_contenedor) {
       var me = this;
-      axios.get("api/informes-alimentos?page=" + page + '&id_siembra=' + id_siembra + '&estado_siembra=' + estado_siembra + '&id_alimento=' + id_alimento).then(function (response) {
+      axios.get("api/informes-alimentos?page=" + page + "&id_siembra=" + id_siembra + "&estado_siembra=" + estado_siembra + "&id_alimento=" + id_alimento + "&id_contenedor=" + id_contenedor).then(function (response) {
         me.listado = response.data.recursosNecesarios.data;
         me.pagination = response.data.pagination;
       });
     },
     listarSiembras: function listarSiembras(estado_siembra) {
       var me = this;
-      axios.get('api/siembras?estado_siembra=' + estado_siembra).then(function (response) {
+      axios.get("api/siembras?estado_siembra=" + estado_siembra).then(function (response) {
         me.siembrasActivas = response.data.listado_siembras;
         me.siembrasInactivas = response.data.listado_siembras_inactivas;
       });
@@ -5775,6 +5891,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoAlimentos = response.data;
       });
     },
+    listarContenedores: function listarContenedores() {
+      var me = this;
+      axios.get("api/contenedores").then(function (response) {
+        me.listadoContenedores = response.data;
+      });
+    },
     cambiarPagina: function cambiarPagina(page) {
       var me = this; //Actualiza la página actual
 
@@ -5783,9 +5905,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.listar(1, '', -1, '');
+    this.listar(1, "", -1, "", "");
     this.listarSiembras(-1);
     this.listarAlimentos();
+    this.listarContenedores();
   }
 });
 
@@ -58169,7 +58292,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.listar(1, "", _vm.estado_siembra, "")
+                          return _vm.listar(1, "", _vm.estado_siembra, "", "")
                         },
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -58210,7 +58333,7 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value: _vm.estado_siembra == 1,
-                        expression: "estado_siembra==1"
+                        expression: "estado_siembra == 1"
                       }
                     ],
                     staticClass: "form-group col-3"
@@ -58236,7 +58359,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.listar(1, _vm.siembra_activa, "", "")
+                            return _vm.listar(1, _vm.siembra_activa, "", "", "")
                           },
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -58268,7 +58391,13 @@ var render = function() {
                               key: index,
                               domProps: { value: siembraActiva.id }
                             },
-                            [_vm._v(_vm._s(siembraActiva.nombre_siembra))]
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(siembraActiva.nombre_siembra) +
+                                  "\n                  "
+                              )
+                            ]
                           )
                         })
                       ],
@@ -58285,7 +58414,7 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value: _vm.estado_siembra == 0,
-                        expression: "estado_siembra==0"
+                        expression: "estado_siembra == 0"
                       }
                     ],
                     staticClass: "form-group col-3"
@@ -58311,7 +58440,13 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.preventDefault()
-                            return _vm.listar(1, _vm.siembra_inactiva, "", "")
+                            return _vm.listar(
+                              1,
+                              _vm.siembra_inactiva,
+                              "",
+                              "",
+                              ""
+                            )
                           },
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -58343,7 +58478,13 @@ var render = function() {
                               key: index,
                               domProps: { value: siembraInactiva.id }
                             },
-                            [_vm._v(_vm._s(siembraInactiva.nombre_siembra))]
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(siembraInactiva.nombre_siembra) +
+                                  "\n                  "
+                              )
+                            ]
                           )
                         })
                       ],
@@ -58365,7 +58506,7 @@ var render = function() {
                           name: "show",
                           rawName: "v-show",
                           value: _vm.estado_siembra == 1,
-                          expression: "estado_siembra==1"
+                          expression: "estado_siembra == 1"
                         },
                         {
                           name: "model",
@@ -58383,7 +58524,8 @@ var render = function() {
                             1,
                             _vm.siembra_activa,
                             "",
-                            _vm.alimento_s
+                            _vm.alimento_s,
+                            ""
                           )
                         },
                         change: function($event) {
@@ -58403,14 +58545,20 @@ var render = function() {
                     },
                     [
                       _c("option", { attrs: { selected: "" } }, [
-                        _vm._v(" Seleccionar")
+                        _vm._v("Seleccionar")
                       ]),
                       _vm._v(" "),
                       _vm._l(_vm.listadoAlimentos, function(alimento, index) {
                         return _c(
                           "option",
                           { key: index, domProps: { value: alimento.id } },
-                          [_vm._v(_vm._s(alimento.alimento))]
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(alimento.alimento) +
+                                "\n                  "
+                            )
+                          ]
                         )
                       })
                     ],
@@ -58425,7 +58573,7 @@ var render = function() {
                           name: "show",
                           rawName: "v-show",
                           value: _vm.estado_siembra == 0,
-                          expression: "estado_siembra==0"
+                          expression: "estado_siembra == 0"
                         },
                         {
                           name: "model",
@@ -58443,7 +58591,8 @@ var render = function() {
                             1,
                             _vm.siembra_inactiva,
                             "",
-                            _vm.alimento_s
+                            _vm.alimento_s,
+                            ""
                           )
                         },
                         change: function($event) {
@@ -58463,14 +58612,87 @@ var render = function() {
                     },
                     [
                       _c("option", { attrs: { value: "-1", selected: "" } }, [
-                        _vm._v(" Seleccionar")
+                        _vm._v("Seleccionar")
                       ]),
                       _vm._v(" "),
                       _vm._l(_vm.listadoAlimentos, function(alimento, index) {
                         return _c(
                           "option",
                           { key: index, domProps: { value: alimento.id } },
-                          [_vm._v(_vm._s(alimento.alimento))]
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(alimento.alimento) +
+                                "\n                  "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "contenedor" } }, [
+                    _vm._v("Contenedor:")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.id_contenedor,
+                          expression: "id_contenedor"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { id: "contenedor" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.listar(
+                            1,
+                            _vm.siembra_inactiva,
+                            "",
+                            "",
+                            _vm.id_contenedor
+                          )
+                        },
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.id_contenedor = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "-1" } }, [
+                        _vm._v("Seleccionar")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.listadoContenedores, function(cont, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: cont.id } },
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(cont.contenedor) +
+                                "\n                  "
+                            )
+                          ]
                         )
                       })
                     ],
@@ -58496,7 +58718,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fa fa-fw fa-download" }),
-                      _vm._v(" Generar Excel\n\t\t\t\t\t\t\t\t\t\t\t\t\t")
+                      _vm._v(" Generar Excel\n              ")
                     ]
                   )
                 ],
@@ -58540,11 +58762,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              _vm._s(
-                                lrn.tipo_actividad == 1
-                                  ? (lrn.actividad = "Alimentacion")
-                                  : ""
-                              )
+                              "\n                    " +
+                                _vm._s(
+                                  lrn.tipo_actividad == 1
+                                    ? (lrn.actividad = "Alimentacion")
+                                    : ""
+                                ) +
+                                "\n                  "
                             )
                           ]),
                           _vm._v(" "),
@@ -58583,7 +58807,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("nav", { staticClass: "mt-5 navigation " }, [
+                _c("nav", { staticClass: "mt-5 navigation" }, [
                   _c(
                     "ul",
                     { staticClass: "pagination justify-content-center" },

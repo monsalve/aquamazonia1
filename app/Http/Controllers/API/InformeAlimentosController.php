@@ -49,41 +49,47 @@ class InformeAlimentosController extends Controller
       ->groupBy('alimentos.alimento')
       ->orderBy('id_siembra', 'DESC');
 
-      if(isset($request['id_siembra']) && $request['id_siembra'] != '') {
-        if($request['id_siembra'] == '-1' ) {
-          $recursosNecesarios = $recursosNecesarios->where('id_siembra', '!=', -1);
-        } else {
-          $recursosNecesarios = $recursosNecesarios->where('id_siembra', '=', $request['id_siembra']);
-        }
-      } 
-      if(isset($request['estado_siembra'])  && $request['estado_siembra'] != '') {
-        if($request['estado_siembra'] == '-1' ) {
-          $recursosNecesarios = $recursosNecesarios->where('estado', '!=', -1);
-        } else {
-          $recursosNecesarios = $recursosNecesarios->where('estado', '=', $request['estado_siembra']);
-        }
+    if (isset($request['id_siembra']) && $request['id_siembra'] != '') {
+      if ($request['id_siembra'] == '-1') {
+        $recursosNecesarios = $recursosNecesarios->where('id_siembra', '!=', -1);
+      } else {
+        $recursosNecesarios = $recursosNecesarios->where('id_siembra', '=', $request['id_siembra']);
       }
+    }
+    if (isset($request['id_contenedor']) && $request['id_contenedor'] != '') {
+      if ($request['id_contenedor'] == '-1') {
+        $recursosNecesarios = $recursosNecesarios->where('id_contenedor', '!=', -1);
+      } else {
+        $recursosNecesarios = $recursosNecesarios->where('id_contenedor', '=', $request['id_contenedor']);
+      }
+    }
+    if (isset($request['estado_siembra'])  && $request['estado_siembra'] != '') {
+      if ($request['estado_siembra'] == '-1') {
+        $recursosNecesarios = $recursosNecesarios->where('estado', '!=', -1);
+      } else {
+        $recursosNecesarios = $recursosNecesarios->where('estado', '=', $request['estado_siembra']);
+      }
+    }
 
-      if(isset($request['id_alimento'])  && $request['id_alimento'] != '') {
-        if($request['id_alimento'] == '-1' ) {
-          $recursosNecesarios = $recursosNecesarios->where('alimento_id', '!=', -1);
-        } else {
-          $recursosNecesarios = $recursosNecesarios->where('alimentos.id', '=', $request['id_alimento']);
-        }
+    if (isset($request['id_alimento'])  && $request['id_alimento'] != '') {
+      if ($request['id_alimento'] == '-1') {
+        $recursosNecesarios = $recursosNecesarios->where('alimento_id', '!=', -1);
+      } else {
+        $recursosNecesarios = $recursosNecesarios->where('alimentos.id', '=', $request['id_alimento']);
       }
-     
-      $recursosNecesarios = $recursosNecesarios->paginate(30);
-    
+    }
+
+    $recursosNecesarios = $recursosNecesarios->paginate(30);
+
     foreach ($recursosNecesarios as $recursoNecesario) {
       $cantidadAlimentoSiembra  = $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_manana + $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_tarde;
       $costo_recursos = $this->datosAlimento($recursoNecesario->alimento_id);
       $recursoNecesario->cantidadTotalAlimento = $recursoNecesario->c_manana + $recursoNecesario->c_tarde;
       $recursoNecesario->costoAlimento = $costo_recursos->costo_kg * $recursoNecesario->cantidadTotalAlimento;
       $recursoNecesario->costoUnitarioAlimento = $costo_recursos->costo_kg;
-      $recursoNecesario->porcCantidadAlimento = ( $recursoNecesario->cantidadTotalAlimento * 100)/ $cantidadAlimentoSiembra;
-      $recursoNecesario->porcCantidadAlimento = (number_format(($recursoNecesario->porcCantidadAlimento), 2, ',',''));
-      $recursoNecesario->costoAlimento = (number_format(($recursoNecesario->costoAlimento), 2, ',',''));
-
+      $recursoNecesario->porcCantidadAlimento = ($recursoNecesario->cantidadTotalAlimento * 100) / $cantidadAlimentoSiembra;
+      $recursoNecesario->porcCantidadAlimento = (number_format(($recursoNecesario->porcCantidadAlimento), 2, ',', ''));
+      $recursoNecesario->costoAlimento = (number_format(($recursoNecesario->costoAlimento), 2, ',', ''));
     }
 
     return [
@@ -104,7 +110,8 @@ class InformeAlimentosController extends Controller
     return Alimento::select('costo_kg')->where('id', $id_alimento)->first();
   }
 
-  public function cantidadAlimentoSiembra($id_siembra) {
+  public function cantidadAlimentoSiembra($id_siembra)
+  {
 
     $cantidadAlimento = RecursoNecesario::select(
       'id_siembra',
@@ -123,8 +130,7 @@ class InformeAlimentosController extends Controller
       ->orderBy('id_siembra', 'DESC')
       ->first();
 
-      return $cantidadAlimento;
-
+    return $cantidadAlimento;
   }
 
 
