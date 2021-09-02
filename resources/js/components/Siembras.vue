@@ -83,31 +83,26 @@
                     <th>Contenedor</th>
                     <th
                       class="text-center d-sm-none d-none d-md-block"
-                      style="min-width: 340px"
+                      style=""
                     >
                       <h5>Especie</h5>
-                      <div class="py-3">
-                        <li
-                          class=""
-                          style="min-width: 80px; display: inline-block"
-                        >
+
+                      <div
+                        class="py-3"
+                        style="width: max-content; margin: auto"
+                      >
+                        <span style="width: 80px; display: inline-block">
                           Especie
-                        </li>
-                        <li
-                          class=""
-                          style="min-width: 80px; display: inline-block"
-                        >
+                        </span>
+                        <span style="width: 80px; display: inline-block">
                           Lote
-                        </li>
-                        <li
-                          class=""
-                          style="min-width: 80px; display: inline-block"
-                        >
+                        </span>
+                        <span style="width: 80px; display: inline-block">
                           Cantidad
-                        </li>
-                        <li class="" style="width: 60px; display: inline-block">
+                        </span>
+                        <span style="width: 60px; display: inline-block">
                           Peso gr
-                        </li>
+                        </span>
                       </div>
                     </th>
                     <th>Inicio siembra</th>
@@ -133,39 +128,52 @@
                     <td v-text="siembra.nombre_siembra" scope="row"></td>
                     <td v-text="siembra.contenedor"></td>
                     <td class="d-sm-none d-none d-md-block">
-                      <ul
+                      <div
                         v-for="pez in siembra.peces"
                         :key="pez.id"
-                        class="nav border-0"
+                        class="border-0"
+                        style="width: max-content; margin: auto"
                       >
-                        <li
+                        <span
                           v-text="pez.especie"
                           class="nav-item border-bottom"
-                          style="min-width: 80px; display: inline-block"
+                          style="width: 80px; display: inline-block"
                         >
                           Especie
-                        </li>
-                        <li
+                        </span>
+                        <span
                           v-text="pez.lote"
                           class="nav-item border-bottom"
-                          style="min-width: 80px; display: inline-block"
+                          style="
+                            width: 80px;
+                            text-align: center;
+                            display: inline-block;
+                          "
                         >
                           Lote
-                        </li>
-                        <li
+                        </span>
+                        <span
                           class="nav-item border-bottom"
-                          style="min-width: 80px; display: inline-block"
+                          style="
+                            width: 80px;
+                            text-align: center;
+                            display: inline-block;
+                          "
                         >
                           {{ Math.floor(pez.cant_actual) }}
-                        </li>
-                        <li
+                        </span>
+                        <span
                           v-text="pez.peso_actual + 'Gr'"
                           class="nav-item border-bottom"
-                          style="min-width: 60px; display: inline-block"
+                          style="
+                            width: 60px;
+                            display: inline-block;
+                            text-align: center;
+                          "
                         >
                           Peso
-                        </li>
-                      </ul>
+                        </span>
+                      </div>
                     </td>
                     <td v-text="siembra.fecha_inicio"></td>
 

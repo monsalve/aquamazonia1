@@ -9682,6 +9682,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -58833,13 +58841,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.listar(
-                            1,
-                            _vm.siembra_inactiva,
-                            "",
-                            "",
-                            _vm.id_contenedor
-                          )
+                          return _vm.listar(1, "", "", "", _vm.id_contenedor)
                         },
                         change: function($event) {
                           var $$selectedVal = Array.prototype.filter
@@ -63541,15 +63543,22 @@ var render = function() {
                           { staticClass: "d-sm-none d-none d-md-block" },
                           _vm._l(siembra.peces, function(pez) {
                             return _c(
-                              "ul",
-                              { key: pez.id, staticClass: "nav border-0" },
+                              "div",
+                              {
+                                key: pez.id,
+                                staticClass: "border-0",
+                                staticStyle: {
+                                  width: "max-content",
+                                  margin: "auto"
+                                }
+                              },
                               [
                                 _c(
-                                  "li",
+                                  "span",
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      "min-width": "80px",
+                                      width: "80px",
                                       display: "inline-block"
                                     },
                                     domProps: {
@@ -63564,11 +63573,12 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c(
-                                  "li",
+                                  "span",
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      "min-width": "80px",
+                                      width: "80px",
+                                      "text-align": "center",
                                       display: "inline-block"
                                     },
                                     domProps: { textContent: _vm._s(pez.lote) }
@@ -63581,11 +63591,12 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c(
-                                  "li",
+                                  "span",
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      "min-width": "80px",
+                                      width: "80px",
+                                      "text-align": "center",
                                       display: "inline-block"
                                     }
                                   },
@@ -63599,12 +63610,13 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c(
-                                  "li",
+                                  "span",
                                   {
                                     staticClass: "nav-item border-bottom",
                                     staticStyle: {
-                                      "min-width": "60px",
-                                      display: "inline-block"
+                                      width: "60px",
+                                      display: "inline-block",
+                                      "text-align": "center"
                                     },
                                     domProps: {
                                       textContent: _vm._s(
@@ -65707,21 +65719,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Contenedor")]),
         _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "text-center d-sm-none d-none d-md-block",
-            staticStyle: { "min-width": "340px" }
-          },
-          [
-            _c("h5", [_vm._v("Especie")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "py-3" }, [
+        _c("th", { staticClass: "text-center d-sm-none d-none d-md-block" }, [
+          _c("h5", [_vm._v("Especie")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "py-3",
+              staticStyle: { width: "max-content", margin: "auto" }
+            },
+            [
               _c(
-                "li",
-                {
-                  staticStyle: { "min-width": "80px", display: "inline-block" }
-                },
+                "span",
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
                     "\n                        Especie\n                      "
@@ -65730,10 +65740,8 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c(
-                "li",
-                {
-                  staticStyle: { "min-width": "80px", display: "inline-block" }
-                },
+                "span",
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
                     "\n                        Lote\n                      "
@@ -65742,10 +65750,8 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c(
-                "li",
-                {
-                  staticStyle: { "min-width": "80px", display: "inline-block" }
-                },
+                "span",
+                { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
                     "\n                        Cantidad\n                      "
@@ -65754,7 +65760,7 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c(
-                "li",
+                "span",
                 { staticStyle: { width: "60px", display: "inline-block" } },
                 [
                   _vm._v(
@@ -65762,9 +65768,9 @@ var staticRenderFns = [
                   )
                 ]
               )
-            ])
-          ]
-        ),
+            ]
+          )
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Inicio siembra")]),
         _vm._v(" "),

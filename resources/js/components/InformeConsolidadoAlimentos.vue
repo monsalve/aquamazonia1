@@ -105,7 +105,7 @@
                     id="contenedor"
                     v-model="id_contenedor"
                     @click.prevent="
-                      listar(1, siembra_inactiva, '', '', id_contenedor)
+                      listar(1, '', '', '', id_contenedor)
                     "
                   >
                     <option value="-1">Seleccionar</option>
