@@ -55,59 +55,59 @@ class ParametroCalidadController extends Controller
 		$parametros_calidad = array();
 
 		foreach ($calidad_agua as $cl) {
-			if ($cl['4_am'] == 0 || $cl['4_am'] == '') {
+			if ($cl['4_am'] === NULL || $cl['4_am'] === '') {
 				$val4am = '';
-			} elseif ($cl['4_am'] > 0) {
+			} else {
 				$val4am =  number_format($cl['4_am'], 2, ',', '');
 			}
-			if ($cl['4_pm'] == 0 || $cl['4_pm'] == '') {
+			if ($cl['4_pm'] === NULL || $cl['4_pm'] === '') {
 				$val4pm = '';
-			} elseif ($cl['4_pm'] > 0) {
+			} else {
 				$val4pm =  number_format($cl['4_pm'], 2, ',', '');
 			}
-			if ($cl['7_am'] == 0 || $cl['7_am'] == '') {
+			if ($cl['7_am'] === NULL || $cl['7_am'] === '') {
 				$val7am = '';
-			} elseif ($cl['7_am'] > 0) {
+			} else {
 				$val7am =  number_format($cl['7_am'], 2, ',', '');
 			}
-			if ($cl['8_pm'] == 0 || $cl['8_pm'] == '') {
+			if ($cl['8_pm'] === NULL || $cl['8_pm'] === '') {
 				$val8pm = '';
-			} elseif ($cl['8_pm'] > 0) {
+			} else {
 				$val8pm =  number_format($cl['8_pm'], 2, ',', '');
 			}
-			if ($cl['12_am'] == 0 || $cl['12_am'] == '') {
+			if ($cl['12_am'] === NULL || $cl['12_am'] === '') {
 				$val12am = '';
-			} elseif ($cl['12_am'] > 0) {
+			} else {
 				$val12am =  number_format($cl['12_am'], 2, ',', '');
 			}
-			if ($cl['amonio'] == 0 || $cl['amonio'] == '') {
+			if ($cl['amonio'] === NULL || $cl['amonio'] === '') {
 				$valamo = '';
-			} elseif ($cl['amonio'] > 0) {
+			} else {
 				$valamo =  number_format($cl['amonio'], 2, ',', '');
 			}
-			if ($cl['nitrato'] == 0 || $cl['nitrato'] == '') {
+			if ($cl['nitrato'] === NULL || $cl['nitrato'] === '') {
 				$valnat = '';
-			} elseif ($cl['nitrato'] > 0) {
+			} else {
 				$valnat =  number_format($cl['nitrato'], 2, ',', '');
 			}
-			if ($cl['nitrito'] == 0 || $cl['nitrito'] == '') {
+			if ($cl['nitrito'] === NULL || $cl['nitrito'] === '') {
 				$valnit = '';
-			} elseif ($cl['nitrito'] > 0) {
+			} else {
 				$valnit =  number_format($cl['nitrito'], 2, ',', '');
 			}
-			if ($cl['otros'] == 0 || $cl['otros'] == '') {
+			if ($cl['otros'] === NULL || $cl['otros'] === '') {
 				$valot = '';
-			} elseif ($cl['otros'] > 0) {
+			} else {
 				$valot =  number_format($cl['otros'], 2, ',', '');
 			}
-			if ($cl['ph'] == 0 || $cl['ph'] == '') {
+			if ($cl['ph'] === NULL || $cl['ph'] === '') {
 				$valph = '';
-			} elseif ($cl['ph'] > 0) {
+			} else {
 				$valph =  number_format($cl['ph'], 2, ',', '');
 			}
-			if ($cl['temperatura'] == 0 || $cl['temperatura'] == '') {
+			if ($cl['temperatura'] === NULL || $cl['temperatura'] === '') {
 				$valtem = '';
-			} elseif ($cl['temperatura'] > 0) {
+			} else {
 				$valtem =  number_format($cl['temperatura'], 2, '.', '');
 			}
 
@@ -156,78 +156,75 @@ class ParametroCalidadController extends Controller
 
 
 		for ($i = 0; $i < count($calidad_agua); $i++) {
-			if ($calidad_agua[$i]['12_am'] > 0 || $calidad_agua[$i]['12_am'] != '') {
+			if ($calidad_agua[$i]['12_am'] !== NULL && $calidad_agua[$i]['12_am'] !== '') {
 				$count_12am += 1;
 				$prom_12am += $calidad_agua[$i]['12_am'];
 				$promedios['promedio_12_am'] = (round($prom_12am / $count_12am, 2));
 				$promedios['promedio_12_am']  = number_format($promedios['promedio_12_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_am'] > 0 || $calidad_agua[$i]['4_am'] != '') {
+			if ($calidad_agua[$i]['4_am'] !== NULL && $calidad_agua[$i]['4_am'] !== '') {
 				$count_4am += 1;
 				$prom_4am += $calidad_agua[$i]['4_am'];
 				$promedios['promedio_4_am'] = (round($prom_4am / $count_4am, 2));
 				$promedios['promedio_4_am']  = number_format($promedios['promedio_4_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['7_am'] > 0 || $calidad_agua[$i]['7_am'] != '') {
+			if ($calidad_agua[$i]['7_am'] !== NULL && $calidad_agua[$i]['7_am'] !== '') {
 				$count_7am += 1;
 				$prom_7am += $calidad_agua[$i]['7_am'];
 				$promedios['promedio_7_am'] = (round($prom_7am / $count_7am, 2));
 				$promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_pm'] > 0 || $calidad_agua[$i]['4_pm'] != '') {
+			if ($calidad_agua[$i]['4_pm'] !== NULL && $calidad_agua[$i]['4_pm'] !== '') {
 				$count_4pm += 1;
 				$prom_4pm += $calidad_agua[$i]['4_pm'];
 				$promedios['promedio_4_pm'] = (round($prom_4pm / $count_4pm, 2));
 				$promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['8_pm'] > 0 || $calidad_agua[$i]['8_pm'] != '') {
+			if ($calidad_agua[$i]['8_pm'] !== NULL && $calidad_agua[$i]['8_pm'] !== '') {
 				$count_8pm += 1;
 				$prom_8pm += $calidad_agua[$i]['8_pm'];
 				$promedios['promedio_8_pm'] = (round($prom_8pm / $count_8pm, 2));
 				$promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['temperatura'] > 0 || $calidad_agua[$i]['temperatura'] != '') {
+			if ($calidad_agua[$i]['temperatura'] !== NULL && $calidad_agua[$i]['temperatura'] !== '') {
 				$count_temperatura += 1;
 				$prom_temperatura += $calidad_agua[$i]['temperatura'];
 				$promedios['promedio_temperatura'] = (round($prom_temperatura / $count_temperatura, 2));
 				$promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['ph'] > 0 || $calidad_agua[$i]['ph'] != '') {
+			if ($calidad_agua[$i]['ph'] !== NULL && $calidad_agua[$i]['ph'] !== '') {
 				$count_ph += 1;
 				$prom_ph += $calidad_agua[$i]['ph'];
 				$promedios['promedio_ph'] = (round($prom_ph / $count_ph, 2));
 				$promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['amonio'] > 0 || $calidad_agua[$i]['amonio'] != '') {
+			if ($calidad_agua[$i]['amonio'] !== NULL && $calidad_agua[$i]['amonio'] !== '') {
 				$count_amonio += 1;
 				$prom_amonio += $calidad_agua[$i]['amonio'];
 				$promedios['promedio_amonio'] = (round($prom_amonio / $count_amonio, 2));
 				$promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['nitrito'] > 0 || $calidad_agua[$i]['nitrito'] != '') {
+			if ($calidad_agua[$i]['nitrito'] !== NULL && $calidad_agua[$i]['nitrito'] !== '') {
 				$count_nitrito += 1;
 				$prom_nitrito += $calidad_agua[$i]['nitrito'];
 				$promedios['promedio_nitrito'] = (round($prom_nitrito / $count_nitrito, 2));
 				$promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['nitrato'] > 0 || $calidad_agua[$i]['nitrato'] != '') {
+			if ($calidad_agua[$i]['nitrato'] !== NULL && $calidad_agua[$i]['nitrato'] !== '') {
 				$count_nitrato += 1;
 				$prom_nitrato += $calidad_agua[$i]['nitrato'];
 				$promedios['promedio_nitrato'] = (round($prom_nitrato / $count_nitrato, 2));
 				$promedios['promedio_nitrato']  = number_format($promedios['promedio_nitrato'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['otros'] > 0 || $calidad_agua[$i]['otros'] != '') {
+			if ($calidad_agua[$i]['otros'] !== NULL && $calidad_agua[$i]['otros'] !== '') {
 				$count_otros += 1;
 				$prom_otros += $calidad_agua[$i]['otros'];
 				$promedios['promedio_otros'] = (round($prom_otros / $count_otros, 2));
 				$promedios['promedio_otros']  = number_format($promedios['promedio_otros'], 2, ',', '');
 			}
 		}
-
-		// if(count($calidad_agua)>0){
-
 
 		return ['calidad_agua' => $parametros_calidad, 'promedios' => $promedios];
 	}
@@ -314,9 +311,7 @@ class ParametroCalidadController extends Controller
 		$c5 = "calidad_agua.id";
 		$op3 = '!=';
 		$c6 = '-1';
-		// $c5 = "siembras.id"; $op3 = '!='; $c6 = '-1';
-
-		// if($request['f_siembra']!='-1'){$c1="siembras.id"; $op1='='; $c2= $request['f_siembra'];}
+		
 		if ($request['f_inicio_d'] != '-1') {
 			$c1 = "fecha_parametro";
 			$op1 = '>=';
@@ -356,59 +351,59 @@ class ParametroCalidadController extends Controller
 		$valtem = 0;
 
 		foreach ($calidad_agua as $cl) {
-			if ($cl['4_am'] == 0 || $cl['4_am'] == '') {
+			if ($cl['4_am'] === NULL || $cl['4_am'] === '') {
 				$val4am = '';
-			} elseif ($cl['4_am'] > 0) {
+			} else {
 				$val4am =  number_format($cl['4_am'], 2, ',', '');
 			}
-			if ($cl['4_pm'] == 0 || $cl['4_pm'] == '') {
+			if ($cl['4_pm'] === NULL || $cl['4_pm'] === '') {
 				$val4pm = '';
-			} elseif ($cl['4_pm'] > 0) {
+			} else {
 				$val4pm =  number_format($cl['4_pm'], 2, ',', '');
 			}
-			if ($cl['7_am'] == 0 || $cl['7_am'] == '') {
+			if ($cl['7_am'] === NULL || $cl['7_am'] === '') {
 				$val7am = '';
-			} elseif ($cl['7_am'] > 0) {
+			} else {
 				$val7am =  number_format($cl['7_am'], 2, ',', '');
 			}
-			if ($cl['8_pm'] == 0 || $cl['8_pm'] == '') {
+			if ($cl['8_pm'] === NULL || $cl['8_pm'] === '') {
 				$val8pm = '';
-			} elseif ($cl['8_pm'] > 0) {
+			} else {
 				$val8pm =  number_format($cl['8_pm'], 2, ',', '');
 			}
-			if ($cl['12_am'] == 0 || $cl['12_am'] == '') {
+			if ($cl['12_am'] === NULL || $cl['12_am'] === '') {
 				$val12am = '';
-			} elseif ($cl['12_am'] > 0) {
+			} else {
 				$val12am =  number_format($cl['12_am'], 2, ',', '');
 			}
-			if ($cl['amonio'] == 0 || $cl['amonio'] == '') {
+			if ($cl['amonio'] === NULL || $cl['amonio'] === '') {
 				$valamo = '';
-			} elseif ($cl['amonio'] > 0) {
+			} else {
 				$valamo =  number_format($cl['amonio'], 2, ',', '');
 			}
-			if ($cl['nitrato'] == 0 || $cl['nitrato'] == '') {
+			if ($cl['nitrato'] === NULL || $cl['nitrato'] === '') {
 				$valnat = '';
-			} elseif ($cl['nitrato'] > 0) {
+			} else {
 				$valnat =  number_format($cl['nitrato'], 2, ',', '');
 			}
-			if ($cl['nitrito'] == 0 || $cl['nitrito'] == '') {
+			if ($cl['nitrito'] === NULL || $cl['nitrito'] === '') {
 				$valnit = '';
-			} elseif ($cl['nitrito'] > 0) {
+			} else {
 				$valnit =  number_format($cl['nitrito'], 2, ',', '');
 			}
-			if ($cl['otros'] == 0 || $cl['otros'] == '') {
+			if ($cl['otros'] === NULL || $cl['otros'] === '') {
 				$valot = '';
-			} elseif ($cl['otros'] > 0) {
+			} else {
 				$valot =  number_format($cl['otros'], 2, ',', '');
 			}
-			if ($cl['ph'] == 0 || $cl['ph'] == '') {
+			if ($cl['ph'] === NULL || $cl['ph'] === '') {
 				$valph = '';
-			} elseif ($cl['ph'] > 0) {
+			} else {
 				$valph =  number_format($cl['ph'], 2, ',', '');
 			}
-			if ($cl['temperatura'] == 0 || $cl['temperatura'] == '') {
+			if ($cl['temperatura'] === NULL || $cl['temperatura'] === '') {
 				$valtem = '';
-			} elseif ($cl['temperatura'] > 0) {
+			} else {
 				$valtem =  number_format($cl['temperatura'], 2, ',', '');
 			}
 			$parametros_calidad[] = array(
@@ -456,69 +451,69 @@ class ParametroCalidadController extends Controller
 
 
 		for ($i = 0; $i < count($calidad_agua); $i++) {
-			if ($calidad_agua[$i]['12_am'] > 0) {
+			if ($calidad_agua[$i]['12_am'] !== NULL && $calidad_agua[$i]['12_am'] !== '') {
 				$count_12am += 1;
 				$prom_12am += $calidad_agua[$i]['12_am'];
 				$promedios['promedio_12_am'] = (round($prom_12am / $count_12am, 2));
 				$promedios['promedio_12_am']  = number_format($promedios['promedio_12_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_am'] > 0) {
+			if ($calidad_agua[$i]['4_am'] !== NULL && $calidad_agua[$i]['4_am'] !== '') {
 				$count_4am += 1;
 				$prom_4am += $calidad_agua[$i]['4_am'];
 				$promedios['promedio_4_am'] = (round($prom_4am / $count_4am, 2));
 				$promedios['promedio_4_am']  = number_format($promedios['promedio_4_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['7_am'] > 0) {
+			if ($calidad_agua[$i]['7_am'] !== NULL && $calidad_agua[$i]['7_am'] !== '') {
 				$count_7am += 1;
 				$prom_7am += $calidad_agua[$i]['7_am'];
 				$promedios['promedio_7_am'] = (round($prom_7am / $count_7am, 2));
 				$promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_pm'] > 0) {
+			if ($calidad_agua[$i]['4_pm'] !== NULL && $calidad_agua[$i]['4_pm'] !== '') {
 				$count_4pm += 1;
 				$prom_4pm += $calidad_agua[$i]['4_pm'];
 				$promedios['promedio_4_pm'] = (round($prom_4pm / $count_4pm, 2));
 				$promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['8_pm'] > 0) {
+			if ($calidad_agua[$i]['8_pm'] !== NULL && $calidad_agua[$i]['8_pm'] !== '') {
 				$count_8pm += 1;
 				$prom_8pm += $calidad_agua[$i]['8_pm'];
 				$promedios['promedio_8_pm'] = (round($prom_8pm / $count_8pm, 2));
 				$promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['temperatura'] > 0) {
+			if ($calidad_agua[$i]['temperatura'] !== NULL && $calidad_agua[$i]['temperatura'] !== '') {
 				$count_temperatura += 1;
 				$prom_temperatura += $calidad_agua[$i]['temperatura'];
 				$promedios['promedio_temperatura'] = (round($prom_temperatura / $count_temperatura, 2));
 				$promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['ph'] > 0) {
+			if ($calidad_agua[$i]['ph'] !== NULL && $calidad_agua[$i]['ph'] !== '') {
 				$count_ph += 1;
 				$prom_ph += $calidad_agua[$i]['ph'];
 				$promedios['promedio_ph'] = (round($prom_ph / $count_ph, 2));
 				$promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['amonio'] > 0) {
+			if ($calidad_agua[$i]['amonio'] !== NULL && $calidad_agua[$i]['amonio'] !== '') {
 				$count_amonio += 1;
 				$prom_amonio += $calidad_agua[$i]['amonio'];
 				$promedios['promedio_amonio'] = (round($prom_amonio / $count_amonio, 2));
 				$promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['nitrito'] > 0) {
+			if ($calidad_agua[$i]['nitrito'] !== NULL && $calidad_agua[$i]['nitrito'] !== '') {
 				$count_nitrito += 1;
 				$prom_nitrito += $calidad_agua[$i]['nitrito'];
 				$promedios['promedio_nitrito'] = (round($prom_nitrito / $count_nitrito, 2));
 				$promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['nitrato'] > 0) {
+			if ($calidad_agua[$i]['nitrato'] !== NULL && $calidad_agua[$i]['nitrato'] !== '') {
 				$count_nitrato += 1;
 				$prom_nitrato += $calidad_agua[$i]['nitrato'];
 				$promedios['promedio_nitrato'] = (round($prom_nitrato / $count_nitrato, 2));
 				$promedios['promedio_nitrato']  = number_format($promedios['promedio_nitrato'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['otros'] > 0) {
+			if ($calidad_agua[$i]['otros'] !== NULL && $calidad_agua[$i]['otros'] !== '') {
 				$count_otros += 1;
 				$prom_otros += $calidad_agua[$i]['otros'];
 				$promedios['promedio_otros'] = (round($prom_otros / $count_otros, 2));
@@ -584,59 +579,59 @@ class ParametroCalidadController extends Controller
 		$valtem = 0;
 
 		foreach ($calidad_agua as $cl) {
-			if ($cl['4_am'] == 0 || $cl['4_am'] == '') {
+			if ($cl['4_am'] === NULL || $cl['4_am'] === '') {
 				$val4am = '';
-			} elseif ($cl['4_am'] > 0) {
+			} else {
 				$val4am =  number_format($cl['4_am'], 2, ',', '');
 			}
-			if ($cl['4_pm'] == 0 || $cl['4_pm'] == '') {
+			if ($cl['4_pm'] === NULL || $cl['4_pm'] === '') {
 				$val4pm = '';
-			} elseif ($cl['4_pm'] > 0) {
+			} else {
 				$val4pm =  number_format($cl['4_pm'], 2, ',', '');
 			}
-			if ($cl['7_am'] == 0 || $cl['7_am'] == '') {
+			if ($cl['7_am'] === NULL || $cl['7_am'] === '') {
 				$val7am = '';
-			} elseif ($cl['7_am'] > 0) {
+			} else {
 				$val7am =  number_format($cl['7_am'], 2, ',', '');
 			}
-			if ($cl['8_pm'] == 0 || $cl['8_pm'] == '') {
+			if ($cl['8_pm'] === NULL || $cl['8_pm'] === '') {
 				$val8pm = '';
-			} elseif ($cl['8_pm'] > 0) {
+			} else {
 				$val8pm =  number_format($cl['8_pm'], 2, ',', '');
 			}
-			if ($cl['12_am'] == 0 || $cl['12_am'] == '') {
+			if ($cl['12_am'] === NULL || $cl['12_am'] === '') {
 				$val12am = '';
-			} elseif ($cl['12_am'] > 0) {
+			} else {
 				$val12am =  number_format($cl['12_am'], 2, ',', '');
 			}
-			if ($cl['amonio'] == 0 || $cl['amonio'] == '') {
+			if ($cl['amonio'] === NULL || $cl['amonio'] === '') {
 				$valamo = '';
-			} elseif ($cl['amonio'] > 0) {
+			} else {
 				$valamo =  number_format($cl['amonio'], 2, ',', '');
 			}
-			if ($cl['nitrato'] == 0 || $cl['nitrato'] == '') {
+			if ($cl['nitrato'] === NULL || $cl['nitrato'] === '') {
 				$valnat = '';
-			} elseif ($cl['nitrato'] > 0) {
+			} else {
 				$valnat =  number_format($cl['nitrato'], 2, ',', '');
 			}
-			if ($cl['nitrito'] == 0 || $cl['nitrito'] == '') {
+			if ($cl['nitrito'] === NULL || $cl['nitrito'] === '') {
 				$valnit = '';
-			} elseif ($cl['nitrito'] > 0) {
+			} else {
 				$valnit =  number_format($cl['nitrito'], 2, ',', '');
 			}
-			if ($cl['otros'] == 0 || $cl['otros'] == '') {
+			if ($cl['otros'] === NULL || $cl['otros'] === '') {
 				$valot = '';
-			} elseif ($cl['otros'] > 0) {
+			} else {
 				$valot =  number_format($cl['otros'], 2, ',', '');
 			}
-			if ($cl['ph'] == 0 || $cl['ph'] == '') {
+			if ($cl['ph'] === NULL || $cl['ph'] === '') {
 				$valph = '';
-			} elseif ($cl['ph'] > 0) {
+			} else {
 				$valph =  number_format($cl['ph'], 2, ',', '');
 			}
-			if ($cl['temperatura'] == 0 || $cl['temperatura'] == '') {
+			if ($cl['temperatura'] === NULL || $cl['temperatura'] === '') {
 				$valtem = '';
-			} elseif ($cl['temperatura'] > 0) {
+			} else {
 				$valtem =  number_format($cl['temperatura'], 2, ',', '');
 			}
 			$parametros_calidad[] = array(
@@ -684,69 +679,69 @@ class ParametroCalidadController extends Controller
 
 
 		for ($i = 0; $i < count($calidad_agua); $i++) {
-			if ($calidad_agua[$i]['12_am'] > 0) {
+			if ($calidad_agua[$i]['12_am'] !== NULL && $calidad_agua[$i]['12_am'] !== '') {
 				$count_12am += 1;
 				$prom_12am += $calidad_agua[$i]['12_am'];
 				$promedios['promedio_12_am'] = (round($prom_12am / $count_12am, 2));
 				$promedios['promedio_12_am']  = number_format($promedios['promedio_12_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_am'] > 0) {
+			if ($calidad_agua[$i]['4_am'] !== NULL && $calidad_agua[$i]['4_am'] !== '') {
 				$count_4am += 1;
 				$prom_4am += $calidad_agua[$i]['4_am'];
 				$promedios['promedio_4_am'] = (round($prom_4am / $count_4am, 2));
 				$promedios['promedio_4_am']  = number_format($promedios['promedio_4_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['7_am'] > 0) {
+			if ($calidad_agua[$i]['7_am'] !== NULL && $calidad_agua[$i]['7_am'] !== '') {
 				$count_7am += 1;
 				$prom_7am += $calidad_agua[$i]['7_am'];
 				$promedios['promedio_7_am'] = (round($prom_7am / $count_7am, 2));
 				$promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_pm'] > 0) {
+			if ($calidad_agua[$i]['4_pm'] !== NULL && $calidad_agua[$i]['4_pm'] !== '') {
 				$count_4pm += 1;
 				$prom_4pm += $calidad_agua[$i]['4_pm'];
 				$promedios['promedio_4_pm'] = (round($prom_4pm / $count_4pm, 2));
 				$promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['8_pm'] > 0) {
+			if ($calidad_agua[$i]['8_pm'] !== NULL && $calidad_agua[$i]['8_pm'] !== '') {
 				$count_8pm += 1;
 				$prom_8pm += $calidad_agua[$i]['8_pm'];
 				$promedios['promedio_8_pm'] = (round($prom_8pm / $count_8pm, 2));
 				$promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['temperatura'] > 0) {
+			if ($calidad_agua[$i]['temperatura'] !== NULL && $calidad_agua[$i]['temperatura'] !== '') {
 				$count_temperatura += 1;
 				$prom_temperatura += $calidad_agua[$i]['temperatura'];
 				$promedios['promedio_temperatura'] = (round($prom_temperatura / $count_temperatura, 2));
 				$promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['ph'] > 0) {
+			if ($calidad_agua[$i]['ph'] !== NULL && $calidad_agua[$i]['ph'] !== '') {
 				$count_ph += 1;
 				$prom_ph += $calidad_agua[$i]['ph'];
 				$promedios['promedio_ph'] = (round($prom_ph / $count_ph, 2));
 				$promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['amonio'] > 0) {
+			if ($calidad_agua[$i]['amonio'] !== NULL && $calidad_agua[$i]['amonio'] !== '') {
 				$count_amonio += 1;
 				$prom_amonio += $calidad_agua[$i]['amonio'];
 				$promedios['promedio_amonio'] = (round($prom_amonio / $count_amonio, 2));
 				$promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['nitrito'] > 0) {
+			if ($calidad_agua[$i]['nitrito'] !== NULL && $calidad_agua[$i]['nitrito'] !== '') {
 				$count_nitrito += 1;
 				$prom_nitrito += $calidad_agua[$i]['nitrito'];
 				$promedios['promedio_nitrito'] = (round($prom_nitrito / $count_nitrito, 2));
 				$promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['nitrato'] > 0) {
+			if ($calidad_agua[$i]['nitrato'] !== NULL && $calidad_agua[$i]['nitrato'] !== '') {
 				$count_nitrato += 1;
 				$prom_nitrato += $calidad_agua[$i]['nitrato'];
 				$promedios['promedio_nitrato'] = (round($prom_nitrato / $count_nitrato, 2));
 				$promedios['promedio_nitrato']  = number_format($promedios['promedio_nitrato'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['otros'] > 0) {
+			if ($calidad_agua[$i]['otros'] !== NULL && $calidad_agua[$i]['otros'] !== '') {
 				$count_otros += 1;
 				$prom_otros += $calidad_agua[$i]['otros'];
 				$promedios['promedio_otros'] = (round($prom_otros / $count_otros, 2));
@@ -815,59 +810,59 @@ class ParametroCalidadController extends Controller
 		$parametros_calidad = array();
 
 		foreach ($calidad_agua as $cl) {
-			if ($cl['4_am'] == 0 || $cl['4_am'] == '') {
+			if ($cl['4_am'] === NULL || $cl['4_am'] === '') {
 				$val4am = '';
-			} elseif ($cl['4_am'] > 0) {
+			} else {
 				$val4am =  number_format($cl['4_am'], 2, '.', '');
 			}
-			if ($cl['4_pm'] == 0 || $cl['4_pm'] == '') {
+			if ($cl['4_pm'] === NULL || $cl['4_pm'] === '') {
 				$val4pm = '';
-			} elseif ($cl['4_pm'] > 0) {
+			} else {
 				$val4pm =  number_format($cl['4_pm'], 2, '.', '');
 			}
-			if ($cl['7_am'] == 0 || $cl['7_am'] == '') {
+			if ($cl['7_am'] === NULL || $cl['7_am'] === '') {
 				$val7am = '';
-			} elseif ($cl['7_am'] > 0) {
+			} else {
 				$val7am =  number_format($cl['7_am'], 2, '.', '');
 			}
-			if ($cl['8_pm'] == 0 || $cl['8_pm'] == '') {
+			if ($cl['8_pm'] === NULL || $cl['8_pm'] === '') {
 				$val8pm = '';
-			} elseif ($cl['8_pm'] > 0) {
+			} else {
 				$val8pm =  number_format($cl['8_pm'], 2, '.', '');
 			}
-			if ($cl['12_am'] == 0 || $cl['12_am'] == '') {
+			if ($cl['12_am'] === NULL || $cl['12_am'] === '') {
 				$val12am = '';
-			} elseif ($cl['12_am'] > 0) {
+			} else {
 				$val12am =  number_format($cl['12_am'], 2, '.', '');
 			}
-			if ($cl['amonio'] == 0 || $cl['amonio'] == '') {
+			if ($cl['amonio'] === NULL || $cl['amonio'] === '') {
 				$valamo = '';
-			} elseif ($cl['amonio'] > 0) {
+			} else {
 				$valamo =  number_format($cl['amonio'], 2, '.', '');
 			}
-			if ($cl['nitrato'] == 0 || $cl['nitrato'] == '') {
+			if ($cl['nitrato'] === NULL || $cl['nitrato'] === '') {
 				$valnat = '';
-			} elseif ($cl['nitrato'] > 0) {
+			} else {
 				$valnat =  number_format($cl['nitrato'], 2, '.', '');
 			}
-			if ($cl['nitrito'] == 0 || $cl['nitrito'] == '') {
+			if ($cl['nitrito'] === NULL || $cl['nitrito'] === '') {
 				$valnit = '';
-			} elseif ($cl['nitrito'] > 0) {
+			} else {
 				$valnit =  number_format($cl['nitrito'], 2, '.', '');
 			}
-			if ($cl['otros'] == 0 || $cl['otros'] == '') {
+			if ($cl['otros'] === NULL || $cl['otros'] === '') {
 				$valot = '';
-			} elseif ($cl['otros'] > 0) {
+			} else {
 				$valot =  number_format($cl['otros'], 2, '.', '');
 			}
-			if ($cl['ph'] == 0 || $cl['ph'] == '') {
+			if ($cl['ph'] === NULL || $cl['ph'] === '') {
 				$valph = '';
-			} elseif ($cl['ph'] > 0) {
+			} else {
 				$valph =  number_format($cl['ph'], 2, '.', '');
 			}
-			if ($cl['temperatura'] == 0 || $cl['temperatura'] == '') {
+			if ($cl['temperatura'] === NULL || $cl['temperatura'] === '') {
 				$valtem = '';
-			} elseif ($cl['temperatura'] > 0) {
+			} else {
 				$valtem =  number_format($cl['temperatura'], 2, '.', '');
 			}
 
@@ -915,7 +910,7 @@ class ParametroCalidadController extends Controller
 		$count_otros = 0;
 
 		for ($i = 0; $i < count($calidad_agua); $i++) {
-			if ($calidad_agua[$i]['12_am'] > 0 || $calidad_agua[$i]['12_am'] != '') {
+			if ($calidad_agua[$i]['12_am'] !== NULL && $calidad_agua[$i]['12_am'] !== '') {
 				$count_12am += 1;
 				$prom_12am += $calidad_agua[$i]['12_am'];
 				$promedios['promedio_12_am'] = (round($prom_12am / $count_12am, 2));
@@ -923,7 +918,7 @@ class ParametroCalidadController extends Controller
 			} else {
 				$promedios['promedio_12_am'] = '';
 			}
-			if ($calidad_agua[$i]['4_am'] > 0 || $calidad_agua[$i]['4_am'] != '') {
+			if ($calidad_agua[$i]['4_am'] !== NULL && $calidad_agua[$i]['4_am'] !== '') {
 				$count_4am += 1;
 				$prom_4am += $calidad_agua[$i]['4_am'];
 				$promedios['promedio_4_am'] = (round($prom_4am / $count_4am, 2));
@@ -931,56 +926,56 @@ class ParametroCalidadController extends Controller
 			} else {
 				$calidad_agua[$i]['4_am'] = '';
 			}
-			if ($calidad_agua[$i]['7_am'] > 0) {
+			if ($calidad_agua[$i]['7_am'] !== NULL && $calidad_agua[$i]['7_am'] !== '') {
 				$count_7am += 1;
 				$prom_7am += $calidad_agua[$i]['7_am'];
 				$promedios['promedio_7_am'] = (round($prom_7am / $count_7am, 2));
 				$promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_pm'] > 0) {
+			if ($calidad_agua[$i]['4_pm']  !== NULL && $calidad_agua[$i]['4_pm'] !== '') {
 				$count_4pm += 1;
 				$prom_4pm += $calidad_agua[$i]['4_pm'];
 				$promedios['promedio_4_pm'] = (round($prom_4pm / $count_4pm, 2));
 				$promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['8_pm'] > 0) {
+			if ($calidad_agua[$i]['8_pm'] !== NULL && $calidad_agua[$i]['8_pm'] !== '') {
 				$count_8pm += 1;
 				$prom_8pm += $calidad_agua[$i]['8_pm'];
 				$promedios['promedio_8_pm'] = (round($prom_8pm / $count_8pm, 2));
 				$promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['temperatura'] > 0) {
+			if ($calidad_agua[$i]['temperatura'] !== NULL && $calidad_agua[$i]['temperatura'] !== '') {
 				$count_temperatura += 1;
 				$prom_temperatura += $calidad_agua[$i]['temperatura'];
 				$promedios['promedio_temperatura'] = (round($prom_temperatura / $count_temperatura, 2));
 				$promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['ph'] > 0) {
+			if ($calidad_agua[$i]['ph'] !== NULL && $calidad_agua[$i]['ph'] !== '') {
 				$count_ph += 1;
 				$prom_ph += $calidad_agua[$i]['ph'];
 				$promedios['promedio_ph'] = (round($prom_ph / $count_ph, 2));
 				$promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['amonio'] > 0) {
+			if ($calidad_agua[$i]['amonio'] !== NULL && $calidad_agua[$i]['amonio'] !== '') {
 				$count_amonio += 1;
 				$prom_amonio += $calidad_agua[$i]['amonio'];
 				$promedios['promedio_amonio'] = (round($prom_amonio / $count_amonio, 2));
 				$promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['nitrito'] > 0) {
+			if ($calidad_agua[$i]['nitrito'] !== NULL && $calidad_agua[$i]['nitrito'] !== '') {
 				$count_nitrito += 1;
 				$prom_nitrito += $calidad_agua[$i]['nitrito'];
 				$promedios['promedio_nitrito'] = (round($prom_nitrito / $count_nitrito, 2));
 				$promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['nitrato'] > 0) {
+			if ($calidad_agua[$i]['nitrato'] !== NULL && $calidad_agua[$i]['nitrato'] !== '') {
 				$count_nitrato += 1;
 				$prom_nitrato += $calidad_agua[$i]['nitrato'];
 				$promedios['promedio_nitrato'] = (round($prom_nitrato / $count_nitrato, 2));
 			}
 
-			if ($calidad_agua[$i]['otros'] > 0) {
+			if ($calidad_agua[$i]['otros'] !== NULL && $calidad_agua[$i]['otros'] !== '') {
 				$count_otros += 1;
 				$prom_otros += $calidad_agua[$i]['otros'];
 				$promedios['promedio_otros'] = (round($prom_otros / $count_otros, 2));
@@ -1030,59 +1025,59 @@ class ParametroCalidadController extends Controller
 		$parametros_calidad = array();
 
 		foreach ($calidad_agua as $cl) {
-			if ($cl['4_am'] == 0 || $cl['4_am'] == '') {
+			if ($cl['4_am'] === NULL || $cl['4_am'] === '') {
 				$val4am = '';
-			} elseif ($cl['4_am'] > 0) {
+			} else {
 				$val4am =  number_format($cl['4_am'], 2, ',', '');
 			}
-			if ($cl['4_pm'] == 0 || $cl['4_pm'] == '') {
+			if ($cl['4_pm'] === NULL || $cl['4_pm'] === '') {
 				$val4pm = '';
-			} elseif ($cl['4_pm'] > 0) {
+			} else {
 				$val4pm =  number_format($cl['4_pm'], 2, ',', '');
 			}
-			if ($cl['7_am'] == 0 || $cl['7_am'] == '') {
+			if ($cl['7_am'] === NULL || $cl['7_am'] === '') {
 				$val7am = '';
-			} elseif ($cl['7_am'] > 0) {
+			} else {
 				$val7am =  number_format($cl['7_am'], 2, ',', '');
 			}
-			if ($cl['8_pm'] == 0 || $cl['8_pm'] == '') {
+			if ($cl['8_pm'] === NULL || $cl['8_pm'] === '') {
 				$val8pm = '';
-			} elseif ($cl['8_pm'] > 0) {
+			} else {
 				$val8pm =  number_format($cl['8_pm'], 2, ',', '');
 			}
-			if ($cl['12_am'] == 0 || $cl['12_am'] == '') {
+			if ($cl['12_am'] === NULL || $cl['12_am'] === '') {
 				$val12am = '';
-			} elseif ($cl['12_am'] > 0) {
+			} else {
 				$val12am =  number_format($cl['12_am'], 2, ',', '');
 			}
-			if ($cl['amonio'] == 0 || $cl['amonio'] == '') {
+			if ($cl['amonio'] === NULL || $cl['amonio'] === '') {
 				$valamo = '';
-			} elseif ($cl['amonio'] > 0) {
+			} else {
 				$valamo =  number_format($cl['amonio'], 2, ',', '');
 			}
-			if ($cl['nitrato'] == 0 || $cl['nitrato'] == '') {
+			if ($cl['nitrato'] === NULL || $cl['nitrato'] === '') {
 				$valnat = '';
-			} elseif ($cl['nitrato'] > 0) {
+			} else {
 				$valnat =  number_format($cl['nitrato'], 2, ',', '');
 			}
-			if ($cl['nitrito'] == 0 || $cl['nitrito'] == '') {
+			if ($cl['nitrito'] === NULL || $cl['nitrito'] === '') {
 				$valnit = '';
-			} elseif ($cl['nitrito'] > 0) {
+			} else {
 				$valnit =  number_format($cl['nitrito'], 2, ',', '');
 			}
-			if ($cl['otros'] == 0 || $cl['otros'] == '') {
+			if ($cl['otros'] === NULL || $cl['otros'] === '') {
 				$valot = '';
-			} elseif ($cl['otros'] > 0) {
+			} else {
 				$valot =  number_format($cl['otros'], 2, ',', '');
 			}
-			if ($cl['ph'] == 0 || $cl['ph'] == '') {
+			if ($cl['ph'] === NULL || $cl['ph'] === '') {
 				$valph = '';
-			} elseif ($cl['ph'] > 0) {
+			} else {
 				$valph =  number_format($cl['ph'], 2, ',', '');
 			}
-			if ($cl['temperatura'] == 0 || $cl['temperatura'] == '') {
+			if ($cl['temperatura'] === NULL || $cl['temperatura'] == '') {
 				$valtem = '';
-			} elseif ($cl['temperatura'] > 0) {
+			} else {
 				$valtem =  number_format($cl['temperatura'], 2, ',', '');
 			}
 
@@ -1130,7 +1125,7 @@ class ParametroCalidadController extends Controller
 		$count_otros = 0;
 
 		for ($i = 0; $i < count($calidad_agua); $i++) {
-			if ($calidad_agua[$i]['12_am'] > 0 || $calidad_agua[$i]['12_am'] != '') {
+			if ($calidad_agua[$i]['12_am'] !== NULL && $calidad_agua[$i]['12_am'] !== '') {
 				$count_12am += 1;
 				$prom_12am += $calidad_agua[$i]['12_am'];
 				$promedios['promedio_12_am'] = (round($prom_12am / $count_12am, 2));
@@ -1138,7 +1133,7 @@ class ParametroCalidadController extends Controller
 			} else {
 				$promedios['promedio_12_am'] = '';
 			}
-			if ($calidad_agua[$i]['4_am'] > 0 || $calidad_agua[$i]['4_am'] != '') {
+			if ($calidad_agua[$i]['4_am'] !== NULL && $calidad_agua[$i]['4_am'] !== '') {
 				$count_4am += 1;
 				$prom_4am += $calidad_agua[$i]['4_am'];
 				$promedios['promedio_4_am'] = (round($prom_4am / $count_4am, 2));
@@ -1146,56 +1141,56 @@ class ParametroCalidadController extends Controller
 			} else {
 				$calidad_agua[$i]['4_am'] = '';
 			}
-			if ($calidad_agua[$i]['7_am'] > 0) {
+			if ($calidad_agua[$i]['7_am'] !== NULL && $calidad_agua[$i]['7_am'] !== '') {
 				$count_7am += 1;
 				$prom_7am += $calidad_agua[$i]['7_am'];
 				$promedios['promedio_7_am'] = (round($prom_7am / $count_7am, 2));
 				$promedios['promedio_7_am']  = number_format($promedios['promedio_7_am'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['4_pm'] > 0) {
+			if ($calidad_agua[$i]['4_pm']  !== NULL && $calidad_agua[$i]['4_pm'] !== '') {
 				$count_4pm += 1;
 				$prom_4pm += $calidad_agua[$i]['4_pm'];
 				$promedios['promedio_4_pm'] = (round($prom_4pm / $count_4pm, 2));
 				$promedios['promedio_4_pm']  = number_format($promedios['promedio_4_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['8_pm'] > 0) {
+			if ($calidad_agua[$i]['8_pm'] !== NULL && $calidad_agua[$i]['8_pm'] !== '') {
 				$count_8pm += 1;
 				$prom_8pm += $calidad_agua[$i]['8_pm'];
 				$promedios['promedio_8_pm'] = (round($prom_8pm / $count_8pm, 2));
 				$promedios['promedio_8_pm']  = number_format($promedios['promedio_8_pm'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['temperatura'] > 0) {
+			if ($calidad_agua[$i]['temperatura'] !== NULL && $calidad_agua[$i]['temperatura'] !== '') {
 				$count_temperatura += 1;
 				$prom_temperatura += $calidad_agua[$i]['temperatura'];
 				$promedios['promedio_temperatura'] = (round($prom_temperatura / $count_temperatura, 2));
 				$promedios['promedio_temperatura']  = number_format($promedios['promedio_temperatura'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['ph'] > 0) {
+			if ($calidad_agua[$i]['ph'] !== NULL && $calidad_agua[$i]['ph'] !== '') {
 				$count_ph += 1;
 				$prom_ph += $calidad_agua[$i]['ph'];
 				$promedios['promedio_ph'] = (round($prom_ph / $count_ph, 2));
 				$promedios['promedio_ph']  = number_format($promedios['promedio_ph'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['amonio'] > 0) {
+			if ($calidad_agua[$i]['amonio'] !== NULL && $calidad_agua[$i]['amonio'] !== '') {
 				$count_amonio += 1;
 				$prom_amonio += $calidad_agua[$i]['amonio'];
 				$promedios['promedio_amonio'] = (round($prom_amonio / $count_amonio, 2));
 				$promedios['promedio_amonio']  = number_format($promedios['promedio_amonio'], 2, ',', '');
 			}
-			if ($calidad_agua[$i]['nitrito'] > 0) {
+			if ($calidad_agua[$i]['nitrito'] !== NULL && $calidad_agua[$i]['nitrito'] !== '') {
 				$count_nitrito += 1;
 				$prom_nitrito += $calidad_agua[$i]['nitrito'];
 				$promedios['promedio_nitrito'] = (round($prom_nitrito / $count_nitrito, 2));
 				$promedios['promedio_nitrito']  = number_format($promedios['promedio_nitrito'], 2, ',', '');
 			}
 
-			if ($calidad_agua[$i]['nitrato'] > 0) {
+			if ($calidad_agua[$i]['nitrato'] !== NULL && $calidad_agua[$i]['nitrato'] !== '') {
 				$count_nitrato += 1;
 				$prom_nitrato += $calidad_agua[$i]['nitrato'];
 				$promedios['promedio_nitrato'] = (round($prom_nitrato / $count_nitrato, 2));
 			}
 
-			if ($calidad_agua[$i]['otros'] > 0) {
+			if ($calidad_agua[$i]['otros'] !== NULL && $calidad_agua[$i]['otros'] !== '') {
 				$count_otros += 1;
 				$prom_otros += $calidad_agua[$i]['otros'];
 				$promedios['promedio_otros'] = (round($prom_otros / $count_otros, 2));
