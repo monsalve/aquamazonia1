@@ -121,9 +121,7 @@
               <table class="table-sticky table table-sm table-hover table-bordered">
                 <thead class="thead-primary">
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Contenedor</th>
-                    <th scope="col">Siembra asociada</th>
                     <th scope="col">Capacidad</th>
                     <th scope="col">Estado contenedor</th>
                     <th scope="col">Ver párametros de calidad</th>
@@ -131,9 +129,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="(contenedor,index) in listadoParametrosContenedores" :key="index">
-                    <th scope="row" v-text="index+1"></th>
                     <td v-text="contenedor.contenedor"></td>
-                    <td v-text="contenedor.nombre_siembra"></td>
                     <td v-text="contenedor.capacidad"></td>
                     <td v-text="estados[contenedor.estado]"></td>
                     <td>                     

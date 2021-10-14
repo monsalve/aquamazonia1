@@ -761,11 +761,8 @@ class ParametroCalidadController extends Controller
 			'contenedores.id as id',
 			'contenedores.estado as estado',
 			'contenedor',
-			'nombre_siembra',
-			'siembras.id as id_siembra'
 		)
-			->leftJoin('siembras', 'contenedores.id', 'siembras.id_contenedor')
-			->where('siembras.estado', '=', 1)
+			->distinct()
 			->get();
 
 		return $contenedores;
