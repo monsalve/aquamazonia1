@@ -63801,7 +63801,7 @@ var render = function() {
                       { staticClass: "col-sm-12 col-md-12 text-left" },
                       [
                         _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Contenedor")
+                          _vm._v("Contenedor disponible")
                         ]),
                         _vm._v(" "),
                         _vm.id_edita == ""

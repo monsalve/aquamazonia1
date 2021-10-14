@@ -271,7 +271,7 @@
             <div class="container row">
               <div class="form-group row col-md-4">
                 <div class="col-sm-12 col-md-12 text-left">
-                  <label for="">Contenedor</label>
+                  <label for="">Contenedor disponible</label>
                   <div v-if="id_edita == ''">
                     <select
                       v-model="form.id_contenedor"

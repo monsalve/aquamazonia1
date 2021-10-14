@@ -353,7 +353,7 @@ class RecursoNecesarioController extends Controller
 			->leftJoin('alimentos', 'recursos_necesarios.id_alimento', 'alimentos.id')
 			->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
-			->select('recursos_necesarios.id as id', 'cantidad_recurso', 'cant_manana', 'cant_tarde', 'id_recurso', 'id_alimento', 'recursos_siembras.id_siembra', 'actividad', 'conv_alimenticia', 'costo', 'recursos_necesarios.detalles', 'tipo_actividad', 'recurso', 'nombre_siembra', 'minutos_hombre', 'fecha_ra')
+			->select('recursos_necesarios.id as id', 'cantidad_recurso', 'cant_manana', 'cant_tarde', 'id_recurso', 'id_alimento', 'recursos_siembras.id_siembra', 'actividad', 'conv_alimenticia', 'costo', 'recursos_necesarios.detalles', 'tipo_actividad', 'recurso', 'nombre_siembra', 'minutos_hombre', 'fecha_ra', 'alimento')
 			->where($c1, $op1, $c2)
 			->where($c3, $op2, $c4)
 			->where($c5, $op3, $c6)

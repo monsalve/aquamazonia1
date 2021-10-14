@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\CalidadAgua;
-use App\Siembra;
 use App\Contenedor;
 
 
@@ -311,7 +310,7 @@ class ParametroCalidadController extends Controller
 		$c5 = "calidad_agua.id";
 		$op3 = '!=';
 		$c6 = '-1';
-		
+
 		if ($request['f_inicio_d'] != '-1') {
 			$c1 = "fecha_parametro";
 			$op1 = '>=';
@@ -766,6 +765,7 @@ class ParametroCalidadController extends Controller
 			'siembras.id as id_siembra'
 		)
 			->leftJoin('siembras', 'contenedores.id', 'siembras.id_contenedor')
+			->where('siembras.estado', '=', 1)
 			->get();
 
 		return $contenedores;
