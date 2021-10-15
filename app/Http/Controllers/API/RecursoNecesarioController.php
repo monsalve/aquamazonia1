@@ -284,7 +284,7 @@ class RecursoNecesarioController extends Controller
 
 		$minutos_hombre = Recursos::select()->where('recurso', 'Minutos hombre')->orWhere('recurso', 'Minuto hombre')->orWhere('recurso', 'Minutos')->first();
 
-		$c1 = "recursos_necesarios.id";
+		$tipo_actividad = "recursos_necesarios.id";
 		$op1 = "!=";
 		$c2 = "-1";
 		$c3 = "recursos_necesarios.id";
@@ -307,13 +307,13 @@ class RecursoNecesarioController extends Controller
 		$c14 = '-1';
 
 		if ($request['tipo_actividad'] != '-1') {
-			$c1 = "tipo_actividad";
+			$tipo_actividad = "tipo_actividad";
 			$op1 = '=';
-			$c2 = $request['tipo_actividad'];
+			$id_tipo_actividad = $request['tipo_actividad'];
 		} elseif ($request['tipo_actividad'] == '-1') {
-			$c1 = "tipo_actividad";
+			$tipo_actividad = "tipo_actividad";
 			$op1 = '!=';
-			$c2 = '1';
+			$id_tipo_actividad = '1';
 		}
 
 		if ($request['fecha_ra1'] != '-3') {
@@ -348,13 +348,18 @@ class RecursoNecesarioController extends Controller
 		}
 
 		$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
-			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
-			->rightJoin('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
-			->leftJoin('alimentos', 'recursos_necesarios.id_alimento', 'alimentos.id')
-			->leftJoin('recursos', 'recursos_necesarios.id_recurso', 'recursos.id')
+			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro');
+
+		if ($request['tipo_actividad'] == 1) {
+			$recursosNecesarios = 	$recursosNecesarios->join('alimentos', 'recursos_necesarios.id_alimento', 'alimentos.id');
+		} else {
+			$recursosNecesarios = 	$recursosNecesarios->join('recursos', 'recursos_necesarios.id_recurso', 'recursos.id');
+		}
+
+		$recursosNecesarios = 	$recursosNecesarios->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
-			->select('recursos_necesarios.id as id', 'cantidad_recurso', 'cant_manana', 'cant_tarde', 'id_recurso', 'id_alimento', 'recursos_siembras.id_siembra', 'actividad', 'conv_alimenticia', 'costo', 'recursos_necesarios.detalles', 'tipo_actividad', 'recurso', 'nombre_siembra', 'minutos_hombre', 'fecha_ra', 'alimento')
-			->where($c1, $op1, $c2)
+			// ->select('recursos_necesarios.id as id', 'cantidad_recurso', 'cant_manana', 'cant_tarde', 'id_recurso', 'id_alimento', 'recursos_siembras.id_siembra', 'actividad', 'conv_alimenticia', 'costo', 'recursos_necesarios.detalles', 'tipo_actividad', 'recurso', 'nombre_siembra', 'minutos_hombre', 'fecha_ra', 'alimento')
+			->where($tipo_actividad, $op1, $id_tipo_actividad)
 			->where($c3, $op2, $c4)
 			->where($c5, $op3, $c6)
 			->where($c7, $op4, $c8)
