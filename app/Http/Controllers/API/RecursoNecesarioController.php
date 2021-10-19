@@ -79,7 +79,6 @@ class RecursoNecesarioController extends Controller
 	}
 	public function  alimentacion(Request $request)
 	{
-		//
 		$minutos_hombre = Recursos::select()->where('recurso', 'Minutos hombre')->orWhere('recurso', 'Minuto hombre')->orWhere('recurso', 'Minutos')->first();
 		$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
 			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
@@ -115,14 +114,16 @@ class RecursoNecesarioController extends Controller
 				$coskg += $recursosNecesarios[$i]->costo_kg;
 				$cta += $recursosNecesarios[$i]->costo_total_alimento;
 				$icb += $recursosNecesarios[$i]->incr_bio_acum_conver;
+				// Formato de numeros
 				$recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver, 2, ',', '');
+				$recursosNecesarios[$i]->costo_total_alimento = number_format($recursosNecesarios[$i]->costo_total_alimento, 2, ',', '');
 			}
 			$promedioRecursos['tmh'] = $summh;
 			$promedioRecursos['cman'] = $cantm;
 			$promedioRecursos['ctar'] = $cantt;
 			$promedioRecursos['alid'] = $alid;
-			$promedioRecursos['coskg'] = $coskg;
-			$promedioRecursos['cta'] = $cta;
+			$promedioRecursos['coskg'] = number_format($coskg, 2, ',', '');
+			$promedioRecursos['cta'] = number_format($cta, 2, ',', '');
 			$icb = number_format($icb, 2, ',', '');
 			$promedioRecursos['icb'] = $icb;
 		}
@@ -358,7 +359,6 @@ class RecursoNecesarioController extends Controller
 
 		$recursosNecesarios = 	$recursosNecesarios->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
-			// ->select('recursos_necesarios.id as id', 'cantidad_recurso', 'cant_manana', 'cant_tarde', 'id_recurso', 'id_alimento', 'recursos_siembras.id_siembra', 'actividad', 'conv_alimenticia', 'costo', 'recursos_necesarios.detalles', 'tipo_actividad', 'recurso', 'nombre_siembra', 'minutos_hombre', 'fecha_ra', 'alimento')
 			->where($tipo_actividad, $op1, $id_tipo_actividad)
 			->where($c3, $op2, $c4)
 			->where($c5, $op3, $c6)
@@ -411,8 +411,10 @@ class RecursoNecesarioController extends Controller
 				$coskg += $recursosNecesarios[$i]->costo_kg;
 				$cta += $recursosNecesarios[$i]->costo_total_alimento;
 				$icb += $recursosNecesarios[$i]->incr_bio_acum_conver;
+
 				$recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver, 2, ',', '');
 				$recursosNecesarios[$i]->costo_total_recurso = number_format($recursosNecesarios[$i]->costo_total_recurso, 2, ',', '');
+				$recursosNecesarios[$i]->costo_total_alimento = number_format($recursosNecesarios[$i]->costo_total_alimento, 2, ',', '');
 			}
 			$promedioRecursos['tmh'] = $summh;
 			$promedioRecursos['ttmh'] = $sumtmh;
@@ -426,8 +428,11 @@ class RecursoNecesarioController extends Controller
 			$promedioRecursos['cta'] = $cta;
 			$icb = number_format($icb, 2, ',', '');
 			$promedioRecursos['icb'] = $icb;
+			
 			$promedioRecursos['tc'] = number_format($promedioRecursos['tc'], 2, ',', '');
 			$promedioRecursos['ctr'] = number_format($promedioRecursos['ctr'], 2, ',', '');
+			$promedioRecursos['coskg'] = number_format($promedioRecursos['coskg'], 2, ',', '');
+			$promedioRecursos['cta'] = number_format($promedioRecursos['cta'], 2, ',', '');
 		}
 
 

@@ -29,8 +29,6 @@ class AlimentosController extends Controller
    */
   public function store(Request $request)
   {
-    //
-
     $val = $request->validate([
       'alimento' => 'required',
       'costo_kg' => 'required'
@@ -45,12 +43,6 @@ class AlimentosController extends Controller
       'costo' => $alimento['costo_kg'],
       'fecha_registro' => date('Y-m-d')
     ]);
-
-    // $this->validate($request, [
-    //     'alimento' => 'alimento',
-    //     'costo_kg' => 'costo_kg',
-    // ]);
-
   }
 
   /**
