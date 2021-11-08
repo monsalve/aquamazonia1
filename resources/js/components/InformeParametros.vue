@@ -11,10 +11,10 @@
                 <h5>Filtrar por:</h5>     
                 <div class="row">             
                   <div class="form-group col-md-2">
-                    <label for="Siembra">Contenedor:</label>
+                    <label for="Siembra">Estanque:</label>
                     <select class="form-control" id="f_siembra" v-model="f_contenedor">
                       <option value="-1" selected>Seleccionar</option>                             
-                      <option :value="lc.id" v-for="(lc, index) in listadoContenedores" :key="index">{{lc.contenedor}}</option>
+                      <option :value="lc.id" v-for="(lc, index) in listadoEstanques" :key="index">{{lc.contenedor}}</option>
                     </select>
                   </div>
                   <div class="form-group col-md-3">
@@ -50,7 +50,7 @@
                   <tr>                    
                     <th rowspan="2" data-field="id">#</th>                    
                     <th rowspan="2">ID registro</th>
-                    <th rowspan="2" data-field="id">Contenedor</th>      
+                    <th rowspan="2" data-field="id">Estanque</th>      
                     <th rowspan="2" data-field="id">Fecha</th>      
                     <th colspan="5" class="text-center">% Saturación de oxígeno</th>
                     <th rowspan="2" data-field="id">Temperatura</th>
@@ -121,7 +121,7 @@
         json_fields: {   
           '#' : 'id',
           'Fecha ' : 'fecha_parametro',
-          'Contenedor' : 'contenedor',
+          'Estanque' : 'contenedor',
           '12:00 a.m' : '12_am',
           '4:00 a.m' : '4_am',
           '7:00 a.m' : '7_am',
@@ -154,7 +154,7 @@
           otros : ''
         }),
         listadoExistencias : [],
-        listadoContenedores:[],
+        listadoEstanques:[],
         listadoEspecies : [],
         listadoSiembras: [],
         listadoParametros : [],
@@ -195,7 +195,7 @@
         let me = this;      
         this.listarParametros();
         this.listarSiembras();
-        this.listarContenedores();
+        this.listarEstanques();
       },
       listarParametros(){
         let me = this;
@@ -213,11 +213,11 @@
           me.listadoSiembras = response.data.listado_siembras;         
         })
       },
-       listarContenedores(){
+       listarEstanques(){
         let me = this;
         axios.get("api/contenedores")
         .then(function (response) {
-            me.listadoContenedores = response.data
+            me.listadoEstanques = response.data
         });
       },
       crearParametros(){

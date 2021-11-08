@@ -33,10 +33,10 @@
                           </select>
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="contenedor">Contenedor:</label>
+                          <label for="contenedor">Estanque:</label>
                           <select class="custom-select" id="contenedor" v-model="f_contenedor">
                             <option value="-1">Seleccionar</option>
-                            <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>
+                            <option :value="cont.id" v-for="(cont, index) in listadoEstanques" :key="index">{{cont.contenedor}}</option>
                           </select>
                         </div>
 
@@ -73,10 +73,10 @@
                               <th>Animales final</th>
                               <th>Peso Actual</th>
                               <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>
+                              <th>Biomasa Cosechada</th>
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
-                              <th>Salida animales</th>
+                              <th>Animales cosechados</th>
                               <th>Densidad Inicial (Animales/m<sup>2</sup>)</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
                               <th>Carga Final (Kg/m<sup>2</sup>)</th>
@@ -156,11 +156,11 @@
           'Animales final' : 'cant_actual',
           'Peso actual' : 'peso_actual',
           'Biomasa disponible' : 'biomasa_disponible',
-          'Salida de biomasa' : 'salida_biomasa',
+          'Biomasa cosechada' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           'Mortalidad %' : 'mortalidad_porcentaje',
-          'Salida animales' : 'salida_animales',
+          'Animales cosechados' : 'salida_animales',
           'Densidad inicial (Animales/m2)' : 'densidad_inicial',
           'Densidad final (Animales/m2)' : 'densidad_final',
           'Carga final (Kg/m2)' : 'carga_final',
@@ -182,7 +182,7 @@
         siembrasActivas: [],
         siembrasInactivas: [],
         imprimirRecursos:[],
-        listadoContenedores : [],
+        listadoEstanques : [],
         f_siembra : '',
         f_contenedor : '',
         f_estado : '1',
@@ -203,7 +203,7 @@
         let me = this;
         this.listarEspecies();
         this.listarSiembras();
-        this.listarContenedores();
+        this.listarEstanques();
         axios.get("api/traer-existencias-detalle")
         .then(function (response){
           me.listadoExistencias = response.data.existencias;
@@ -224,11 +224,11 @@
           me.siembrasInactivas = response.data.listado_siembras_inactivas;
         })
       },
-      listarContenedores(){
+      listarEstanques(){
         let me = this;
         axios.get("api/contenedores")
         .then(function (response){
-          me.listadoContenedores = response.data;
+          me.listadoEstanques = response.data;
         })
       },
 

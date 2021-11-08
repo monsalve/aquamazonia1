@@ -3135,10 +3135,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3161,8 +3157,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       editando: 0,
       mostrar: 0,
-      idContenedor: '',
-      nombreContenedor: '',
+      idEstanque: '',
+      nombreEstanque: '',
       form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
         id: '',
         id_contenedor: [],
@@ -3186,8 +3182,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoSiembras: [],
       listadoParametros: [],
       listadoParametrosExcel: [],
-      listadoParametrosContenedores: [],
-      listadoContenedores: [],
+      listadoParametrosEstanques: [],
+      listadoEstanques: [],
       promedios: [],
       f_inicio_d: '',
       f_inicio_h: ''
@@ -3239,7 +3235,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       var data = {
-        'id_contenedor': this.idContenedor,
+        'id_contenedor': this.idEstanque,
         'f_inicio_d': this.f_d,
         'f_inicio_h': this.f_h
       };
@@ -3254,8 +3250,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listar: function listar() {
       var me = this;
       this.listarSiembras();
-      this.listarParametrosContenedores();
-      this.listarContenedores();
+      this.listarParametrosEstanques();
+      this.listarEstanques();
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -3263,25 +3259,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.listado_siembras;
       });
     },
-    listarParametrosContenedores: function listarParametrosContenedores() {
+    listarParametrosEstanques: function listarParametrosEstanques() {
       var me = this;
       axios.get("api/parametros-contenedores").then(function (response) {
-        me.listadoParametrosContenedores = response.data;
+        me.listadoParametrosEstanques = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
-      axios.get("api/listadoContenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+      axios.get("api/listadoEstanques").then(function (response) {
+        me.listadoEstanques = response.data;
       });
     },
     mostrarParametros: function mostrarParametros(objeto) {
       var _this2 = this;
 
-      this.idContenedor = objeto;
+      this.idEstanque = objeto;
       var me = this;
       var data = {
-        'id_contenedor': this.idContenedor
+        'id_contenedor': this.idEstanque
       };
       axios.post('api/parametro-x-contenedor/' + objeto).then(function (response) {
         _this2.mostrar = 1;
@@ -3308,7 +3304,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
 
       if (this.editando == 1) {
-        this.form.id_contenedor = this.idContenedor;
+        this.form.id_contenedor = this.idEstanque;
       }
 
       this.form.post("api/parametros-calidad").then(function (_ref) {
@@ -3322,7 +3318,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     editarParametros: function editarParametros(objeto) {
       console.log(objeto);
-      var me = this; // this.form.id = idContenedor;
+      var me = this; // this.form.id = idEstanque;
 
       this.form.fill(objeto);
       this.editando = 1;
@@ -3335,7 +3331,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
         $('#modalParametros').modal('hide');
-        me.mostrarParametros(_this3.idContenedor);
+        me.mostrarParametros(_this3.idEstanque);
         me.listar();
 
         _this3.form.reset();
@@ -3512,7 +3508,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
         editando: 0, me.listar();
 
-        $('#modalContenedor').modal('hide');
+        $('#modalEstanque').modal('hide');
         me.form.contenedor = '';
         me.form.capacidad = '';
         me.form.estado = '';
@@ -3521,7 +3517,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
     abrirCrear: function abrirCrear() {
       this.editando = 0;
       this.form.reset();
-      $('#modalContenedor').modal('show');
+      $('#modalEstanque').modal('show');
     },
     listar: function listar() {
       var me = this;
@@ -3533,13 +3529,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       this.form.fill(objeto);
       this.editando = 1;
-      $('#modalContenedor').modal('show');
+      $('#modalEstanque').modal('show');
     },
     editar: function editar() {
       var me = this;
       this.form.put('api/contenedores/' + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        $('#modalContenedor').modal('hide');
+        $('#modalEstanque').modal('hide');
         me.listar();
       });
     },
@@ -4573,7 +4569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoRegistros: [],
       listadoEspecies: [],
       listadoLotes: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       // filtros
       f_siembra: "",
       f_lote: "",
@@ -4622,7 +4618,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       me.listarRegistros();
       me.listarEspecies();
       me.listarLotes();
-      me.listarContenedores();
+      me.listarEstanques();
     },
     listarSiembras: function listarSiembras() {
       var me = this;
@@ -4721,10 +4717,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoRegistros = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     }
   },
@@ -5480,11 +5476,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Animales final': 'cant_actual',
         'Peso actual': 'peso_actual',
         'Biomasa disponible': 'biomasa_disponible',
-        'Salida de biomasa': 'salida_biomasa',
+        'Biomasa cosechada': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mortalidad kg': 'mortalidad_kg',
         'Mortalidad %': 'mortalidad_porcentaje',
-        'Salida animales': 'salida_animales',
+        'Animales cosechados': 'salida_animales',
         'Densidad inicial (Animales/m2)': 'densidad_inicial',
         'Densidad final (Animales/m2)': 'densidad_final',
         'Carga final (Kg/m2)': 'carga_final',
@@ -5506,7 +5502,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       siembrasActivas: [],
       siembrasInactivas: [],
       imprimirRecursos: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       f_siembra: '',
       f_contenedor: '',
       f_estado: '1',
@@ -5547,7 +5543,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.listarEspecies();
       this.listarSiembras();
-      this.listarContenedores();
+      this.listarEstanques();
       axios.get("api/traer-existencias-detalle").then(function (response) {
         me.listadoExistencias = response.data.existencias;
       });
@@ -5565,10 +5561,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.siembrasInactivas = response.data.listado_siembras_inactivas;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     filtroSiembra: function filtroSiembra() {
@@ -5903,7 +5899,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listado: [],
       listadoSiembras: [],
       listadoAlimentos: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       estado_siembra: "1",
       siembra_activa: "",
       siembra_inactiva: "",
@@ -5992,10 +5988,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoAlimentos = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     cambiarPagina: function cambiarPagina(page) {
@@ -6009,7 +6005,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listar(1, "", -1, "", "");
     this.listarSiembras(-1);
     this.listarAlimentos();
-    this.listarContenedores();
+    this.listarEstanques();
   }
 });
 
@@ -6365,7 +6361,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       json_fields: {
         '#': 'id',
         'Fecha ': 'fecha_parametro',
-        'Contenedor': 'contenedor',
+        'Estanque': 'contenedor',
         '12:00 a.m': '12_am',
         '4:00 a.m': '4_am',
         '7:00 a.m': '7_am',
@@ -6397,7 +6393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         otros: ''
       }),
       listadoExistencias: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       listadoEspecies: [],
       listadoSiembras: [],
       listadoParametros: [],
@@ -6471,7 +6467,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var me = this;
       this.listarParametros();
       this.listarSiembras();
-      this.listarContenedores();
+      this.listarEstanques();
     },
     listarParametros: function listarParametros() {
       var me = this;
@@ -6486,10 +6482,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.listado_siembras;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     crearParametros: function crearParametros() {
@@ -6706,7 +6702,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listado: [],
       listadoSiembras: [],
       listadoActividades: [],
-      listadoContenedores: []
+      listadoEstanques: []
     };
   },
   components: {
@@ -6800,10 +6796,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoActividades = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     }
   },
@@ -6811,7 +6807,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listar();
     this.listarSiembras();
     this.listarActividades();
-    this.listarContenedores();
+    this.listarEstanques();
   }
 });
 
@@ -6971,7 +6967,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
     return _ref = {
       json_fields: {
         'Siembras': 'nombre_siembra',
-        'Contenedor': 'contenedor',
+        'Estanque': 'contenedor',
         'Fecha Inicio': 'fecha_inicio',
         'Estado': 'estado',
         'Especies': 'especie',
@@ -6989,11 +6985,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
       newCantidad: '',
       newPeso: '',
       listadoEspecies: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       listado: [],
       listadoSiembras: [],
       listadoItems: []
-    }, _defineProperty(_ref, "listado", []), _defineProperty(_ref, "listadoRegistros", []), _defineProperty(_ref, "nombresEspecies", []), _defineProperty(_ref, "listadoAlimentos", []), _defineProperty(_ref, "listadoRN", []), _defineProperty(_ref, "pecesxSiembra", []), _defineProperty(_ref, "lotes", []), _defineProperty(_ref, "anadirRegistro", 0), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "id_especie", ''), _defineProperty(_ref, "fecha_registro", ''), _defineProperty(_ref, "tipo_registro", ''), _defineProperty(_ref, "peso_ganado", ''), _defineProperty(_ref, "mortalidad", ''), _defineProperty(_ref, "biomasa", ''), _defineProperty(_ref, "cantidad", ''), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresContenedores", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "f_estado_s", ''), _defineProperty(_ref, "list_mortalidad", []), _defineProperty(_ref, "list_pesca", []), _ref;
+    }, _defineProperty(_ref, "listado", []), _defineProperty(_ref, "listadoRegistros", []), _defineProperty(_ref, "nombresEspecies", []), _defineProperty(_ref, "listadoAlimentos", []), _defineProperty(_ref, "listadoRN", []), _defineProperty(_ref, "pecesxSiembra", []), _defineProperty(_ref, "lotes", []), _defineProperty(_ref, "anadirRegistro", 0), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "id_especie", ''), _defineProperty(_ref, "fecha_registro", ''), _defineProperty(_ref, "tipo_registro", ''), _defineProperty(_ref, "peso_ganado", ''), _defineProperty(_ref, "mortalidad", ''), _defineProperty(_ref, "biomasa", ''), _defineProperty(_ref, "cantidad", ''), _defineProperty(_ref, "id_siembra", ''), _defineProperty(_ref, "mortalidad_inicial", ''), _defineProperty(_ref, "idSiembraRegistro", ''), _defineProperty(_ref, "idSiembraR", ''), _defineProperty(_ref, "ini_descanso", ''), _defineProperty(_ref, "fin_descanso", ''), _defineProperty(_ref, "id_finalizar", ''), _defineProperty(_ref, "nombresEstanques", []), _defineProperty(_ref, "estados", []), _defineProperty(_ref, "tipoRegistro", []), _defineProperty(_ref, "f_siembra", ''), _defineProperty(_ref, "f_especie", ''), _defineProperty(_ref, "f_lote", ''), _defineProperty(_ref, "f_inicio_d", ''), _defineProperty(_ref, "f_inicio_h", ''), _defineProperty(_ref, "f_estado_s", ''), _defineProperty(_ref, "list_mortalidad", []), _defineProperty(_ref, "list_pesca", []), _ref;
   },
   components: {
     downloadexcel: vue_json_excel__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -7030,10 +7026,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoEspecies = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     listarRegistros: function listarRegistros() {
@@ -7396,7 +7392,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoAlimentos: [],
       listadoSiembras: [],
       listadoRecursos: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       imprimirRecursos: [],
       estados: [],
       f_siembra: '',
@@ -7517,10 +7513,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         me.listadoSiembras = response.data.listado_siembras;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     filtroResultados: function filtroResultados() {
@@ -7599,7 +7595,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.listarAlimentos();
     this.listarRecursos();
     this.listarActividades();
-    this.listarContenedores();
+    this.listarEstanques();
     this.estados[0] = 'Inactivo';
     this.estados[1] = 'Activo';
   }
@@ -9726,7 +9722,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       newCantidad: "",
       newPeso: "",
       listadoEspecies: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       listado: [],
       listadoItems: [],
       listadoSiembras: [],
@@ -9782,10 +9778,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
         me.listadoEspecies = response.data;
       });
     },
-    listarContenedores: function listarContenedores() {
+    listarEstanques: function listarEstanques() {
       var me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     listarAlimentos: function listarAlimentos() {
@@ -9820,14 +9816,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       var me = this;
       $("#modalSiembra").modal("show");
       this.listarEspecies();
-      this.listarContenedores();
+      this.listarEstanques();
       this.id_edita = "";
       this.listadoItems = [];
     },
     editarSiembra: function editarSiembra(siembra) {
       var me = this;
       $("#modalSiembra").modal("show");
-      me.listarContenedores();
+      me.listarEstanques();
       me.form.nombre_siembra = siembra.nombre_siembra;
       me.form.id_contenedor = siembra.id_contenedor;
       me.form.fecha_inicio = siembra.fecha_inicio;
@@ -53618,25 +53614,14 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.listadoParametrosContenedores, function(
+                          _vm._l(_vm.listadoParametrosEstanques, function(
                             contenedor,
                             index
                           ) {
                             return _c("tr", { key: index }, [
-                              _c("th", {
-                                attrs: { scope: "row" },
-                                domProps: { textContent: _vm._s(index + 1) }
-                              }),
-                              _vm._v(" "),
                               _c("td", {
                                 domProps: {
                                   textContent: _vm._s(contenedor.contenedor)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(contenedor.nombre_siembra)
                                 }
                               }),
                               _vm._v(" "),
@@ -54219,10 +54204,10 @@ var render = function() {
                           {
                             staticClass: "col-12 text-center text-primary my-4"
                           },
-                          [_vm._v(" Listado de contenedores")]
+                          [_vm._v(" Listado de estanques")]
                         ),
                         _vm._v(" "),
-                        _vm._l(_vm.listadoContenedores, function(lc, index) {
+                        _vm._l(_vm.listadoEstanques, function(lc, index) {
                           return _c(
                             "div",
                             {
@@ -54438,11 +54423,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Siembra asociada")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estanque")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Capacidad")]),
         _vm._v(" "),
@@ -54575,7 +54556,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Gestión de contenedores")
+            _vm._v("Gestión de estanques")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -54591,7 +54572,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Añadir Contenedor")]
+                  [_vm._v("Añadir Estanque")]
                 )
               ])
             ]),
@@ -54666,11 +54647,11 @@ var render = function() {
       {
         staticClass: "modal fade",
         attrs: {
-          id: "modalContenedor",
+          id: "modalEstanque",
           "data-backdrop": "static",
           tabindex: "-1",
           role: "dialog",
-          "aria-labelledby": "modalContenedorLabel",
+          "aria-labelledby": "modalEstanqueLabel",
           "aria-hidden": "true"
         }
       },
@@ -54712,7 +54693,7 @@ var render = function() {
                         staticClass: "col-sm-12 col-md-4 col-form-label",
                         attrs: { for: "contenedor" }
                       },
-                      [_vm._v("Nombre Contenedor")]
+                      [_vm._v("Nombre Estanque")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -54930,7 +54911,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estanque")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Capacidad")]),
         _vm._v(" "),
@@ -56188,7 +56169,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "contenedor" } }, [
-                        _vm._v("Contenedor:")
+                        _vm._v("Estanque:")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -56225,10 +56206,7 @@ var render = function() {
                             _vm._v("Seleccionar")
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.listadoContenedores, function(
-                            cont,
-                            index
-                          ) {
+                          _vm._l(_vm.listadoEstanques, function(cont, index) {
                             return _c(
                               "option",
                               { key: index, domProps: { value: cont.id } },
@@ -58047,7 +58025,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "contenedor" } }, [
-                  _vm._v("Contenedor:")
+                  _vm._v("Estanque:")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -58084,7 +58062,7 @@ var render = function() {
                       _vm._v("Seleccionar")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.listadoContenedores, function(cont, index) {
+                    _vm._l(_vm.listadoEstanques, function(cont, index) {
                       return _c(
                         "option",
                         { key: index, domProps: { value: cont.id } },
@@ -58375,13 +58353,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida de biomasa")]),
+        _c("th", [_vm._v("Biomasa Cosechada")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales")]),
+        _c("th", [_vm._v("Animales cosechados")]),
         _vm._v(" "),
         _c("th", [
           _vm._v("Densidad Inicial (Animales/m"),
@@ -58822,7 +58800,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
                   _c("label", { attrs: { for: "contenedor" } }, [
-                    _vm._v("Contenedor:")
+                    _vm._v("Estanque:")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -58863,7 +58841,7 @@ var render = function() {
                         _vm._v("Seleccionar")
                       ]),
                       _vm._v(" "),
-                      _vm._l(_vm.listadoContenedores, function(cont, index) {
+                      _vm._l(_vm.listadoEstanques, function(cont, index) {
                         return _c(
                           "option",
                           { key: index, domProps: { value: cont.id } },
@@ -59408,7 +59386,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "form-group col-md-2" }, [
                     _c("label", { attrs: { for: "Siembra" } }, [
-                      _vm._v("Contenedor:")
+                      _vm._v("Estanque:")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -59445,7 +59423,7 @@ var render = function() {
                           _vm._v("Seleccionar")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.listadoContenedores, function(lc, index) {
+                        _vm._l(_vm.listadoEstanques, function(lc, index) {
                           return _c(
                             "option",
                             { key: index, domProps: { value: lc.id } },
@@ -59752,7 +59730,7 @@ var staticRenderFns = [
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("ID registro")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Contenedor")
+          _vm._v("Estanque")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
@@ -59939,7 +59917,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
                   _c("label", { attrs: { for: "contenedor" } }, [
-                    _vm._v("Contenedor:")
+                    _vm._v("Estanque:")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -59976,7 +59954,7 @@ var render = function() {
                         _vm._v("Seleccionar")
                       ]),
                       _vm._v(" "),
-                      _vm._l(_vm.listadoContenedores, function(cont, index) {
+                      _vm._l(_vm.listadoEstanques, function(cont, index) {
                         return _c(
                           "option",
                           { key: index, domProps: { value: cont.id } },
@@ -60703,7 +60681,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contenedor")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estanque")]),
         _vm._v(" "),
         _c("th", [_vm._v("Especie")]),
         _vm._v(" "),
@@ -60872,7 +60850,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-2" }, [
                       _c("label", { attrs: { for: "contenedor" } }, [
-                        _vm._v("Contenedor:")
+                        _vm._v("Estanque:")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -60909,10 +60887,7 @@ var render = function() {
                             _vm._v("Seleccionar")
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.listadoContenedores, function(
-                            cont,
-                            index
-                          ) {
+                          _vm._l(_vm.listadoEstanques, function(cont, index) {
                             return _c(
                               "option",
                               { key: index, domProps: { value: cont.id } },
@@ -63801,7 +63776,7 @@ var render = function() {
                       { staticClass: "col-sm-12 col-md-12 text-left" },
                       [
                         _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Contenedor disponible")
+                          _vm._v("Estanque disponible")
                         ]),
                         _vm._v(" "),
                         _vm.id_edita == ""
@@ -63845,7 +63820,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                _vm._l(_vm.listadoContenedores, function(
+                                _vm._l(_vm.listadoEstanques, function(
                                   contenedor,
                                   index
                                 ) {
@@ -63917,7 +63892,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                _vm._l(_vm.listadoContenedores, function(
+                                _vm._l(_vm.listadoEstanques, function(
                                   contenedor,
                                   index
                                 ) {
@@ -65717,7 +65692,7 @@ var staticRenderFns = [
           _vm._v("\n                    siembra\n                  ")
         ]),
         _vm._v(" "),
-        _c("th", [_vm._v("Contenedor")]),
+        _c("th", [_vm._v("Estanque")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center d-sm-none d-none d-md-block" }, [
           _c("h5", [_vm._v("Especie")]),

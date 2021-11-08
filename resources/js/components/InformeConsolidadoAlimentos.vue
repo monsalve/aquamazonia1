@@ -99,7 +99,7 @@
                   </select>
                 </div>
                 <div class="form-group col-md-2">
-                  <label for="contenedor">Contenedor:</label>
+                  <label for="contenedor">Estanque:</label>
                   <select
                     class="custom-select"
                     id="contenedor"
@@ -111,7 +111,7 @@
                     <option value="-1">Seleccionar</option>
                     <option
                       :value="cont.id"
-                      v-for="(cont, index) in listadoContenedores"
+                      v-for="(cont, index) in listadoEstanques"
                       :key="index"
                     >
                       {{ cont.contenedor }}
@@ -259,7 +259,7 @@ export default {
       listado: [],
       listadoSiembras: [],
       listadoAlimentos: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
 
       estado_siembra: "1",
       siembra_activa: "",
@@ -340,10 +340,10 @@ export default {
         me.listadoAlimentos = response.data;
       });
     },
-    listarContenedores() {
+    listarEstanques() {
       let me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
     cambiarPagina(page) {
@@ -357,7 +357,7 @@ export default {
     this.listar(1, "", -1, "", "");
     this.listarSiembras(-1);
     this.listarAlimentos();
-    this.listarContenedores();
+    this.listarEstanques();
   },
 };
 </script>

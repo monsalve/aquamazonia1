@@ -183,7 +183,7 @@ class RegistroController extends Controller
 
 		$exs->peso_actual = $oldData['peso_actual'];
 		$exs->cant_actual = $oldData['cantidad_actual'];
-	
+
 		$exs->save();
 	}
 
@@ -204,7 +204,7 @@ class RegistroController extends Controller
 		} else {
 			$peso_actual = $exs->peso_inicial;
 		}
-		gettype($peso);
+	
 		$cantidad = Registro::select()
 			->where('registros.id_siembra', '=', $id_siembra)
 			->where('registros.id_especie', '=', $id_especie)

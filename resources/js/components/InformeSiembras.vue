@@ -68,7 +68,7 @@
                                   <th>Nombre<br>siembra</th>
                                   <th scope="col">Inicio siembra</th>                                  
                                   <th scope="col">Estado</th>   
-                                  <th scope="col">Contenedor</th>
+                                  <th scope="col">Estanque</th>
                                   <th>Especie</th>
                                   <th>Lote</th>
                                   <th>Cantidad actual</th>
@@ -129,7 +129,7 @@
       return {
         json_fields: {
           'Siembras': 'nombre_siembra',
-          'Contenedor' : 'contenedor',
+          'Estanque' : 'contenedor',
           'Fecha Inicio' : 'fecha_inicio',
           'Estado' : 'estado',
           'Especies' : 'especie',
@@ -148,7 +148,7 @@
         newCantidad: '',
         newPeso:'',
         listadoEspecies:[],
-        listadoContenedores: [],
+        listadoEstanques: [],
         listado : [],
         listadoSiembras: [],
         listadoItems : [],
@@ -177,7 +177,7 @@
          ini_descanso:'',
         fin_descanso:'',
         id_finalizar: '',
-        nombresContenedores: [],
+        nombresEstanques: [],
         estados: [],
         tipoRegistro : [],
        
@@ -210,11 +210,11 @@
           me.listadoEspecies = response.data
         })
       },
-      listarContenedores(){
+      listarEstanques(){
         let me = this;
         axios.get("api/contenedores")
         .then(function (response){
-          me.listadoContenedores = response.data
+          me.listadoEstanques = response.data
         })
       },
       listarRegistros(){

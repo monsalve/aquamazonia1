@@ -80,7 +80,7 @@
                       Nombre <br />
                       siembra
                     </th>
-                    <th>Contenedor</th>
+                    <th>Estanque</th>
                     <th
                       class="text-center d-sm-none d-none d-md-block"
                       style=""
@@ -271,7 +271,7 @@
             <div class="container row">
               <div class="form-group row col-md-4">
                 <div class="col-sm-12 col-md-12 text-left">
-                  <label for="">Contenedor disponible</label>
+                  <label for="">Estanque disponible</label>
                   <div v-if="id_edita == ''">
                     <select
                       v-model="form.id_contenedor"
@@ -282,7 +282,7 @@
                       <option
                         v-show="contenedor.estado == 1"
                         :value="contenedor.id"
-                        v-for="(contenedor, index) in listadoContenedores"
+                        v-for="(contenedor, index) in listadoEstanques"
                         :key="index"
                         selected
                       >
@@ -300,7 +300,7 @@
                     >
                       <option
                         :value="contenedor.id"
-                        v-for="(contenedor, index) in listadoContenedores"
+                        v-for="(contenedor, index) in listadoEstanques"
                         :key="index"
                         selected
                       >
@@ -1110,7 +1110,7 @@ export default {
       newCantidad: "",
       newPeso: "",
       listadoEspecies: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       listado: [],
       listadoItems: [],
       listadoSiembras: [],
@@ -1194,10 +1194,10 @@ export default {
         me.listadoEspecies = response.data;
       });
     },
-    listarContenedores() {
+    listarEstanques() {
       let me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
 
@@ -1242,14 +1242,14 @@ export default {
       let me = this;
       $("#modalSiembra").modal("show");
       this.listarEspecies();
-      this.listarContenedores();
+      this.listarEstanques();
       this.id_edita = "";
       this.listadoItems = [];
     },
     editarSiembra(siembra) {
       let me = this;
       $("#modalSiembra").modal("show");
-      me.listarContenedores();
+      me.listarEstanques();
       me.form.nombre_siembra = siembra.nombre_siembra;
       me.form.id_contenedor = siembra.id_contenedor;
       me.form.fecha_inicio = siembra.fecha_inicio;

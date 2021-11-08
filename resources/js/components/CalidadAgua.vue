@@ -121,14 +121,14 @@
               <table class="table-sticky table table-sm table-hover table-bordered">
                 <thead class="thead-primary">
                   <tr>
-                    <th scope="col">Contenedor</th>
+                    <th scope="col">Estanque</th>
                     <th scope="col">Capacidad</th>
                     <th scope="col">Estado contenedor</th>
                     <th scope="col">Ver párametros de calidad</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(contenedor,index) in listadoParametrosContenedores" :key="index">
+                  <tr v-for="(contenedor,index) in listadoParametrosEstanques" :key="index">
                     <td v-text="contenedor.contenedor"></td>
                     <td v-text="contenedor.capacidad"></td>
                     <td v-text="estados[contenedor.estado]"></td>
@@ -242,8 +242,8 @@
               </div>
                
               <div class="row">
-                <h4 class="col-12 text-center text-primary my-4"> Listado de contenedores</h4>
-                <div v-for="(lc, index) in listadoContenedores" :key="index" class="col-lg-3 col-md-4 col-sm-6">
+                <h4 class="col-12 text-center text-primary my-4"> Listado de estanques</h4>
+                <div v-for="(lc, index) in listadoEstanques" :key="index" class="col-lg-3 col-md-4 col-sm-6">
                   <div v-for="cont in lc" :key="cont.id">
                     <div v-if="editando == 0" class="form-check form-check-inline mb-2">
                       <input type="checkbox" class="form-check-input" :id="'contenedor-'+cont.id" v-bind:value="cont.id" v-model="form.id_contenedor">
@@ -294,8 +294,8 @@
         },     
         editando : 0,
         mostrar : 0,
-        idContenedor : '',
-        nombreContenedor : '',
+        idEstanque : '',
+        nombreEstanque : '',
         form : new Form({
           id : '',
           id_contenedor : [],
@@ -319,8 +319,8 @@
         listadoSiembras: [],
         listadoParametros : [],
         listadoParametrosExcel : [],
-        listadoParametrosContenedores : [],
-        listadoContenedores : [],
+        listadoParametrosEstanques : [],
+        listadoEstanques : [],
         promedios : [],
         f_inicio_d : '',
         f_inicio_h : '',
@@ -343,7 +343,7 @@
         if(this.f_inicio_h == ''){this.f_h = '-1'}else{this.f_h = this.f_inicio_h}
         
         const data = {
-          'id_contenedor' : this.idContenedor,
+          'id_contenedor' : this.idEstanque,
           'f_inicio_d' : this.f_d,
           'f_inicio_h' : this.f_h
         }
@@ -362,8 +362,8 @@
       listar(){
         let me = this;      
         this.listarSiembras(); 
-        this.listarParametrosContenedores();
-        this.listarContenedores();
+        this.listarParametrosEstanques();
+        this.listarEstanques();
       },
       listarSiembras(){
         let me = this;
@@ -372,26 +372,26 @@
           me.listadoSiembras = response.data.listado_siembras;         
         })
       },
-      listarParametrosContenedores(){
+      listarParametrosEstanques(){
         let me = this;
         axios.get("api/parametros-contenedores")
         .then(function (response) {
-            me.listadoParametrosContenedores = response.data
+            me.listadoParametrosEstanques = response.data
         });
       },
-      listarContenedores(){
+      listarEstanques(){
         let me = this;
-        axios.get("api/listadoContenedores")
+        axios.get("api/listadoEstanques")
         .then(function (response) {
-          me.listadoContenedores = response.data
+          me.listadoEstanques = response.data
         });
       },
       mostrarParametros(objeto){
        
-        this.idContenedor = objeto
+        this.idEstanque = objeto
         let me = this;
         const data = {
-          'id_contenedor' : this.idContenedor
+          'id_contenedor' : this.idEstanque
         }
         axios.post('api/parametro-x-contenedor/'+objeto)
         .then(response=>{
@@ -421,7 +421,7 @@
       guardar(){
         let me = this;      
         if(this.editando == 1){
-          this.form.id_contenedor = this.idContenedor;
+          this.form.id_contenedor = this.idEstanque;
         }
         
         this.form.post("api/parametros-calidad")
@@ -435,7 +435,7 @@
 
         console.log(objeto)
         let me = this;
-        // this.form.id = idContenedor;
+        // this.form.id = idEstanque;
         this.form.fill(objeto);
         this.editando = 1;
         $('#modalParametros').modal('show');
@@ -445,7 +445,7 @@
         this.form.put('api/parametros-calidad/'+this.form.id)
         .then(({data})=>{              
           $('#modalParametros').modal('hide');
-          me.mostrarParametros(this.idContenedor);
+          me.mostrarParametros(this.idEstanque);
           me.listar();
           this.form.reset();
         })

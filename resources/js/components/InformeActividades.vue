@@ -16,7 +16,7 @@
                   target="_blank"
                 >
                   <div class="form-group col-md-2">
-                    <label for="contenedor">Contenedor:</label>
+                    <label for="contenedor">Estanque:</label>
                     <select
                       class="custom-select"
                       id="contenedor"
@@ -25,7 +25,7 @@
                       <option value="-1">Seleccionar</option>
                       <option
                         :value="cont.id"
-                        v-for="(cont, index) in listadoContenedores"
+                        v-for="(cont, index) in listadoEstanques"
                         :key="index"
                       >
                         {{ cont.contenedor }}
@@ -241,7 +241,7 @@ export default {
       listadoRegistros: [],
       listadoEspecies: [],
       listadoLotes: [],
-      listadoContenedores: [],
+      listadoEstanques: [],
       // filtros
       f_siembra: "",
       f_lote: "",
@@ -270,7 +270,7 @@ export default {
       me.listarRegistros();
       me.listarEspecies();
       me.listarLotes();
-      me.listarContenedores();
+      me.listarEstanques();
     },
     listarSiembras() {
       let me = this;
@@ -362,10 +362,10 @@ export default {
         me.listadoRegistros = response.data;
       });
     },
-    listarContenedores() {
+    listarEstanques() {
       let me = this;
       axios.get("api/contenedores").then(function (response) {
-        me.listadoContenedores = response.data;
+        me.listadoEstanques = response.data;
       });
     },
   },

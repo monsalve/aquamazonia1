@@ -26,10 +26,10 @@
                               </select>
                             </div>
                             <div class="form-group col-md-2">
-                              <label for="contenedor">Contenedor:</label>
+                              <label for="contenedor">Estanque:</label>
                               <select class="custom-select" id="contenedor" v-model="f_contenedor">
                                 <option value="-1">Seleccionar</option>
-                                <option :value="cont.id" v-for="(cont, index) in listadoContenedores" :key="index">{{cont.contenedor}}</option>
+                                <option :value="cont.id" v-for="(cont, index) in listadoEstanques" :key="index">{{cont.contenedor}}</option>
                               </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -174,7 +174,7 @@
         listadoAlimentos:[],
         listadoSiembras: [],
         listadoRecursos:[],
-        listadoContenedores: [],
+        listadoEstanques: [],
         imprimirRecursos: [],
         estados : [],
         f_siembra: '',
@@ -273,11 +273,11 @@
           me.listadoSiembras = response.data.listado_siembras;
         })
       },
-      listarContenedores(){
+      listarEstanques(){
         let me = this;
         axios.get("api/contenedores")
         .then(function (response){
-          me.listadoContenedores = response.data;
+          me.listadoEstanques = response.data;
         })
       },
       filtroResultados(){
@@ -318,7 +318,7 @@
       this.listarAlimentos();
       this.listarRecursos();
       this.listarActividades();
-      this.listarContenedores();
+      this.listarEstanques();
       this.estados[0] = 'Inactivo';
       this.estados[1] = 'Activo';
     }
