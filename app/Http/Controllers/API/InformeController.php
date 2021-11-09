@@ -658,9 +658,9 @@ class InformeController extends Controller
 					$contador_esp = 0;
 					foreach ($especies as $especie) {
 						$especie->mortalidad = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->mortalidad;
-						$especie->biomasa = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->biomasa;
+						$especie->biomasa = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->biomasa;
 						// $especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad - $especie->mortalidad;
-						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad;
+						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->cantidad;
 						$especie->cantidad_actual = $especie->cantidad_inicial - $especie->salida_animales;
 						$especie->biomasa_disponible = ((($especie->peso_actual) * ($especie->cantidad_actual)) / 1000);
 						$especie->biomasa_inicial =  ((($especie->peso_inicial) * ($especie->cantidad_inicial)) / 1000);
@@ -713,7 +713,7 @@ class InformeController extends Controller
 							$siembra->mortalidad =  $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->mortalidad;
 							$siembra->mortalidad_kg += $especie->mortalidad_kg;
 							$siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
-							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->biomasa;
+							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembrasSinMortalidad($siembra->id)->biomasa;
 							$siembra->salida_animales += $especie->salida_animales;
 							$siembra->cantidad_actual += $especie->cantidad_actual;
 							$siembra->incremento_biomasa += $especie->incremento_biomasa;
@@ -950,9 +950,9 @@ class InformeController extends Controller
 					$contador_esp = 0;
 					foreach ($especies as $especie) {
 						$especie->mortalidad = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->mortalidad;
-						$especie->biomasa = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->biomasa;
+						$especie->biomasa = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->biomasa;
 						// $especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad - $especie->mortalidad;
-						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad;
+						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->cantidad;
 						$especie->cantidad_actual = $especie->cantidad_inicial - $especie->salida_animales;
 						$especie->biomasa_disponible = ((($especie->peso_actual) * ($especie->cantidad_actual)) / 1000);
 						$especie->biomasa_inicial =  ((($especie->peso_inicial) * ($especie->cantidad_inicial)) / 1000);
@@ -1005,7 +1005,7 @@ class InformeController extends Controller
 							$siembra->mortalidad =  $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->mortalidad;
 							$siembra->mortalidad_kg += $especie->mortalidad_kg;
 							$siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
-							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->biomasa;
+							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembrasSinMortalidad($siembra->id)->biomasa;
 							$siembra->salida_animales += $especie->salida_animales;
 							$siembra->cantidad_actual += $especie->cantidad_actual;
 							$siembra->incremento_biomasa += $especie->incremento_biomasa;

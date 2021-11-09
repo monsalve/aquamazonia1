@@ -381,7 +381,7 @@
       },
       listarEstanques(){
         let me = this;
-        axios.get("api/listadoEstanques")
+        axios.get("api/listadoContenedores")
         .then(function (response) {
           me.listadoEstanques = response.data
         });

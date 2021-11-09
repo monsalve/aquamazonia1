@@ -46,6 +46,17 @@ class EspeciesSiembraController extends Controller
       ->first();
   }
 
+  public function cantidadTotalEspeciesSiembrasSinMortalidad($id_siembra)
+  {
+    return Registro::select(
+      'id_siembra',
+      DB::raw('SUM(cantidad) as cantidad'),
+      DB::raw('SUM(biomasa) as biomasa')
+    )
+      ->where('id_siembra', $id_siembra)
+      ->groupBy('id_siembra')
+      ->first();
+  }
   /**
    * Se devuelve la cantidad total de cada especie en una siembra
    * A partir del conteo de los registros
@@ -57,6 +68,21 @@ class EspeciesSiembraController extends Controller
       'id_especie',
       DB::raw('SUM(cantidad) as cantidad'),
       DB::raw('SUM(mortalidad) as mortalidad'),
+      DB::raw('SUM(biomasa) as biomasa')
+    )
+      ->where('id_siembra', $id_siembra)
+      ->where('id_especie', $id_especie)
+      ->groupBy('id_siembra')
+      ->groupBy('id_especie')
+      ->first();
+  }
+
+  public function cantidadEspecieSiembraSinMortalidad($id_siembra, $id_especie)
+  {
+    return Registro::select(
+      'id_siembra',
+      'id_especie',
+      DB::raw('SUM(cantidad) as cantidad'),
       DB::raw('SUM(biomasa) as biomasa')
     )
       ->where('id_siembra', $id_siembra)
