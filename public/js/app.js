@@ -5460,42 +5460,152 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
-        'Siembra': 'nombre_siembra',
-        'Area': 'capacidad',
-        'Inicio siembra': 'fecha_inicio',
-        'Tiempo de cultivo': 'intervalo_tiempo',
-        'Cantidad Inicial': 'cantidad_inicial',
-        'Biomasa inicial': 'biomasa_inicial',
-        'Peso inicial': 'peso_inicial',
-        'Carga inicial': 'carga_inicial',
-        'Animales final': 'cant_actual',
-        'Peso actual': 'peso_actual',
-        'Biomasa disponible': 'biomasa_disponible',
-        'Biomasa cosechada': 'salida_biomasa',
-        'Mortalidad': 'mortalidad',
-        'Mortalidad kg': 'mortalidad_kg',
-        'Mortalidad %': 'mortalidad_porcentaje',
-        'Animales cosechados': 'salida_animales',
-        'Densidad inicial (Animales/m2)': 'densidad_inicial',
-        'Densidad final (Animales/m2)': 'densidad_final',
-        'Carga final (Kg/m2)': 'carga_final',
-        'Horas hombre': 'horas_hombre',
-        'Costo Horas': 'costo_minutosh',
-        'Costo total recursos': 'costo_total_recurso',
-        'Costo horas': 'costo_horas',
-        'Costo total alimentos': 'costo_total_alimento',
-        'Total Kg Alimento': 'cantidad_total_alimento',
-        'Costo total Siembra': 'costo_tot',
-        'Costo producccion final': 'costo_produccion_final',
-        'Conversión alimenticia parcial': 'conversion_alimenticia_siembra',
-        'Conversion final': 'conversion_final',
-        'Ganancia peso dia': 'ganancia_peso_dia',
-        '% Supervivencia final': 'porc_supervivencia_final'
+        Siembra: "nombre_siembra",
+        Area: "capacidad",
+        "Inicio siembra": "fecha_inicio",
+        "Tiempo de cultivo": "intervalo_tiempo",
+        "Cantidad Inicial": "cantidad_inicial",
+        "Biomasa inicial": "biomasa_inicial",
+        "Peso inicial": "peso_inicial",
+        "Carga inicial": "carga_inicial",
+        "Animales final": "cant_actual",
+        "Peso actual": "peso_actual",
+        "Biomasa disponible": "biomasa_disponible",
+        "Biomasa cosechada": "salida_biomasa",
+        Mortalidad: "mortalidad",
+        "Mortalidad kg": "mortalidad_kg",
+        "Mortalidad %": "mortalidad_porcentaje",
+        "Animales cosechados": "salida_animales",
+        "Densidad inicial (Animales/m2)": "densidad_inicial",
+        "Densidad final (Animales/m2)": "densidad_final",
+        "Carga final (Kg/m2)": "carga_final",
+        "Horas hombre": "horas_hombre",
+        "Costo Horas": "costo_minutosh",
+        "Costo total recursos": "costo_total_recurso",
+        "Costo horas": "costo_horas",
+        "Costo total alimentos": "costo_total_alimento",
+        "Total Kg Alimento": "cantidad_total_alimento",
+        "Costo total Siembra": "costo_tot",
+        "Costo producccion final": "costo_produccion_final",
+        "Conversión alimenticia parcial": "conversion_alimenticia_siembra",
+        "Conversion final": "conversion_final",
+        "Ganancia peso dia": "ganancia_peso_dia",
+        "% Supervivencia final": "porc_supervivencia_final"
       },
       listadoExistencias: [],
       listadoEspecies: [],
@@ -5503,11 +5613,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       siembrasInactivas: [],
       imprimirRecursos: [],
       listadoEstanques: [],
-      f_siembra: '',
-      f_contenedor: '',
-      f_estado: '1',
-      f_inicio_d: '',
-      f_inicio_h: ''
+      f_siembra: "",
+      f_contenedor: "",
+      f_estado: "1",
+      f_inicio_d: "",
+      f_inicio_h: ""
     };
   },
   components: {
@@ -5556,7 +5666,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     listarSiembras: function listarSiembras(estado_siembra) {
       var me = this;
-      axios.get('api/siembras?estado_siembra=' + estado_siembra).then(function (response) {
+      axios.get("api/siembras?estado_siembra=" + estado_siembra).then(function (response) {
         me.siembrasActivas = response.data.listado_siembras;
         me.siembrasInactivas = response.data.listado_siembras_inactivas;
       });
@@ -5570,42 +5680,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filtroSiembra: function filtroSiembra() {
       var me = this;
 
-      if (this.f_siembra == '') {
-        this.smb = '-1';
+      if (this.f_siembra == "") {
+        this.smb = "-1";
       } else {
         this.smb = this.f_siembra;
       }
 
-      if (this.f_contenedor == '') {
-        this.cont = '-1';
+      if (this.f_contenedor == "") {
+        this.cont = "-1";
       } else {
         this.cont = this.f_contenedor;
       }
 
-      if (this.f_estado == '') {
-        this.est = '-1';
+      if (this.f_estado == "") {
+        this.est = "-1";
       } else {
         this.est = this.f_estado;
       }
 
-      if (this.f_inicio_d == '') {
-        this.fecd = '-1';
+      if (this.f_inicio_d == "") {
+        this.fecd = "-1";
       } else {
         this.fecd = this.f_inicio_d;
       }
 
-      if (this.f_inicio_h == '') {
-        this.fech = '-1';
+      if (this.f_inicio_h == "") {
+        this.fech = "-1";
       } else {
         this.fech = this.f_inicio_h;
       }
 
       var data = {
-        'f_siembra': this.smb,
-        'f_contenedor': this.cont,
-        'f_estado': this.est,
-        'f_inicio_d': this.fecd,
-        'f_inicio_h': this.fech
+        f_siembra: this.smb,
+        f_contenedor: this.cont,
+        f_estado: this.est,
+        f_inicio_d: this.fecd,
+        f_inicio_h: this.fech
       };
       axios.post("api/filtro-existencias-detalle", data).then(function (response) {
         me.listadoExistencias = response.data.existencias;
@@ -58129,7 +58239,9 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Informe consolidado variables de producción")
+            _vm._v(
+              "\n                    Informe consolidado variables de producción\n                "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -58139,7 +58251,7 @@ var render = function() {
               _c("div", { staticClass: "form-group col-md-2" }, [
                 _c("label", { attrs: { for: "f_estado" } }, [
                   _vm._v(
-                    "\n                        Estado:\n                        "
+                    "\n                                Estado:\n                                "
                   ),
                   _c(
                     "select",
@@ -58195,7 +58307,7 @@ var render = function() {
                       name: "show",
                       rawName: "v-show",
                       value: _vm.f_estado == 1,
-                      expression: "f_estado==1"
+                      expression: "f_estado == 1"
                     }
                   ],
                   staticClass: "form-group col-3"
@@ -58254,7 +58366,7 @@ var render = function() {
                       name: "show",
                       rawName: "v-show",
                       value: _vm.f_estado == 0,
-                      expression: "f_estado==0"
+                      expression: "f_estado == 0"
                     }
                   ],
                   staticClass: "form-group col-3"
@@ -58375,7 +58487,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                        Filtrar resultados\n                      "
+                      "\n                                Filtrar resultados\n                            "
                     )
                   ]
                 )
@@ -58398,7 +58510,9 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fa fa-fw fa-download" }),
-                      _vm._v(" Generar Excel\n                      ")
+                      _vm._v(
+                        " Generar\n                                Excel\n                            "
+                      )
                     ]
                   )
                 ],
@@ -58489,9 +58603,15 @@ var render = function() {
                           _vm._v(" "),
                           le.salida_biomasa
                             ? _c("td", [
-                                _vm._v(_vm._s(le.salida_biomasa) + " kg")
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(le.salida_biomasa) +
+                                    " kg\n                                    "
+                                )
                               ])
                             : _c("td", [_vm._v("0")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(le.mortalidad))]),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
@@ -58505,12 +58625,22 @@ var render = function() {
                           _vm._v(" "),
                           le.mortalidad_porcentaje
                             ? _c("td", [
-                                _vm._v(_vm._s(le.mortalidad_porcentaje))
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(le.mortalidad_porcentaje) +
+                                    "\n                                    "
+                                )
                               ])
                             : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           le.salida_animales
-                            ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
+                            ? _c("td", [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(le.salida_animales) +
+                                    "\n                                    "
+                                )
+                              ])
                             : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
                           _c("td", {
@@ -58608,7 +58738,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row text-left" }, [
-      _c("h5", [_vm._v("Filtrar por: ")])
+      _c("h5", [_vm._v("Filtrar por:")])
     ])
   },
   function() {
@@ -58643,6 +58773,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa Cosechada")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Total Animales")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Mort. Kg")]),
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
@@ -58650,15 +58782,19 @@ var staticRenderFns = [
         _c("th", [_vm._v("Animales cosechados")]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("Densidad Inicial (Animales/m"),
+          _vm._v(
+            "\n                                        Densidad Inicial\n                                        (Animales/m"
+          ),
           _c("sup", [_vm._v("2")]),
-          _vm._v(")")
+          _vm._v(")\n                                    ")
         ]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("Densidad Final (Animales/m"),
+          _vm._v(
+            "\n                                        Densidad Final\n                                        (Animales/m"
+          ),
           _c("sup", [_vm._v("2")]),
-          _vm._v(")")
+          _vm._v(")\n                                    ")
         ]),
         _vm._v(" "),
         _c("th", [
@@ -58687,7 +58823,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ganancia peso día")]),
         _vm._v(" "),
-        _c("th", [_c("b", [_vm._v("%")]), _vm._v(" Supervivencia final ")])
+        _c("th", [_c("b", [_vm._v("%")]), _vm._v(" Supervivencia final")])
       ])
     ])
   }
