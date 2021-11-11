@@ -54,6 +54,7 @@ class EspeciesSiembraController extends Controller
       DB::raw('SUM(biomasa) as biomasa')
     )
       ->where('id_siembra', $id_siembra)
+      ->where('tipo_registro', '<>', 2)
       ->groupBy('id_siembra')
       ->first();
   }
@@ -87,6 +88,7 @@ class EspeciesSiembraController extends Controller
     )
       ->where('id_siembra', $id_siembra)
       ->where('id_especie', $id_especie)
+      ->where('tipo_registro', '<>', 2)
       ->groupBy('id_siembra')
       ->groupBy('id_especie')
       ->first();

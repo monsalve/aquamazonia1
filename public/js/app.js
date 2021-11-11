@@ -3267,7 +3267,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     listarEstanques: function listarEstanques() {
       var me = this;
-      axios.get("api/listadoEstanques").then(function (response) {
+      axios.get("api/listadoContenedores").then(function (response) {
         me.listadoEstanques = response.data;
       });
     },
@@ -8278,46 +8278,336 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
-        'Tipo actividad': 'actividad',
-        'Siembra': 'nombre_siembra',
-        'Fecha': 'fecha_ra',
-        'Minutos hombre': 'minutos_hombre',
-        'Costo minutos hombre': 'total_minutos_hombre',
-        'Recurso': 'recurso',
-        'Cantidad': 'cantidad_recurso',
-        'Costo': 'costo',
-        'Costo total recurso': 'costo_total_recurso',
-        'Detalles': 'detalles'
+        "Tipo actividad": "actividad",
+        Siembra: "nombre_siembra",
+        Fecha: "fecha_ra",
+        "Minutos hombre": "minutos_hombre",
+        "Costo minutos hombre": "total_minutos_hombre",
+        Recurso: "recurso",
+        Cantidad: "cantidad_recurso",
+        Costo: "costo",
+        "Costo total recurso": "costo_total_recurso",
+        Detalles: "detalles"
       },
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["Form"]({
-        id: '',
+        id: "",
         id_siembra: [],
-        id_recurso: '',
-        id_alimento: '',
-        tipo_actividad: '',
-        fecha_ra: '',
-        minutos_hombre: '',
-        cantidad_recurso: '',
-        detalles: ''
+        id_recurso: "",
+        id_alimento: "",
+        tipo_actividad: "",
+        fecha_ra: "",
+        minutos_hombre: "",
+        cantidad_recurso: "",
+        detalles: ""
       }),
-      fecha_inicio: '',
-      hora_inicio: '07:00',
-      fecha_fin: '',
-      hora_fin: '07:00',
-      t_actividad: '',
-      fecha_ra1: '',
-      fecha_ra2: '',
-      f_siembra: '',
-      alimento_s: '',
-      recurso_s: '',
+      fecha_inicio: "",
+      hora_inicio: "07:00",
+      fecha_fin: "",
+      hora_fin: "07:00",
+      t_actividad: "",
+      fecha_ra1: "",
+      fecha_ra2: "",
+      f_siembra: "",
+      alimento_s: "",
+      recurso_s: "",
       see_all: 0,
-      busqueda: '',
+      busqueda: "",
       addSiembras: [],
       listado: [],
       promedios: [],
@@ -8329,12 +8619,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       nombresAlimentos: [],
       offset: 10,
       pagination: {
-        'total': 0,
-        'current_page': 0,
-        'per_page': 0,
-        'last_page': 0,
-        'from': 0,
-        'to': 0
+        total: 0,
+        current_page: 0,
+        per_page: 0,
+        last_page: 0,
+        from: 0,
+        to: 0
       },
       showPagination: 1,
       editando: 0
@@ -8403,63 +8693,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     abrirCrear: function abrirCrear() {
       var me = this;
-      $('#modalRecursos').modal('show');
+      $("#modalRecursos").modal("show");
     },
     buscarResultados: function buscarResultados() {
       var _this2 = this;
 
       var me = this;
 
-      if (this.f_siembra == '') {
-        this.f_s = '-1';
+      if (this.f_siembra == "") {
+        this.f_s = "-1";
       } else {
         this.f_s = this.f_siembra;
       }
 
-      if (this.t_actividad == '') {
-        this.actividad = '-1';
+      if (this.t_actividad == "") {
+        this.actividad = "-1";
       } else {
         this.actividad = this.t_actividad;
       }
 
-      if (this.see_all == '') {
+      if (this.see_all == "") {
         this.check = 0;
       } else {
         this.check = this.see_all;
       }
 
-      if (this.recurso_s == '') {
-        this.rec = '-1';
+      if (this.recurso_s == "") {
+        this.rec = "-1";
       } else {
         this.rec = this.recurso_s;
       }
 
-      if (this.fecha_ra1 == '') {
-        this.fecha1 = '-3';
+      if (this.fecha_ra1 == "") {
+        this.fecha1 = "-3";
       } else {
         this.fecha1 = this.fecha_ra1;
       }
 
-      if (this.fecha_ra2 == '') {
-        this.fecha2 = '-1';
+      if (this.fecha_ra2 == "") {
+        this.fecha2 = "-1";
       } else {
         this.fecha2 = this.fecha_ra2;
       }
 
-      if (this.recurso_s == '') {
-        this.rec = '-1';
+      if (this.recurso_s == "") {
+        this.rec = "-1";
       } else {
         this.rec = this.recurso_s;
       }
 
       var data = {
-        'f_siembra': this.f_s,
-        'tipo_actividad': this.actividad,
-        'recurso_s': this.rec,
-        'alimento_s': this.ali,
-        'fecha_ra1': this.fecha1,
-        'fecha_ra2': this.fecha2,
-        'see_all': this.check
+        f_siembra: this.f_s,
+        tipo_actividad: this.actividad,
+        recurso_s: this.rec,
+        alimento_s: this.ali,
+        fecha_ra1: this.fecha1,
+        fecha_ra2: this.fecha2,
+        see_all: this.check
       };
       axios.post("api/searchResults", data).then(function (response) {
         if (response.data.pagination) {
@@ -8517,7 +8807,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     checkSiembras: function checkSiembras() {
       var me = this;
       me.addSiembras({
-        'id_siembra': this.form.id_siembra
+        id_siembra: this.form.id_siembra
       });
     },
     guardarRecursos: function guardarRecursos() {
@@ -8525,15 +8815,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.post("api/recursos-necesarios").then(function (_ref) {
         var data = _ref.data;
         me.listar();
-        $('#modalRecursos').modal('hide');
+        $("#modalRecursos").modal("hide");
       });
     },
     editarRecursos: function editarRecursos() {
       var me = this;
-      this.form.put('api/recursos-necesarios/' + this.form.id).then(function (_ref2) {
+      this.form.put("api/recursos-necesarios/" + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
         me.listar();
-        $('#modalRecursos').modal('hide');
+        $("#modalRecursos").modal("hide");
         me.editando = 0;
       });
     },
@@ -8544,13 +8834,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: "Una vez eliminado, no se puede recuperar este registro",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('api/recursos-necesarios/' + objeto).then(function (_ref3) {
+          axios["delete"]("api/recursos-necesarios/" + objeto).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
           });
@@ -8562,21 +8852,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log(objeto);
       this.form.fill(objeto);
       this.editando = 1;
-      $('#modalRecursos').modal('show');
+      $("#modalRecursos").modal("show");
     },
     calcularDiferenciaTiempo: function calcularDiferenciaTiempo() {
-      var inicio = new Date(this.fecha_inicio + ' ' + this.hora_inicio); // el evento cuyo tiempo ha transcurrido aquí:
+      var inicio = new Date(this.fecha_inicio + " " + this.hora_inicio); // el evento cuyo tiempo ha transcurrido aquí:
 
-      var fin = new Date(this.fecha_fin + ' ' + this.hora_fin);
+      var fin = new Date(this.fecha_fin + " " + this.hora_fin);
       var transcurso = fin.getTime() - inicio.getTime(); // tiempo en milisegundos
 
       var tiempoMinutos = transcurso / 60000;
 
       if (transcurso > 0) {
         this.form.cantidad_recurso = tiempoMinutos;
-      } //console.log(transcurso / 60000);//minutos
-      //console.log(transcurso / 3600000); //horas
-
+      }
     },
     cambiarPagina: function cambiarPagina(page) {
       var me = this; //Actualiza la página actual
@@ -62001,7 +62289,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Añadir registro")]
+                  [
+                    _vm._v(
+                      "\n                                Añadir registro\n                            "
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
@@ -62062,7 +62354,9 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-2" }, [
                     _c("label", { attrs: { for: "t_actividad" } }, [
-                      _vm._v("Tipo de Actividad: ")
+                      _vm._v(
+                        "Tipo de Actividad:\n                                    "
+                      )
                     ]),
                     _vm._v(" "),
                     _c(
@@ -62096,7 +62390,9 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "-1", selected: "" } }, [
-                          _vm._v(" Seleccionar")
+                          _vm._v(
+                            "\n                                            Seleccionar"
+                          )
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.listadoActividades, function(
@@ -62150,7 +62446,9 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "-1" } }, [
-                          _vm._v(" Seleccionar")
+                          _vm._v(
+                            "\n                                            Seleccionar"
+                          )
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.listadoRecursos, function(recurso, index) {
@@ -62305,7 +62603,9 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fa fa-fw fa-download" }),
-                          _vm._v(" Generar Excel\n                  ")
+                          _vm._v(
+                            "\n                                        Generar Excel\n                                    "
+                          )
                         ]
                       )
                     ],
@@ -62421,7 +62721,11 @@ var render = function() {
                             staticClass: "text-right",
                             attrs: { colspan: "4" }
                           },
-                          [_vm._v("TOTAL:")]
+                          [
+                            _vm._v(
+                              "\n                                        TOTAL:\n                                    "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c("th", {
@@ -62920,7 +63224,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Calcular tiempo")]
+                          [
+                            _vm._v(
+                              "\n                                    Calcular tiempo\n                                "
+                            )
+                          ]
                         )
                       ]
                     ),
@@ -63001,7 +63309,19 @@ var render = function() {
                         "div",
                         { staticClass: "col-md-6" },
                         [
-                          _c("h5", [_vm._v(" Seleccionar siembras")]),
+                          _c("h5", [
+                            _vm._v(
+                              "\n                                Seleccionar siembras\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.id_siembra.length == ""
+                            ? _c("span", { staticClass: "text-danger mb-3" }, [
+                                _vm._v(
+                                  "\n                                Debe seleccionar al menos una siembra\n                            "
+                                )
+                              ])
+                            : _vm._e(),
                           _vm._v(" "),
                           _vm._l(_vm.listadoSiembras, function(item, index) {
                             return _c("div", { key: index }, [
@@ -63067,9 +63387,9 @@ var render = function() {
                                 [
                                   _c("span"),
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n                                    " +
                                       _vm._s(item.nombre_siembra) +
-                                      "\n                "
+                                      "\n                                "
                                   )
                                 ]
                               ),
@@ -63091,10 +63411,14 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Cerrar")]
+                  [
+                    _vm._v(
+                      "\n                        Cerrar\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
-                _vm.editando != 1
+                _vm.editando != 1 && _vm.form.id_siembra.length != ""
                   ? _c(
                       "button",
                       {
@@ -63106,7 +63430,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Guardar")]
+                      [
+                        _vm._v(
+                          "\n                        Guardar\n                    "
+                        )
+                      ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -63122,7 +63450,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Editar")]
+                      [
+                        _vm._v(
+                          "\n                        Editar\n                    "
+                        )
+                      ]
                     )
                   : _vm._e()
               ])
@@ -63144,7 +63476,7 @@ var staticRenderFns = [
       [
         _c("span"),
         _vm._v(
-          "\n                    Ver todos los registros\n                  "
+          "\n                                        Ver todos los registros\n                                    "
         )
       ]
     )
@@ -63157,7 +63489,13 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo de "), _c("br"), _vm._v(" Actividad")]),
+        _c("th", [
+          _vm._v("\n                                        Tipo de "),
+          _c("br"),
+          _vm._v(
+            "\n                                        Actividad\n                                    "
+          )
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Siembras")]),
         _vm._v(" "),
@@ -63189,7 +63527,11 @@ var staticRenderFns = [
       _c(
         "h3",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Recursos por siembra")]
+        [
+          _vm._v(
+            "\n                        Recursos por siembra\n                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(

@@ -660,7 +660,7 @@ class InformeController extends Controller
 						$especie->mortalidad = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->mortalidad;
 						$especie->biomasa = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->biomasa;
 						// $especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad - $especie->mortalidad;
-						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembraSinMortalidad($especie->id_siembra, $especie->id_especie)->cantidad;
+						$especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad - $especie->mortalidad;
 						$especie->cantidad_actual = $especie->cantidad_inicial - $especie->salida_animales;
 						$especie->biomasa_disponible = ((($especie->peso_actual) * ($especie->cantidad_actual)) / 1000);
 						$especie->biomasa_inicial =  ((($especie->peso_inicial) * ($especie->cantidad_inicial)) / 1000);
