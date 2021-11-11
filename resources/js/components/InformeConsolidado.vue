@@ -135,7 +135,7 @@
                                         <th>Peso Actual</th>
                                         <th>Biomasa dispo</th>
                                         <th>Biomasa Cosechada</th>
-                                        <th>Total Animales</th>
+                                        <th>Cantidad Mortalidad</th>
                                         <th>Mort. Kg</th>
                                         <th>% Mortalidad</th>
                                         <th>Animales cosechados</th>
@@ -267,7 +267,7 @@ export default {
                 "Peso actual": "peso_actual",
                 "Biomasa disponible": "biomasa_disponible",
                 "Biomasa cosechada": "salida_biomasa",
-                Mortalidad: "mortalidad",
+                'Cantidad Mortalidad': "mortalidad",
                 "Mortalidad kg": "mortalidad_kg",
                 "Mortalidad %": "mortalidad_porcentaje",
                 "Animales cosechados": "salida_animales",
