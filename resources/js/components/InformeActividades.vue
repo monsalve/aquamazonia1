@@ -252,7 +252,7 @@ export default {
       f_fecha_h: "",
       f_peso_d: 0,
       f_peso_h: 0,
-      id_contenedor: 0,
+      id_contenedor: '-1',
     };
   },
   components: {

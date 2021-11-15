@@ -79,7 +79,7 @@ class InformeAlimentosController extends Controller
       }
     }
 
-    $recursosNecesarios = $recursosNecesarios->paginate(30);
+    $recursosNecesarios = $recursosNecesarios->paginate(20);
 
     foreach ($recursosNecesarios as $recursoNecesario) {
       $cantidadAlimentoSiembra  = $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_manana + $this->cantidadAlimentoSiembra($recursoNecesario->id_siembra)->c_tarde;

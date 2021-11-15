@@ -246,9 +246,10 @@ class InformeRegistroController extends Controller
 
 		$estado_siembra = '-1';
 		$filtro_estado_siembra = '!=';
-
-		$id_contenedor = '-1';
+		
 		$filtro_contenedor = '!=';
+		$id_contenedor = '-1';
+		
 
 		if ($request['f_siembra'] != '-1') {
 			$c1 = "registros.id_siembra";
@@ -294,7 +295,7 @@ class InformeRegistroController extends Controller
 			$filtro_estado_siembra = '=';
 			$estado_siembra = $request['f_estado'];
 		}
-		if ($request['id_contenedor'] != '-1' || $request['id_contenedor'] != '0' ) {
+		if ($request['id_contenedor'] != '-1') {
 			$filtro_contenedor = '=';
 			$id_contenedor = $request['id_contenedor'];
 		}

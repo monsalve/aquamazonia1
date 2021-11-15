@@ -713,7 +713,7 @@ class InformeController extends Controller
 							$siembra->mortalidad =  $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->mortalidad;
 							$siembra->mortalidad_kg += $especie->mortalidad_kg;
 							$siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
-							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->biomasa;
+							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($siembra->id)->biomasa;
 							$siembra->salida_animales += $especie->salida_animales;
 							$siembra->salida_animales_sin_mortalidad += $especie->salida_animales_sin_mortalidad;
 							$siembra->cantidad_actual += $especie->cantidad_actual;
@@ -844,7 +844,8 @@ class InformeController extends Controller
 					"peso_actual" => $siembra->peso_actual_esp,
 					"salida_animales" => $siembra->salida_animales,
 					"salida_biomasa" => $siembra->salida_biomasa,
-					"porc_supervivencia_final" => $siembra->porc_supervivencia_final
+					"porc_supervivencia_final" => $siembra->porc_supervivencia_final,
+					"salida_animales_sin_mortalidad" => number_format($siembra->salida_animales_sin_mortalidad, 0, ',', '')
 				];
 			}
 		}
@@ -1005,7 +1006,7 @@ class InformeController extends Controller
 							$siembra->mortalidad =  $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->mortalidad;
 							$siembra->mortalidad_kg += $especie->mortalidad_kg;
 							$siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
-							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembra($siembra->id)->biomasa;
+							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($siembra->id)->biomasa;
 							$siembra->salida_animales += $especie->salida_animales;
 							$siembra->salida_animales_sin_mortalidad += $especie->salida_animales_sin_mortalidad;
 							$siembra->cantidad_actual += $especie->cantidad_actual;
@@ -1136,7 +1137,8 @@ class InformeController extends Controller
 					"peso_actual" => $siembra->peso_actual_esp,
 					"salida_animales" => $siembra->salida_animales,
 					"salida_biomasa" => $siembra->salida_biomasa,
-					"porc_supervivencia_final" => $siembra->porc_supervivencia_final
+					"porc_supervivencia_final" => $siembra->porc_supervivencia_final,
+					"salida_animales_sin_mortalidad" => number_format($siembra->salida_animales_sin_mortalidad, 0, ',', '')
 				];
 			}
 		}

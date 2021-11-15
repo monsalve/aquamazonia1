@@ -206,8 +206,8 @@
                                             {{ le.mortalidad_porcentaje }}
                                         </td>
                                         <td v-else>0</td>
-                                        <td v-if="le.salida_animales">
-                                            {{ le.salida_animales }}
+                                        <td v-if="le.salida_animales_sin_mortalidad">
+                                            {{ le.salida_animales_sin_mortalidad }}
                                         </td>
                                         <td v-else>0</td>
                                         <td v-text="le.densidad_inicial"></td>
@@ -270,7 +270,7 @@ export default {
                 'Cantidad Mortalidad': "mortalidad",
                 "Mortalidad kg": "mortalidad_kg",
                 "Mortalidad %": "mortalidad_porcentaje",
-                "Animales cosechados": "salida_animales",
+                "Animales cosechados": "salida_animales_sin_mortalidad",
                 "Densidad inicial (Animales/m2)": "densidad_inicial",
                 "Densidad final (Animales/m2)": "densidad_final",
                 "Carga final (Kg/m2)": "carga_final",

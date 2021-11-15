@@ -99,7 +99,7 @@
                 </tbody>
                 <tfoot>
                    <tr>
-                    <th colspan="4" class="text-right">TOTAL:</th>
+                    <th colspan="4" class="text-right">PROMEDIO:</th>
                     <th v-text="promedios.tmh"></th>
                     <th></th>
                     <th v-text="promedios.cman"></th>                                        

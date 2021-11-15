@@ -35,7 +35,7 @@ class InfomeBiomasaAlimentoController extends Controller
       ->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
       ->get();
 
-    $existencias = EspecieSiembra::select(
+    $especies = EspecieSiembra::select(
       'cant_actual',
       'contenedor',
       'capacidad',
@@ -83,79 +83,82 @@ class InfomeBiomasaAlimentoController extends Controller
 
     $aux_regs = array();
     $diff = 0;
+    $especies_siembra = new EspeciesSiembraController;
 
     if (count($siembras) > 0) {
       for ($i = 0; $i < count($siembras); $i++) {
         // Especies en la siembra
 
-        if (count($existencias) > 0) {
+        if (count($especies) > 0) {
 
           $contador_esp = 0;
-          for ($j = 0; $j < count($existencias); $j++) {
+          foreach ($especies as $especie) {
+            $especie->mortalidad = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->mortalidad;
+            $especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad + $especie->mortalidad;
+            $especie->cantidad_actual = $especie->cantidad_inicial - $especie->salida_animales;
+            $especie->biomasa_disponible = ((($especie->peso_actual) * ($especie->cantidad_actual)) / 1000);
+            $especie->biomasa_inicial =  ((($especie->peso_inicial) * ($especie->cantidad_inicial)) / 1000);
+           
 
-            $existencias[$j]->biomasa_disponible = ((($existencias[$j]->peso_actual) * ($existencias[$j]->cant_actual)) / 1000);
-            $existencias[$j]->biomasa_inicial =  ((($existencias[$j]->peso_inicial) * ($existencias[$j]->cantidad_inicial)) / 1000);
-            $bio_dispo = ((($existencias[$j]->peso_actual) * ($existencias[$j]->cant_actual)) / 1000);
-
-            if ($siembras[$i]->id == $existencias[$j]->id_siembra) {
+            if ($siembras[$i]->id == $especie->id_siembra) {
               $contador_esp++;
-              $existencias[$j]->cant_actual_especie += $existencias[$j]->cant_actual;
-              $siembras[$i]->cantidad_inicial += $existencias[$j]->cantidad_inicial;
-              $siembras[$i]->peso_ini += $existencias[$j]->peso_inicial;
-              $siembras[$i]->cant_actual += $existencias[$j]->cant_actual;
-              $siembras[$i]->peso_actual += $existencias[$j]->peso_actual;
-              $siembras[$i]->biomasa_inicial += $existencias[$j]->biomasa_inicial;
-              $siembras[$i]->biomasa_disponible += $existencias[$j]->biomasa_disponible;
-              $siembras[$i]->densidad_final = (number_format(($siembras[$i]->cant_actual / $existencias[$j]->capacidad), 2, ',', ''));
-              $siembras[$i]->carga_final = (number_format(($siembras[$i]->biomasa_disponible / $existencias[$j]->capacidad), 2, ',', ''));
+              $especie->cant_actual_especie += $especie->cant_actual;
+              $siembras[$i]->cantidad_inicial += $especie->cantidad_inicial;
+              $siembras[$i]->peso_ini += $especie->peso_inicial;
+              $siembras[$i]->cant_actual += $especie->cant_actual;
+              $siembras[$i]->peso_actual += $especie->peso_actual;
+              $siembras[$i]->biomasa_inicial += $especie->biomasa_inicial;
+              $siembras[$i]->biomasa_disponible += $especie->biomasa_disponible;
+              $siembras[$i]->densidad_final = (number_format(($siembras[$i]->cant_actual / $especie->capacidad), 2, ',', ''));
+              $siembras[$i]->carga_final = (number_format(($siembras[$i]->biomasa_disponible / $especie->capacidad), 2, ',', ''));
 
               for ($k = 0; $k < count($registros); $k++) {
 
-                if ($existencias[$j]->id_siembra == $registros[$k]->id_siembra) {
+                if ($especie->id_siembra == $registros[$k]->id_siembra) {
 
                   $int_tiempo = Registro::select('fecha_registro')
                     ->orderBy('fecha_registro', 'desc')
-                    ->where('id_siembra', $existencias[$j]->id_siembra)
-                    ->where('id_especie', $existencias[$j]->id_especie)
+                    ->where('id_siembra', $especie->id_siembra)
+                    ->where('id_especie', $especie->id_especie)
                     ->first();
 
-                  $date1 = new \DateTime($existencias[$j]->fecha_inicio);
+                  $date1 = new \DateTime($especie->fecha_inicio);
                   if (isset($int_tiempo['fecha_registro'])) {
                     $date2 = new \DateTime($int_tiempo['fecha_registro']);
                   } else {
                     $date2 = new \DateTime();
                   }
                   $diff = $date1->diff($date2);
-                  $existencias[$j]->intervalo_tiempo  = $diff->days;
+                  $especie->intervalo_tiempo  = $diff->days;
 
-                  $existencias[$j]->salida_biomasa += $registros[$k]->biomasa;
+                  $especie->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;
 
-                  // $siembras[$i]->mortalidad = $existencias[$j]->mortalidad;
-                  if ($existencias[$j]->id_especie == $registros[$k]->id_especie) {
+                  // $siembras[$i]->mortalidad = $especie->mortalidad;
+                  if ($especie->id_especie == $registros[$k]->id_especie) {
                     $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado) / 1000);
 
-                    $existencias[$j]->mortalidad += $registros[$k]->mortalidad;
-                    // $existencias[$j]->mortalidad_kg =  (($existencias[$j]->mortalidad * $existencias[$j]->peso_ganado)/1000);
-                    $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
-                    $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa;
-                    $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000) / $existencias[$j]->peso_actual);
-                    $existencias[$j]->peso_incremento = $existencias[$j]->peso_actual -  $existencias[$j]->peso_inicial;
-                    $existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual) / 1000);
-                    $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento;
-                    if ($existencias[$j]->intervalo_tiempo > 0) {
-                      $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento / $existencias[$j]->intervalo_tiempo;
+                    $especie->mortalidad += $registros[$k]->mortalidad;
+                    // $especie->mortalidad_kg =  (($especie->mortalidad * $especie->peso_ganado)/1000);
+                    $especie->mortalidad_kg += $registros[$k]->mortalidad_kg;
+                    $especie->salida_biomasa_especie += $registros[$k]->biomasa;
+                    $especie->salida_animales =  $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->cantidad;
+                    $especie->peso_incremento = $especie->peso_actual -  $especie->peso_inicial;
+                    $especie->incremento_biomasa = (($especie->peso_incremento * $especie->cant_actual) / 1000);
+                    $especie->ganancia_peso_dia = $especie->peso_incremento;
+                    if ($especie->intervalo_tiempo > 0) {
+                      $especie->ganancia_peso_dia = $especie->peso_incremento / $especie->intervalo_tiempo;
                     }
-                    $existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad * 100) / $existencias[$j]->cantidad_inicial);
+                    $especie->mortalidad_porcentaje =  (($especie->mortalidad * 100) / $especie->cantidad_inicial);
                   }
                 }
               }
-              $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
-              $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;
+              $siembras[$i]->mortalidad += $especie->mortalidad;
+              $siembras[$i]->mortalidad_kg += $especie->mortalidad_kg;
               $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad * 100) / $siembras[$i]->cantidad_inicial);
-              $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
-              $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;
-              $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
-              $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
+              $siembras[$i]->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;;
+              $siembras[$i]->salida_animales = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->cantidad;
+              $siembras[$i]->incremento_biomasa += $especie->incremento_biomasa;
+              $siembras[$i]->intervalo_tiempo = $especie->intervalo_tiempo;
               $siembras[$i]->porc_supervivencia_final = (($siembras[$i]->salida_animales * 100) / $siembras[$i]->cantidad_inicial);
             }
           }
@@ -247,6 +250,8 @@ class InfomeBiomasaAlimentoController extends Controller
         $siembras[$i]->costo_produccion = number_format($siembras[$i]->costo_produccion, 2, ',', '');
         $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final, 2, ',', '');
         $siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso, 2, ',', '');
+        $siembras[$i]->costo_total_alimento = number_format($siembras[$i]->costo_total_alimento, 2, ',', '');
+        $siembras[$i]->costo_total_siembra = number_format($siembras[$i]->costo_total_siembra, 2, ',', '');
         // recursos_necesarios
         $aux_regs[] = [
           "biomasa_inicial" => $siembras[$i]->biomasa_inicial,
@@ -339,7 +344,7 @@ class InfomeBiomasaAlimentoController extends Controller
       ->where($c7, $op4, $c8)
       ->get();
 
-    $existencias = EspecieSiembra::select(
+    $especies = EspecieSiembra::select(
       'cant_actual',
       'contenedor',
       'capacidad',
@@ -387,67 +392,74 @@ class InfomeBiomasaAlimentoController extends Controller
 
     $aux_regs = array();
     $diff = 0;
-
+    $especies_siembra = new EspeciesSiembraController;
     if (count($siembras) > 0) {
       for ($i = 0; $i < count($siembras); $i++) {
         // Especies en la siembra
-        if (count($existencias) > 0) {
+        if (count($especies) > 0) {
           $contador_esp = 0;
-          for ($j = 0; $j < count($existencias); $j++) {
-            $existencias[$j]->biomasa_disponible = ((($existencias[$j]->peso_actual) * ($existencias[$j]->cant_actual)) / 1000);
-            $existencias[$j]->biomasa_inicial =  ((($existencias[$j]->peso_inicial) * ($existencias[$j]->cantidad_inicial)) / 1000);
-            $bio_dispo = ((($existencias[$j]->peso_actual) * ($existencias[$j]->cant_actual)) / 1000);
+        	foreach ($especies as $especie) {
 
-            if ($siembras[$i]->id == $existencias[$j]->id_siembra) {
+            $especie->mortalidad = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->mortalidad;
+            $especie->biomasa = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->biomasa;
+            $especie->salida_animales = $especies_siembra->cantidadEspecieSiembra($especie->id_siembra, $especie->id_especie)->cantidad + $especie->mortalidad;
+            $especie->cantidad_actual = $especie->cantidad_inicial - $especie->salida_animales;
+            $especie->biomasa_disponible = ((($especie->peso_actual) * ($especie->cantidad_actual)) / 1000);
+            $especie->biomasa_inicial =  ((($especie->peso_inicial) * ($especie->cantidad_inicial)) / 1000);
+            $bio_dispo = ((($especie->peso_actual) * ($especie->cant_actual)) / 1000);
+
+            if ($siembras[$i]->id == $especie->id_siembra) {
               $contador_esp++;
-              $existencias[$j]->cant_actual_especie += $existencias[$j]->cant_actual;
-              $siembras[$i]->cantidad_inicial += $existencias[$j]->cantidad_inicial;
-              $siembras[$i]->peso_ini += $existencias[$j]->peso_inicial;
-              $siembras[$i]->cant_actual += $existencias[$j]->cant_actual;
-              $siembras[$i]->peso_actual += $existencias[$j]->peso_actual;
-              $siembras[$i]->biomasa_inicial += $existencias[$j]->biomasa_inicial;
-              $siembras[$i]->biomasa_disponible += $existencias[$j]->biomasa_disponible;
-              $siembras[$i]->densidad_final = (number_format(($siembras[$i]->cant_actual / $existencias[$j]->capacidad), 2, ',', ''));
-              $siembras[$i]->carga_final = (number_format(($siembras[$i]->biomasa_disponible / $existencias[$j]->capacidad), 2, ',', ''));
+              $especie->cant_actual_especie += $especie->cant_actual;
+              $siembras[$i]->cantidad_inicial += $especie->cantidad_inicial;
+              $siembras[$i]->peso_ini += $especie->peso_inicial;
+              $siembras[$i]->cant_actual += $especie->cant_actual;
+              $siembras[$i]->peso_actual += $especie->peso_actual;
+              $siembras[$i]->biomasa_inicial += $especie->biomasa_inicial;
+              $siembras[$i]->biomasa_disponible += $especie->biomasa_disponible;
+              $siembras[$i]->densidad_final = (number_format(($siembras[$i]->cant_actual / $especie->capacidad), 2, ',', ''));
+              $siembras[$i]->carga_final = (number_format(($siembras[$i]->biomasa_disponible / $especie->capacidad), 2, ',', ''));
 
               for ($k = 0; $k < count($registros); $k++) {
-                if ($existencias[$j]->id_siembra == $registros[$k]->id_siembra) {
+                if ($especie->id_siembra == $registros[$k]->id_siembra) {
 
                   $int_tiempo = Registro::select('fecha_registro')
                     ->orderBy('fecha_registro', 'desc')
-                    ->where('id_siembra', $existencias[$j]->id_siembra)
-                    ->where('id_especie', $existencias[$j]->id_especie)
+                    ->where('id_siembra', $especie->id_siembra)
+                    ->where('id_especie', $especie->id_especie)
                     ->first();
-                  $date1 = new \DateTime($existencias[$j]->fecha_inicio);
+                  $date1 = new \DateTime($especie->fecha_inicio);
                   if (isset($int_tiempo['fecha_registro'])) {
                     $date2 = new \DateTime($int_tiempo['fecha_registro']);
                   } else {
                     $date2 = new \DateTime();
                   }
                   $diff = $date1->diff($date2);
-                  $existencias[$j]->intervalo_tiempo  = $diff->days;
+                  $especie->intervalo_tiempo  = $diff->days;
 
-                  $existencias[$j]->salida_biomasa += $registros[$k]->biomasa;
-                  if ($existencias[$j]->id_especie == $registros[$k]->id_especie) {
+                  $especie->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;
+                  if ($especie->id_especie == $registros[$k]->id_especie) {
                     $registros[$k]->mortalidad_kg = (($registros[$k]->mortalidad * $registros[$k]->peso_ganado) / 1000);
-                    $existencias[$j]->mortalidad += $registros[$k]->mortalidad;
-                    $existencias[$j]->mortalidad_kg += $registros[$k]->mortalidad_kg;
-                    $existencias[$j]->salida_biomasa_especie += $registros[$k]->biomasa;
-                    $existencias[$j]->salida_animales = (($existencias[$j]->salida_biomasa_especie * 1000) / $existencias[$j]->peso_actual);
-                    $existencias[$j]->peso_incremento = $existencias[$j]->peso_actual -  $existencias[$j]->peso_inicial;
-                    $existencias[$j]->incremento_biomasa = (($existencias[$j]->peso_incremento * $existencias[$j]->cant_actual) / 1000);
-                    $existencias[$j]->ganancia_peso_dia = $existencias[$j]->peso_incremento / $existencias[$j]->intervalo_tiempo;
-                    $existencias[$j]->mortalidad_porcentaje =  (($existencias[$j]->mortalidad * 100) / $existencias[$j]->cantidad_inicial);
+                    $especie->mortalidad += $registros[$k]->mortalidad;
+                    $especie->mortalidad_kg += $registros[$k]->mortalidad_kg;
+                    $especie->salida_biomasa_especie += $registros[$k]->biomasa;
+                    $especie->salida_animales = (($especie->salida_biomasa_especie * 1000) / $especie->peso_actual);
+                    $especie->peso_incremento = $especie->peso_actual -  $especie->peso_inicial;
+                    $especie->incremento_biomasa = (($especie->peso_incremento * $especie->cant_actual) / 1000);
+                  if($especie->ganancia_peso_dia > 0) {
+                    $especie->ganancia_peso_dia = $especie->peso_incremento / $especie->intervalo_tiempo;
+                  }
+                    $especie->mortalidad_porcentaje =  (($especie->mortalidad * 100) / $especie->cantidad_inicial);
                   }
                 }
               }
-              $siembras[$i]->mortalidad += $existencias[$j]->mortalidad;
-              $siembras[$i]->mortalidad_kg += $existencias[$j]->mortalidad_kg;
+              $siembras[$i]->mortalidad += $especie->mortalidad;
+              $siembras[$i]->mortalidad_kg += $especie->mortalidad_kg;
               $siembras[$i]->mortalidad_porcentaje = (($siembras[$i]->mortalidad * 100) / $siembras[$i]->cantidad_inicial);
-              $siembras[$i]->salida_biomasa = $existencias[$j]->salida_biomasa;
-              $siembras[$i]->salida_animales += $existencias[$j]->salida_animales;
-              $siembras[$i]->incremento_biomasa += $existencias[$j]->incremento_biomasa;
-              $siembras[$i]->intervalo_tiempo = $existencias[$j]->intervalo_tiempo;
+              $siembras[$i]->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;;
+              $siembras[$i]->salida_animales = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->cantidad;
+              $siembras[$i]->incremento_biomasa += $especie->incremento_biomasa;
+              $siembras[$i]->intervalo_tiempo = $especie->intervalo_tiempo;
               $siembras[$i]->porc_supervivencia_final = (($siembras[$i]->salida_animales * 100) / $siembras[$i]->cantidad_inicial);
             }
           }
@@ -523,6 +535,8 @@ class InfomeBiomasaAlimentoController extends Controller
         $siembras[$i]->costo_produccion_parcial = number_format($siembras[$i]->costo_produccion_parcial, 2, ',', '');
         $siembras[$i]->porc_supervivencia_final = number_format($siembras[$i]->porc_supervivencia_final, 2, ',', '');
         $siembras[$i]->costo_total_recurso = number_format($siembras[$i]->costo_total_recurso, 2, ',', '');
+        $siembras[$i]->costo_total_alimento = number_format($siembras[$i]->costo_total_alimento, 2, ',', '');
+        $siembras[$i]->costo_total_siembra = number_format($siembras[$i]->costo_total_siembra, 2, ',', '');
         // recursos_necesarios
         $aux_regs[] = [
           "biomasa_inicial" => $siembras[$i]->biomasa_inicial,

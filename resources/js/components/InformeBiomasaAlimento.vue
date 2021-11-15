@@ -69,7 +69,7 @@
                               <td v-text="le.capacidad"></td>
                               <td v-text="le.cantidad_inicial"></td>
                               <td v-text="le.biomasa_inicial"></td> 
-                              <td v-text="le.biomasa_disponible+' kg'"></td> 
+                              <td v-text="le.biomasa_disponible"></td> 
                               <td v-if="le.salida_biomasa">{{le.salida_biomasa}} kg</td>
                               <td v-else>0</td>
                               <td v-text="le.mortalidad"></td>
@@ -100,7 +100,7 @@
           'Area': 'capacidad',
           'Cantidad inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',          
-          'Biomasa disponible muestreo (KG)' : 'biomasa_disponible',
+          'Biomasa disponible muestreo' : 'biomasa_disponible',
           'Salida de biomasa' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
