@@ -119,6 +119,7 @@ class InformeRegistroController extends Controller
 			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro')
 			->leftJoin('alimentos', 'recursos_necesarios.id_alimento', 'alimentos.id')
 			->get();
+		$especies_siembra = new EspeciesSiembraController;
 
 		$data = array();
 		if (count($siembras) > 0) {
@@ -143,7 +144,7 @@ class InformeRegistroController extends Controller
 							}
 							$siembra->mortalidad += $existencia->mortalidad;
 							$siembra->mortalidad_kg += $existencia->mortalidad_kg;
-							$siembra->salida_biomasa = $existencia->salida_biomasa;
+							$siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($siembra->id)->biomasa;
 						}
 					}
 				}
@@ -160,6 +161,7 @@ class InformeRegistroController extends Controller
 						}
 					}
 				}
+
 				$siembra->bio_dispo_alimen = (($siembra->incr_bio_acum_conver + $siembra->biomasa_inicial) - ($siembra->salida_biomasa + $siembra->mortalidad_kg));
 
 				$data = [
@@ -246,10 +248,10 @@ class InformeRegistroController extends Controller
 
 		$estado_siembra = '-1';
 		$filtro_estado_siembra = '!=';
-		
+
 		$filtro_contenedor = '!=';
 		$id_contenedor = '-1';
-		
+
 
 		if ($request['f_siembra'] != '-1') {
 			$c1 = "registros.id_siembra";
@@ -342,7 +344,6 @@ class InformeRegistroController extends Controller
 		$especies_siembra = new EspeciesSiembraController;
 		if (count($registros) > 0) {
 			foreach ($registros as $registro) {
-
 				$registro->mortalidad_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->mortalidad;
 				$registro->biomasa_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->biomasa;
 				$registro->salida_animales_general = $especies_siembra->cantidadEspecieSiembra($registro->id_siembra, $registro->id_especie)->cantidad + $registro->mortalidad_general;
