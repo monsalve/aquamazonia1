@@ -721,7 +721,7 @@ class InformeController extends Controller
 							$siembra->intervalo_tiempo = $especie->intervalo_tiempo;
 							$siembra->porc_supervivencia_final = (($siembra->salida_animales_sin_mortalidad * 100) / $siembra->cantidad_inicial);
 							$siembra->densidad_inicial = ($siembra->cantidad_inicial / $siembra->capacidad);
-							$siembra->densidad_final = ($siembra->salida_animales / $siembra->capacidad);
+							$siembra->densidad_final = ($siembra->salida_animales_sin_mortalidad / $siembra->capacidad);
 							$siembra->carga_inicial = ($siembra->biomasa_inicial / $siembra->capacidad);
 							$siembra->carga_final = ($siembra->salida_biomasa / $siembra->capacidad);
 							$siembra->ganancia_peso_dia += $especie->ganancia_peso_dia;
@@ -1014,7 +1014,7 @@ class InformeController extends Controller
 							$siembra->intervalo_tiempo = $especie->intervalo_tiempo;
 							$siembra->porc_supervivencia_final = (($siembra->salida_animales_sin_mortalidad * 100) / $siembra->cantidad_inicial);
 							$siembra->densidad_inicial = ($siembra->cantidad_inicial / $siembra->capacidad);
-							$siembra->densidad_final = ($siembra->salida_animales / $siembra->capacidad);
+							$siembra->densidad_final = ($siembra->salida_animales_sin_mortalidad / $siembra->capacidad);
 							$siembra->carga_inicial = ($siembra->biomasa_inicial / $siembra->capacidad);
 							$siembra->carga_final = ($siembra->salida_biomasa / $siembra->capacidad);
 							$siembra->ganancia_peso_dia += $especie->ganancia_peso_dia;

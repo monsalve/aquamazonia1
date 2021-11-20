@@ -151,7 +151,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   }
                 }
               }
-              $siembra->mortalidad += $especie->mortalidad;
+              $siembra->mortalidad = $especies_siembra->cantidadTotalEspeciesSiembra($especie->id_siembra)->mortalidad;
               $siembra->mortalidad_kg += $especie->mortalidad_kg;
               $siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
               $siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;;
@@ -452,7 +452,7 @@ class InfomeBiomasaAlimentoController extends Controller
                   }
                 }
               }
-              $siembra->mortalidad += $especie->mortalidad;
+              $siembra->mortalidad = $especies_siembra->cantidadTotalEspeciesSiembra($especie->id_siembra)->mortalidad;
               $siembra->mortalidad_kg += $especie->mortalidad_kg;
               $siembra->mortalidad_porcentaje = (($siembra->mortalidad * 100) / $siembra->cantidad_inicial);
               $siembra->salida_biomasa = $especies_siembra->cantidadTotalEspeciesSiembraSinMortalidad($especie->id_siembra)->biomasa;

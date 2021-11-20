@@ -3135,46 +3135,389 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       json_fields: {
-        '#': 'id',
-        'Fecha ': 'fecha_parametro',
-        '12:00 a.m': '12_am',
-        '4:00 a.m': '4_am',
-        '7:00 a.m': '7_am',
-        '4:00 p.m': '4_pm',
-        '8:00 a.m': '8_pm',
-        'Temperatura': 'temperatura',
-        'Ph': 'ph',
-        'Amonio': 'amonio',
-        'Nitrito': 'nitrito',
-        'Nitrato': 'nitrato',
-        'Otros': 'otros'
+        "#": "id",
+        "Fecha ": "fecha_parametro",
+        "12:00 a.m": "12_am",
+        "4:00 a.m": "4_am",
+        "7:00 a.m": "7_am",
+        "4:00 p.m": "4_pm",
+        "8:00 a.m": "8_pm",
+        Temperatura: "temperatura",
+        Ph: "ph",
+        Amonio: "amonio",
+        Nitrito: "nitrito",
+        Nitrato: "nitrato",
+        Otros: "otros"
       },
       editando: 0,
       mostrar: 0,
-      idEstanque: '',
-      nombreEstanque: '',
+      idEstanque: "",
+      nombreEstanque: "",
       form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
-        id: '',
+        id: "",
         id_contenedor: [],
-        id_especie: '',
-        fecha_parametro: '',
-        '12_am': '',
-        '4_am': '',
-        '7_am': '',
-        '4_pm': '',
-        '8_pm': '',
-        temperatura: '',
-        ph: '',
-        amonio: '',
-        nitrito: '',
-        nitrato: '',
-        otros: ''
+        id_especie: "",
+        fecha_parametro: "",
+        "12_am": "",
+        "4_am": "",
+        "7_am": "",
+        "4_pm": "",
+        "8_pm": "",
+        temperatura: "",
+        ph: "",
+        amonio: "",
+        nitrito: "",
+        nitrato: "",
+        otros: ""
       }),
       estados: [],
       listadoExistencias: [],
@@ -3185,8 +3528,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listadoParametrosEstanques: [],
       listadoEstanques: [],
       promedios: [],
-      f_inicio_d: '',
-      f_inicio_h: ''
+      f_inicio_d: "",
+      f_inicio_h: ""
     };
   },
   components: {
@@ -3222,22 +3565,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filtrarParametros: function filtrarParametros() {
       var me = this;
 
-      if (this.f_inicio_d == '') {
-        this.f_d = '-1';
+      if (this.f_inicio_d == "") {
+        this.f_d = "-1";
       } else {
         this.f_d = this.f_inicio_d;
       }
 
-      if (this.f_inicio_h == '') {
-        this.f_h = '-1';
+      if (this.f_inicio_h == "") {
+        this.f_h = "-1";
       } else {
         this.f_h = this.f_inicio_h;
       }
 
       var data = {
-        'id_contenedor': this.idEstanque,
-        'f_inicio_d': this.f_d,
-        'f_inicio_h': this.f_h
+        id_contenedor: this.idEstanque,
+        f_inicio_d: this.f_d,
+        f_inicio_h: this.f_h
       };
       axios.post("api/filtro-parametros", data).then(function (response) {
         me.listadoParametros = response.data.calidad_agua;
@@ -3277,14 +3620,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.idEstanque = objeto;
       var me = this;
       var data = {
-        'id_contenedor': this.idEstanque
+        id_contenedor: this.idEstanque
       };
-      axios.post('api/parametro-x-contenedor/' + objeto).then(function (response) {
+      axios.post("api/parametro-x-contenedor/" + objeto).then(function (response) {
         _this2.mostrar = 1;
         _this2.listadoParametros = response.data.calidad_agua;
         _this2.promedios = response.data.promedios;
       });
-      axios.post('api/parametro-x-contenedor-excel/' + objeto).then(function (response) {
+      axios.post("api/parametro-x-contenedor-excel/" + objeto).then(function (response) {
         _this2.mostrar = 1;
         _this2.listadoParametrosExcel = response.data.calidad_agua;
       });
@@ -3298,7 +3641,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     crearParametros: function crearParametros() {
       this.editando = 0;
       var me = this;
-      $('#modalParametros').modal('show');
+      $("#modalParametros").modal("show");
     },
     guardar: function guardar() {
       var me = this;
@@ -3313,7 +3656,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         editando: 0;
 
         me.filtrarParametros();
-        $('#modalParametros').modal('hide');
+        $("#modalParametros").modal("hide");
       });
     },
     editarParametros: function editarParametros(objeto) {
@@ -3322,15 +3665,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.form.fill(objeto);
       this.editando = 1;
-      $('#modalParametros').modal('show');
+      $("#modalParametros").modal("show");
     },
     editar: function editar() {
       var _this3 = this;
 
       var me = this;
-      this.form.put('api/parametros-calidad/' + this.form.id).then(function (_ref2) {
+      this.form.put("api/parametros-calidad/" + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
-        $('#modalParametros').modal('hide');
+        $("#modalParametros").modal("hide");
         me.mostrarParametros(_this3.idEstanque);
         me.listar();
 
@@ -3344,13 +3687,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: "Una vez eliminado, no se puede recuperar los registros asociados a este ID",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#c7120c',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Aceptar!',
+        confirmButtonColor: "#c7120c",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
         reverseButtons: true
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('api/parametros-calidad/' + objeto).then(function (_ref3) {
+          axios["delete"]("api/parametros-calidad/" + objeto).then(function (_ref3) {
             var data = _ref3.data;
             me.listar();
           });
@@ -3360,10 +3703,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.listar();
-    this.estados[0] = 'Inactivo';
-    this.estados[1] = 'Activo';
-    this.estados[2] = 'Ocupado';
-    this.estados[3] = 'Descanso';
+    this.estados[0] = "Inactivo";
+    this.estados[1] = "Activo";
+    this.estados[2] = "Ocupado";
+    this.estados[3] = "Descanso";
   }
 });
 
@@ -4580,7 +4923,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       f_fecha_h: "",
       f_peso_d: 0,
       f_peso_h: 0,
-      id_contenedor: 0
+      id_contenedor: '-1'
     };
   },
   components: {
@@ -4850,7 +5193,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Area': 'capacidad',
         'Cantidad inicial': 'cantidad_inicial',
         'Biomasa inicial': 'biomasa_inicial',
-        'Biomasa disponible muestreo (KG)': 'biomasa_disponible',
+        'Biomasa disponible muestreo': 'biomasa_disponible',
         'Salida de biomasa': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mort. Kg': 'mortalidad_kg',
@@ -5590,7 +5933,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Cantidad Mortalidad': "mortalidad",
         "Mortalidad kg": "mortalidad_kg",
         "Mortalidad %": "mortalidad_porcentaje",
-        "Animales cosechados": "salida_animales",
+        "Animales cosechados": "salida_animales_sin_mortalidad",
         "Densidad inicial (Animales/m2)": "densidad_inicial",
         "Densidad final (Animales/m2)": "densidad_final",
         "Carga final (Kg/m2)": "carga_final",
@@ -52431,7 +52774,7 @@ var render = function() {
                       _c(
                         "th",
                         { staticClass: "text-right", attrs: { colspan: "4" } },
-                        [_vm._v("TOTAL:")]
+                        [_vm._v("PROMEDIO:")]
                       ),
                       _vm._v(" "),
                       _c("th", {
@@ -53577,7 +53920,9 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Parametros de calidad del agua")
+            _vm._v(
+              "\n                    Parametros de calidad del agua\n                "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -53594,7 +53939,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Añadir párametros")]
+                  [
+                    _vm._v(
+                      "\n                                Añadir párametros\n                            "
+                    )
+                  ]
                 )
               ])
             ]),
@@ -53607,7 +53956,9 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "form-group col-md-3" }, [
                         _c("label", { attrs: { for: "Fecha desde" } }, [
-                          _vm._v("Fecha inicio desde: ")
+                          _vm._v(
+                            "Fecha inicio desde:\n                                    "
+                          )
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -53635,7 +53986,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-3" }, [
                         _c("label", { attrs: { for: "fecha hasta" } }, [
-                          _vm._v("Fecha inicio hasta: ")
+                          _vm._v(
+                            "Fecha inicio hasta:\n                                    "
+                          )
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -53663,7 +54016,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-1" }, [
                         _c("label", { attrs: { for: "fecha hasta" } }, [
-                          _vm._v("Buscar: ")
+                          _vm._v(
+                            "Buscar:\n                                    "
+                          )
                         ]),
                         _vm._v(" "),
                         _c(
@@ -53701,7 +54056,9 @@ var render = function() {
                             },
                             [
                               _c("i", { staticClass: "fa fa-fw fa-download" }),
-                              _vm._v(" Exportar Excel \n                  ")
+                              _vm._v(
+                                "\n                                        Exportar Excel\n                                    "
+                              )
                             ]
                           )
                         ],
@@ -53721,7 +54078,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n                Regresar\n              ")]
+                      [
+                        _vm._v(
+                          "\n                                Regresar\n                            "
+                        )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
@@ -53734,12 +54095,13 @@ var render = function() {
                     [
                       _c("h2", [
                         _vm._v(
-                          "Registros de párametros de agua " +
+                          "\n                                Registros de párametros de agua\n                                " +
                             _vm._s(
                               _vm.listadoParametros[0]
                                 ? _vm.listadoParametros[0].contenedor
                                 : ""
-                            )
+                            ) +
+                            "\n                            "
                         )
                       ]),
                       _vm._v(" "),
@@ -54338,7 +54700,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "Temperatura" }
                             },
-                            [_vm._v("Temperatura: ")]
+                            [
+                              _vm._v(
+                                "Temperatura:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54382,7 +54748,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "ph" }
                             },
-                            [_vm._v("PH: ")]
+                            [
+                              _vm._v(
+                                "PH:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54422,7 +54792,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "Amonio" }
                             },
-                            [_vm._v("Amonio: ")]
+                            [
+                              _vm._v(
+                                "Amonio:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54466,7 +54840,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "Nitrito" }
                             },
-                            [_vm._v("Nitrito: ")]
+                            [
+                              _vm._v(
+                                "Nitrito:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54510,7 +54888,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "Nitrato" }
                             },
-                            [_vm._v("Nitrato: ")]
+                            [
+                              _vm._v(
+                                "Nitrato:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54554,7 +54936,11 @@ var render = function() {
                               staticClass: "col-sm-6 col-form-label",
                               attrs: { for: "" }
                             },
-                            [_vm._v("Otros: ")]
+                            [
+                              _vm._v(
+                                "Otros:\n                                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-6" }, [
@@ -54602,8 +54988,24 @@ var render = function() {
                           {
                             staticClass: "col-12 text-center text-primary my-4"
                           },
-                          [_vm._v(" Listado de estanques")]
+                          [
+                            _vm._v(
+                              "\n                                Listado de estanques\n                            "
+                            )
+                          ]
                         ),
+                        _vm._v(" "),
+                        _vm.form.id_contenedor == ""
+                          ? _c(
+                              "div",
+                              { staticClass: "text-danger ml-2 col-12" },
+                              [
+                                _vm._v(
+                                  "\n                                Seleccionar al menos un estanque\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _vm._l(_vm.listadoEstanques, function(lc, index) {
                           return _c(
@@ -54698,9 +55100,9 @@ var render = function() {
                                           [
                                             _c("span"),
                                             _vm._v(
-                                              "\n                      " +
+                                              "\n                                            " +
                                                 _vm._s(cont.contenedor) +
-                                                "\n                    "
+                                                "\n                                        "
                                             )
                                           ]
                                         ),
@@ -54726,18 +55128,24 @@ var render = function() {
                             staticClass: "btn btn-secondary",
                             attrs: { type: "button", "data-dismiss": "modal" }
                           },
-                          [_vm._v("Cancelar")]
+                          [
+                            _vm._v(
+                              "\n                                    Cancelar\n                                "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
-                        _c("button", {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "submit" },
-                          domProps: {
-                            textContent: _vm._s(
-                              _vm.editando == 0 ? "Crear" : "Actualizar"
-                            )
-                          }
-                        })
+                        _vm.form.id_contenedor != ""
+                          ? _c("button", {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "submit" },
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.editando == 0 ? "Crear" : "Actualizar"
+                                )
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ])
                   ]
@@ -54758,60 +55166,82 @@ var staticRenderFns = [
     return _c("thead", { staticClass: "thead-primary" }, [
       _c("tr", [
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("#")
+          _vm._v(
+            "\n                                            #\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2" } }, [_vm._v("ID registro")]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Fecha")
+          _vm._v(
+            "\n                                            Fecha\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { colspan: "5" } }, [
-          _vm._v("% Saturación de oxígeno")
+          _vm._v(
+            "\n                                            % Saturación de oxígeno\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Temperatura")
+          _vm._v(
+            "\n                                            Temperatura\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("PH")
+          _vm._v(
+            "\n                                            PH\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Amonio")
+          _vm._v(
+            "\n                                            Amonio\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Nitrito")
+          _vm._v(
+            "\n                                            Nitrito\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Nitrato")
+          _vm._v(
+            "\n                                            Nitrato\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Otros")
+          _vm._v(
+            "\n                                            Otros\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { rowspan: "2", "data-field": "id" } }, [
-          _vm._v("Editar/Eliminar")
+          _vm._v(
+            "\n                                            Editar/Eliminar\n                                        "
+          )
         ])
       ]),
       _vm._v(" "),
       _c("tr", [
         _c("th", { attrs: { "data-field": "", "data-not-first-th": "" } }, [
-          _vm._v("12:00 am")
+          _vm._v(
+            "\n                                            12:00 am\n                                        "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 am")]),
         _vm._v(" "),
-        _c("th", { attrs: { "data-field": "" } }, [_vm._v("7:00 am ")]),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("7:00 am")]),
         _vm._v(" "),
-        _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 pm ")]),
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("4:00 pm")]),
         _vm._v(" "),
-        _c("th", { attrs: { "data-field": "" } }, [_vm._v("8:00 pm ")])
+        _c("th", { attrs: { "data-field": "" } }, [_vm._v("8:00 pm")])
       ])
     ])
   },
@@ -54828,7 +55258,9 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado contenedor")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [
-          _vm._v("Ver párametros de calidad")
+          _vm._v(
+            "\n                                        Ver párametros de calidad\n                                    "
+          )
         ])
       ])
     ])
@@ -54839,7 +55271,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h3", { staticClass: "modal-title" }, [
-        _vm._v("Párametros de calidad del agua")
+        _vm._v(
+          "\n                        Párametros de calidad del agua\n                    "
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -54865,7 +55299,9 @@ var staticRenderFns = [
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "Fecha" } },
       [
         _c("i", { staticClass: "far fa-calendar-alt" }),
-        _vm._v("  Fecha registro: ")
+        _vm._v(
+          "\n                                        Fecha registro:\n                                    "
+        )
       ]
     )
   },
@@ -54884,7 +55320,12 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
-      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  12:00 am: ")]
+      [
+        _c("i", { staticClass: "far fa-clock" }),
+        _vm._v(
+          "\n                                            12:00 am:\n                                        "
+        )
+      ]
     )
   },
   function() {
@@ -54894,7 +55335,12 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
-      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  4:00 am: ")]
+      [
+        _c("i", { staticClass: "far fa-clock" }),
+        _vm._v(
+          "\n                                            4:00 am:\n                                        "
+        )
+      ]
     )
   },
   function() {
@@ -54904,7 +55350,12 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
-      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  7:00 am: ")]
+      [
+        _c("i", { staticClass: "far fa-clock" }),
+        _vm._v(
+          "\n                                            7:00 am:\n                                        "
+        )
+      ]
     )
   },
   function() {
@@ -54914,7 +55365,12 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "" } },
-      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  4:00pm: ")]
+      [
+        _c("i", { staticClass: "far fa-clock" }),
+        _vm._v(
+          "\n                                            4:00pm:\n                                        "
+        )
+      ]
     )
   },
   function() {
@@ -54924,7 +55380,12 @@ var staticRenderFns = [
     return _c(
       "label",
       { staticClass: "col-sm-6 col-form-label", attrs: { for: "8pm" } },
-      [_c("i", { staticClass: "far fa-clock" }), _vm._v("  8:00pm: ")]
+      [
+        _c("i", { staticClass: "far fa-clock" }),
+        _vm._v(
+          "\n                                            8:00pm:\n                                        "
+        )
+      ]
     )
   }
 ]
@@ -57433,7 +57894,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(le.biomasa_disponible + " kg")
+                              textContent: _vm._s(le.biomasa_disponible)
                             }
                           }),
                           _vm._v(" "),
@@ -58633,11 +59094,11 @@ var render = function() {
                               ])
                             : _c("td", [_vm._v("0")]),
                           _vm._v(" "),
-                          le.salida_animales
+                          le.salida_animales_sin_mortalidad
                             ? _c("td", [
                                 _vm._v(
                                   "\n                                        " +
-                                    _vm._s(le.salida_animales) +
+                                    _vm._s(le.salida_animales_sin_mortalidad) +
                                     "\n                                    "
                                 )
                               ])
