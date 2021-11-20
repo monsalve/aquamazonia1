@@ -188,9 +188,9 @@
                     <th>Peso actual</th>
                     <th>KG cosecha</th>
                     <th>Biomasa muestreo</th>
-                    <th>Cantidad Actual</th>
+                    <th>Animales Actuales</th>
                     <th>Biomasa disponible por alimento</th>
-                    <th>Cantidad Animales</th>
+                    <th>Animales Cosechados</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -231,10 +231,10 @@ export default {
         "Tipo actividad": "nombre_registro",
         "Peso Actual": "peso_ganado",
         "KG cosecha": "biomasa",
-        "biomasa muestreo": "biomasa_disponible",
-        "Cantidad Actual": "cantidad_actual",
+        "Biomasa muestreo": "biomasa_disponible",
+        "Animales Actuales": "cantidad_actual",
         "Biomasa disponible": "bio_dispo_alimen",
-        "Cantidadad Animales": "salida_animales",
+        "Animales Cosechados": "salida_animales",
       },
 
       listadoSiembras: [],
