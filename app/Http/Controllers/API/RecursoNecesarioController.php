@@ -285,7 +285,7 @@ class RecursoNecesarioController extends Controller
 		$minutos_hombre = Recursos::select()->where('recurso', 'Minutos hombre')->orWhere('recurso', 'Minuto hombre')->orWhere('recurso', 'Minutos')->first();
 
 		$tipo_actividad = "recursos_necesarios.id";
-		$op1 = "!=";
+		$filtro_tipo_actividad = "!=";
 		$c2 = "-1";
 		$c3 = "recursos_necesarios.id";
 		$op2 = "!=";
@@ -308,11 +308,11 @@ class RecursoNecesarioController extends Controller
 
 		if ($request['tipo_actividad'] != '-1') {
 			$tipo_actividad = "tipo_actividad";
-			$op1 = '=';
+			$filtro_tipo_actividad = '=';
 			$id_tipo_actividad = $request['tipo_actividad'];
 		} elseif ($request['tipo_actividad'] == '-1') {
 			$tipo_actividad = "tipo_actividad";
-			$op1 = '!=';
+			$filtro_tipo_actividad = '!=';
 			$id_tipo_actividad = '1';
 		}
 
@@ -348,6 +348,7 @@ class RecursoNecesarioController extends Controller
 		}
 
 		$recursosNecesarios = RecursoNecesario::orderBy('fecha_ra', 'desc')
+			->select('*', 'recursos_necesarios.id as id')
 			->join('recursos_siembras', 'recursos_necesarios.id', 'recursos_siembras.id_registro');
 
 		if ($request['tipo_actividad'] == 1) {
@@ -358,7 +359,7 @@ class RecursoNecesarioController extends Controller
 
 		$recursosNecesarios = 	$recursosNecesarios->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
-			->where($tipo_actividad, $op1, $id_tipo_actividad)
+			->where($tipo_actividad, $filtro_tipo_actividad, $id_tipo_actividad)
 			->where($c3, $op2, $c4)
 			->where($c5, $op3, $c6)
 			->where($c7, $op4, $c8)
@@ -387,7 +388,7 @@ class RecursoNecesarioController extends Controller
 		$icb = 0;
 
 		$counter = count($recursosNecesarios);
-	
+
 		if (count($recursosNecesarios) > 0) {
 			for ($i = 0; $i < count($recursosNecesarios); $i++) {
 

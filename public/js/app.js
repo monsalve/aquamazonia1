@@ -4903,10 +4903,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "Tipo actividad": "nombre_registro",
         "Peso Actual": "peso_ganado",
         "KG cosecha": "biomasa",
-        "biomasa muestreo": "biomasa_disponible",
-        "Cantidad Actual": "cantidad_actual",
+        "Biomasa muestreo": "biomasa_disponible",
+        "Animales Actuales": "cantidad_actual",
         "Biomasa disponible": "bio_dispo_alimen",
-        "Cantidadad Animales": "salida_animales"
+        "Animales Cosechados": "salida_animales"
       },
       listadoSiembras: [],
       listadoRegistros: [],
@@ -57654,11 +57654,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa muestreo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Actual")]),
+        _c("th", [_vm._v("Animales Actuales")]),
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa disponible por alimento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cantidad Animales")])
+        _c("th", [_vm._v("Animales Cosechados")])
       ])
     ])
   }
