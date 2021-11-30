@@ -97,11 +97,11 @@
                                <th>Fecha último registro</th>
                               <th>Tiempo de cultivo</th>
                               <th>Biomasa dispo</th>
-                              <th>Salida de biomasa</th>
+                              <th>Biomasa cosechada</th>
                               <th>Mortalidad</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
-                              <th>Salida animales</th>
+                              <th>Animales cosechados</th>
                               <th>Incremento de biomasa</th>
                               <th>Ganancia de peso por día</th>
                               <th>Densidad Final (Animales/m<sup>2</sup>)</th>
@@ -131,7 +131,7 @@
                               <td v-text="le.mortalidad_kg ? le.mortalidad_kg +' kg' : '0'"></td>
                               <td v-if="le.mortalidad_porcentaje">{{le.mortalidad_porcentaje}}</td>
                               <td v-else>0</td>
-                              <td v-if="le.salida_animales">{{le.salida_animales}}</td>
+                              <td v-if="le.salida_animales_sin_mortalidad">{{le.salida_animales_sin_mortalidad}}</td>
                               <td v-else>0</td>
                               <td v-text="le.incremento_biomasa"></td>
                               <td v-text="le.ganancia_peso_dia"></td>
@@ -166,11 +166,11 @@
           'Fecha último registro' : 'fecha_registro',
           'Tiempo de cultivo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
-          'Salida de biomasa' : 'salida_biomasa',
+          'Biomasa cosechada' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           '% Mortalidad' : 'mortalidad_porcentaje',
-          'Salida animales' : 'salida_animales',
+          'Animales cosechados' : 'salida_animales_sin_mortalidad',
           'Incremento de biomasa': 'incremento_biomasa',
           'Gananacia de peso por día': 'ganancia_peso_dia',
           'Densidad final (Animales/m2)' : 'densidad_final',

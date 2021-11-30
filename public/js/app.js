@@ -5486,11 +5486,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         'Fecha último registro': 'fecha_registro',
         'Tiempo de cultivo': 'intervalo_tiempo',
         'Biomasa disponible': 'biomasa_disponible',
-        'Salida de biomasa': 'salida_biomasa',
+        'Biomasa cosechada': 'salida_biomasa',
         'Mortalidad': 'mortalidad',
         'Mortalidad kg': 'mortalidad_kg',
         '% Mortalidad': 'mortalidad_porcentaje',
-        'Salida animales': 'salida_animales',
+        'Animales cosechados': 'salida_animales_sin_mortalidad',
         'Incremento de biomasa': 'incremento_biomasa',
         'Gananacia de peso por día': 'ganancia_peso_dia',
         'Densidad final (Animales/m2)': 'densidad_final',
@@ -58568,8 +58568,10 @@ var render = function() {
                           ? _c("td", [_vm._v(_vm._s(le.mortalidad_porcentaje))])
                           : _c("td", [_vm._v("0")]),
                         _vm._v(" "),
-                        le.salida_animales
-                          ? _c("td", [_vm._v(_vm._s(le.salida_animales))])
+                        le.salida_animales_sin_mortalidad
+                          ? _c("td", [
+                              _vm._v(_vm._s(le.salida_animales_sin_mortalidad))
+                            ])
                           : _c("td", [_vm._v("0")]),
                         _vm._v(" "),
                         _c("td", {
@@ -58645,7 +58647,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Biomasa dispo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida de biomasa")]),
+        _c("th", [_vm._v("Biomasa cosechada")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mortalidad")]),
         _vm._v(" "),
@@ -58653,7 +58655,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("% Mortalidad")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida animales")]),
+        _c("th", [_vm._v("Animales cosechados")]),
         _vm._v(" "),
         _c("th", [_vm._v("Incremento de biomasa")]),
         _vm._v(" "),

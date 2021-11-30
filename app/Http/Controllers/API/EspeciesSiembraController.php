@@ -78,7 +78,21 @@ class EspeciesSiembraController extends Controller
       ->first();
   }
 
-  /**
+  public function cantidadEspecieSiembraSinMortalidad($id_siembra, $id_especie)
+  {
+    return Registro::select(
+      'id_siembra',
+      'id_especie',
+      DB::raw('SUM(cantidad) as cantidad'),
+      DB::raw('SUM(biomasa) as biomasa')
+    )
+      ->where('id_siembra', $id_siembra)
+      ->where('id_especie', $id_especie)
+      ->where('tipo_registro', '<>', 0)
+      ->groupBy('id_siembra')
+      ->groupBy('id_especie')
+      ->first();
+  }  /**
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
