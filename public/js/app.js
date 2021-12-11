@@ -10427,6 +10427,202 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_1__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_1__["HasError"]);
@@ -10801,12 +10997,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
       var me = this;
 
-      if (this.editandoAlimento == 0) {
-        if (this.form.id_alimento != "" && this.form.fecha_ra != "") {
-          axios.post("api/recursos-necesarios", this.form).then(function (_ref8) {
+      if (me.editandoAlimento == 0) {
+        if (me.form.id_alimento != "" && me.form.fecha_ra != "") {
+          axios.post("api/recursos-necesarios", me.form).then(function (_ref8) {
             var data = _ref8.data;
             me.listar(1, "");
-            me.abrirCrear(_this6.form.id_siembra);
+            console.log(me.form.id_siembra);
+            me.abrirCrear(me.form.id_siembra);
             Swal.fire("Excelente!", "Los datos se guardaron correctamente!", "success");
           });
         } else {
@@ -64190,7 +64387,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                Nueva siembra\n              ")]
+                  [
+                    _vm._v(
+                      "\n                                Nueva siembra\n                            "
+                    )
+                  ]
                 )
               ])
             ]),
@@ -64323,9 +64524,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                      " +
+                                  "\n                                            " +
                                     _vm._s(siembraActiva.nombre_siembra) +
-                                    "\n                    "
+                                    "\n                                        "
                                 )
                               ]
                             )
@@ -64410,9 +64611,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                      " +
+                                  "\n                                            " +
                                     _vm._s(siembraInactiva.nombre_siembra) +
-                                    "\n                    "
+                                    "\n                                        "
                                 )
                               ]
                             )
@@ -64483,7 +64684,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        Especie\n                      "
+                                      "\n                                                Especie\n                                            "
                                     )
                                   ]
                                 ),
@@ -64501,7 +64702,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        Lote\n                      "
+                                      "\n                                                Lote\n                                            "
                                     )
                                   ]
                                 ),
@@ -64518,9 +64719,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n                                                " +
                                         _vm._s(Math.floor(pez.cant_actual)) +
-                                        "\n                      "
+                                        "\n                                            "
                                     )
                                   ]
                                 ),
@@ -64542,7 +64743,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        Peso\n                      "
+                                      "\n                                                Peso\n                                            "
                                     )
                                   ]
                                 )
@@ -64570,9 +64771,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                      " +
+                                "\n                                            " +
                                   _vm._s(siembra.fecha_alimento) +
-                                  "\n                    "
+                                  "\n                                        "
                               )
                             ]
                           ),
@@ -64592,7 +64793,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                      Añadir Alimentos\n                    "
+                                "\n                                            Añadir Alimentos\n                                        "
                               )
                             ]
                           )
@@ -64665,15 +64866,15 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                    " +
+                            "\n                                        " +
                               _vm._s(siembra.ini_descanso) +
                               " - "
                           ),
                           _c("br"),
                           _vm._v(
-                            "\n                    " +
+                            "\n                                        " +
                               _vm._s(siembra.fin_descanso) +
-                              "\n                  "
+                              "\n                                    "
                           )
                         ])
                       ])
@@ -64782,9 +64983,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                      " +
+                                        "\n                                            " +
                                           _vm._s(contenedor.contenedor) +
-                                          "\n                    "
+                                          "\n                                        "
                                       )
                                     ]
                                   )
@@ -64846,9 +65047,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                      " +
+                                        "\n                                            " +
                                           _vm._s(contenedor.contenedor) +
-                                          "\n                    "
+                                          "\n                                        "
                                       )
                                     ]
                                   )
@@ -65057,9 +65258,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n                                                " +
                                         _vm._s(especie.especie) +
-                                        "\n                      "
+                                        "\n                                            "
                                     )
                                   ]
                                 )
@@ -65167,7 +65368,11 @@ var render = function() {
                                   bottom: "30px"
                                 }
                               },
-                              [_vm._v("Gr\n                    ")]
+                              [
+                                _vm._v(
+                                  "Gr\n                                        "
+                                )
+                              ]
                             )
                           ]),
                           _vm._v(" "),
@@ -65331,7 +65536,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                      X\n                    "
+                                        "\n                                            X\n                                        "
                                       )
                                     ]
                                   )
@@ -65389,7 +65594,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                  Cancelar\n                "
+                            "\n                                    Cancelar\n                                "
                           )
                         ]
                       ),
@@ -65408,7 +65613,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                  Crear\n                "
+                                "\n                                    Crear\n                                "
                               )
                             ]
                           )
@@ -65427,7 +65632,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                  Actualizar\n                "
+                                "\n                                    Actualizar\n                                "
                               )
                             ]
                           )
@@ -65555,9 +65760,9 @@ var render = function() {
                               { key: index, domProps: { value: alimento.id } },
                               [
                                 _vm._v(
-                                  "\n                  " +
+                                  "\n                                    " +
                                     _vm._s(alimento.alimento) +
-                                    "\n                "
+                                    "\n                                "
                                 )
                               ]
                             )
@@ -65755,7 +65960,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-primary",
-                          attrs: { type: "submit" },
+                          attrs: { type: "button" },
                           on: {
                             click: function($event) {
                               return _vm.guardarRecursos()
@@ -65783,7 +65988,7 @@ var render = function() {
                     "table",
                     {
                       staticClass:
-                        "\n                table table-sm table-hover table-responsive table-bordered\n              "
+                        "\n              table table-sm table-hover table-responsive table-bordered\n            "
                     },
                     [
                       _vm._m(4),
@@ -65832,10 +66037,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _c(
-                                "a",
+                                "button",
                                 {
                                   staticClass: "btn btn-success",
-                                  attrs: { href: "#editarAlimentacion" },
                                   on: {
                                     click: function($event) {
                                       return _vm.editarAlimento(item)
@@ -65892,7 +66096,9 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-center col-md-9" }, [
-                  _vm._v("Registros")
+                  _vm._v(
+                    "\n                        Registros\n                    "
+                  )
                 ]),
                 _vm._v(" "),
                 _c(
@@ -65911,7 +66117,9 @@ var render = function() {
                   [
                     _vm.ver_registros == 1
                       ? _c("span", [
-                          _vm._v("Crear Registros "),
+                          _vm._v(
+                            "Crear Registros\n                            "
+                          ),
                           _c("i", { staticClass: "fas fa-arrow-right" })
                         ])
                       : _vm._e(),
@@ -65919,7 +66127,9 @@ var render = function() {
                     _vm.ver_registros == 0
                       ? _c("span", [
                           _c("i", { staticClass: "fas fa-arrow-left" }),
-                          _vm._v(" Ver listado de\n              registros")
+                          _vm._v(
+                            " Ver listado\n                            de registros"
+                          )
                         ])
                       : _vm._e()
                   ]
@@ -66130,9 +66340,9 @@ var render = function() {
                               registro.biomasa != null
                                 ? _c("td", [
                                     _vm._v(
-                                      "\n                    " +
+                                      "\n                                        " +
                                         _vm._s(registro.biomasa.toFixed(2)) +
-                                        "\n                  "
+                                        "\n                                    "
                                     )
                                   ])
                                 : _c("td", [_vm._v("-")]),
@@ -66140,9 +66350,9 @@ var render = function() {
                               registro.cantidad != null
                                 ? _c("td", [
                                     _vm._v(
-                                      "\n                    " +
+                                      "\n                                        " +
                                         _vm._s(Math.floor(registro.cantidad)) +
-                                        "\n                  "
+                                        "\n                                    "
                                     )
                                   ])
                                 : _c("td", [_vm._v("-")]),
@@ -66284,21 +66494,23 @@ var render = function() {
                               _vm.tipo_registro == 0
                                 ? _c("th", { attrs: { scope: "col" } }, [
                                     _vm._v(
-                                      "\n                      Peso actual (gr)\n                    "
+                                      "\n                                            Peso actual (gr)\n                                        "
                                     )
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.tipo_registro == 0
                                 ? _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Mortalidad")
+                                    _vm._v(
+                                      "\n                                            Mortalidad\n                                        "
+                                    )
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.tipo_registro == 1
                                 ? _c("th", { attrs: { scope: "col" } }, [
                                     _vm._v(
-                                      "\n                      Biomasa (kg)\n                    "
+                                      "\n                                            Biomasa (kg)\n                                        "
                                     )
                                   ])
                                 : _vm._e(),
@@ -66306,7 +66518,7 @@ var render = function() {
                               _vm.tipo_registro == 2
                                 ? _c("th", { attrs: { scope: "col" } }, [
                                     _vm._v(
-                                      "\n                      Mortalidad Inicial\n                    "
+                                      "\n                                            Mortalidad Inicial\n                                        "
                                     )
                                   ])
                                 : _vm._e()
@@ -66334,7 +66546,7 @@ var render = function() {
                                                 pez.id
                                               ]["peso_ganado"],
                                             expression:
-                                              "\n                          campos[pez.id_siembra][pez.id]['peso_ganado']\n                        "
+                                              "\n                                                    campos[pez.id_siembra][\n                                                        pez.id\n                                                    ]['peso_ganado']\n                                                "
                                           }
                                         ],
                                         staticClass: "form-control",
@@ -66382,7 +66594,7 @@ var render = function() {
                                                 pez.id
                                               ]["mortalidad"],
                                             expression:
-                                              "campos[pez.id_siembra][pez.id]['mortalidad']"
+                                              "\n                                                    campos[pez.id_siembra][\n                                                        pez.id\n                                                    ]['mortalidad']\n                                                "
                                           }
                                         ],
                                         staticClass: "form-control",
@@ -66432,7 +66644,7 @@ var render = function() {
                                                 pez.id
                                               ]["biomasa"],
                                             expression:
-                                              "campos[pez.id_siembra][pez.id]['biomasa']"
+                                              "\n                                                    campos[pez.id_siembra][\n                                                        pez.id\n                                                    ]['biomasa']\n                                                "
                                           }
                                         ],
                                         staticClass: "form-control",
@@ -66484,7 +66696,11 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("\n            Cerrar\n          ")]
+                  [
+                    _vm._v(
+                      "\n                        Cerrar\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _vm.ver_registros == 0
@@ -66499,7 +66715,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n            Crear registro\n          ")]
+                      [
+                        _vm._v(
+                          "\n                        Crear registro\n                    "
+                        )
+                      ]
                     )
                   : _vm._e()
               ])
@@ -66595,7 +66815,11 @@ var render = function() {
                   staticClass: "btn btn-secondary",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
-                [_vm._v("\n            Cerrar\n          ")]
+                [
+                  _vm._v(
+                    "\n                        Cerrar\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -66609,7 +66833,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Guardar\n          ")]
+                [
+                  _vm._v(
+                    "\n                        Guardar\n                    "
+                  )
+                ]
               )
             ])
           ])
@@ -66628,9 +66856,11 @@ var staticRenderFns = [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("\n                    Nombre "),
+          _vm._v("\n                                        Nombre "),
           _c("br"),
-          _vm._v("\n                    siembra\n                  ")
+          _vm._v(
+            "\n                                        siembra\n                                    "
+          )
         ]),
         _vm._v(" "),
         _c("th", [_vm._v("Estanque")]),
@@ -66650,7 +66880,7 @@ var staticRenderFns = [
                 { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
-                    "\n                        Especie\n                      "
+                    "\n                                                Especie\n                                            "
                   )
                 ]
               ),
@@ -66660,7 +66890,7 @@ var staticRenderFns = [
                 { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
-                    "\n                        Lote\n                      "
+                    "\n                                                Lote\n                                            "
                   )
                 ]
               ),
@@ -66670,7 +66900,7 @@ var staticRenderFns = [
                 { staticStyle: { width: "80px", display: "inline-block" } },
                 [
                   _vm._v(
-                    "\n                        Cantidad\n                      "
+                    "\n                                                Cantidad\n                                            "
                   )
                 ]
               ),
@@ -66680,7 +66910,7 @@ var staticRenderFns = [
                 { staticStyle: { width: "60px", display: "inline-block" } },
                 [
                   _vm._v(
-                    "\n                        Peso gr\n                      "
+                    "\n                                                Peso gr\n                                            "
                   )
                 ]
               )
@@ -66701,9 +66931,11 @@ var staticRenderFns = [
         _c("th", [_vm._v("Finalizar")]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("\n                    Inicio - fin de "),
+          _vm._v("\n                                        Inicio - fin de "),
           _c("br"),
-          _vm._v("\n                    descanso estanque\n                  ")
+          _vm._v(
+            "\n                                        descanso estanque\n                                    "
+          )
         ])
       ])
     ])
@@ -66716,7 +66948,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "modalSiembralLabel" } },
-        [_vm._v("Crear siembra")]
+        [
+          _vm._v(
+            "\n                        Crear siembra\n                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -66742,7 +66978,9 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
         _c("th", { staticStyle: { width: "20%" }, attrs: { scope: "col" } }, [
-          _vm._v("Especie")
+          _vm._v(
+            "\n                                        Especie\n                                    "
+          )
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Lote")]),
@@ -66763,7 +67001,11 @@ var staticRenderFns = [
       _c(
         "h3",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("\n            Alimentos por siembra\n          ")]
+        [
+          _vm._v(
+            "\n                        Alimentos por siembra\n                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -66789,9 +67031,11 @@ var staticRenderFns = [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [
-          _vm._v("\n                    Tipo de "),
+          _vm._v("\n                                        Tipo de "),
           _c("br"),
-          _vm._v("\n                    Actividad\n                  ")
+          _vm._v(
+            "\n                                        Actividad\n                                    "
+          )
         ]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
@@ -66821,7 +67065,7 @@ var staticRenderFns = [
           staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("\n            Cerrar\n          ")]
+        [_vm._v("\n                        Cerrar\n                    ")]
       )
     ])
   },
@@ -66876,7 +67120,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("\n            Finalizar siembra\n          ")]
+        [
+          _vm._v(
+            "\n                        Finalizar siembra\n                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(

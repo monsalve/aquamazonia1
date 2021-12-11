@@ -252,6 +252,7 @@ class RecursoNecesarioController extends Controller
 		$minutos =  $request['minutos_hombre'] / 60;
 		$recursoNecesario = RecursoNecesario::findOrFail($id);
 		$recursoNecesario->update([
+			'fecha_ra' => $request['fecha_ra'],
 			'cant_manana' => $request['cant_manana'],
 			'cant_tarde' => $request['cant_tarde'],
 			'id_alimento' => $request['id_alimento'],
