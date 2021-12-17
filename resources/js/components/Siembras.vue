@@ -1493,7 +1493,7 @@ export default {
             this.idSiembraR = id;
 
             axios
-                .post("api/siembras-alimentacion/" + id)
+                .post(`api/siembras-alimentacion/${id}`)
                 .then(function(response) {
                     me.listadoRN = response.data.recursosNecesarios;
                 });

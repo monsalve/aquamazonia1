@@ -188,7 +188,7 @@ class InfomeBiomasaAlimentoController extends Controller
         } else {
           $siembra->costo_produccion = 0;
         }
-       
+
         if ($siembra->incr_bio_acum_conver > 0) {
           $siembra->conversion_alimenticia = ($siembra->cantidad_total_alimento) / ($siembra->incr_bio_acum_conver);
         }
@@ -207,7 +207,7 @@ class InfomeBiomasaAlimentoController extends Controller
         $siembra->bio_dispo_alimen = (($siembra->incr_bio_acum_conver + $siembra->biomasa_inicial) - ($siembra->salida_biomasa + $siembra->mortalidad_kg));
 
         if (($siembra->bio_dispo_alimen) > 0) {
-          $siembra->costo_produccion_parcial = $siembra->costo_total_siembra / $siembra->bio_dispo_alimen;
+          $siembra->costo_produccion_parcial = $siembra->costo_total_siembra / ($siembra->bio_dispo_alimen + $siembra->salida_biomasa);
         } else {
           $siembra->costo_produccion_parcial = 0;
         }
@@ -500,14 +500,13 @@ class InfomeBiomasaAlimentoController extends Controller
 
         $siembra->bio_dispo_conver = ($siembra->biomasa_inicial + $siembra->incr_bio_acum_conver) - ($siembra->biomasa_disponible + $siembra->mortalidad_kg);
         $siembra->bio_dispo_alimen = (($siembra->incr_bio_acum_conver + $siembra->biomasa_inicial) - ($siembra->salida_biomasa + $siembra->mortalidad_kg));
-      
-				
 
         if (($siembra->bio_dispo_alimen) > 0) {
-          $siembra->costo_produccion_parcial = $siembra->costo_total_siembra / $siembra->bio_dispo_alimen;
+          $siembra->costo_produccion_parcial = $siembra->costo_total_siembra / ($siembra->bio_dispo_alimen + $siembra->salida_biomasa);
         } else {
           $siembra->costo_produccion_parcial = 0;
         }
+
 
         if (($siembra->biomasa_disponible - $siembra->biomasa_inicial) > 0) {
           $siembra->conversion_alimenticia_parcial = $siembra->cantidad_total_alimento / ($siembra->biomasa_disponible - $siembra->biomasa_inicial);
@@ -538,7 +537,7 @@ class InfomeBiomasaAlimentoController extends Controller
         $siembra->costo_total_recurso = number_format($siembra->costo_total_recurso, 2, ',', '');
         $siembra->costo_total_alimento = number_format($siembra->costo_total_alimento, 2, ',', '');
         $siembra->costo_total_siembra = number_format($siembra->costo_total_siembra, 2, ',', '');
-        
+
         // recursos_necesarios
         $aux_regs[] = [
           "biomasa_inicial" => $siembra->biomasa_inicial,

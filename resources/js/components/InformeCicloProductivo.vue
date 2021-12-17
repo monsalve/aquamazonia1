@@ -92,13 +92,13 @@
                               <th>Inicio siembra</th>                             
                               <th>Cant Inicial</th>
                               <th>Peso Inicial</th>
-                              <th>Cant Actual</th>
+                              <th>Animales finales</th>
                               <th>Peso Actual</th>   
                                <th>Fecha último registro</th>
                               <th>Tiempo de cultivo</th>
                               <th>Biomasa dispo</th>
                               <th>Biomasa cosechada</th>
-                              <th>Mortalidad</th>                              
+                              <th>Mortalidad Animales</th>                              
                               <th>Mort. Kg</th>
                               <th>% Mortalidad</th>
                               <th>Animales cosechados</th>
@@ -161,13 +161,13 @@
           'Inicio siembra' : 'fecha_inicio',
           'Cantidad Inicial' : 'cantidad_inicial',
           'Peso inicial' : 'peso_inicial',
-          'Cantidad actual' : 'cant_actual',
+          'Animales finales' : 'cant_actual',
           'Peso actual' : 'peso_actual',
           'Fecha último registro' : 'fecha_registro',
           'Tiempo de cultivo' : 'intervalo_tiempo',
           'Biomasa disponible' : 'biomasa_disponible',
           'Biomasa cosechada' : 'salida_biomasa',
-          'Mortalidad' : 'mortalidad',
+          'Mortalidad Animales' : 'mortalidad',
           'Mortalidad kg' : 'mortalidad_kg',
           '% Mortalidad' : 'mortalidad_porcentaje',
           'Animales cosechados' : 'salida_animales_sin_mortalidad',

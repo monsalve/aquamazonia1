@@ -52,7 +52,7 @@
                               <th>Cant Inicial</th>
                               <th>Biomasa Inicial</th>
                               <th>Biomasa disponible muestreo</th>
-                              <th>Salida de biomasa</th>
+                              <th>Biomasa cosechada</th>
                               <th>Mortalidad</th>
                               <th>Mort. Kg</th>
                               <th>Total alimento (Kg)</th>
@@ -101,7 +101,7 @@
           'Cantidad inicial' : 'cantidad_inicial',
           'Biomasa inicial' : 'biomasa_inicial',          
           'Biomasa disponible muestreo' : 'biomasa_disponible',
-          'Salida de biomasa' : 'salida_biomasa',
+          'Biomasa cosechada' : 'salida_biomasa',
           'Mortalidad' : 'mortalidad',
           'Mort. Kg' : 'mortalidad_kg',
           'Total alimento (Kg)' : 'cantidad_total_alimento',

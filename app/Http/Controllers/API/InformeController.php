@@ -405,7 +405,7 @@ class InformeController extends Controller
 							$var2 = ($var1 * $especie->peso_actual) / 1000;
 							$especie->mortalidad_kg_au = (number_format(($var2), 2, ',', ''));
 							$especie->densidad_final = (number_format(($especie->salida_animales_sin_mortalidad / $especie->capacidad), 2, ',', ''));
-							$especie->carga_final = (number_format(($especie->biomasa / $especie->capacidad), 2, ',', ''));
+							$especie->carga_final = (number_format(($especie->salida_biomasa / $especie->capacidad), 2, ',', ''));
 							$especie->peso_incremento = $especie->peso_actual -  $especie->peso_inicial;
 							$especie->incremento_biomasa = (($especie->peso_incremento * $especie->cant_actual) / 1000);
 							if ($especie->intervalo_tiempo > 0) {
@@ -565,7 +565,7 @@ class InformeController extends Controller
 							$var2 = ($var1 * $especie->peso_actual) / 1000;
 							$especie->mortalidad_kg_au = (number_format(($var2), 2, ',', ''));
 							$especie->densidad_final = (number_format(($especie->salida_animales_sin_mortalidad / $especie->capacidad), 2, ',', ''));
-							$especie->carga_final = (number_format(($especie->biomasa / $especie->capacidad), 2, ',', ''));
+							$especie->carga_final = (number_format(($especie->salida_biomasa / $especie->capacidad), 2, ',', ''));
 							$especie->peso_incremento = $especie->peso_actual -  $especie->peso_inicial;
 							$especie->incremento_biomasa = (($especie->peso_incremento * $especie->cant_actual) / 1000);
 							if ($especie->intervalo_tiempo > 0) {

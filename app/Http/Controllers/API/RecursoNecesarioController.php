@@ -118,13 +118,13 @@ class RecursoNecesarioController extends Controller
 				$recursosNecesarios[$i]->incr_bio_acum_conver = number_format($recursosNecesarios[$i]->incr_bio_acum_conver, 2, ',', '');
 				$recursosNecesarios[$i]->costo_total_alimento = number_format($recursosNecesarios[$i]->costo_total_alimento, 2, ',', '');
 			}
-			$promedioRecursos['tmh'] =  number_format($summh / $counter, 2, ',', '');
-			$promedioRecursos['cman'] =  number_format($cantm / $counter, 2, ',', '');
-			$promedioRecursos['ctar'] =  number_format($cantt / $counter, 2, ',', '');;
-			$promedioRecursos['alid'] =  number_format($alid / $counter, 2, ',', '');;
+			$promedioRecursos['tmh'] =  number_format($summh, 2, ',', '');
+			$promedioRecursos['cman'] =  number_format($cantm, 2, ',', '');
+			$promedioRecursos['ctar'] =  number_format($cantt, 2, ',', '');;
+			$promedioRecursos['alid'] =  number_format($alid, 2, ',', '');;
 			$promedioRecursos['coskg'] = number_format($coskg / $counter, 2, ',', '');
-			$promedioRecursos['cta'] = number_format($cta / $counter, 2, ',', '');
-			$icb = number_format($icb / $counter, 2, ',', '');
+			$promedioRecursos['cta'] = number_format($cta, 2, ',', '');
+			$icb = number_format($icb, 2, ',', '');
 			$promedioRecursos['icb'] = $icb;
 		}
 
@@ -419,23 +419,23 @@ class RecursoNecesarioController extends Controller
 				$recursosNecesarios[$i]->costo_total_recurso = number_format($recursosNecesarios[$i]->costo_total_recurso, 2, ',', '');
 				$recursosNecesarios[$i]->costo_total_alimento = number_format($recursosNecesarios[$i]->costo_total_alimento, 2, ',', '');
 			}
-			$promedioRecursos['tmh'] =  number_format($summh / $counter, 2, ',', '');
+			$promedioRecursos['tmh'] =  number_format($summh, 2, ',', '');
 			$promedioRecursos['ttmh'] = $sumtmh;
 			$promedioRecursos['tcr'] = $sumcr;
 			$promedioRecursos['tc'] = $sumc;
 			$promedioRecursos['ctr'] = $sumctr;
-			$promedioRecursos['cman'] =  number_format($cantm / $counter, 2, ',', '');
-			$promedioRecursos['ctar'] =  number_format($cantt / $counter, 2, ',', '');;
-			$promedioRecursos['alid'] =  number_format($alid / $counter, 2, ',', '');;
+			$promedioRecursos['cman'] =  number_format($cantm, 2, ',', '');
+			$promedioRecursos['ctar'] =  number_format($cantt, 2, ',', '');;
+			$promedioRecursos['alid'] =  number_format($alid, 2, ',', '');;
 			$promedioRecursos['coskg'] = $coskg;
 			$promedioRecursos['cta'] = $cta;
-			$icb = number_format($icb / $counter, 2, ',', '');
+			$icb = number_format($icb, 2, ',', '');
 			$promedioRecursos['icb'] = $icb;
 
 			$promedioRecursos['tc'] = number_format($promedioRecursos['tc'], 2, ',', '');
 			$promedioRecursos['ctr'] = number_format($promedioRecursos['ctr'], 2, ',', '');
 			$promedioRecursos['coskg'] = number_format($promedioRecursos['coskg'] / $counter, 2, ',', '');
-			$promedioRecursos['cta'] = number_format($promedioRecursos['cta'] / $counter, 2, ',', '');
+			$promedioRecursos['cta'] = number_format($promedioRecursos['cta'], 2, ',', '');
 		}
 
 

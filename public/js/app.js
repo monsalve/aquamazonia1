@@ -10806,7 +10806,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MOD
       $("#modalRecursos").modal("show");
       this.form.id_siembra = id;
       this.idSiembraR = id;
-      axios.post("api/siembras-alimentacion/" + id).then(function (response) {
+      axios.post("api/siembras-alimentacion/".concat(id)).then(function (response) {
         me.listadoRN = response.data.recursosNecesarios;
       });
     },

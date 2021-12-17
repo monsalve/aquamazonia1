@@ -349,7 +349,7 @@ import downloadexcel from "vue-json-excel"
         })
       },
 
-      listar(page){
+      listar(page = 1){
         let me = this;
         axios.get("api/lista-alimentacion?page=" + page)
         .then(function (response){
