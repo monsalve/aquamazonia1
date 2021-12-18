@@ -47,6 +47,7 @@ class InformeRecursosNecesariosController extends Controller
       ->groupBy('siembras.id_contenedor')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
+      ->orderBy('nombre_siembra', 'desc')
       ->paginate(30);
 
 
@@ -99,9 +100,9 @@ class InformeRecursosNecesariosController extends Controller
     //
     $minutos_hombre = Recursos::select()->where('recurso', 'Minutos hombre')->orWhere('recurso', 'Minuto hombre')->orWhere('recurso', 'Minutos')->first();
 
-    $c1 = 'tipo_actividad';
-    $op1 = '!=';
-    $c2 = '-1';
+    $id_siembra = 'tipo_actividad';
+    $operador_siembra = '!=';
+    $filtro_siembra = '-1';
     $c3 = 'tipo_actividad';
     $op2 = '!=';
     $c4 = '-1';
@@ -112,9 +113,9 @@ class InformeRecursosNecesariosController extends Controller
     $idContenedor = '-1';
 
     if ($request['f_siembra'] != '-1') {
-      $c1 = "id_siembra";
-      $op1 = '=';
-      $c2 = $request['f_siembra'];
+      $id_siembra = "id_siembra";
+      $operador_siembra = '=';
+      $filtro_siembra = $request['f_siembra'];
     }
     if ($request['f_actividad'] != '-1') {
       $c3 = "tipo_actividad";
@@ -153,10 +154,11 @@ class InformeRecursosNecesariosController extends Controller
       ->groupBy('recursos_siembras.id_siembra')
       ->groupBy('recursos_necesarios.tipo_actividad')
       ->groupBy('actividades.actividad')
-      ->where($c1, $op1, $c2)
+      ->where($id_siembra, $operador_siembra, $filtro_siembra)
       ->where($c3, $op2, $c4)
       ->where($c5, $op3, $c6)
       ->where('siembras.id_contenedor', $signCont, $idContenedor)
+      ->orderBy('nombre_siembra', 'desc')
       ->paginate(30);
 
     foreach ($recursosNecesarios as $recursoNecesario) {

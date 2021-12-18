@@ -53,8 +53,7 @@ class SiembraController extends Controller
 			}
 		}
 
-		$siembras = $siembras->get();
-		// echo $request->estado_siembra;
+		$siembras = $siembras->orderBy('id_contenedor', 'desc')->get();
 
 		$detalles_siembra = array();
 		foreach ($siembras as $siembra) {
