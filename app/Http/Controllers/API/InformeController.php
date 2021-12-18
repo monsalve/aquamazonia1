@@ -34,6 +34,7 @@ class InformeController extends Controller
 			->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
 			->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'actividad', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso')
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 
 		$acumula = 0;
@@ -90,9 +91,9 @@ class InformeController extends Controller
 		$c11 = 'tipo_actividad';
 		$op6 = '!=';
 		$c12 = '-1';
-		$c13 = 'tipo_actividad';
+		$simbra_id = 'tipo_actividad';
 		$op7 = '!=';
-		$c14 = '-1';
+		$filtro_siembra = '-1';
 		$signCont = '!=';
 		$idContenedor = '-1';
 
@@ -127,9 +128,9 @@ class InformeController extends Controller
 			$c12 = $request['fecha_ra2'];
 		}
 		if ($request['f_siembra'] != '-1') {
-			$c13 = "siembras.id";
+			$simbra_id = "siembras.id";
 			$op7 = '=';
-			$c14 = $request['f_siembra'];
+			$filtro_siembra = $request['f_siembra'];
 		}
 		if ($request['f_contenedor'] != '-1') {
 			$signCont = '=';
@@ -149,8 +150,9 @@ class InformeController extends Controller
 			->where($c7, $op4, $c8)
 			->where($c9, $op5, $c10)
 			->where($c11, $op6, $c12)
-			->where($c13, $op7, $c14)
+			->where($simbra_id, $op7, $filtro_siembra)
 			->where('siembras.id_contenedor', $signCont, $idContenedor)
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 
 		$acumula = 0;
@@ -192,6 +194,7 @@ class InformeController extends Controller
 			->join('siembras', 'recursos_siembras.id_siembra', 'siembras.id')
 			->join('actividades', 'recursos_necesarios.tipo_actividad', 'actividades.id')
 			->select('recursos.id as idr', 'alimentos.id as ida', 'recursos_necesarios.id as id', 'actividad', 'id_recurso', 'id_alimento', 'fecha_ra', 'minutos_hombre', 'cant_manana', 'cant_tarde', 'detalles', 'tipo_actividad', 'recurso', 'alimento', 'recursos.costo as costo_r', 'alimentos.costo_kg as costo_a', 'nombre_siembra', 'estado', 'cantidad_recurso')
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 
 		$acumula = 0;
@@ -301,6 +304,7 @@ class InformeController extends Controller
 			->where($c9, $op5, $c10)
 			->where($c11, $op6, $c12)
 			->where($c13, $op7, $c14)
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 		//  return 'Hola';
 		$acumula = 0;
@@ -501,7 +505,7 @@ class InformeController extends Controller
 			'peso_inicial',
 			'peso_actual',
 		)
-			->orderBy('especies_siembra.id_siembra')
+			->orderBy('nombre_siembra', 'desc')
 			->orderBy('especies_siembra.id_especie')
 			->join('siembras', 'especies_siembra.id_siembra', 'siembras.id')
 			->join('especies', 'especies_siembra.id_especie', 'especies.id')
@@ -600,6 +604,7 @@ class InformeController extends Controller
 			'fin_descanso'
 		)
 			->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 
 		$especies = EspecieSiembra::select(
@@ -857,8 +862,8 @@ class InformeController extends Controller
 	public function filtroExistenciasDetalle(Request $request)
 	{
 
-		$c1 = "siembras.id";
-		$op1 = '!=';
+		$id_siembra = "siembras.id";
+		$operador_id_siembra = '!=';
 		$c2 = '-1';
 		$op2 = '!=';
 		$c4 = '-1';
@@ -866,8 +871,8 @@ class InformeController extends Controller
 		$idContenedor = '-1';
 
 		if ($request['f_siembra'] != '-1') {
-			$c1 = "siembras.id";
-			$op1 = '=';
+			$id_siembra = "siembras.id";
+			$operador_id_siembra = '=';
 			$c2 = $request['f_siembra'];
 		}
 		if ($request['f_contenedor'] != '-1') {
@@ -890,10 +895,11 @@ class InformeController extends Controller
 			'siembras.estado',
 			'fin_descanso'
 		)
-			->where($c1, $op1, $c2)
+			->where($id_siembra, $operador_id_siembra, $c2)
 			->where('id_contenedor', $signCont, $idContenedor)
 			->where('siembras.estado', $op2, $c4)
 			->join('contenedores', 'siembras.id_contenedor', 'contenedores.id')
+			->orderBy('nombre_siembra', 'desc')
 			->get();
 
 		$especies = EspecieSiembra::select(
